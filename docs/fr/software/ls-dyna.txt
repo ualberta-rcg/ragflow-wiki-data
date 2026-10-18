@@ -67,8 +67,10 @@ export ANSYSLMD_LICENSE_FILE=1055@license1.computecanada.ca
 
 LS-DYNA offre des binaires pour faire exécuter des tâches sur des nœuds uniques (SMP, ''Shared Memory Parallel'' avec OpenMP) ou sur plusieurs nœuds (MPP, ''Message Passing Parallel''  avec MPI).  Vous trouverez ci-dessous des scripts pour chacun des types de tâches.
 
-<span id="Single_node_jobs"></span>
+<span id="SMP_Jobs"></span>
+<div class="mw-translate-fuzzy">
 == Tâches avec un nœud unique  ==
+</div>
 
 Pour connaître les modules pour faire exécuter les tâches sur un nœud unique, utilisez <code>module spider ls-dyna</code>. Pour soumettre des tâches à la queue, utilisez  <code>sbatch script-smp.sh</code>. Le script suivant demande 8 cœurs sur un nœud de calcul unique. 
 
@@ -104,8 +106,10 @@ où
 *ls-dyna_s = simple précision
 *ls-dyna_d = double précision
 
-<span id="Multiple_node_jobs"></span>
+<span id="MPP_Jobs"></span>
+<div class="mw-translate-fuzzy">
 == Tâches avec plusieurs nœuds ==
+</div>
 
 Plusieurs modules sont installés pour exécuter des tâches sur plusieurs nœuds à l'aide de la version MPP (<i>Message Passing Parallel</i>) de LS-DYNA. La méthode est basée sur mpi et peut s'adapter à de très nombreux cœurs (8 ou plus). Les modules peuvent être répertoriés en exécutant <code>module spider ls-dyna-mpi</code>. Les exemples de scripts ci-dessous montrent comment utiliser ces modules pour soumettre des tâches à un nombre spécifié de nœuds entiers *OU* à un nombre total spécifié de cœurs à l'aide de  <code>sbatch script-mpp-bynode.sh</code> ou <code>sbatch script-mpp-bycore.sh</code>  respectivement. La version MPP nécessite une quantité de mémoire suffisamment importante (memory1) pour que le premier cœur (processor 0) du nœud maître puisse décomposer et simuler le modèle. Cette quantité peut être satisfaite en spécifiant une valeur de mémoire par processeur légèrement supérieure à la mémoire (memory2) requise par cœur pour la simulation, puis en plaçant suffisamment de cœurs sur le nœud principal  pour faire en sorte que leur somme différentielle (mémoire par processeur moins memory2) soit supérieure ou égale à memory1. Comme avec le modèle à nœud unique, pour de meilleurs résultats, maintenez la somme de toute la mémoire attendue par nœud dans les 75 % de la RAM réservée sur un nœud. Ainsi, dans le premier script ci-dessous, en supposant un nœud de calcul de mémoire complète de 128 Go, mémoire1 peut être de 6 000 Mo (48 Go) maximum et mémoire2 de 200 Mo (48 Go/31 cœurs). (0,75*mémoireGo/4 octets/s)*1 000 Mo pour les solutions double précision et simple précision respectivement.
 
@@ -202,7 +206,9 @@ Selon la simulation, LS-DYNA peut ne pas  pouvoir utiliser efficacement un très
 <span id="Graphical_use"></span>
 = Mode graphique =
 
+<div class="mw-translate-fuzzy">
 Le programme [https://www.lstc.com/products/ls-prepost LS-PrePost] permet le prétraitement et le post-traitement des [https://www.dynaexamples.com/ modèles LS-DYNA]. Il est disponible via un autre module et vous n'avez pas besoin de licence. Utilisez Abaqus en mode graphique sur un bureau à distance avec OnDemand (recommandé) ou VncViewer, comme décrit ci-dessous.
+</div>
 
 == Nœuds VDI ==
 1. Avec le navigateur de votre ordinateur, connectez-vous à un système OnDemand avec l'une des URL suivantes&nbsp;:<br>

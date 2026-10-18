@@ -4,39 +4,39 @@ slug: "grrm"
 lang: "en"
 
 source_wiki_title: "GRRM/en"
-source_hash: "9c93a0d5414b80b04d0e18b813800686"
-last_synced: "2026-09-13T00:40:43.713374+00:00"
-last_processed: "2026-09-13T01:33:10.508521+00:00"
+source_hash: "e31b5c32988af1b7acdc9c03559cb003"
+last_synced: "2026-10-18T00:43:06.821597+00:00"
+last_processed: "2026-10-18T01:35:42.430026+00:00"
 
 tags:
   - software
 
 keywords:
+  - "Intel MPI"
+  - "I_MPI_FABRICS"
+  - "submpi"
+  - "Slurm script"
+  - "environment variables"
   - "PATH"
   - "GRRM23"
-  - "environment variables"
-  - "checkpoint file"
-  - "LD_LIBRARY_PATH"
   - "GRRMroot"
-  - "Slurm script"
-  - "global reaction route mapping"
-  - "floating license"
-  - "Gaussian/G16"
-  - "submpi"
-  - "I_MPI_FABRICS"
-  - "Intel MPI"
+  - "LD_LIBRARY_PATH"
+  - "GRRM23p"
   - "installation script"
+  - "Gaussian license"
+  - "floating license"
+  - "checkpoint file"
 
 questions:
-  - "What are the licensing options and requirements for using the GRRM23 program?"
-  - "Which quantum chemistry packages can GRRM23 be used with, and how does it integrate with them?"
-  - "What are the key steps and environment variable configurations required to install and run GRRM23 on a Unix-like system?"
-  - "How should the environment variables (e.g., I_MPI_HYDRA_BOOTSTRAP, STLM_SERVER_ADDRESS, STLM_SERVER_PORT) be set and the .bashrc sourced before executing GRRM23?"
-  - "What are the essential directives and commands in a Slurm script for running a GRRM23 job on a single node using Gaussian G16 (including checkpoint handling and parallel process settings)?"
-  - "Why does the documentation state that GRRM23 can only use a single node with Gaussian G16, and how does this limitation differ when using ORCA as the quantum chemistry engine?"
-  - "What directories are being added to the `PATH` and `LD_LIBRARY_PATH` environment variables, and why might this be necessary for the GRRM23 run?"
-  - "Which specific executable names are assigned to the variables `subgau`, `subchk`, and `subuchk`, and what roles do these programs play in the workflow?"
-  - "How are the MPI settings configured through `I_MPI_FABRICS` and `I_MPI_FALLBACK`, and what effect do these settings have on the parallel execution?"
+  - "What is Global Reaction Route Mapping (GRRM23) and which quantum chemistry software does it integrate with?"
+  - "How can a user obtain a GRRM23 license and what are the options for setting up a license server?"
+  - "What are the main installation steps and required environment variable configurations for GRRM23 on a Linux system?"
+  - "How should the environment variables (e.g., I_MPI_HYDRA_BOOTSTRAP, STLM_SERVER_ADDRESS, STLM_SERVER_PORT) be set and the .bashrc sourced before executing GRRM23p?"
+  - "What SLURM directives and module loads are required to run a GRRM23 job with Gaussian on a single node, and why are multiple nodes not supported?"
+  - "How does the sample SLURM script differ when using ORCA instead of Gaussian for running GRRM23, and what specific options are needed in that case?"
+  - "What is the purpose of the `source` command at the beginning of the snippet?"
+  - "Which environment variables are set to reference the `GRRM23_RUN` directory, and what roles do they serve?"
+  - "How does the script configure the MPI runtime, and which specific MPI-related variables are being exported?"
 
 status:
   downloaded: true
@@ -47,13 +47,22 @@ status:
   qa_generated: false
 ---
 
-The global reaction route mapping ([GRRM®](https://global.hpc.co.jp/products/grrm23/)) program is commercial software developed for the analysis of chemical reaction pathways. This program is capable of exhaustively exploring the potential energy surface of a collection of atoms, automatically finding molecular geometries of reactants, transition states, and products. GRRM23 works in conjunction with quantum chemistry software such as, but not limited to, Gaussian 16.
+Global Reaction Route Mapping ([GRRM](https://global.hpc.co.jp/products/grrm23/)) is commercial software for the analysis of chemical reaction pathways.
+The program is capable of exhaustively exploring the potential energy surface of a collection of atoms, automatically finding molecular geometries of reactants, transition states, and products.
+GRRM23 works in conjunction with quantum chemistry software such as [Gaussian 16](gaussian.md) and [ORCA](orca.md).
 
-## License Agreement
-To obtain a license (and pricing), please submit a request at <https://global.hpc.co.jp/contact/>. Alternatively, contact [Kenshiro Kimura](mailto:ke-kimura@hpc.co.jp) for GRRM23 application instructions. GRRM23 uses a floating license approach for validating users; it requires the setup of a license server. For this, HPC SYSTEMS Inc., the company that sells GRRM23, allows users to connect to license servers at their company site in Japan at no additional cost. Alternatively, a license server can be set up at the user’s university in Canada; for this option, please contact technical support at HPC SYSTEMS Inc.
+## License
+To obtain a license and pricing, submit a request at [HPC SYSTEMS Inc.](https://global.hpc.co.jp/contact/) or contact [Kenshiro Kimura](mailto:ke-kimura@hpc.co.jp).
 
-## Installation Instructions
-After buying a license, users will receive a link and instructions to download a compressed `tar.bz2` file. Download the file and follow the instructions below (substitute the path to your actual home directory where `/home/user` is mentioned).
+GRRM23 uses a floating license approach for validating users; it requires setting up a license server.
+For this, HPC SYSTEMS Inc. allows users to connect to license servers at their company site in Japan at no additional cost.
+Alternatively, a license server can be set up at the user’s university in Canada.
+For more about either license server option, contact technical support at [HPC SYSTEMS Inc.](https://global.hpc.co.jp/contact/)
+
+## Installation
+After buying a license, users will receive a link and instructions to download a compressed tar.bz2 file.
+Download the file and follow the instructions below.
+Substitute the path to your home directory where `/home/user` is mentioned.
 
 In your home directory, create a directory for the installation and another one for the executables:
 
@@ -69,13 +78,14 @@ cd GRRM23_Installation
 tar xjf GRRM23.tar.bz2
 ```
 
-The extraction of the `tar.bz2` file should generate an installation script (`install.sh`). From `/home/user/GRRM23_Installation`, execute the script as follows:
+Verify that this has created an installation script (install.sh).
+Then from `/home/user/GRRM23_Installation`, execute the script as follows:
 
 ```bash
 ./install.sh /home/user/GRRM23_RUN
 ```
 
-The installation will prompt you to confirm the configuration, displaying information similar to the following:
+The installation will prompt you to the following output:
 
 ```text
 Installation configuration:
@@ -84,7 +94,8 @@ Intel MPI installation prefix = /home/user/GRRM23_RUN/mpi-rt
 Are you sure to start installation? [Y/n]
 ```
 
-Type `Y` and press `Enter` to proceed with the installation. Once finished, a confirmation message, similar to the following, should appear:
+Type “Y” and press “Enter” to proceed with the installation. Once the
+installation is finished, a “GRRM INSTALLATION DONE” message should appear:
 
 ```text
 Installing Intel MPI ... done successfully.
@@ -113,14 +124,7 @@ export STLM_SERVER_ADDRESS="XXX.XXX.XXX.XXX"
 export STLM_SERVER_PORT=XXXXX
 ```
 
-!!! important "Configuration for `~/.bashrc`"
-    Copy the lines from `source` to the last `export` line (as shown in the output above) into your `~/.bashrc` file in your home directory.
-
-    Since Gaussian 16 (G16) is not loaded on the Alliance's login nodes, you need to manually add `g16`, `formchk`, and `unfchk` into the corresponding lines for `subgau`, `subchk`, and `subuchk`, respectively.
-
-    For license validation, replace the `XXX` values at `STLM_SERVER_ADDRESS` and `STLM_SERVER_PORT` with the information provided by HPC SYSTEMS Inc. (they will send this information via email).
-
-    Your modified `.bashrc` entries should look similar to the following:
+Copy the last lines (from “source” to the last “export” line) into your `.bashrc` in your home directory. Since G16 is not loaded on the Alliance’s login nodes, you need to manually add g16, formchk, and unfchk into the corresponding lines below (`subgau`, `subchk`, and `subunchk`, respectively). For validating your license, please replace the `XXX` values at `STLM_SERVER_ADDRESS` and `STLM_SERVER_PORT` with the information provided by HPC SYSTEMS Inc. for your license (HPC SYSTEMS Inc. will send users this information via email):
 
 ```bash
 source /home/user/GRRM23_RUN/mpi-rt/mpi/2021.6.0/env/vars.sh
@@ -141,36 +145,37 @@ export STLM_SERVER_ADDRESS="XXX.XXX.XXX.XXX"
 export STLM_SERVER_PORT=XXXXX
 ```
 
-Source your `.bashrc` file and log out:
+Log out and log in again, or source your `.bashrc` file:
 
 ```bash
 source /home/user/.bashrc
-exit
 ```
 
-After logging in, type `GRRM23p` on the terminal. If the installation was successful, output similar to the following should appear:
+Then type `GRRM23p` on the terminal. If the installation was successful, the following text should appear:
 
 ```text
-USAGE: GRRMp [input file name] (-p[Nproc]) (-h[Hour]) (-w/xxx/xxx)
+USAGE: GRRMp [input file name] (-p[Nproc]) (-h[Hour]) (-w/xxx/xxx) 
 (-f[machine_file]) (-c[Ncore])
 ```
 
-Fir and Nibi have G16 installed for their users. Compute nodes on both systems can connect to the Internet for the purpose of connecting to any required license servers.
+[Gaussian](gaussian.md) (G16) is already installed on Fir and Nibi.
 
-## Running GRRM
-For input examples, please refer to the GRRM23 user’s manual. In general, GRRM23 requires only one input file (Job.com) with the Cartesian coordinates of a molecule plus methodology options; in some cases, GRRM23 will require the output of a previous GRRM23 job.
+!!! note
+    Compute nodes on both systems have access to the Internet for the purpose of contacting a license server.
 
-### Sample Slurm Script for a Single Node
-For a single node (`-N 1`) and 12 cores (`-n 12`), running from the user’s `/scratch` directory:
+## Usage
+For input examples, please refer to the [GRRM23 user’s manual](https://afir.sci.hokudai.ac.jp/manual/).
+In most cases, GRRM23 requires only one input file (`Job.com`) containing the Cartesian coordinates of a molecule and methodology options.
+In some other cases, GRRM23 requires the output of a previous GRRM23 job.
+
+### Sample Slurm script for a single node
+For a single node (`--nodes=1`) and 12 cores (`--ntasks-per-node=12`), running from the user’s `/scratch` directory:
 
 ```bash
 #!/bin/bash
-#SBATCH -t 1-00:00
-#SBATCH -J Job_SLURM
-#SBATCH -o Job.SLURMout
-#SBATCH -e Job.SLURMerr
-#SBATCH -N 1
-#SBATCH -n 12
+#SBATCH --time=1-00:00
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=12
 #SBATCH --mem-per-cpu=4000M
 #SBATCH --account=def-users_account
 
@@ -183,18 +188,20 @@ export GAUSS_SCRDIR=/home/user/scratch/
 
 GRRM23p ${input} -p1 -s80000
 ```
-* `-p1`: number of parallel processes
-* `-s80000`: signals when to create a checkpoint file (in seconds); you must tell GRRM23 when to create the checkpoint files so that an interrupted/killed job can be restarted properly.
 
-### Example Using ORCA
+*   `-p1`: number of parallel processes.
+*   `-s80000`: signals when (in seconds) to create a checkpoint file so that an interrupted job can be restarted properly. Notice that 80000 seconds is about 22 hours. This time should be less than the `--time` you request from Slurm.
+
+!!! warning "Multiple nodes not supported"
+    Due to the Gaussian licenses at Fir and Nibi, GRRM23 can be used with Gaussian only on a single node.
+
+### Example using ORCA
+
 ```bash
 #!/bin/bash
-#SBATCH -t 0-18:00
-#SBATCH -J glucose_SLURM
-#SBATCH -o glucose.SLURMout
-#SBATCH -e glucose.SLURMerr
-#SBATCH -N 1
-#SBATCH -n 16
+#SBATCH --time=0-18:00
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=16
 #SBATCH --mem-per-cpu=4000M
 #SBATCH --account=def-users_account
 
@@ -207,11 +214,9 @@ module load orca/6.0.0
 
 GRRM23p ${input} -p1 -h15
 ```
-### Sample Slurm Script for Multiple Nodes
-At this moment, since we are using GRRM23 with G16 primarily, we can only use a single node, as per Gaussian16 license policies.
 
-## External Resources
-* [GRRM User Manuals](https://afir.sci.hokudai.ac.jp/manual/)
+## External resources
+*   [GRRM manuals](https://afir.sci.hokudai.ac.jp/manual/)
 
 ## Acknowledgements
-This documentation was contributed by Eduardo Romero Montalvo.
+The original draft of this page was contributed by Eduardo Romero Montalvo.

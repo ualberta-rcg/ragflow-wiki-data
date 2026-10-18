@@ -172,9 +172,7 @@ __TOC__
 ==Demande d'accès à une image Windows==
 Pour créer une instance Windows sur un de nos nuages, vous devez d'abord demander l'accès à une image Windows en écrivant au [[Technical support/fr|soutien technique]].
 
-<div class="mw-translate-fuzzy">
-L'accès à une image Windows Server 2012 et un nom d'utilisateur vous seront fournis; cet accès est valide pour une période d'évaluation de 180 jours. Il pourrait être possible d'associer une licence Windows à une instance créée avec l'image d'évaluation, mais nous ne fournissons pas ces licences.
-</div>
+Vous aurez accès à une image Windows Server 2025 Datacenter et à un gabarit pour Windows.
 
 <div class="mw-translate-fuzzy">
 ==Lancer une instance==
@@ -184,28 +182,24 @@ Pour créer une instance, cliquez sur l'option <i>Instances</i> dans le menu de 
 
 Le formulaire de création d'une instance est affiché.
 
-<div class="mw-translate-fuzzy">
-*Onglet ''Détails''
-**''Zone de disponibilité'' : Seule la zone ''nova'' est disponible; conservez ce nom.
+''Détails''
+**''Zone de disponibilité'' : Conservez la valeur par défaut.
 **''Nom de l'instance'' : Entrez le nom de votre instance en respectant les [https://fr.wikipedia.org/wiki/Nom_de_domaine conventions de nomenclature].
-**''Gabarit'': Le gabarit détermine les caractéristiques matérielles de l'instance; sélectionnez ''p2-3gb''.<p>L'image Windows est plutôt exigeante  et nécessite un lecteur amorçable de grande capacité. Les gabarits de type c ont des disques racines de seulement 20Go alors que les gabarits de type p offrent plus de capacité. La mémoire vive du  plus petit gabarit de type p est de 1.5Go, ce qui d'expérience n'est pas suffisant pour bien opérer Windows. La performance de l'instance sera meilleure si vous utilisez un gabarit un peu plus grand tel que ''p2-3gb''.</p>
 **''Nombre d'instances'' : Nombre d'instances à créer.
-**''Source de démarrage de l'instance'' : Source utilisée pour lancer l'instance; sélectionnez ''Démarrage depuis une image (crée un nouveau volume)''.
-**''Nom de l'image'' : Nom de l'image Windows qui vous est allouée.
-** ''Taille du périphérique'': Taille du disque racine; entrez 30Go ou plus. <p>À la fin, le système d'exploitation occupe environ 20Go, mais plus d'espace est requis pour les étapes préparatoires. </p>
-** ''Supprimer après Terminaison'': Si cette case est cochée, le volume créé avec l'instance est supprimé quand l'instance est terminée. <p>De façon générale, il n'est pas recommandé de cocher la case puisque le volume peut être supprimé manuellement et que l'instance peut être terminée sans la suppression du volume.</p>
-**''Limites du projet'' : Dans les barres de progression, la couleur verte montre la proportion des ressources utilisées par l'instance qui sera lancée. La couleur rouge indique que le gabarit utilise plus de ressources que celles allouées au projet. Le bleu montre les ressources utilisées par le projet.
-*Onglet ''Accès et Sécurité''
-**''Paires de clés'' : Sélectionnez votre paire de clés SSH.<p>S'il n'y a qu'une paire de clés, elle est affichée par défaut. Si vous n'avez pas de paire de clés, reportez-vous à la section  [[Creating a Windows VM/fr#Paire_de_clés_SSH|Paire de clés SSH]] plus haut.</p>
-:*''Groupes de sécurité'' : Assurez-vous que la case ''default'' est cochée.
-*Onglet ''Démarrage du réseau'' : Ne modifiez pas le contenu de ce champ. L'information relative aux réseaux sera présentée après le lancement de l'instance.
-*Onglet ''Post-Création'' : Ne modifiez pas le contenu de ce champ.
-*Onglet ''Options avancées'' : Ne modifiez pas l'option ''Automatique'' dans le champ ''Partitionnement du disque''.
-</div>
+''Source''
+**''Source de démarrage de l'instance'' : Source utilisée pour lancer l'instance; sélectionnez I mage.
 
-<div class="mw-translate-fuzzy">
-Après avoir vérifié le contenu de tous les champs, cliquez sur ''Démarrer'' pour lancer l'instance. La liste des instances est affichée et la colonne ''Tâche'' montre la tâche en cours de l'instance; au départ, la colonne ''Tâche'' montrera probablement ''Block Device Mapping''. Une fois l'instance créée et le démarrage amorcé, la colonne ''État de l'alimentation'' montre ''En fonctionnement''. Pour créer le volume, y copier l'image et amorcer le démarrage, il faudra au moins 10 minutes.
-</div>
+** ''Créer un nouveau volume'' : Conservez la valeur par défaut (oui).
+** ''Taille du volume'': entrez au moins 50Go.
+** ''Delete Volume on Instance Delete'': If Yes is selected the volume that is created with the VM will be deleted when the VM is terminated. <p>It is generally recommended not to delete the volume on instance delete. The volume can be deleted manually if desired and allows the VM to be terminated without deleting the volume.</p>
+**''Nom de l'image'' : Nom de l'image Windows qui vous est allouée (par exemple Windows-2025-Datacenter).
+* ''Gabarit''
+** ''Gabarit'' : The flavor defines virtual machine hardware specifications; choose the 'p4-15gb-windows' flavor.
+''Accès et Sécurité''
+** ''Groupes de sécurité'' : Assurez-vous que la case ''default'' est cochée.
+* ''Réseau'' : Sélectionnez IPv4 (par exemple <project name>-network).
+
+Après avoir vérifié le contenu de tous les champs, cliquez sur ''Lancer l'instance''. La liste des instances est affichée et la colonne ''Tâche'' montre la tâche en cours de l'instance; au départ, la colonne ''Tâche'' montrera probablement ''Block Device Mapping''. Une fois l'instance créée et le démarrage amorcé, la colonne ''État de l'alimentation'' montre ''En fonctionnement''. Pour créer le volume, y copier l'image et amorcer le démarrage, il faudra au moins 10 minutes.
 
 ==Modifier le mot de passe pour l'administration du système==
 
@@ -213,17 +207,13 @@ Après avoir vérifié le contenu de tous les champs, cliquez sur ''Démarrer'' 
 
 Le premier démarrage de l'instance ne sera pas complété tant que vous n'aurez pas modifié le mot de passe de l'administrateur via la console du tableau de bord OpenStack.
 
-<div class="mw-translate-fuzzy">
 Pour faire afficher la console :
 # Dans le menu de gauche, cliquez sur l'option ''Instances''.
 # Cliquez sur le nom de l'instance Windows.
 # Cliquez sur l'onglet ''Console'' et attendez que la console soit affichée.<br/>
 Si rien ne s'affiche sur la console, l'écran est peut-être en état de veille; cliquez dans l'écran ou appuyez sur une touche du clavier pour réactiver l'écran.
-</div>
 
-<div class="mw-translate-fuzzy">
-L'instance redémarrera et la console affichera un écran de connexion avec la date et l'heure (UTC).
-</div>
+Le démarrage de l'instance se poursuivra.  À la fin, la console affichera ''Server Manager".
 
 ==Réseau==
 [[File:Manage-Floating-IP-Associations-Form-FR.png|400px|thumb| Gérer les associations d'IP flottantes (cliquez pour agrandir)]]
@@ -294,7 +284,7 @@ Une fois la connexion établie avec votre instance Windows,
 <span id="From_a_Mac_client"></span>
 ===À partir d'un client Mac===
 
-To connect via RDP from MacOS you will need a remote desktop client. There are a number of different clients but the Windows App appears to work well. To install the client, go to the App Store and search for “Windows App”
+To connect via RDP from MacOS you will need a remote desktop client. There are a number of different clients but the Windows App appears to work well. To install the client, go to the App Store and search for ''Windows App''.
 
 When you have installed and launched Windows App, to connect to your Windows VM:
 # Select ''Devices'' from the menu on the left.

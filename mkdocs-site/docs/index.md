@@ -78,19 +78,19 @@ title: Home
 |---------|--------|
 | **Vulcan** | :material-check-circle:{ style="color: green" } Operational |
 | **Trillium** | :material-check-circle:{ style="color: green" } Operational |
-| **Narval** | :material-check-circle:{ style="color: green" } Operational |
+| **Narval** | :material-calendar:{ style="color: blue" } 2026-10-27 |
 | **Cedar Cloud** | :material-check-circle:{ style="color: green" } Operational |
-| **Graham Cloud** | :material-check-circle:{ style="color: green" } Operational |
-| **Nibi** | :material-alert:{ style="color: orange" } Partial power outage |
+| **Graham Cloud** | :material-calendar:{ style="color: blue" } External network maintenance |
+| **Nibi** | :material-calendar:{ style="color: blue" } External network maintenance |
 | **Fir** | :material-check-circle:{ style="color: green" } Operational |
-| **Rorqual** | :material-check-circle:{ style="color: green" } Operational |
-| **Arbutus** | :material-alert:{ style="color: orange" } Volume Storage Slowness |
-| **Juno** | :material-check-circle:{ style="color: green" } Operational |
+| **Rorqual** | :material-calendar:{ style="color: blue" } 2026-10-27 |
+| **Arbutus** | :material-alert:{ style="color: orange" } Ongoing Volume Storage Slowness |
+| **Juno** | :material-calendar:{ style="color: blue" } 2026-10-27 |
 | **Killarney** | :material-check-circle:{ style="color: green" } Operational |
 | **Lunaris** | :material-check-circle:{ style="color: green" } Operational |
 | **tamIA** | :material-check-circle:{ style="color: green" } Operational |
 
-<small>*Auto-generated from [status.alliancecan.ca](https://status.alliancecan.ca) &mdash; updated 2026-10-11 02:42 UTC. See that page for current incident details.*</small>
+<small>*Auto-generated from [status.alliancecan.ca](https://status.alliancecan.ca) &mdash; updated 2026-10-18 01:36 UTC. See that page for current incident details.*</small>
 
 ---
 
@@ -100,18 +100,18 @@ Events from the [Alliance training calendar](https://explora.alliancecan.ca/even
 
 | Date | Event | Link |
 |------|-------|------|
+| TBD | Untitled | [Details](https://bioinformatics.ca/workshops-all/2026-cancer-analysis-toronto-on/) |
+| TBD | Untitled | [Details](https://bioinformatics.ca/workshops-all/2026-cancer-analysis-montreal-qc/) |
+| TBD | Untitled | [Details](https://www.eventbrite.com/e/inscription-comment-calcul-quebec-peut-vous-accompagner-dans-vos-recherches-1999551160347?aff=explora) |
+| TBD | Untitled | [Register](https://libcal.mcmaster.ca/event/4050987) |
 | TBD | Untitled | [Details](https://scinet.courses/1408) |
-| TBD | Untitled | [Details](https://engagedri-ca.zoom.us/webinar/register/WN_JcPrzBkxSTK-KpITfs1ntg) |
-| TBD | Untitled | [Details](https://www.eventbrite.com/e/from-sample-tracking-to-genomic-variant-analysis-with-stager-and-seqr-tickets-2002952890012) |
-| TBD | Untitled | [Details](https://engagedri-ca.zoom.us/webinar/register/WN_3b_mo1JCTUWU76uCiJ1FXg) |
-| TBD | Untitled | [Register](https://forms.gle/mNfAVjb8UUHVdfDh7) |
-| TBD | Untitled | [Register](https://libcal.mcmaster.ca/event/4050965) |
-| TBD | Untitled | [Details](https://www.eventbrite.com/e/inscription-theorie-du-calcul-quantique-en-ligne-ciq101-1998915386731?aff=explora) |
-| TBD | Untitled | [Register](https://libcal.library.ubc.ca/event/4058330) |
-| TBD | Untitled | [Details](https://bioinformatics.ca/workshops-all/2026-machine-learning-halifax-ns/) |
-| TBD | Untitled | [Details](https://www.ace-net.ca/training-course/machine-learning-foundations/) |
+| TBD | Untitled | [Details](https://www.eventbrite.com/e/enhancing-your-python-programming-skills-online-pyt102-registration-1998916162050?aff=explora) |
+| TBD | Untitled | [Details](https://www.eventbrite.com/e/introduction-to-python-programming-tickets-2003145870221) |
+| TBD | Untitled | [Register](https://libcal.mcmaster.ca/event/4050985) |
+| TBD | Untitled | [Details](https://engagedri-ca.zoom.us/webinar/register/WN_3Ynrk8AKSYurp7YR0NcNMA) |
+| TBD | Untitled | [Details](https://www.ace-net.ca/training-course/microcredential-in-practical-foundations-for-data-analytics/) |
 
-<small>*Auto-generated from [explora.alliancecan.ca/events](https://explora.alliancecan.ca/events) &mdash; updated 2026-10-11 02:42 UTC.*</small>
+<small>*Auto-generated from [explora.alliancecan.ca/events](https://explora.alliancecan.ca/events) &mdash; updated 2026-10-18 01:36 UTC.*</small>
 
 ---
 

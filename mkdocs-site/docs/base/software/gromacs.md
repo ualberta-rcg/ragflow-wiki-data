@@ -4,262 +4,263 @@ slug: "gromacs"
 lang: "base"
 
 source_wiki_title: "GROMACS"
-source_hash: "f7ed602fa2e8ba0d2a366b201703a506"
-last_synced: "2026-09-06T00:43:13.954271+00:00"
-last_processed: "2026-09-06T02:33:59.303032+00:00"
+source_hash: "76e7d5affcc5e81cb5d641ee4c353bee"
+last_synced: "2026-10-18T00:43:06.821597+00:00"
+last_processed: "2026-10-18T01:28:25.047315+00:00"
 
 tags:
   - software
   - biomolecularsimulation
 
 keywords:
-  - "gmx_mpi / gmx_mpi_d executables"
-  - "--gpus-per-node"
-  - "mdrun"
-  - "Particle-Mesh-Ewald (PME)"
-  - ".tpr file compatibility"
-  - "gromacs-plumed/2021.4"
-  - "GROMACS TPR topology information"
-  - "checkpoint"
-  - "Python data-science packages"
-  - "array job script"
-  - "pus-per-task=2"
-  - "openmpi/4.0.3"
-  - "Open MPI 2.1.1"
-  - "T4"
-  - "GROMACS-CP2K integration"
-  - "gromacs/2020.6"
-  - "sbatch"
-  - "cutoff-scheme = verlet"
-  - "gmx_mpi mdrun"
-  - "backfill scheduling"
-  - "gromacs/2018.2"
-  - "gmx_mpi"
-  - "OpenMM jobs"
-  - "CP2K QM/MM support"
-  - "gmx mdrun"
-  - "GPU simulation"
-  - "SLURM array"
-  - "‑update gpu option"
-  - "mdrun -maxh"
-  - "molecular dynamics"
-  - "-multidir multiple simulations"
-  - "AVX512)"
-  - "PME offloading"
-  - "GPU (CUDA) modules"
-  - "GROMACS-LS"
-  - "simulation results"
-  - "GROMACS 2020.0‑2021.5 GPU bug"
-  - "mdrun performance"
-  - "precompiled Python wheels"
-  - "openmpi"
-  - "SBATCH --time"
-  - "OMP_NUM_THREADS"
-  - "-notunepme"
-  - "biasing potentials"
-  - "collective variables"
-  - "Colvars modifications"
-  - "MDStress library"
-  - "replica exchange"
-  - "H100)"
-  - "ACENET MDBench"
-  - "job array"
-  - "-multidir option"
-  - "GROMACS"
-  - "SLURM workload manager"
-  - "A100"
-  - "compute node"
-  - "multi-directory simulations"
-  - "gcc/6.4.0"
-  - "--cpus-per-task"
-  - "tpr files"
-  - "walltime"
-  - "GROMACS performance"
-  - "Colvars"
-  - "double precision"
-  - "GCC compilers"
-  - "GPU acceleration"
-  - "cuda/11.4"
-  - "gromacs"
-  - "checkpointing"
-  - "openmpi/2.1.1"
-  - "user guide"
-  - "MDAnalysis"
-  - "FlexiBLAS"
-  - "Volta and newer GPUs (V100"
-  - "GROMACS developers"
-  - "MKL"
-  - "OpenMP threads"
-  - "ntasks-per-node"
-  - "MDTraj"
-  - "GPU support"
-  - "parallel scaling"
-  - "StdEnv/2020 software environment"
-  - "load balancing"
-  - "molecular dynamics simulations"
-  - "gromacs/2024.4"
-  - "computational resources"
-  - "SBATCH --mem-per-cpu=2000M"
-  - "enhanced sampling methods"
-  - "GROMACS‑LS"
   - "mdrun -multidir"
-  - "BioExcel Tutorial"
-  - "SIMD instruction sets (AVX"
-  - "Fiorin et al. 2013"
-  - "Intel MKL"
-  - "module load"
-  - "system size"
-  - "gcc/9.3.0"
-  - "Domain Decomposition"
-  - "cpus-per-task"
-  - "simulation"
-  - "--ntasks-per-node"
-  - "Dynamic Load Balancing"
-  - "gcc"
-  - "cuda/9.0.176"
-  - "GCC"
-  - "GROMACS TRR/XTC trajectories"
-  - "StdEnv/2020"
-  - "atom-selection language"
-  - "single CPU core"
-  - "gromacs/2020.4"
-  - "domain decomposition"
-  - "GROMACS‑LS and MDStress library"
-  - "GROMACS analysis tools"
-  - "AVX2"
-  - "conformational space sampling"
-  - "checkpoint file"
-  - "RAMD method"
-  - "simulation performance"
-  - "Colvars module"
-  - "local stress fields"
-  - "#SBATCH"
-  - "GROMACS version 2018.1"
+  - "force field parameters"
+  - "steered MD"
+  - "Colvars library"
+  - "StdEnv"
+  - "MIG instance"
   - "FFTW"
+  - "GPU acceleration"
+  - "short jobs"
+  - "Dynamic Load Balancing"
+  - "Colvars"
+  - "pressure coupling"
+  - "split long simulation"
+  - "load imbalance"
+  - "Colvars module"
+  - "collective variables"
+  - "gmx_mpi mdrun"
+  - "MDAnalysis"
+  - "Simulation finished"
+  - "mdrun -maxh"
+  - "module load"
+  - "AVX512)"
+  - "scancel pending jobs"
+  - "Hybrid Quantum‑Classical simulations"
+  - "ACENET"
+  - "openmpi/4.0.3"
+  - "GROMACS mdrun"
+  - "GROMACS"
+  - "GROMACS v2024"
+  - "MDStress library"
+  - "mdrun -nt 1 -deffnm em"
+  - "gromacs/2024.6"
+  - "single and double precision"
+  - "SLURM array"
+  - "cuda/11.0"
+  - "--cpus-per-task"
+  - "Domain Decomposition"
+  - "cuda/9.0.176"
+  - "job array"
+  - "StdEnv module"
+  - "Python wheels"
+  - "gromacs/2018.3"
+  - "job scheduling"
+  - "MDTraj"
+  - "#SBATCH --time"
   - "PLUMED"
-  - "grompp"
-  - "OpenMP threads per MPI task"
-  - "high performance"
-  - "GPU update bug"
-  - "multiple simulations"
-  - "StdEnv/2016.4"
-  - "gromacs/2025.4"
-  - "cuda/12.2"
+  - "-update gpu"
+  - "local stress fields"
+  - "GPU support"
+  - "enhanced sampling methods"
+  - "GPU"
+  - "FlexiBLAS & FFTW"
+  - "hybrid quantum-classical"
+  - "Parallel scaling"
+  - "module load command"
+  - "restart a simulation"
+  - "CUDA"
+  - "gromacs"
+  - "CP2K QM/MM support"
+  - "--ntasks-per-node"
+  - "GCC"
+  - "optimum number"
+  - "checkpoint file"
+  - "StdEnv/2020"
+  - "PME ranks"
+  - "cutoff radius"
+  - "openmpi/2.1.1"
+  - "Python"
+  - "GPU utilization"
+  - "GPU fraction"
+  - "gmx_mpi binary"
+  - "Particle-Mesh-Ewald (PME) ranks"
+  - "molecular dynamics"
+  - "system topology (.top)"
+  - "SIMD instruction sets (AVX"
+  - "gcc/9.3.0"
+  - "GitLab issue #4393"
+  - "Alliance clusters"
+  - "Molecular Dynamics Performance Guide"
+  - "XVG files"
+  - "GROMACS trajectories"
+  - "OpenMP threads"
+  - "QM/MM simulations"
+  - "Slurm"
+  - "GPU bug"
+  - "em.tpr"
+  - "cuda/11.4"
+  - "bug discussion"
+  - "#SBATCH --nodes=1"
+  - "openmpi"
+  - "AVX2"
+  - "include directive"
+  - "MDBench benchmark"
+  - "GROMACS mdrun performance"
+  - "cpus-per-task"
+  - "VMD"
+  - "gromacs-plumed/2022.3"
+  - "GROMACS versions"
+  - "gcc/6.4.0"
+  - "walltime"
+  - "gromacs/2021.2"
+  - "checkpoint file (.cpt)"
+  - "cuda/12.6"
+  - "official GROMACS releases"
+  - "gmx_cp2k replacement"
   - "cuda"
-  - "MKL library with GCC"
+  - "cutoff-scheme (verlet)"
+  - "testing"
+  - "FlexiBLAS"
+  - "load balancing"
+  - "rare error"
+  - "Volta GPUs"
+  - "Performance and benchmarking"
+  - "GROMACS analysis tools"
+  - "mdrun"
+  - "mdrun version 4.6"
+  - "run parameter file (.mdp)"
+  - "CP2K"
+  - "checkpointing"
+  - "tpr files"
+  - "short-range + long-range forces"
+  - "GROMACS-LS"
+  - "SLURM"
+  - "simulation of molecular system"
+  - "domain decomposition"
+  - "backfill scheduling"
+  - "umbrella sampling"
+  - "whole nodes"
+  - "CPU and GPU modules"
+  - "PME offload to GPU"
+  - "multiple simulations"
+  - "default resource allocation"
+  - "molecular visualization program"
+  - "OMP_NUM_THREADS"
+  - "gcc"
 
 questions:
-  - "What are the main strengths of GROMACS that distinguish it from other molecular dynamics programs?"
-  - "How does GPU acceleration function in GROMACS, and what settings must be adjusted in the mdp file to enable it?"
-  - "Which GROMACS versions are provided by the StdEnv/2023 environment modules, and how do the module load commands differ for CPU‑only versus GPU‑enabled runs?"
-  - "What module load commands are required to run GROMACS 2024.4 with the standard environment and without CUDA?"
-  - "How does the module configuration for GROMACS 2024.1 differ from that of GROMACS 2024.4?"
-  - "Which additional libraries are implied by the “GCC, FlexiBLAS & FFTW” description in the provided module strings?"
-  - "What module load commands are required to run GROMACS 2023.5 on CPUs versus GPUs under the StdEnv/2023 environment?"
-  - "Which GROMACS versions listed under the StdEnv/2020 environment show warning symbols, and what might those warnings signify?"
-  - "How do the compiler and OpenMPI module versions differ between the StdEnv/2023 and StdEnv/2020 environments for the same GROMACS releases?"
-  - "哪些 GROMACS 版本在 StdEnv/2020 环境下可用，并且对应的 CPU 与 GPU（CUDA）模块分别是什么？"
-  - "哪些标准软件环境（StdEnv）已被标记为 “Deprecated”，它们对应的 GROMACS 版本有哪些？"
-  - "在不同的 StdEnv 及 GROMACS 版本组合中，使用了哪些数学/线性代数库（如 GCC、MKL、FFTW）？"
-  - "2021.2 版本对应的 GCC 与 MKL 组合有什么限制或注意事项？"
-  - "为什么在加载 gromacs/2020.6 时会出现警告标志？需要哪些额外的模块（如 cuda）才能正常运行？"
-  - "文本中提到的 “GCC, FlexiBLAS & FFTW” 之间的关系是什么，它们在使用 gromacs 时各自承担什么功能？"
-  - "What module environment is required for GROMACS 2018.2 versus GROMACS 2018.1?"
-  - "Which listed module sets include GCC and FFTW support?"
-  - "How does the presence of CUDA differ among the configurations for the two GROMACS versions?"
-  - "Which GROMACS versions (2020.0–2021.5) have the known bug when using the `-update gpu` option on Volta‑class or newer GPUs?"
-  - "How do the compiler and library configurations (e.g., GCC + FFTW vs. Intel + MKL, inclusion of OpenMPI or CUDA) differ across the listed GROMACS module versions?"
-  - "From which GROMACS release are modules compiled for the new `StdEnv/2020` environment, and from which release do they start using GCC compilers with the MKL library?"
-  - "How do you load the CPU‑only and GPU‑enabled versions of GROMACS using environment modules, and what additional module is required for the GPU version?"
-  - "What are the naming suffixes for the different GROMACS binaries (e.g., single vs. double precision, MPI vs. non‑MPI) in versions 5.x and newer compared to version 4.6.7?"
-  - "What are the key elements of a basic SLURM job script for running a serial GROMACS simulation, and how should CPU core allocation be specified?"
-  - "Which compilers and libraries are used to compile StdEnv/2020 version 2018.7 and newer?"
-  - "How do the compilation configurations differ between newer versions and older versions of StdEnv/2020?"
-  - "What MPI library version is referenced for the default environment of the older StdEnv/2020 builds?"
-  - "What factor can limit the choice of `--ntasks-per-node` on a compute node?"
-  - "How does the size of a system influence the maximum feasible `--ntasks-per-node` value?"
-  - "What corrective action should be taken when GROMACS reports a domain‑decomposition error due to the requested number of domains?"
-  - "What is the difference in the `--ntasks-per-node` setting between the Narval script and the scripts for Rorqual, Fir, Nibi, and Trillium?"
-  - "How is the total number of CPU cores per node determined from the `--ntasks-per-node` and `--cpus-per-task` directives in each script?"
-  - "Which modules are loaded and which environment variable is exported before the `srun` command that launches `gmx_mpi mdrun`?"
-  - "What does the `pus-per-task=2` directive specify for the SLURM job configuration?"
-  - "How is the number of OpenMP threads set and utilized in the `srun` command that runs `gmx_mpi mdrun`?"
-  - "Which software modules are loaded before executing GROMACS, and what role does each module play in the simulation workflow?"
-  - "What SLURM options and environment settings are needed in the example script to run a GROMACS mdrun with 4 OpenMP threads on a single GPU?"
-  - "Which GROMACS versions are affected by the GPU update bug on Volta‑class GPUs, and what precaution should be taken to prevent incorrect pressure coupling?"
-  - "How should users handle the under‑utilisation of high‑end GPUs (e.g., A100, H100) for typical‑size simulations, and what method is recommended to run multiple simulations on one GPU?"
-  - "How should the SLURM directives be modified when changing the number of simultaneous simulations in the GPU‑based GROMACS job script?"
-  - "Why is a Multi‑Instance GPU (MIG) the preferred solution for dissimilar simulations, and what kinds of system differences make it advantageous?"
-  - "What input files are needed to create a portable tpr file for GROMACS, and why must the same GROMACS version be used for both grompp and mdrun?"
-  - "Why does running a single typical simulation on a GPU waste a significant fraction of the allocated computational resources?"
-  - "What is the recommended solution for efficiently utilizing a GPU by running multiple simulations simultaneously?"
-  - "In which situations is using `mdrun -multidir` the preferred approach for obtaining more conformational space sampling?"
-  - "Why is it important to use the same GROMACS version for both `grompp` and `mdrun`?"
-  - "What potential issues can occur if `mdrun` runs with a `.tpr` file created by an older version of `grompp`?"
-  - "How can you minimize the waiting time when restarting an MD simulation that exceeds the allocated walltime?"
-  - "How does the `-maxh` option ensure that GROMACS creates a checkpoint and closes output files gracefully before the requested walltime expires?"
-  - "What command-line arguments are needed to restart a GROMACS simulation from the most recent checkpoint file?"
-  - "How can a SLURM job array be used to split a long GROMACS run into multiple short jobs and take advantage of backfill scheduling?"
-  - "How does a job array automate checkpointing when submitting multiple short jobs with a single `sbatch` call?"
-  - "Why is only the first job in the array eligible to start, and how does the eligibility of subsequent jobs change?"
-  - "What occurs to any remaining pending jobs in the array once the simulation has completed?"
-  - "What are the main differences in resource requests and module loads between the “Whole nodes (Narval)” and “GPU job” SLURM scripts for running GROMACS?"
-  - "How does each script detect a simulation error or successful completion and subsequently handle pending array jobs?"
-  - "Where can users access the Molecular Dynamics Performance Guide for optimizing GROMACS on Alliance clusters, and what purpose does it serve?"
-  - "What factors make achieving optimal mdrun performance with GROMACS a non‑straightforward task?"
-  - "Where can users find the detailed guidance provided by GROMACS developers for improving mdrun performance?"
-  - "What specific topics are covered in the GROMACS user‑guide section on mdrun performance?"
-  - "How does the size and shape of the simulation system influence the optimal choice of performance parameters in GROMACS?"
-  - "What is parallel scaling in GROMACS, and how do MPI processes, domain decomposition, and dynamic load balancing affect it?"
-  - "How can the number of dedicated PME ranks be controlled, and what are the implications of using GPU‑accelerated PME for performance?"
-  - "How can OpenMP threads be enabled for GROMACS runs with Slurm, and what is the recommended number of threads per MPI process?"
-  - "What impact do SIMD instruction sets (AVX, AVX2, AVX512) have on GROMACS performance, and how does the module system select the appropriate kernel for the CPU architecture?"
-  - "Which GROMACS analysis tools and Python packages are highlighted for post‑processing trajectories, and which file formats do they read and write?"
-  - "What does the `-notunepme` option do in GROMACS mdrun, and from which version is it automatically applied?"
-  - "Since which GROMACS release can PME be offloaded to the GPU, and what are the main limitations of the GPU‑PME implementation in version 2018.1?"
-  - "How does GROMACS automatically tune the PME grid and cutoff relative to the simulation timestep?"
-  - "What trajectory and coordinate file formats can MDAnalysis and MDTraj read and write?"
-  - "How are MDAnalysis and MDTraj provided to users for installation?"
-  - "What limitation does MDAnalysis have when reading GROMACS TPR files?"
-  - "What benefits do the atom‑selection language and exposed trajectory coordinates provide for creating custom analysis tools that work with Python’s NumPy, SciPy, Pandas, Matplotlib, and Seaborn?"
-  - "How does the gromacs‑plumed module enable PLUMED‑based metadynamics in GROMACS, and what native PLUMED support was introduced in GROMACS version 2025 and later?"
-  - "Which specific GROMACS‑Plumed module versions and associated compiler, MPI, CUDA, and FFT libraries are listed for CPU and GPU runs in the StdEnv/2023 and StdEnv/2020 environments?"
-  - "Which versions of GCC and OpenMPI appear consistently across all the listed module configurations?"
-  - "How do the module sets that include CUDA (e.g., cuda/11.4 versus cuda/11.0) differ from those that do not include CUDA?"
-  - "What additional libraries such as FlexiBLAS, FFTW, and MKL are mentioned, and how are they associated with the different GROMACS‑Plumed versions?"
-  - "Which GROMACS and PLUMED versions are provided for the StdEnv/2020 environment, and what module configurations are required for CPU‑only versus GPU (CUDA) runs?"
-  - "What significant update regarding the Colvars library was introduced in GROMACS v2024?"
-  - "Where can users access the documentation and reference manuals for employing the Colvars module with GROMACS?"
-  - "What modifications are needed for GROMACS versions prior to v2024 to use collective variables, and which module provides the required Colvars support?"
-  - "How does the GROMACS‑CP2K integration enable QM/MM simulations, and what executables and hardware (CPU/GPU) options are available for the gromacs‑cp2k modules?"
-  - "What functionality does GROMACS‑LS, together with the MDStress library, add to molecular dynamics simulations?"
-  - "What is the Colvars Reference manual for GROMACS used for?"
-  - "Which publication is cited for “Using collective variables to drive molecular dynamics simulations”?"
-  - "Who are the authors and what year is associated with the cited Fiorin et al. paper?"
-  - "What resources are provided in the BioExcel tutorial GitHub repository for GROMACS‑CP2K integration?"
-  - "How do GROMACS‑LS and the MDStress library enable the calculation of local stress fields from molecular dynamics simulations?"
-  - "Where can users access the GROMACS‑CP2K integration tools on the CP2K website?"
-  - "How can a compatible .tpr file be created for GROMACS‑LS when the original simulation was run with a newer GROMACS version?"
-  - "What are the main limitations and compilation requirements of GROMACS‑LS (e.g., precision, MPI/CPU/GPU support)?"
-  - "What is the GROMACS‑RAMD fork used for, and which specific molecular dynamics method does it implement?"
+  - "What are the main strengths of GROMACS that make it stand out among other molecular dynamics packages?"
+  - "Which GPU-related settings and requirements must be configured in the mdp file to enable CUDA acceleration in GROMACS?"
+  - "What are the notable weak points of GROMACS, especially concerning analysis capabilities and version compatibility?"
+  - "What are the module load commands for GROMACS 2024.6 with and without CUDA support?"
+  - "Which CUDA version is associated with each GROMACS version in the listed configurations?"
+  - "Which compiler and MPI library versions are common to all the GROMACS module setups shown?"
+  - "Which GROMACS versions listed under the StdEnv/2023 environment provide separate module sets for CPU‑only and GPU‑enabled (CUDA) execution?"
+  - "What compiler (gcc) and OpenMPI versions are required for the CPU and GPU module configurations of GROMACS 2024.1 in the StdEnv/2023 environment?"
+  - "In the StdEnv/2020 table, which GROMACS releases do not have a corresponding GPU (CUDA) module configuration listed?"
+  - "Which GROMACS versions are listed for the StdEnv/2020 environment, and what CPU and GPU module configurations are required for each version?"
+  - "How do the compiler versions and linked libraries (e.g., GCC, MKL, FlexiBLAS, FFTW) differ among the GROMACS releases across the StdEnv/2020, StdEnv/2018.3, and StdEnv/2016.4 environments?"
+  - "Which software environments are flagged as deprecated in the table, and what should users consider when selecting GROMACS modules from those environments?"
+  - "What do the warning symbols next to the module listings indicate for the GCC, FlexiBLAS & FFTW configuration?"
+  - "Which software modules are included in the two StdEnv/2020 environment configurations shown for gromacs/2021.2?"
+  - "How does the presence of CUDA 11.0 in the second configuration affect the usage of GCC, FlexiBLAS & FFTW compared to the first configuration?"
+  - "What are the differences between the module load commands for GROMACS 2018.3 and GROMACS 2018.2 shown in the text?"
+  - "Which additional modules are required when using the CUDA‑enabled version of GROMACS according to the snippet?"
+  - "Why is “GCC & FFTW” mentioned alongside the GROMACS module listings?"
+  - "Which GROMACS versions (2020.0–2021.5) are known to have the bug affecting virial calculations when using the `-update gpu` option on Volta‑class GPUs?"
+  - "What module load commands are needed to run GROMACS 2018.1 with CUDA support according to the table?"
+  - "How can the described bug in the GPU update kernel potentially impact pressure coupling in a molecular dynamics simulation?"
+  - "How can you load the correct GROMACS module using the appropriate Standard software environment, compiler, and MPI (or CUDA) modules?"
+  - "What are the precision and module requirements differences between the CPU‑only and GPU‑enabled versions of GROMACS?"
+  - "Which GROMACS binary suffixes indicate single vs. double precision and MPI vs. non‑MPI builds?"
+  - "What is the nature of the error mentioned and why is it considered rare?"
+  - "How was the error tested and what were the results of those tests?"
+  - "Where can additional information about this bug be found?"
+  - "What does the command `mdrun -nt 1 -deffnm em` do in GROMACS?"
+  - "Why is it recommended to use whole nodes when simulating large molecular systems with GROMACS?"
+  - "How should the values of `--ntasks-per-node` and `--cpus-per-task` be set to match the number of CPU cores?"
+  - "How should you modify `--ntasks-per-node` and `--cpus-per-task` when GROMACS reports a domain‑decomposition error for the chosen number of domains?"
+  - "What SLURM directives (e.g., `--ntasks-per-node`, `--cpus-per-task`, memory settings) are recommended for running GROMACS on a node with 192 CPU cores, as illustrated in the example scripts for Rorqual, Fir, and Nibi?"
+  - "Where can you find the detailed “Performance and benchmarking” information referenced in the text?"
+  - "What is the purpose of the `#SBATCH --time=0-01:00` directive in this SLURM script?"
+  - "Which software modules are loaded before executing GROMACS, and why are they required?"
+  - "How does the script determine and apply the number of OpenMP threads for the `gmx_mpi mdrun` command?"
+  - "How should the number of MPI tasks, OpenMP threads, and memory per CPU be set in a CPU‑only GROMACS Slurm job script?"
+  - "What specific settings, warnings, and performance tips must be considered when running GROMACS on GPUs, including the known bug affecting Volta‑class GPUs?"
+  - "What constraints does GROMACS impose on the relationship between tasks‑per‑node, GPUs‑per‑node, and OpenMP threads, and how should they be applied in a Slurm job script?"
+  - "What are the two recommended solutions for efficiently utilizing modern GPUs when running GROMACS simulations on relatively small systems?"
+  - "How does the `mdrun -multidir` option operate, and what SLURM job‑script settings must be adjusted to run multiple similar simulations on a single GPU?"
+  - "In which situations is a Multi‑Instance GPU (MIG) instance preferred over `-multidir`, and what kinds of dissimilar simulations benefit most from MIG usage?"
+  - "What is the recommended range for the `--cpus-per-task` option according to GROMACS developers?"
+  - "Why should you avoid allocating a larger fraction of CPUs and memory than the fraction of GPUs requested on a node?"
+  - "Where can you explore benchmark results for GROMACS with CUDA support?"
+  - "What is the purpose of the system topology (\".top\") file in a GROMACS simulation?"
+  - "How are individual molecular topologies typically organized and incorporated into the main \".top\" file?"
+  - "Where can detailed information about the options in the run parameter (\".mdp\") file be found?"
+  - "Why is it important to use the same GROMACS version for both grompp and mdrun when handling .tpr files?"
+  - "How does the ‑maxh option enable graceful termination and checkpoint creation at the wall‑time limit?"
+  - "What commands and options are needed to restart a simulation from the most recent checkpoint file?"
+  - "What advantage does ACS provide by allowing a simulation to be restarted and divided into multiple short jobs?"
+  - "How does backfill scheduling impact jobs that request three hours or less?"
+  - "Which resource allocation types (e.g., def‑sponsor, rrg‑sponsor) can benefit from using this short‑job strategy?"
+  - "How does a SLURM job array automate checkpointing and ensure that only one job runs at a time, progressing to the next job after the previous one finishes?"
+  - "What are the main differences between the “Whole nodes (Narval)” and “GPU job” example scripts in terms of resource requests and execution commands?"
+  - "How does the script determine whether the simulation has finished or encountered an error, and what actions does it take on the remaining pending array jobs?"
+  - "What action does the script take when it finds a \"Writing checkpoint, step $nsteps at\" entry in the simulation log?"
+  - "Which organization is responsible for creating the Molecular Dynamics Performance Guide referenced in the text?"
+  - "Where can users access the Molecular Dynamics Performance Guide for Alliance clusters?"
+  - "How does the size and shape of the simulated system affect the choice of optimal GROMACS mdrun parameters?"
+  - "What role do domain decomposition and dynamic load balancing play in GROMACS parallel scaling, and how can they influence performance?"
+  - "How does the Particle‑Mesh‑Ewald (PME) method impact MPI process allocation, and what strategies can be used to address load imbalance between PP and PME ranks?"
+  - "What are the current limitations of GPU‑accelerated PME in GROMACS version 2018.1?"
+  - "How should OpenMP threads and the Slurm `--cpus-per-task` parameter be configured to optimize GROMACS performance on multi‑core CPUs?"
+  - "Which GROMACS tools and file formats are recommended for post‑processing and visualizing simulation results, and how can they be used with external programs like Grace or VMD?"
+  - "What does the “ode>” option allow users to control regarding PME ranks?"
+  - "How can a significant load imbalance between PP and PME ranks be reduced by adjusting the cutoff radius?"
+  - "From which version does mdrun automatically try to correct such load imbalances?"
+  - "What are the main features of XVG files and how can they be processed or imported into other programs?"
+  - "How does VMD support the visualization, animation, and analysis of large biomolecular systems, particularly GROMACS trajectories?"
+  - "What options does VMD provide for non‑graphical usage, such as command‑line mode or Python scripting?"
+  - "What file formats and analysis capabilities do the MDAnalysis and MDTraj Python packages provide for GROMACS trajectories?"
+  - "How does the gromacs‑plumed module enable meta‑dynamics simulations, and which GROMACS versions have native PLUMED support?"
+  - "Which module load commands are recommended for running GROMACS‑plumed on CPUs versus GPUs in the StdEnv/2023 and StdEnv/2020 environments?"
+  - "What software modules and version numbers are specified for the GROMACS‑Plumed 2022.3 environment?"
+  - "Which of the listed module configurations include CUDA support, and what versions are used?"
+  - "How do the module sets for GROMACS‑Plumed 2022.3 differ from those for the 2021.6 version in terms of compilers, MPI, and additional libraries?"
+  - "Which GROMACS and PLUMED version pairs are provided for CPU‑only and GPU‑enabled (CUDA) modules in the supported StdEnv/2020 environment?"
+  - "How do the compiler versions and linked libraries (e.g., GCC, Intel, MKL, FFTW) differ among the various software environments listed for the older StdEnv/2018 and StdEnv/2016 tables?"
+  - "What change regarding the Colvars library was introduced in GROMACS version 2024?"
+  - "Which documentation sources detail the use of the Colvars module with GROMACS and specify the required GROMACS versions?"
+  - "What GROMACS‑Colvars modules are available for CPU and GPU execution, and what compiler and library environments do they depend on?"
+  - "How does the GROMACS‑CP2K integration differ from the Colvars modules regarding supported GROMACS versions, hardware (CPU vs. GPU), and the provided executable types?"
+  - "What new capability does GROMACS v2024 provide by adding the Colvars library to its official releases?"
+  - "How does the inclusion of the Colvars library eliminate the need for a patched version of GROMACS?"
+  - "Which enhanced‑sampling techniques (e.g., steered MD, umbrella sampling) are mentioned as being supported by the Colvars library?"
+  - "Which modules are loaded in the StdEnv/2020 environment for running QM/MM simulations with GROMACS and CP2K?"
+  - "What additional libraries are mentioned alongside GCC in this software configuration?"
+  - "Where can users find the official documentation for performing hybrid QM/MM simulations using the GROMACS‑CP2K interface?"
+  - "What modifications are needed to adapt the BioExcel QM/MM tutorial for a different HPC system, especially concerning the `gmx_cp2k` command and Slurm job scripts?"
+  - "How can a trajectory from a newer GROMACS version be processed with GROMACS‑LS, and what changes might be required in the original `.mdp` files to create a compatible `.tpr` file?"
+  - "What are the key limitations of GROMACS‑LS (e.g., precision, parallelism, hardware support) compared to standard GROMACS, and how do they impact simulation performance?"
 
 status:
   downloaded: true
   converted: true
   tagged: true
   keywords_generated: true
-  ragflow_synced: false
+  ragflow_synced: true
   qa_generated: false
 ---
 
-## General
+# General
 
-[GROMACS](http://www.gromacs.org/) is a versatile package to perform molecular dynamics for systems with hundreds to millions of particles. It is primarily designed for biochemical molecules like proteins, lipids, and nucleic acids that have a lot of complicated bonded interactions, but since GROMACS is extremely fast at calculating the nonbonded interactions (that usually dominate simulations) many groups are also using it for research on non-biological systems, e.g. polymers.
+[GROMACS](http://www.gromacs.org/) is a versatile package to perform molecular dynamics for systems with hundreds to millions of particles. It is primarily designed for biochemical molecules like proteins, lipids, and nucleic acids that have a lot of complicated bonded interactions, but since GROMACS is extremely fast at calculating the nonbonded interactions (that usually dominate simulations) many groups are also using it for research on non-biological systems, e.g., polymers.
 
 ## Strengths
 
 *   GROMACS provides extremely high performance compared to all other programs.
-*   Since GROMACS 4.6, we have excellent CUDA-based GPU acceleration on GPUs that have Nvidia compute capability >= 2.0 (e.g. Fermi or later).
+*   Since GROMACS 4.6, we have excellent CUDA-based GPU acceleration on GPUs that have Nvidia compute capability >= 2.0 (e.g., Fermi or later).
 *   GROMACS comes with a large selection of flexible tools for trajectory analysis.
 *   GROMACS can be run in parallel, using either the standard MPI communication protocol, or via our own "Thread MPI" library for single-node workstations.
 *   GROMACS is free software, available under the GNU Lesser General Public License (LGPL), version 2.1.
@@ -267,9 +268,7 @@ status:
 ## Weak points
 
 *   To get very high simulation speed, GROMACS does not do much additional analysis and/or data collection on the fly. It may be a challenge to obtain somewhat non-standard information about the simulated system from a GROMACS simulation.
-
 *   Different versions may have significant differences in simulation methods and default parameters. Reproducing results of older versions with a newer version may not be straightforward.
-
 *   Additional tools and utilities that come with GROMACS are not always of the highest quality, may contain bugs and may implement poorly documented methods. Reconfirming the results of such tools with independent methods is always a good idea.
 
 ## GPU support
@@ -280,7 +279,8 @@ GROMACS uses both CPUs and GPUs; it relies on a reasonable balance between CPU a
 
 The new neighbour structure required the introduction of a new variable called "cutoff-scheme" in the mdp file. The behaviour of older GROMACS versions (before 4.6) corresponds to `cutoff-scheme = group`, while in order to use GPU acceleration you must change it to `cutoff-scheme = verlet`, which has become the new default in version 5.0.
 
-## Quickstart guide
+# Quickstart guide
+
 This section summarizes configuration details.
 
 ## Environment modules
@@ -288,66 +288,72 @@ This section summarizes configuration details.
 The following versions have been installed:
 
 === "StdEnv/2023"
-    | GROMACS version | modules for running on CPUs | modules for running on GPUs (CUDA) | Notes |
-    | :-------------- | :-------------------------- | :--------------------------------- | :---- |
-    | gromacs/2026.1  | `StdEnv/2023 gcc/12.3 openmpi/4.1.5 gromacs/2026.1` | `StdEnv/2023 gcc/12.3 openmpi/4.1.5 cuda/12.6 gromacs/2026.1` | GCC, FlexiBLAS & FFTW |
-    | gromacs/2025.4  | `StdEnv/2023 gcc/12.3 openmpi/4.1.5 gromacs/2025.4` | `StdEnv/2023 gcc/12.3 openmpi/4.1.5 cuda/12.6 gromacs/2025.4` | GCC, FlexiBLAS & FFTW |
-    | gromacs/2024.6  | `StdEnv/2023 gcc/12.3 openmpi/4.1.5 gromacs/2024.6` | `StdEnv/2023 gcc/12.3 openmpi/4.1.5 cuda/12.6 gromacs/2024.6` | GCC, FlexiBLAS & FFTW |
-    | gromacs/2024.4  | `StdEnv/2023 gcc/12.3 openmpi/4.1.5 gromacs/2024.4` | `StdEnv/2023 gcc/12.3 openmpi/4.1.5 cuda/12.2 gromacs/2024.4` | GCC, FlexiBLAS & FFTW |
-    | gromacs/2024.1  | `StdEnv/2023 gcc/12.3 openmpi/4.1.5 gromacs/2024.1` | `StdEnv/2023 gcc/12.3 openmpi/4.1.5 cuda/12.2 gromacs/2024.1` | GCC, FlexiBLAS & FFTW |
-    | gromacs/2023.5  | `StdEnv/2023 gcc/12.3 openmpi/4.1.5 gromacs/2023.5` | `StdEnv/2023 gcc/12.3 openmpi/4.1.5 cuda/12.2 gromacs/2023.5` | GCC, FlexiBLAS & FFTW |
-    | gromacs/2023.3  | `StdEnv/2023 gcc/12.3 openmpi/4.1.5 gromacs/2023.3` | `StdEnv/2023 gcc/12.3 openmpi/4.1.5 cuda/12.2 gromacs/2023.3` | GCC, FlexiBLAS & FFTW |
+    | GROMACS version | modules for running on CPUs                      | modules for running on GPUs (CUDA)                       | Notes                  |
+    | :-------------- | :--------------------------------------------- | :----------------------------------------------------- | :--------------------- |
+    | gromacs/2026.1  | `StdEnv/2023 gcc/12.3 openmpi/4.1.5 gromacs/2026.1` | `StdEnv/2023 gcc/12.3 openmpi/4.1.5 cuda/12.6 gromacs/2026.1` | GCC, FlexiBLAS & FFTW  |
+    | gromacs/2025.4  | `StdEnv/2023 gcc/12.3 openmpi/4.1.5 gromacs/2025.4` | `StdEnv/2023 gcc/12.3 openmpi/4.1.5 cuda/12.6 gromacs/2025.4` | GCC, FlexiBLAS & FFTW  |
+    | gromacs/2024.6  | `StdEnv/2023 gcc/12.3 openmpi/4.1.5 gromacs/2024.6` | `StdEnv/2023 gcc/12.3 openmpi/4.1.5 cuda/12.6 gromacs/2024.6` | GCC, FlexiBLAS & FFTW  |
+    | gromacs/2024.4  | `StdEnv/2023 gcc/12.3 openmpi/4.1.5 gromacs/2024.4` | `StdEnv/2023 gcc/12.3 openmpi/4.1.5 cuda/12.2 gromacs/2024.4` | GCC, FlexiBLAS & FFTW  |
+    | gromacs/2024.1  | `StdEnv/2023 gcc/12.3 openmpi/4.1.5 gromacs/2024.1` | `StdEnv/2023 gcc/12.3 openmpi/4.1.5 cuda/12.2 gromacs/2024.1` | GCC, FlexiBLAS & FFTW  |
+    | gromacs/2023.5  | `StdEnv/2023 gcc/12.3 openmpi/4.1.5 gromacs/2023.5` | `StdEnv/2023 gcc/12.3 openmpi/4.1.5 cuda/12.2 gromacs/2023.5` | GCC, FlexiBLAS & FFTW  |
+    | gromacs/2023.3  | `StdEnv/2023 gcc/12.3 openmpi/4.1.5 gromacs/2023.3` | `StdEnv/2023 gcc/12.3 openmpi/4.1.5 cuda/12.2 gromacs/2023.3` | GCC, FlexiBLAS & FFTW  |
+
 === "StdEnv/2020"
-    | GROMACS version | modules for running on CPUs | modules for running on GPUs (CUDA) | Notes |
-    | :-------------- | :-------------------------- | :--------------------------------- | :---- |
-    | gromacs/2023.2  | `StdEnv/2020 gcc/9.3.0 openmpi/4.0.3 gromacs/2023.2` | `StdEnv/2020 gcc/9.3.0 cuda/11.4 openmpi/4.0.3 gromacs/2023.2` | GCC, FlexiBLAS & FFTW |
-    | gromacs/2023    | `StdEnv/2020 gcc/9.3.0 openmpi/4.0.3 gromacs/2023` | `StdEnv/2020 gcc/9.3.0 cuda/11.4 openmpi/4.0.3 gromacs/2023` | GCC, FlexiBLAS & FFTW |
-    | gromacs/2022.3  | `StdEnv/2020 gcc/9.3.0 openmpi/4.0.3 gromacs/2022.3` | `StdEnv/2020 gcc/9.3.0 cuda/11.4 openmpi/4.0.3 gromacs/2022.3` | GCC, FlexiBLAS & FFTW |
-    | gromacs/2022.2  | `StdEnv/2020 gcc/9.3.0 openmpi/4.0.3 gromacs/2022.2` | | GCC, FlexiBLAS & FFTW |
-    | gromacs/2021.6  | `StdEnv/2020 gcc/9.3.0 openmpi/4.0.3 gromacs/2021.6` | `StdEnv/2020 gcc/9.3.0 cuda/11.4 openmpi/4.0.3 gromacs/2021.6` | GCC, FlexiBLAS & FFTW |
-    | gromacs/2021.4  | `StdEnv/2020 gcc/9.3.0 openmpi/4.0.3 gromacs/2021.4` | `StdEnv/2020 gcc/9.3.0 cuda/11.4 openmpi/4.0.3 gromacs/2021.4` | GCC, FlexiBLAS & FFTW[^gromacs-2021-bug] |
-    | gromacs/2021.2  | | `StdEnv/2020 gcc/9.3.0 cuda/11.4 openmpi/4.0.3 gromacs/2021.2` | GCC, FlexiBLAS & FFTW[^gromacs-2021-bug] |
-    | gromacs/2021.2  | `StdEnv/2020 gcc/9.3.0 openmpi/4.0.3 gromacs/2021.2` | `StdEnv/2020 gcc/9.3.0 cuda/11.0 openmpi/4.0.3 gromacs/2021.2` | GCC & MKL[^gromacs-2021-bug] |
-    | gromacs/2020.6  | `StdEnv/2020 gcc/9.3.0 openmpi/4.0.3 gromacs/2020.6` | `StdEnv/2020 gcc/9.3.0 cuda/11.4 openmpi/4.0.3 gromacs/2020.6` | GCC, FlexiBLAS & FFTW[^gromacs-2021-bug] |
-    | gromacs/2020.4  | | `StdEnv/2020 gcc/9.3.0 cuda/11.4 openmpi/4.0.3 gromacs/2020.4` | GCC, FlexiBLAS & FFTW[^gromacs-2021-bug] |
-    | gromacs/2020.4  | `StdEnv/2020 gcc/9.3.0 openmpi/4.0.3 gromacs/2020.4` | `StdEnv/2020 gcc/9.3.0 cuda/11.0 openmpi/4.0.3 gromacs/2020.4` | GCC & MKL[^gromacs-2021-bug] |
+    | GROMACS version | modules for running on CPUs                      | modules for running on GPUs (CUDA)                           | Notes                  |
+    | :-------------- | :--------------------------------------------- | :----------------------------------------------------------- | :--------------------- |
+    | gromacs/2023.2  | `StdEnv/2020 gcc/9.3.0 openmpi/4.0.3 gromacs/2023.2` | `StdEnv/2020 gcc/9.3.0 cuda/11.4 openmpi/4.0.3 gromacs/2023.2` | GCC, FlexiBLAS & FFTW  |
+    | gromacs/2023    | `StdEnv/2020 gcc/9.3.0 openmpi/4.0.3 gromacs/2023`   | `StdEnv/2020 gcc/9.3.0 cuda/11.4 openmpi/4.0.3 gromacs/2023`   | GCC, FlexiBLAS & FFTW  |
+    | gromacs/2022.3  | `StdEnv/2020 gcc/9.3.0 openmpi/4.0.3 gromacs/2022.3` | `StdEnv/2020 gcc/9.3.0 cuda/11.4 openmpi/4.0.3 gromacs/2022.3` | GCC, FlexiBLAS & FFTW  |
+    | gromacs/2022.2  | `StdEnv/2020 gcc/9.3.0 openmpi/4.0.3 gromacs/2022.2` |                                                              | GCC, FlexiBLAS & FFTW  |
+    | gromacs/2021.6  | `StdEnv/2020 gcc/9.3.0 openmpi/4.0.3 gromacs/2021.6` | `StdEnv/2020 gcc/9.3.0 cuda/11.4 openmpi/4.0.3 gromacs/2021.6` | GCC, FlexiBLAS & FFTW  |
+    | gromacs/2021.4  | `StdEnv/2020 gcc/9.3.0 openmpi/4.0.3 gromacs/2021.4` | `StdEnv/2020 gcc/9.3.0 cuda/11.4 openmpi/4.0.3 gromacs/2021.4` | GCC, FlexiBLAS & FFTW  |
+    | gromacs/2021.2  |                                                  | `StdEnv/2020 gcc/9.3.0 cuda/11.4 openmpi/4.0.3 gromacs/2021.2` | GCC, FlexiBLAS & FFTW  |
+    | gromacs/2021.2  | `StdEnv/2020 gcc/9.3.0 openmpi/4.0.3 gromacs/2021.2` | `StdEnv/2020 gcc/9.3.0 cuda/11.0 openmpi/4.0.3 gromacs/2021.2` | GCC & MKL              |
+    | gromacs/2020.6  | `StdEnv/2020 gcc/9.3.0 openmpi/4.0.3 gromacs/2020.6` | `StdEnv/2020 gcc/9.3.0 cuda/11.4 openmpi/4.0.3 gromacs/2020.6` | GCC, FlexiBLAS & FFTW  |
+    | gromacs/2020.4  |                                                  | `StdEnv/2020 gcc/9.3.0 cuda/11.4 openmpi/4.0.3 gromacs/2020.4` | GCC, FlexiBLAS & FFTW  |
+    | gromacs/2020.4  | `StdEnv/2020 gcc/9.3.0 openmpi/4.0.3 gromacs/2020.4` | `StdEnv/2020 gcc/9.3.0 cuda/11.0 openmpi/4.0.3 gromacs/2020.4` | GCC & MKL              |
+
 === "StdEnv/2018.3"
     !!! warning "Deprecated"
         This [software environment](../programming/standard_software_environments.md) is no longer supported.
-    | GROMACS version | modules for running on CPUs | modules for running on GPUs (CUDA) | Notes |
-    | :-------------- | :-------------------------- | :--------------------------------- | :---- |
-    | gromacs/2020.2  | `StdEnv/2018.3 gcc/7.3.0 openmpi/3.1.2 gromacs/2020.2` | `StdEnv/2018.3 gcc/7.3.0 cuda/10.0.130 openmpi/3.1.2 gromacs/2020.2` | GCC & MKL[^gromacs-2021-bug] |
+
+    | GROMACS version | modules for running on CPUs                         | modules for running on GPUs (CUDA)                           | Notes   |
+    | :-------------- | :-------------------------------------------------- | :----------------------------------------------------------- | :------ |
+    | gromacs/2020.2  | `StdEnv/2018.3 gcc/7.3.0 openmpi/3.1.2 gromacs/2020.2` | `StdEnv/2018.3 gcc/7.3.0 cuda/10.0.130 openmpi/3.1.2 gromacs/2020.2` | GCC & MKL |
     | gromacs/2019.6  | `StdEnv/2018.3 gcc/7.3.0 openmpi/3.1.2 gromacs/2019.6` | `StdEnv/2018.3 gcc/7.3.0 cuda/10.0.130 openmpi/3.1.2 gromacs/2019.6` | GCC & MKL |
     | gromacs/2019.3  | `StdEnv/2018.3 gcc/7.3.0 openmpi/3.1.2 gromacs/2019.3` | `StdEnv/2018.3 gcc/7.3.0 cuda/10.0.130 openmpi/3.1.2 gromacs/2019.3` | GCC & MKL † |
     | gromacs/2018.7  | `StdEnv/2018.3 gcc/7.3.0 openmpi/3.1.2 gromacs/2018.7` | `StdEnv/2018.3 gcc/7.3.0 cuda/10.0.130 openmpi/3.1.2 gromacs/2018.7` | GCC & MKL |
+
 === "StdEnv/2016.4"
     !!! warning "Deprecated"
         This [software environment](../programming/standard_software_environments.md) is no longer supported.
-    | GROMACS version | modules for running on CPUs | modules for running on GPUs (CUDA) | Notes |
-    | :-------------- | :-------------------------- | :--------------------------------- | :---- |
-    | gromacs/2018.3  | `StdEnv/2016.4 gcc/6.4.0 openmpi/2.1.1 gromacs/2018.3` | `StdEnv/2016.4 gcc/6.4.0 cuda/9.0.176 openmpi/2.1.1 gromacs/2018.3` | GCC & FFTW |
-    | gromacs/2018.2  | `StdEnv/2016.4 gcc/6.4.0 openmpi/2.1.1 gromacs/2018.2` | `StdEnv/2016.4 gcc/6.4.0 cuda/9.0.176 openmpi/2.1.1 gromacs/2018.2` | GCC & FFTW |
-    | gromacs/2018.1  | `StdEnv/2016.4 gcc/6.4.0 openmpi/2.1.1 gromacs/2018.1` | `StdEnv/2016.4 gcc/6.4.0 cuda/9.0.176 openmpi/2.1.1 gromacs/2018.1` | GCC & FFTW |
-    | gromacs/2018    | `StdEnv/2016.4 gromacs/2018` | `StdEnv/2016.4 cuda/9.0.176 gromacs/2018` | Intel & MKL |
-    | gromacs/2016.5  | `StdEnv/2016.4 gcc/6.4.0 openmpi/2.1.1 gromacs/2016.5` | `StdEnv/2016.4 gcc/6.4.0 cuda/9.0.176 openmpi/2.1.1 gromacs/2016.5` | GCC & FFTW |
-    | gromacs/2016.3  | `StdEnv/2016.4 gromacs/2016.3` | `StdEnv/2016.4 cuda/8.0.44 gromacs/2016.3` | Intel & MKL |
-    | gromacs/5.1.5   | `StdEnv/2016.4 gromacs/5.1.5` | `StdEnv/2016.4 cuda/8.0.44 gromacs/5.1.5` | Intel & MKL |
-    | gromacs/5.1.4   | `StdEnv/2016.4 gromacs/5.1.4` | `StdEnv/2016.4 cuda/8.0.44 gromacs/5.1.4` | Intel & MKL |
-    | gromacs/5.0.7   | `StdEnv/2016.4 gromacs/5.0.7` | `StdEnv/2016.4 cuda/8.0.44 gromacs/5.0.7` | Intel & MKL |
-    | gromacs/4.6.7   | `StdEnv/2016.4 gromacs/4.6.7` | `StdEnv/2016.4 cuda/8.0.44 gromacs/4.6.7` | Intel & MKL |
+
+    | GROMACS version | modules for running on CPUs                          | modules for running on GPUs (CUDA)                          | Notes               |
+    | :-------------- | :------------------------------------------------- | :-------------------------------------------------------- | :------------------ |
+    | gromacs/2018.3  | `StdEnv/2016.4 gcc/6.4.0 openmpi/2.1.1 gromacs/2018.3` | `StdEnv/2016.4 gcc/6.4.0 cuda/9.0.176 openmpi/2.1.1 gromacs/2018.3` | GCC & FFTW          |
+    | gromacs/2018.2  | `StdEnv/2016.4 gcc/6.4.0 openmpi/2.1.1 gromacs/2018.2` | `StdEnv/2016.4 gcc/6.4.0 cuda/9.0.176 openmpi/2.1.1 gromacs/2018.2` | GCC & FFTW          |
+    | gromacs/2018.1  | `StdEnv/2016.4 gcc/6.4.0 openmpi/2.1.1 gromacs/2018.1` | `StdEnv/2016.4 gcc/6.4.0 cuda/9.0.176 openmpi/2.1.1 gromacs/2018.1` | GCC & FFTW          |
+    | gromacs/2018    | `StdEnv/2016.4 gromacs/2018`                       | `StdEnv/2016.4 cuda/9.0.176 gromacs/2018`                 | Intel & MKL         |
+    | gromacs/2016.5  | `StdEnv/2016.4 gcc/6.4.0 openmpi/2.1.1 gromacs/2016.5` | `StdEnv/2016.4 gcc/6.4.0 cuda/9.0.176 openmpi/2.1.1 gromacs/2016.5` | GCC & FFTW          |
+    | gromacs/2016.3  | `StdEnv/2016.4 gromacs/2016.3`                     | `StdEnv/2016.4 cuda/8.0.44 gromacs/2016.3`                | Intel & MKL         |
+    | gromacs/5.1.5   | `StdEnv/2016.4 gromacs/5.1.5`                      | `StdEnv/2016.4 cuda/8.0.44 gromacs/5.1.5`                 | Intel & MKL         |
+    | gromacs/5.1.4   | `StdEnv/2016.4 gromacs/5.1.4`                      | `StdEnv/2016.4 cuda/8.0.44 gromacs/5.1.4`                 | Intel & MKL         |
+    | gromacs/5.0.7   | `StdEnv/2016.4 gromacs/5.0.7`                      | `StdEnv/2016.4 cuda/8.0.44 gromacs/5.0.7`                 | Intel & MKL         |
+    | gromacs/4.6.7   | `StdEnv/2016.4 gromacs/4.6.7`                      | `StdEnv/2016.4 cuda/8.0.44 gromacs/4.6.7`                 | Intel & MKL         |
     | gromacs/4.6.7   | `StdEnv/2016.4 gcc/5.4.0 openmpi/2.1.1 gromacs/4.6.7` | `StdEnv/2016.4 gcc/5.4.0 cuda/8.0 openmpi/2.1.1 gromacs/4.6.7` | GCC & MKL & ThreadMPI |
 
 **Notes:**
-*   [^gromacs-2021-bug] GROMACS versions 2020.0 up to and including 2021.5 contain a bug when used on GPUs of Volta or newer generations (i.e. V100, T4, A100, and H100) with `mdrun` option `-update gpu` that could have perturbed the virial calculation and, in turn, led to incorrect pressure coupling. The GROMACS developers state in the 2021.6 Release Notes[^gromacs-2021-release-notes]:
-    > *The GPU update is not enabled by default, so the error can only appear in simulations where it [the `-update gpu` option] was manually selected, and even in this case the error might be rare since we have not observed it in practice in the testing we have performed.*
-    Further discussion of this bug can be found in the GitLab issue #4393 of the GROMACS project[^gromacs-gitlab-issue].
+
+*   !!! warning
+    GROMACS versions 2020.0 up to and including 2021.5 contain a bug when used on GPUs of Volta or newer generations (i.e., V100, T4, A100, and H100) with `mdrun` option `-update gpu` that could have perturbed the virial calculation and, in turn, led to incorrect pressure coupling. The GROMACS developers state in the 2021.6 Release Notes:[^1]
+    > ''The GPU update is not enabled by default, so the error can only appear in simulations where it [the `-update gpu` option] was manually selected, and even in this case the error might be rare since we have not observed it in practice in the testing we have performed.''
+    Further discussion of this bug can be found in [GitLab issue #4393][^2] of the GROMACS project.
 *   Version 2020.4 and newer have been compiled for the new [Standard software environment](../programming/standard_software_environments.md) `StdEnv/2020`.
 *   Version 2018.7 and newer have been compiled with GCC compilers and the MKL-library, as they run a bit faster.
 *   Older versions have been compiled with either GCC compilers and FFTW or Intel compilers, using Intel MKL and Open MPI 2.1.1 libraries from the default environment as indicated in the table above.
 *   CPU (non-GPU) versions are available in both single- and double precision, with the exception of 2019.3 (**†**), where double precision is not available for AVX512.
 
-These modules can be loaded by using a `module load` command with the modules as stated in the second column in the above table.
-For example:
+These modules can be loaded by using a `module load` command with the modules as stated in the second column in the above table. For example:
 
 ```bash
 module load StdEnv/2023 gcc/12.3 openmpi/4.1.5 gromacs/2026.1
@@ -355,7 +361,7 @@ module load StdEnv/2023 gcc/12.3 openmpi/4.1.5 gromacs/2026.1
 module load StdEnv/2020 gcc/9.3.0 openmpi/4.0.3 gromacs/2023.2
 ```
 
-These versions are also available with GPU support, albeit only with single precision. In order to load the GPU enabled version, the `cuda` module needs to be loaded first. The modules needed are listed in the third column of above table, e.g.:
+These versions are also available with GPU support, albeit only with single precision. In order to load the GPU enabled version, the `cuda` module needs to be loaded first. The modules needed are listed in the third column of the above table, e.g.:
 
 ```bash
 module load StdEnv/2023 gcc/12.3 openmpi/4.1.5 cuda/12.6 gromacs/2026.1
@@ -368,27 +374,29 @@ For more information on environment modules, please refer to the [Using modules]
 ## Suffixes
 
 ### GROMACS 5.x, 2016.x and newer
+
 GROMACS 5 and newer releases consist of only four binaries that contain the full functionality. All GROMACS tools from previous versions have been implemented as sub-commands of the gmx binaries. Please refer to [GROMACS 5.0 Tool Changes](http://www.gromacs.org/Documentation/How-tos/Tool_Changes_for_5.0) and the [GROMACS documentation manuals](http://manual.gromacs.org/documentation/) for your version.
 
-*   `gmx` - mixed ("single") precision GROMACS with OpenMP (threading) but without MPI.
-*   `gmx_mpi` - mixed ("single") precision GROMACS with OpenMP and MPI.
-*   `gmx_d` - double precision GROMACS with OpenMP but without MPI.
-*   `gmx_mpi_d` - double precision GROMACS with OpenMP and MPI.
+*   **`gmx`** - mixed ("single") precision GROMACS with OpenMP (threading) but without MPI.
+*   **`gmx_mpi`** - mixed ("single") precision GROMACS with OpenMP and MPI.
+*   **`gmx_d`** - double precision GROMACS with OpenMP but without MPI.
+*   **`gmx_mpi_d`** - double precision GROMACS with OpenMP and MPI.
 
 ### GROMACS 4.6.7
+
 *   The double precision binaries have the suffix `_d`.
 *   The parallel single and double precision `mdrun` binaries are:
 
-```
-*   ```mdrun_mpi```
-*   ```mdrun_mpi_d```
-```
+*   **`mdrun_mpi`**
+*   **`mdrun_mpi_d`**
 
 ## Submission scripts
+
 Please refer to the page [Running jobs](../running-jobs/running_jobs.md) for help on using the SLURM workload manager.
 
 ### Serial jobs
-Here's a simple job script for serial mdrun:
+
+Here's a simple job script for serial `mdrun`:
 
 ```bash title="serial_gromacs_job.sh"
 #!/bin/bash
@@ -403,11 +411,12 @@ gmx mdrun -nt 1 -deffnm em
 This will run the simulation of the molecular system in the file `em.tpr`.
 
 ### Whole nodes
+
 Commonly, the systems simulated with GROMACS are so large that you should use a number of whole nodes for the simulation.
 
-Generally, the product of `--ntasks-per-node` and `--cpus-per-task` should match the number of CPU cores of the cluster’s compute nodes. See section [Performance and benchmarking](gromacs.md#performance-and-benchmarking) below.
+Generally, the product of `--ntasks-per-node` and `--cpus-per-task` should match the number of CPU cores of the cluster’s compute nodes. See section [Performance and benchmarking](#performance-and-benchmarking) below.
 
-On clusters with a large number of CPU cores (e.g. 192) per compute node, domain decomposition can become a limiting factor when choosing `--ntasks-per-node`. The larger a system is, the more it can be divided into smaller regions, allowing larger `--ntasks-per-node` values. If GROMACS reports an error about domain decomposition being impossible given the system size and requested number of domains, halve `--ntasks-per-node` and double `--cpus-per-task`.
+On clusters with a large number of CPU cores (e.g., 192) per compute node, domain decomposition can become a limiting factor when choosing `--ntasks-per-node`. The larger a system is, the more it can be divided into smaller regions, allowing larger `--ntasks-per-node` values. If GROMACS reports an error about domain decomposition being impossible given the system size and requested number of domains, halve `--ntasks-per-node` and double `--cpus-per-task`.
 
 === "Narval"
     ```bash title="gromacs_whole_node_narval.sh"
@@ -484,7 +493,7 @@ On clusters with a large number of CPU cores (e.g. 192) per compute node, domain
 
 Please read [Using GPUs with Slurm](../running-jobs/using_gpus_with_slurm.md) for general information on using GPUs on our systems.
 
-This is a job script for mdrun using 4 OpenMP threads and one GPU:
+This is a job script for `mdrun` using 4 OpenMP threads and one GPU:
 
 ```bash title="gpu_gromacs_job.sh"
 #!/bin/bash
@@ -501,19 +510,18 @@ gmx mdrun -ntomp ${SLURM_CPUS_PER_TASK:-1} -deffnm md
 
 #### Notes on running GROMACS on GPUs
 
-!!! warning
-    Note that using more than a single GPU usually leads to poor efficiency. Carefully test and compare multi-GPU and single-GPU performance before deciding to use more than one GPU for your simulations.
+Note that using more than a single GPU usually leads to poor efficiency. Carefully test and compare multi-GPU and single-GPU performance before deciding to use more than one GPU for your simulations.
 
-*   GROMACS versions 2020.0 up to and including 2021.5 contain a bug when used on GPUs of Volta or newer generations (i.e. V100, T4 and A100) with `mdrun` option `-update gpu` that could have perturbed the virial calculation and, in turn, led to incorrect pressure coupling. The GROMACS developers state in the 2021.6 Release Notes[^gromacs-2021-release-notes]:
-    > *The GPU update is not enabled by default, so the error can only appear in simulations where it was manually selected, and even in this case the error might be rare since we have not observed it in practice in the testing we have performed.*
-    Further discussion of this bug can be found in the GitLab issue #4393 of the GROMACS project[^gromacs-gitlab-issue].
+*   !!! warning
+    GROMACS versions 2020.0 up to and including 2021.5 contain a bug when used on GPUs of Volta or newer generations (i.e., V100, T4, and A100) with `mdrun` option `-update gpu` that could have perturbed the virial calculation and, in turn, led to incorrect pressure coupling. The GROMACS developers state in the 2021.6 Release Notes:[^1]
+    > ''The GPU update is not enabled by default, so the error can only appear in simulations where it was manually selected, and even in this case the error might be rare since we have not observed it in practice in the testing we have performed.''
+    Further discussion of this bug can be found in [GitLab issue #4393][^2] of the GROMACS project.
 *   Our clusters have differently configured GPU nodes.
-    On the page [Available GPUs](../running-jobs/using_gpus_with_slurm.md#available-gpus) you can find more information about the different node configurations (GPU models and number of GPUs and CPUs per node).
+    On the page [Using GPUs with Slurm#available-gpus](../running-jobs/using_gpus_with_slurm.md#available-gpus) you can find more information about the different node configurations (GPU models and number of GPUs and CPUs per node).
 *   GROMACS imposes a number of constraints for choosing the number of GPUs, tasks (MPI ranks) and OpenMP threads.
     For GROMACS 2018.2 the constraints are:
     *   The number of `--tasks-per-node` always needs to be the same as, or a multiple of the number of GPUs (`--gpus-per-node`).
-    *   GROMACS will not run GPU runs with only 1 OpenMP thread unless forced by setting the `-ntomp` option.
-        According to GROMACS developers, the optimum number of `--cpus-per-task` is between 2 and 6.
+    *   GROMACS will not run GPU runs with only 1 OpenMP thread unless forced by setting the `-ntomp` option. According to GROMACS developers, the optimum number of `--cpus-per-task` is between 2 and 6.
 *   Avoid using a larger fraction of CPUs and memory than the fraction of GPUs you have requested in a node.
 
 You can explore some benchmark results on our [MDBench portal](https://mdbench.ace-net.ca/mdbench/bform/?software_contains=GROMACS.cuda&software_id=&module_contains=&module_version=&site_contains=&gpu_model=&cpu_model=&arch=&dataset=6n4o).
@@ -540,44 +548,46 @@ The following job script runs three similar simulations in separate directories 
     #SBATCH --cpus-per-task=4        # number of OpenMP threads per MPI process
     #SBATCH --mem-per-cpu=2000M      # memory limit per CPU core (megabytes)
     #SBATCH --time=0:30:00           # time limit (D-HH:MM:ss)
-
+    
     module load StdEnv/2023 gcc/12.3 openmpi/4.1.5 cuda/12.6 gromacs/2026.1
-
+    
     export OMP_NUM_THREADS="${SLURM_CPUS_PER_TASK:-1}"
-
+    
     srun gmx_mpi mdrun -ntomp ${SLURM_CPUS_PER_TASK:-1} -deffnm md \
         -multidir sim1 sim2 sim3
     ```
 
 The second solution is to use a [MIG](../programming/multi-instance_gpu.md) instance (a fraction of a GPU) rather than a full GPU. This is the preferred solution if you have a single simulation or if your simulations are dissimilar, for instance:
 
-*   Systems with different sizes (more than a 10 % difference in the numbers of atoms)
+*   Systems with different sizes (more than a 10% difference in the numbers of atoms)
 *   Systems with different shapes or compositions, such as a membrane-bound versus a soluble protein
 
 !!! warning
     Note that [Hyper-Q / MPS](hyper-q___mps.md) should never be used with GROMACS. The built-in `-multidir` option achieves the same functionality more efficiently.
 
-## Usage
-!!! todo
+# Usage
+
+!!! note danger "Work in progress"
     More content for this section will be added at a later time.
 
-### System preparation
-In order to run a simulation, one needs to create a *tpr* file (portable binary run input file). This file contains the starting structure of the simulation, the molecular topology and all the simulation parameters.
+## System preparation
+
+In order to run a simulation, one needs to create a *tpr* file (portable binary run input file). This file contains the starting structure of the simulation, the molecular topology, and all the simulation parameters.
 
 *Tpr* files are created with the `gmx grompp` command (or simply `grompp` for versions older than 5.0). Therefore one needs the following files:
-*   The coordinate file with the starting structure. GROMACS can read the starting structure from various file formats, such as '.gro', '.pdb' or '.cpt' (checkpoint).
-*   The system topology ('.top') file. It defines which force field is used and how the force field parameters are applied to the simulated system. Often the topologies for individual parts of the simulated system (e.g. molecules) are placed in separate '.itp' files and included in the '.top' file using a `#include` directive.
-*   The run parameter ('.mdp') file. See the GROMACS user guide for a detailed description of the options.
+*   The coordinate file with the starting structure. GROMACS can read the starting structure from various file formats, such as `.gro`, `.pdb` or `.cpt` (checkpoint).
+*   The system topology (`.top`) file. It defines which force field is used and how the force field parameters are applied to the simulated system. Often the topologies for individual parts of the simulated system (e.g., molecules) are placed in separate `.itp` files and included in the `.top` file using a `#include` directive.
+*   The run parameter (`.mdp`) file. See the GROMACS user guide for a detailed description of the options.
 
-*Tpr* files are portable, that is they can be *grompp*'ed on one machine, copied over to a different machine and used as an input file for *mdrun*. One should always use the same version for both *grompp* and *mdrun*. Although *mdrun* is able to use *tpr* files that have been created with an older version of *grompp*, this can lead to unexpected simulation results.
+*Tpr* files are portable, that is they can be `grompp`'ed on one machine, copied over to a different machine, and used as an input file for `mdrun`. One should always use the same version for both `grompp` and `mdrun`. Although `mdrun` is able to use *tpr* files that have been created with an older version of `grompp`, this can lead to unexpected simulation results.
 
-### Running simulations
+## Running simulations
 
 MD Simulations often take much longer than the maximum walltime for a job to complete and therefore need to be restarted. To minimize the time a job needs to wait before it starts, you should maximize [the number of nodes you have access to](../running-jobs/job_scheduling_policies.md#percentage-of-the-nodes-you-have-access-to) by choosing a shorter running time for your job. Requesting a walltime of 24 hours or 72 hours (three days) is often a good trade-off between waiting time and running time.
 
 You should use the `mdrun` parameter `-maxh` to tell the program the requested walltime so that it gracefully finishes the current timestep when reaching 99% of this walltime. This causes `mdrun` to create a new checkpoint file at this final timestep and gives it the chance to properly close all output files (trajectories, energy- and log-files, etc.).
 
-For example use `#SBATCH --time=24:00` along with `gmx mdrun -maxh 24 ...` or `#SBATCH --time=3-00:00` along with `gmx mdrun -maxh 72 ...`.
+For example, use `#SBATCH --time=24:00` along with `gmx mdrun -maxh 24 ...` or `#SBATCH --time=3-00:00` along with `gmx mdrun -maxh 72 ...`.
 
 ```bash title="gromacs_job.sh"
 #!/bin/bash
@@ -594,11 +604,11 @@ srun  gmx_mpi  mdrun  -deffnm md  -maxh 24
 
 ### Restarting simulations
 
-You can restart a simulation by using the same `mdrun` command as the original simulation and adding the `-cpi state.cpt` parameter where `state.cpt` is the filename of the most recent checkpoint file. Mdrun will by default (since version 4.5) try to append to the existing files (trajectories, energy- and log-files, etc.). GROMACS will check the consistency of the output files and - if needed - discard timesteps that are newer than that of the checkpoint file.
+You can restart a simulation by using the same `mdrun` command as the original simulation and adding the `-cpi state.cpt` parameter where `state.cpt` is the filename of the most recent checkpoint file. `Mdrun` will by default (since version 4.5) try to append to the existing files (trajectories, energy- and log-files, etc.). GROMACS will check the consistency of the output files and - if needed - discard timesteps that are newer than that of the checkpoint file.
 
 Using the `-maxh` parameter ensures that the checkpoint and output files are written in a consistent state when the simulation reaches the time limit.
 
-The GROMACS manual contains more detailed information[^gromacs-user-guide-managing][^gromacs-mdrun-manual].
+The GROMACS manual contains more detailed information [^3][^4].
 
 ```bash title="gromacs_job_restart.sh"
 #!/bin/bash
@@ -615,7 +625,7 @@ srun  gmx_mpi  mdrun  -deffnm md  -maxh 24.0  -cpi md.cpt
 
 ### Checkpointing simulations
 
-You can use GROMACS’ ability to restart a simulation to split a long simulation over multiple short jobs. Shorter jobs wait less in the queue. In particular, those that request 3 hours or less are eligible for [backfill scheduling](../running-jobs/job_scheduling_policies.md). This is especially useful if your research group has only a default resource allocation (e.g. `def-sponsor`) on the cluster, but will benefit even those with competitive resource allocations (e.g. `rrg-sponsor`).
+You can use GROMACS’ ability to restart a simulation to split a long simulation over multiple short jobs. Shorter jobs wait less in the queue. In particular, those that request 3 hours or less are eligible for backfill scheduling. (See our [job scheduling policies](../running-jobs/job_scheduling_policies.md).) This is especially useful if your research group has only a default resource allocation (e.g., `def-sponsor`) on the cluster, but will benefit even those with competitive resource allocations (e.g., `rrg-sponsor`).
 
 By using a [job array](../running-jobs/job_arrays.md), you can automate checkpointing. With an array job script such as the following, a single `sbatch` call submits multiple short jobs, but only the first one is eligible to start. As soon as this first job has completed, the next one becomes eligible to start and resume your simulation. This process repeats until all jobs are complete or the simulation is finished, at which point any remaining pending jobs are automatically cancelled.
 
@@ -628,26 +638,26 @@ By using a [job array](../running-jobs/job_arrays.md), you can automate checkpoi
     #SBATCH --mem-per-cpu=2000M      # memory per CPU (in MB)
     #SBATCH --time=03:00:00          # time limit (D-HH:MM:ss)
     #SBATCH --array=1-20%1           # job range, running only 1 at a time
-
+    
     module load StdEnv/2023 gcc/12.3 openmpi/4.1.5 gromacs/2024.4
-
+    
     # Adjust simulation name (default filename for -deffnm option)
     sim_name=md
-
+    
     nt=${SLURM_CPUS_PER_TASK:-1}
     export OMP_NUM_THREADS=$nt
-
+    
     nhours=$(squeue -h -j $SLURM_JOB_ID -O TimeLimit | cut -d: -f1)
-
+    
     srun gmx_mpi mdrun -ntomp $nt -deffnm $sim_name -cpi "$sim_name.cpt" -maxh $nhours
-
+    
     exit_code=$?
     if (( exit_code != 0 )); then
     	echo "Simulation exited with an error, cancelling pending jobs"
     	scancel -t pending $SLURM_ARRAY_JOB_ID
     	exit $exit_code
     fi
-
+    
     nsteps_expr='^[[:space:]]*nsteps[[:space:]]*=[[:space:]]*[[:digit:]]*$'
     nsteps=$(grep "$nsteps_expr" "$sim_name.log" | awk '{ print $3 }')
     if grep "^Writing checkpoint, step $nsteps at " "$sim_name.log"; then
@@ -663,26 +673,26 @@ By using a [job array](../running-jobs/job_arrays.md), you can automate checkpoi
     #SBATCH --mem-per-cpu=2000M      # memory limit per CPU core (megabytes)
     #SBATCH --time=03:00:00          # time limit (D-HH:MM:ss)
     #SBATCH --array=1-20%1           # job range, running only 1 at a time
-
+    
     module load StdEnv/2023 gcc/12.3 openmpi/4.1.5 cuda/12.2 gromacs/2024.4
-
+    
     # Adjust simulation name (default filename for -deffnm option)
     sim_name=md
-
+    
     nt=${SLURM_CPUS_PER_TASK:-1}
     export OMP_NUM_THREADS=$nt
-
+    
     nhours=$(squeue -h -j $SLURM_JOB_ID -O TimeLimit | cut -d: -f1)
-
+    
     srun gmx mdrun -ntomp $nt -deffnm $sim_name -cpi "$sim_name.cpt" -maxh $nhours
-
+    
     exit_code=$?
     if (( exit_code != 0 )); then
     	echo "Simulation exited with an error, cancelling pending jobs"
     	scancel -t pending $SLURM_ARRAY_JOB_ID
     	exit $exit_code
     fi
-
+    
     nsteps_expr='^[[:space:]]*nsteps[[:space:]]*=[[:space:]]*[[:digit:]]*$'
     nsteps=$(grep "$nsteps_expr" "$sim_name.log" | awk '{ print $3 }')
     if grep "^Writing checkpoint, step $nsteps at " "$sim_name.log"; then
@@ -691,13 +701,13 @@ By using a [job array](../running-jobs/job_arrays.md), you can automate checkpoi
     fi
     ```
 
-## Performance and benchmarking
+# Performance and benchmarking
 
 A team at [ACENET](https://www.ace-net.ca/) has created a [Molecular Dynamics Performance Guide](https://mdbench.ace-net.ca/mdbench/) for Alliance clusters. It can help you determine optimal conditions for AMBER, GROMACS, NAMD, and OpenMM jobs. The present section focuses on GROMACS performance.
 
-Getting the best mdrun performance with GROMACS is not a straightforward task. The GROMACS developers are maintaining a long section in their user-guide dedicated to mdrun-performance[^gromacs-user-guide-performance] which explains all relevant options/parameters and strategies.
+Getting the best `mdrun` performance with GROMACS is not a straightforward task. The GROMACS developers are maintaining a long section in their user-guide dedicated to `mdrun`-performance[^5] which explains all relevant options/parameters and strategies.
 
-There is no "One size fits all", but the best parameters to choose highly depend on the size of the system (number of particles as well as size and shape of the simulation box) and the simulation parameters (cutoffs, use of [Particle-Mesh-Ewald](http://manual.gromacs.org/documentation/current/user-guide/mdrun-performance.html#gromacs-background-information) (PME) method for long-range electrostatics).
+There is no "One size fits all", but the best parameters to choose highly depend on the size of the system (number of particles as well as size and shape of the simulation box) and the simulation parameters (cutoffs, use of Particle-Mesh-Ewald[^6] (PME) method for long-range electrostatics).
 
 GROMACS prints performance information and statistics at the end of the `md.log` file, which is helpful in identifying bottlenecks. This section often contains notes on how to further improve the performance.
 
@@ -705,9 +715,7 @@ The **simulation performance** is typically quantified by the number of nanoseco
 
 **Parallel scaling** is a measure of how effectively the compute resources are used. It is defined as:
 
-$$
-S = \frac{p_N}{N \cdot p_1}
-$$
+$$S = p_N / ( N * p_1 )$$
 
 Where *p<sub>N</sub>* is the performance using *N* CPU cores.
 
@@ -717,9 +725,9 @@ Ideally, the performance increases linearly with the number of CPU cores ("linea
 
 To set the number of MPI processes (called MPI-ranks in the GROMACS documentation), use one of the `--ntasks` or `--ntasks-per-node` Slurm options in your job script.
 
-GROMACS uses [**Domain Decomposition**](http://manual.gromacs.org/documentation/current/user-guide/mdrun-performance.html#gromacs-background-information) (DD) to distribute the work of solving the non-bonded Particle-Particle (PP) interactions across multiple CPU cores. This is done by effectively cutting the simulation box along the X, Y and/or Z axes into domains and assigning each domain to one MPI process.
+GROMACS uses **Domain Decomposition**[^6] (DD) to distribute the work of solving the non-bonded Particle-Particle (PP) interactions across multiple CPU cores. This is done by effectively cutting the simulation box along the X, Y, and/or Z axes into domains and assigning each domain to one MPI process.
 
-This works well until the time needed for communication becomes large with respect to the size (*number of particles* and *volume*) of the domain. In that case the parallel scaling will drop significantly below 1 and in extreme cases the performance drops when increasing the number of domains.
+This works well until the time needed for communication becomes large with respect to the size (*number of particles* and *volume*) of the domain. In that case, the parallel scaling will drop significantly below 1 and in extreme cases the performance drops when increasing the number of domains.
 
 GROMACS can use **Dynamic Load Balancing** to shift the boundaries between domains to some extent, in order to avoid certain domains taking significantly longer to solve than others. The `mdrun` parameter `-dlb auto` is the default.
 
@@ -729,19 +737,19 @@ Domains cannot be smaller in any direction than the longest cutoff radius.
 
 The Particle-Mesh-Ewald method (PME) is often used to calculate the long-range non-bonded interactions (interactions beyond the cutoff radius). As PME requires global communication, the performance can degrade quickly when many MPI processes are involved that are calculating both the short-range (PP) as well as the long-range (PME) interactions. This is avoided by having dedicated MPI processes that only perform PME (PME-ranks).
 
-GROMACS mdrun by default uses heuristics to dedicate a number of MPI processes to PME when the total number of MPI processes is 12 or greater. The mdrun parameter `-npme` can be used to select the number of PME ranks manually.
+GROMACS `mdrun` by default uses heuristics to dedicate a number of MPI processes to PME when the total number of MPI processes is 12 or greater. The `mdrun` parameter `-npme` can be used to select the number of PME ranks manually.
 
-In case there is a significant "Load Imbalance" between the PP and PME ranks (e.g. the PP ranks have more work per timestep than the PME ranks), one can shift work from the PP ranks to the PME ranks by increasing the cutoff radius. This will not affect the result, as the sum of short-range + long-range forces (or energies) will be the same for a given timestep. Mdrun will attempt to do that automatically since version 4.6 unless the mdrun parameter `-notunepme` is used.
+In case there is a significant "Load Imbalance" between the PP and PME ranks (e.g., the PP ranks have more work per timestep than the PME ranks), one can shift work from the PP ranks to the PME ranks by increasing the cutoff radius. This will not affect the result, as the sum of short-range + long-range forces (or energies) will be the same for a given timestep. `Mdrun` will attempt to do that automatically since version 4.6 unless the `mdrun` parameter `-notunepme` is used.
 
-Since version 2018, PME can be offloaded to the GPU (see below) however the implementation as of version 2018.1 still has several limitations[^gromacs-gpu-pme] among them that only a single GPU rank can be dedicated to PME.
+Since version 2018, PME can be offloaded to the GPU (see below) however the implementation as of version 2018.1 still has several limitations[^7] among them that only a single GPU rank can be dedicated to PME.
 
 ## OpenMP threads / CPUs-per-task
 
-Once Domain Decomposition with MPI processes reaches the scaling limit (parallel scaling starts dropping), performance can be further improved by using **OpenMP threads** to spread the work of an MPI process (rank) over more than one CPU core. To use OpenMP threads, use Slurm's `--cpus-per-task` parameter in the job script (both for `#SBATCH>` and `srun`) and either set the *OMP_NUM_THREADS* variable with: `export OMP_NUM_THREADS="${SLURM_CPUS_PER_TASK:-1}"` (recommended) or the mdrun parameter `-ntomp ${SLURM_CPUS_PER_TASK:-1}`.
+Once Domain Decomposition with MPI processes reaches the scaling limit (parallel scaling starts dropping), performance can be further improved by using **OpenMP threads** to spread the work of an MPI process (rank) over more than one CPU core. To use OpenMP threads, use Slurm's `--cpus-per-task` parameter in the job script (both for `#SBATCH>` and `srun`) and either set the `OMP_NUM_THREADS` variable with: `export OMP_NUM_THREADS="${SLURM_CPUS_PER_TASK:-1}"` (recommended) or the `mdrun` parameter `-ntomp ${SLURM_CPUS_PER_TASK:-1}`.
 
-According to GROMACS developers, the optimum is usually between 2 and 6 OpenMP threads per MPI process (cpus-per-task). However for jobs running on a very large number of nodes it might be worth trying an even larger number of *cpus-per-task*.
+According to GROMACS developers, the optimum is usually between 2 and 6 OpenMP threads per MPI process (cpus-per-task). However, for jobs running on a very large number of nodes it might be worth trying an even larger number of `cpus-per-task`.
 
-Especially for systems that don't use PME, we don't have to worry about a "PP-PME Load Imbalance". In those cases we can choose 2 or 4 *ntasks-per-node* and set *cpus-per-task* to a value that *ntasks-per-node * cpus-per-task* matches the number of CPU cores in a compute node.
+Especially for systems that don't use PME, we don't have to worry about a "PP-PME Load Imbalance". In those cases we can choose 2 or 4 `ntasks-per-node` and set `cpus-per-task` to a value that `ntasks-per-node * cpus-per-task` matches the number of CPU cores in a compute node.
 
 ## CPU architecture
 
@@ -749,92 +757,98 @@ GROMACS uses optimized kernel functions to compute the real-space portion of sho
 
 ## GPUs
 
-!!! todo
+!!! note danger "Work in progress"
     Tips on how to use GPUs efficiently will be added soon.
 
-## Analyzing results
+# Analyzing results
 
-### GROMACS tools
+## GROMACS tools
 
-*GROMACS* contains a large number of tools that can be used for common tasks of post-processing and analysis. The *GROMACS* manual contains a [list of available commands organized by topic](https://manual.gromacs.org/current/user-guide/cmdline.html#commands-by-topic) as well as [organized by name](https://manual.gromacs.org/current/user-guide/cmdline.html#commands-by-name) that give a short description and link to the corresponding command reference.
+GROMACS contains a large number of tools that can be used for common tasks of post-processing and analysis. The GROMACS manual contains a [list of available commands organized by topic](https://manual.gromacs.org/current/user-guide/cmdline.html#commands-by-topic) as well as [organized by name](https://manual.gromacs.org/current/user-guide/cmdline.html#commands-by-name) that give a short description and link to the corresponding command reference.
 
-These commands will typically read the trajectory (in the *XTC*, *TNG* or *TRR* format) as well as a coordinate file (*GRO*, *PDB*, *TPR*, etc.) and write plots in the [XVG format](https://manual.gromacs.org/current/reference-manual/file-formats.html#xvg) which can be used for inputs for the [plotting tool Grace](https://plasma-gate.weizmann.ac.il/Grace/) (command `xmgrace`; [Grace User Guide](https://plasma-gate.weizmann.ac.il/Grace/doc/UsersGuide.html)). As *XVG* files are simple text files, they can also be processed with scripts or imported into other spreadsheet programs.
+These commands will typically read the trajectory (in the *XTC*, *TNG* or *TRR* format) as well as a coordinate file (*GRO*, *PDB*, *TPR*, etc.) and write plots in the [*XVG* format](https://manual.gromacs.org/current/reference-manual/file-formats.html#xvg) which can be used for inputs for the [plotting tool Grace](https://plasma-gate.weizmann.ac.il/Grace/) (command `xmgrace`; [Grace User Guide](https://plasma-gate.weizmann.ac.il/Grace/doc/UsersGuide.html)). As *XVG* files are simple text files, they can also be processed with scripts or imported into other spreadsheet programs.
 
-### VMD
+## VMD
+
 [VMD](vmd.md) is a molecular visualization program for displaying, animating, and analyzing large biomolecular systems using 3-D graphics and built-in scripting. It can be used to visually inspect GROMACS trajectories and also offers a large number of built-in and external plugins for analysis. It can also be used in command line mode.
 
-### Using Python
+## Using Python
 
-[MDAnalysis](https://www.mdanalysis.org/) and [MDTraj](https://www.mdtraj.org/) are two [Python](python.md) packages that we provide as [precompiled Python wheels](../programming/available_python_wheels.md). They can read and write trajectory and coordinate files of *GROMACS* (*TRR* and *XTC*) and many other MD packages and also include a variety of commonly used analysis functions. *MDAnalysis* can also read topology information from *GROMACS* *TPR* files, though often not those created by the latest versions of *GROMACS*.
+[MDAnalysis](https://www.mdanalysis.org/) and [MDTraj](https://www.mdtraj.org/) are two [Python](python.md) packages that we provide as [precompiled Python wheels](../programming/available_python_wheels.md). They can read and write trajectory and coordinate files of GROMACS (*TRR* and *XTC*) and many other MD packages and also include a variety of commonly used analysis functions. MDAnalysis can also read topology information from GROMACS *TPR* files, though often not those created by the latest versions of GROMACS.
 
-Both packages feature a versatile atom-selection language and expose the coordinates of the trajectories, which makes it very easy to write custom analysis tools that can be tailored to a specific problem and integrate well with Python's data-science packages like *NumPy*, *SciPy* and *Pandas*, as well as plotting libraries like *Matplotlib*/*Pyplot* and *Seaborn*.
+Both packages feature a versatile atom-selection language and expose the coordinates of the trajectories, which makes it very easy to write custom analysis tools that can be tailored to a specific problem and integrate well with Python's data-science packages like `NumPy`, `SciPy` and `Pandas`, as well as plotting libraries like `Matplotlib`/`Pyplot` and `Seaborn`.
 
-## Related modules
+# Related modules
 
-### GROMACS-Plumed
-[PLUMED Home](http://www.plumed.org/home) is an open source library for free energy calculations in molecular systems which works together with some of the most popular molecular dynamics engines.
+## GROMACS-Plumed
+
+PLUMED[^8] is an open-source library for free energy calculations in molecular systems which works together with some of the most popular molecular dynamics engines.
 
 The `gromacs-plumed` modules are versions of GROMACS that have been patched with PLUMED's modifications so that they can run meta-dynamics simulations.
 
 Also note that `gromacs` modules version 2025 and newer have native PLUMED support enabled, which can be used after loading any `plumed` module.
 
 === "StdEnv/2023"
-    | GROMACS | PLUMED | modules for running on CPUs | modules for running on GPUs (CUDA) | Notes |
-    | :------ | :----- | :-------------------------- | :-------------------------------- | :---- |
-    | v2023.5 | v2.9.2 | `StdEnv/2023 gcc/12.3 openmpi/4.1.5 gromacs-plumed/2023.5` | `StdEnv/2023 gcc/12.3 openmpi/4.1.5 cuda/12.2 gromacs-plumed/2023.5` | GCC, FlexiBLAS & FFTW |
-    | v2020.7 | v2.8.5 | `StdEnv/2023 gcc/12.3 openmpi/4.1.5 gromacs-plumed/2020.7` | `StdEnv/2023 gcc/12.3 openmpi/4.1.5 cuda/12.2 gromacs-plumed/2020.7` | GCC, FlexiBLAS & FFTW |
+    | GROMACS | PLUMED | modules for running on CPUs                            | modules for running on GPUs (CUDA)                              | Notes                  |
+    | :------ | :----- | :--------------------------------------------------- | :------------------------------------------------------------ | :--------------------- |
+    | v2023.5 | v2.9.2 | `StdEnv/2023 gcc/12.3 openmpi/4.1.5 gromacs-plumed/2023.5` | `StdEnv/2023 gcc/12.3 openmpi/4.1.5 cuda/12.2 gromacs-plumed/2023.5` | GCC, FlexiBLAS & FFTW  |
+    | v2020.7 | v2.8.5 | `StdEnv/2023 gcc/12.3 openmpi/4.1.5 gromacs-plumed/2020.7` | `StdEnv/2023 gcc/12.3 openmpi/4.1.5 cuda/12.2 gromacs-plumed/2020.7` | GCC, FlexiBLAS & FFTW  |
+
 === "StdEnv/2020"
-    | GROMACS | PLUMED | modules for running on CPUs | modules for running on GPUs (CUDA) | Notes |
-    | :------ | :----- | :-------------------------- | :-------------------------------- | :---- |
+    | GROMACS | PLUMED | modules for running on CPUs                            | modules for running on GPUs (CUDA)                              | Notes         |
+    | :------ | :----- | :--------------------------------------------------- | :------------------------------------------------------------ | :------------ |
     | v2022.6 | v2.8.3 | `StdEnv/2020 gcc/9.3.0 openmpi/4.0.3 gromacs-plumed/2022.6` | `StdEnv/2020 gcc/9.3.0 cuda/11.4 openmpi/4.0.3 gromacs-plumed/2022.6` | GCC, FlexiBLAS & FFTW |
     | v2022.3 | v2.8.1 | `StdEnv/2020 gcc/9.3.0 openmpi/4.0.3 gromacs-plumed/2022.3` | `StdEnv/2020 gcc/9.3.0 cuda/11.4 openmpi/4.0.3 gromacs-plumed/2022.3` | GCC, FlexiBLAS & FFTW |
     | v2021.6 | v2.7.4 | `StdEnv/2020 gcc/9.3.0 openmpi/4.0.3 gromacs-plumed/2021.6` | `StdEnv/2020 gcc/9.3.0 cuda/11.4 openmpi/4.0.3 gromacs-plumed/2021.6` | GCC, FlexiBLAS & FFTW |
     | v2021.4 | v2.7.3 | `StdEnv/2020 gcc/9.3.0 openmpi/4.0.3 gromacs-plumed/2021.4` | `StdEnv/2020 gcc/9.3.0 cuda/11.4 openmpi/4.0.3 gromacs-plumed/2021.4` | GCC, FlexiBLAS & FFTW |
-    | v2021.2 | v2.7.1 | `StdEnv/2020 gcc/9.3.0 openmpi/4.0.3 gromacs-plumed/2021.2` | `StdEnv/2020 gcc/9.3.0 cuda/11.0 openmpi/4.0.3 gromacs-plumed/2021.2` | GCC & MKL |
-    | v2019.6 | v2.6.2 | `StdEnv/2020 gcc/9.3.0 openmpi/4.0.3 gromacs-plumed/2019.6` | `StdEnv/2020 gcc/9.3.0 cuda/11.0 openmpi/4.0.3 gromacs-plumed/2019.6` | GCC & MKL |
+    | v2021.2 | v2.7.1 | `StdEnv/2020 gcc/9.3.0 openmpi/4.0.3 gromacs-plumed/2021.2` | `StdEnv/2020 gcc/9.3.0 cuda/11.0 openmpi/4.0.3 gromacs-plumed/2021.2` | GCC & MKL             |
+    | v2019.6 | v2.6.2 | `StdEnv/2020 gcc/9.3.0 openmpi/4.0.3 gromacs-plumed/2019.6` | `StdEnv/2020 gcc/9.3.0 cuda/11.0 openmpi/4.0.3 gromacs-plumed/2019.6` | GCC & MKL             |
+
 === "StdEnv/2018 and StdEnv/2016"
     !!! warning "Deprecated"
         These [software environments](../programming/standard_software_environments.md) are no longer supported.
-    | GROMACS | PLUMED | modules for running on CPUs | modules for running on GPUs (CUDA) | Notes |
-    | :------ | :----- | :-------------------------- | :-------------------------------- | :---- |
+
+    | GROMACS | PLUMED | modules for running on CPUs                               | modules for running on GPUs (CUDA)                                  | Notes   |
+    | :------ | :----- | :------------------------------------------------------ | :------------------------------------------------------------------ | :------ |
     | v2019.6 | v2.5.4 | `StdEnv/2018.3 gcc/7.3.0 openmpi/3.1.2 gromacs-plumed/2019.6` | `StdEnv/2018.3 gcc/7.3.0 cuda/10.0.130 openmpi/3.1.2 gromacs-plumed/2019.6` | GCC & MKL |
     | v2019.5 | v2.5.3 | `StdEnv/2018.3 gcc/7.3.0 openmpi/3.1.2 gromacs-plumed/2019.5` | `StdEnv/2018.3 gcc/7.3.0 cuda/10.0.130 openmpi/3.1.2 gromacs-plumed/2019.5` | GCC & MKL |
     | v2018.1 | v2.4.2 | `StdEnv/2016.4 gcc/6.4.0 openmpi/2.1.1 gromacs-plumed/2018.1` | `StdEnv/2016.4 gcc/6.4.0 cuda/9.0.176 openmpi/2.1.1 gromacs-plumed/2018.1` | GCC & FFTW |
     | v2016.3 | v2.3.2 | `StdEnv/2016.4 intel/2016.4 openmpi/2.1.1 gromacs-plumed/2016.3` | `StdEnv/2016.4 intel/2016.4 cuda/8.0.44 openmpi/2.1.1 gromacs-plumed/2016.3` | Intel & MKL |
 
-### GROMACS-Colvars
-[Colvars Home](https://colvars.github.io/) is a software module for molecular simulation programs, which adds additional capabilities of collective variables to apply biasing potentials, calculate potentials-of-mean-force (PMFs) along any set of variables, use enhanced sampling methods, such as Adaptive Biasing Force (ABF), metadynamics, steered MD and umbrella sampling.
+## GROMACS-Colvars
 
-As of GROMACS v2024[^gromacs-2024-highlights], the Colvars library has been added to the official GROMACS releases and can be used without the need of a patched version.
+Colvars[^9] is a software module for molecular simulation programs, which adds additional capabilities of collective variables to apply biasing potentials, calculate potentials-of-mean-force (PMFs) along any set of variables, use enhanced sampling methods, such as Adaptive Biasing Force (ABF), metadynamics, steered MD and umbrella sampling.
+
+As of GROMACS v2024[^10], the Colvars library has been added to the official GROMACS releases and can be used without the need of a patched version.
 
 Documentation on how to use Colvars with GROMACS:
-*   *Collective Variable simulations with the Colvars module*[^gromacs-colvars-manual] in the GROMACS Reference manual,
-*   [Colvars .mdp Options (GROMACS User guide)](https://manual.gromacs.org/current/user-guide/mdp-options.html#collective-variables-colvars-module),
-*   the [Colvars Reference manual for GROMACS](https://colvars.github.io/colvars-refman-gromacs/colvars-refman-gromacs.html)[^colvars-gromacs],
-*   the publication: Fiorin et al. **2013**, *Using collective variables to drive molecular dynamics simulations.*[^colvars-paper]
+*   [Collective Variable simulations with the Colvars module (GROMACS Reference manual)](https://manual.gromacs.org/current/reference-manual/special/colvars.html)
+*   [Colvars .mdp Options (GROMACS User guide)](https://manual.gromacs.org/current/user-guide/mdp-options.html#collective-variables-colvars-module)
+*   [Colvars Reference manual for GROMACS](https://colvars.github.io/colvars-refman-gromacs/colvars-refman-gromacs.html)
+*   [Fiorin et al. 2013, *Using collective variables to drive molecular dynamics simulations.*](http://dx.doi.org/10.1080/00268976.2013.813594)
 
 GROMACS versions prior to v2024 required that they have been patched with Colvars modifications, so that the collective variables can be used in simulations.
 The `gromacs-colvars/2020.6` module is such a modified version of GROMACS that includes Colvars 2021-12-20.
 
-| GROMACS | Colvars    | modules for running on CPUs | modules for running on GPUs (CUDA) | Notes |
-| :------ | :--------- | :-------------------------- | :-------------------------------- | :---- |
-| v2020.6 | 2021-12-20 | `StdEnv/2020 gcc/9.3.0 openmpi/4.0.3 gromacs-colvars/2020.6` | `StdEnv/2020 gcc/9.3.0 cuda/11.4 openmpi/4.0.3 gromacs-colvars/2020.6` | GCC, FlexiBLAS & FFTW |
+| GROMACS | Colvars    | modules for running on CPUs                             | modules for running on GPUs (CUDA)                              | Notes                  |
+| :------ | :--------- | :---------------------------------------------------- | :------------------------------------------------------------ | :--------------------- |
+| v2020.6 | 2021-12-20 | `StdEnv/2020 gcc/9.3.0 openmpi/4.0.3 gromacs-colvars/2020.6` | `StdEnv/2020 gcc/9.3.0 cuda/11.4 openmpi/4.0.3 gromacs-colvars/2020.6` | GCC, FlexiBLAS & FFTW  |
 
-### GROMACS-CP2K
-[CP2K Home](https://www.cp2k.org/) is a quantum chemistry and solid-state physics software package.
-Since version 2022 GROMACS can be compiled with [CP2K-support](https://manual.gromacs.org/documentation/current/install-guide/index.html#building-with-cp2k-qm-mm-support)[^gromacs-cp2k] to enable Hybrid Quantum-Classical simulations (QM/MM)[^gromacs-cp2k-qmmm-ref].
+## GROMACS-CP2K
+
+CP2K[^11] is a quantum chemistry and solid-state physics software package. Since version 2022 GROMACS can be compiled with CP2K-support[^12] to enable Hybrid Quantum-Classical simulations (QM/MM)[^13].
 
 The `gromacs-cp2k` modules are versions of GROMACS that have been compiled with CP2K QM/MM support.
 
-Different from other GROMACS modules, these modules are only available for CPU calculations and not for GPUs (CUDA).
-Also the modules contain only MPI-enabled executables:
+Different from other GROMACS modules, these modules are only available for CPU calculations and not for GPUs (CUDA). Also the modules contain only MPI-enabled executables:
 
-*   `gmx_mpi` - mixed precision GROMACS with OpenMP and MPI.
-*   `gmx_mpi_d` - double precision GROMACS with OpenMP and MPI.
+*   **`gmx_mpi`** - mixed precision GROMACS with OpenMP and MPI.
+*   **`gmx_mpi_d`** - double precision GROMACS with OpenMP and MPI.
 
-| GROMACS | CP2K | modules for running on CPUs | Notes |
-| :------ | :--- | :-------------------------- | :---- |
-| v2022.2 | 9.1  | `StdEnv/2020 gcc/9.3.0 openmpi/4.0.3 gromacs-cp2k/2022.2` | GCC, FlexiBLAS & FFTW |
+| GROMACS | CP2K | modules for running on CPUs                         | Notes                  |
+| :------ | :--- | :------------------------------------------------ | :--------------------- |
+| v2026.3 | 2025 | `StdEnv/2023 gcc/12.3 openmpi/4.1.5 gromacs-cp2k/2026.3` | GCC, FlexiBLAS & FFTW  |
+| v2022.2 | 9.1  | `StdEnv/2020 gcc/9.3.0 openmpi/4.0.3 gromacs-cp2k/2022.2` | GCC, FlexiBLAS & FFTW  |
 
 Here are links to various resources for running QM/MM simulations with this combination of GROMACS and CP2K:
 
@@ -846,20 +860,15 @@ Here are links to various resources for running QM/MM simulations with this comb
     *   [GitHub Repository](https://github.com/bioexcel/2022-06-16-gromacs-cp2k-tutorial) with example file for BioExcel Tutorial.
 *   [GROMACS-CP2K integration](https://www.cp2k.org/tools:gromacs) on CP2K homepage.
 
-### GROMACS-LS
-[GROMACS-LS and MDStress library](https://vanegaslab.org/software)[^local-stress] and the MDStress library enable the calculation of local stress fields from molecular dynamics simulations.
-The MDStress library is included in the GROMACS-LS module.
+## GROMACS-LS
+
+GROMACS-LS[^14] and the MDStress library enable the calculation of local stress fields from molecular dynamics simulations. The MDStress library is included in the GROMACS-LS module.
 
 Please refer to the manual for GROMACS-LS at: [Local_stress.pdf](https://vanegaslab.org/files/Local_stress.pdf) and the publications listed therein for information about the method and how to use it.
 
-Invoking commands like `gmx_LS mdrun -rerun` or `gmx_LS trjconv` needs a `.tpr` file.
-If you want to analyze a trajectory that has been simulated with a newer version of GROMACS (e.g. 2024), then an older version cannot read that .tpr file because new options are added to the format specification with every major release (2018, 2019 ... 2024).
-But as the answer to Q14 in the [Local_stress.pdf](https://vanegaslab.org/files/Local_stress.pdf) document suggests, you can use `gmx_LS grompp` or `gmx grompp` from the 2016.6 version (which is available as well) to create a new .tpr file using the same input files (*.mdp, topol.top, *.itp, *.gro, etc.) which were used to make the `.tpr` file for the simulation.
-This new .tpr is then compatible with GROMACS-LS 2016.3.
-In case the `*.mdp` files used any keywords or features that were not yet present in 2016 (e.g. `pcouple = C-rescale`), then you need to either change or remove it (e.g. change to `pcouple = Berendsen`).
-In the case of pcouple, the result will not differ anyway, because the trajectory is processed as with the `-rerun` option and pressure coupling will not happen in that case.
-The mentioning of `cutoff-scheme = group` in the answer to Q14 can be ignored, because GROMACS 2016 already supports "cutoff-scheme = Verlet" and the "group" scheme was removed for GROMACS 2020.
-Therefore GROMACS-LS 2016.3 can be used to process simulations that used either cutoff scheme.
+Invoking commands like `gmx_LS mdrun -rerun` or `gmx_LS trjconv` needs a `.tpr` file. If you want to analyze a trajectory that has been simulated with a newer version of GROMACS (e.g., 2024), then an older version cannot read that `.tpr` file because new options are added to the format specification with every major release (2018, 2019 ... 2024). But as the answer to Q14 in the [Local_stress.pdf](https://vanegaslab.org/files/Local_stress.pdf) document suggests, you can use `gmx_LS grompp` or `gmx grompp` from the 2016.6 version (which is available as well) to create a new `.tpr` file using the same input files (`*.mdp`, `topol.top`, `*.itp`, `*.gro`, etc.) which were used to make the `.tpr` file for the simulation. This new `.tpr` is then compatible with GROMACS-LS 2016.3.
+In case the `*.mdp` files used any keywords or features that were not yet present in 2016 (e.g., `pcouple = C-rescale`), then you need to either change or remove it (e.g., change to `pcouple = Berendsen`). In the case of pcouple, the result will not differ anyway, because the trajectory is processed as with the `-rerun` option and pressure coupling will not happen in that case.
+The mentioning of `cutoff-scheme = group` in the answer to Q14 can be ignored, because GROMACS 2016 already supports "cutoff-scheme = Verlet" and the "group" scheme was removed for GROMACS 2020. Therefore GROMACS-LS 2016.3 can be used to process simulations that used either cutoff scheme.
 
 Notes:
 
@@ -867,54 +876,55 @@ Notes:
 *   GROMACS-LS must be compiled in double precision, and does not support MPI, SIMD hardware acceleration or GPUs and is therefore much slower than normal GROMACS. It can only use a single CPU core.
 *   Unlike other patched versions of GROMACS, the modules `gromacs-ls/2016.3` and `gromacs/2016.6` can be loaded at the same time.
 
-| module          | modules for running on CPUs | Notes |
-| :-------------- | :-------------------------- | :---- |
-| gromacs-ls/2016.3 | `StdEnv/2023 gcc/12.3 gromacs-ls/2016.3` | GROMACS-LS is a serial application and does not support MPI, OpenMP or GPUs/CUDA. |
+| module            | modules for running on CPUs                            | Notes                                                              |
+| :---------------- | :--------------------------------------------------- | :----------------------------------------------------------------- |
+| gromacs-ls/2016.3 | `StdEnv/2023 gcc/12.3 gromacs-ls/2016.3`             | GROMACS-LS is a serial application and does not support MPI, OpenMP or GPUs/CUDA. |
 | gromacs/2016.6    | `StdEnv/2023 gcc/12.3 openmpi/4.1.5 gromacs/2016.6` | This GROMACS module can be used to prepare TPR input files for GROMACS-LS. |
 
-### GROMACS-RAMD
-GROMACS-RAMD is a fork of GROMACS that implements the [Random Acceleration Molecular Dynamics (RAMD) method](https://kbbox.h-its.org/toolbox/methods/molecular-simulation/random-acceleration-molecular-dynamics-ramd/)[^ramd].
-This method can be used to identify ligand exit routes from the buried binding pockets of receptors and investigate the mechanism of ligand dissociation by running molecular dynamics simulations with an additional randomly oriented force applied to a molecule in the system.
+## GROMACS-RAMD
 
-[RAMD-specific MDP options](https://github.com/HITS-MCM/gromacs-ramd#usage) can be found on the [GROMACS-RAMD GitHub page](https://github.com/HITS-MCM/gromacs-ramd).
+GROMACS-RAMD is a fork of GROMACS that implements the *Random Acceleration Molecular Dynamics* (RAMD) method.[^15] This method can be used to identify ligand exit routes from the buried binding pockets of receptors and investigate the mechanism of ligand dissociation by running molecular dynamics simulations with an additional randomly oriented force applied to a molecule in the system.
 
-| GROMACS | RAMD | modules for running on CPUs | modules for running on GPUs (CUDA) | Notes |
-| :------ | :--- | :-------------------------- | :-------------------------------- | :---- |
-| v2024.1 | 2.1  | `StdEnv/2023 gcc/12.3 openmpi/4.1.5 gromacs-ramd/2024.1-RAMD-2.1` | `StdEnv/2023 gcc/12.3 openmpi/4.1.5 cuda/12.2 gromacs-ramd/2024.1-RAMD-2.1` | GCC, FlexiBLAS & FFTW |
-| v2020.5 | 2.0  | `StdEnv/2020 gcc/9.3.0 openmpi/4.0.3 gromacs-ramd/2020.5-RAMD-2.0` | `StdEnv/2020 gcc/9.3.0 cuda/11.4 openmpi/4.0.3 gromacs-ramd/2020.5-RAMD-2.0` | GCC, FlexiBLAS & FFTW |
+Information on RAMD-specific MDP options[^16] can be found on the [GROMACS-RAMD GitHub page](https://github.com/HITS-MCM/gromacs-ramd).
 
-### GROMACS-SWAXS
-[GROMACS-SWAXS Home](https://biophys.uni-saarland.de/software/gromacs-swaxs/)[^gromacs-swaxs] is a modified version of GROMACS for computing small- and wide-angle X-ray or neutron scattering curves (SAXS/SANS) and for doing SAXS/SANS-driven molecular dynamics simulations.
+| GROMACS | RAMD | modules for running on CPUs                                 | modules for running on GPUs (CUDA)                                  | Notes                  |
+| :------ | :--- | :-------------------------------------------------------- | :------------------------------------------------------------------ | :--------------------- |
+| v2024.1 | 2.1  | `StdEnv/2023 gcc/12.3 openmpi/4.1.5 gromacs-ramd/2024.1-RAMD-2.1` | `StdEnv/2023 gcc/12.3 openmpi/4.1.5 cuda/12.2 gromacs-ramd/2024.1-RAMD-2.1` | GCC, FlexiBLAS & FFTW  |
+| v2020.5 | 2.0  | `StdEnv/2020 gcc/9.3.0 openmpi/4.0.3 gromacs-ramd/2020.5-RAMD-2.0` | `StdEnv/2020 gcc/9.3.0 cuda/11.4 openmpi/4.0.3 gromacs-ramd/2020.5-RAMD-2.0` | GCC, FlexiBLAS & FFTW  |
 
-Please refer to the [GROMACS-SWAXS Documentation](https://cbjh.gitlab.io/gromacs-swaxs-docs/) for a description of the features (mdrun input and output options, mdp options, use of `gmx genscatt` and `gmx genenv` commands) that have been added in addition to normal GROMACS features, and for a number of tutorials.
+## GROMACS-SWAXS
 
-| GROMACS | SWAXS | modules for running on CPUs | modules for running on GPUs (CUDA) | Notes |
-| :------ | :---- | :-------------------------- | :-------------------------------- | :---- |
-| v2021.7 | 0.5.1 | `StdEnv/2023 gcc/12.3 openmpi/4.1.5 gromacs-swaxs/2021.7-0.5.1` | `StdEnv/2023 gcc/12.3 openmpi/4.1.5 cuda/12.2 gromacs-swaxs/2021.7-0.5.1` | GCC, FlexiBLAS & FFTW |
+GROMACS-SWAXS[^17] is a modified version of GROMACS for computing small- and wide-angle X-ray or neutron scattering curves (SAXS/SANS) and for doing SAXS/SANS-driven molecular dynamics simulations.
 
-### G_MMPBSA
+Please refer to the [GROMACS-SWAXS Documentation](https://cbjh.gitlab.io/gromacs-swaxs-docs/) for a description of the features (`mdrun` input and output options, `mdp` options, use of `gmx genscatt` and `gmx genenv` commands) that have been added in addition to normal GROMACS features, and for a number of tutorials.
+
+| GROMACS | SWAXS | modules for running on CPUs                                   | modules for running on GPUs (CUDA)                                  | Notes                  |
+| :------ | :---- | :---------------------------------------------------------- | :------------------------------------------------------------------ | :--------------------- |
+| v2021.7 | 0.5.1 | `StdEnv/2023 gcc/12.3 openmpi/4.1.5 gromacs-swaxs/2021.7-0.5.1` | `StdEnv/2023 gcc/12.3 openmpi/4.1.5 cuda/12.2 gromacs-swaxs/2021.7-0.5.1` | GCC, FlexiBLAS & FFTW  |
+
+## G_MMPBSA
 
 !!! warning "Deprecated"
-    The [software environment](../programming/standard_software_environments.md) StdEnv/2016.4 is no longer supported. `g_mmpbsa` has not been updated since April 2016. Consider using gmx_MMPBSA[^gmx-mmpbsa] instead.
+    The [software environment](../programming/standard_software_environments.md) StdEnv/2016.4 is no longer supported. `g_mmpbsa` has not been updated since April 2016. Consider using gmx_MMPBSA[^18] instead.
 
-[G_MMPBSA Homepage](http://rashmikumari.github.io/g_mmpbsa/)[^g-mmpbsa] is a tool that calculates components of binding energy using MM-PBSA method except the entropic term and energetic contribution of each residue to the binding using energy decomposition scheme.
+G_MMPBSA[^19] is a tool that calculates components of binding energy using MM-PBSA method except the entropic term and energetic contribution of each residue to the binding using energy decomposition scheme.
 
-Development of that tool seems to have stalled in April 2016 and no changes have been made since then. Therefore it is only compatible with GROMACS 5.1.x.
-For newer version of GROMACS consider using gmx_MMPBSA[^gmx-mmpbsa] instead (see below).
+Development of that tool seems to have stalled in April 2016 and no changes have been made since then. Therefore it is only compatible with GROMACS 5.1.x. For newer version of GROMACS consider using gmx_MMPBSA[^18] instead (see below).
 
-The version installed can be loaded with `module load StdEnv/2016.4 gcc/5.4.0 g_mmpbsa/2016-04-19` which is the most up-to-date version and consists of version 1.6 plus the change to make it compatible with GROMACS 5.1.x. The installed version has been compiled with `gromacs/5.1.5` and `apbs/1.3`.
+The version installed can be loaded with `module load StdEnv/2016.4 gcc/5.4.0 g_mmpbsa/2016-04-19` which is the most up-to-date version and consists of version 1.6 plus the change to make it compatible with `gromacs/5.1.5`. The installed version has been compiled with `gromacs/5.1.5` and `apbs/1.3`.
 
-Please be aware that G_MMPBSA uses implicit solvents and there have been studies[^zhang2017] that conclude that there are issues with the accuracy of these methods for calculating binding free energies.
+Please be aware that G_MMPBSA uses implicit solvents and there have been studies[^20] that conclude that there are issues with the accuracy of these methods for calculating binding free energies.
 
-### gmx_MMPBSA
+## gmx_MMPBSA
 
-[gmx_MMPBSA Homepage](https://valdes-tresanco-ms.github.io/gmx_MMPBSA/dev/getting-started/)[^gmx-mmpbsa] is a tool based on [AMBER](amber.md)'s MMPBSA.py aiming to perform end-state free energy calculations with GROMACS files.
+gmx_MMPBSA[^18] is a tool based on [AMBER's MMPBSA.py](amber.md#ambertools-21) aiming to perform end-state free energy calculations with GROMACS files.
 
-Other than the older G_MMPBSA[^g-mmpbsa], which is only compatible with older versions of GROMACS, gmx_MMPBSA can be used with current versions of GROMACS and [AmberTools](amber.md#ambertools-21).
+Other than the older G_MMPBSA[^19], which is only compatible with older versions of GROMACS, gmx_MMPBSA can be used with current versions of GROMACS and [AmberTools](amber.md#ambertools-21).
 
-Please be aware that gmx_MMPBSA uses implicit solvents and there have been studies[^zhang2017] that conclude that there are issues with the accuracy of these methods for calculating binding free energies.
+Please be aware that gmx_MMPBSA uses implicit solvents and there have been studies[^20] that conclude that there are issues with the accuracy of these methods for calculating binding free energies.
 
-#### Submission scripts
+### Submission scripts
+
 This submission script installs and executes gmx_MMPBSA in a temporary directory on the local disk of a compute node. All MPI tasks must be on one node. For multi-node submission install a virtual environment on a shared filesystem.
 
 ```bash title="job_gmx_MMPBSA.sh"
@@ -939,24 +949,25 @@ srun gmx_MMPBSA -O -nogui -i mmpbsa.in \
     -eo FINAL_RESULTS_MMPBSA.csv
 ```
 
-#### Installing gmx_MMPBSA into a virtualenv
+### Installing gmx_MMPBSA into a virtualenv
+
 gmx_MMPBSA needs to be installed in a permanent directory if you intend to use interactive visualization.
 
 #### Installing for gromacs/2024 (StdEnv/2023)
 
 ```bash
 module load StdEnv/2023 ambertools/23.5 gromacs/2024.4 qt/5.15.11
-virtualenv venv-gmxMMPBSA
-source venv-gmxMMPBSA/bin/activate
-pip install --no-index gmx_MMPBSA==1.6.3
+virtualenv venv-gmxMMPBSA 
+source venv-gmxMMPBSA/bin/activate 
+pip install --no-index gmx_MMPBSA==1.6.3 
 ```
 
 Testing.
 
 ```bash
-git clone https://github.com/Valdes-Tresanco-MS/gmx_MMPBSA
+git clone https://github.com/Valdes-Tresanco-MS/gmx_MMPBSA 
 cd gmx_MMPBSA/examples/Protein_DNA
-gmx_MMPBSA -O -i mmpbsa.in -cs com.tpr -ct com_traj.xtc -ci index.ndx -cg 3 4 -cp topol.top \
+gmx_MMPBSA -O -i mmpbsa.in -cs com.tpr -ct com_traj.xtc -ci index.ndx -cg 3 4 -cp topol.top \ 
                             -o FINAL_RESULTS_MMPBSA.dat -eo FINAL_RESULTS_MMPBSA.csv -no -nogui
 ```
 
@@ -966,7 +977,7 @@ gmx_MMPBSA -O -i mmpbsa.in -cs com.tpr -ct com_traj.xtc -ci index.ndx -cg 3 4 -c
 
 ```bash
 module purge
-module load StdEnv/2020 gcc/9.3.0 python/3.8 gromacs/2021.4
+module load StdEnv/2020 gcc/9.3.0 python/3.8  gromacs/2021.4
 module load ambertools/21
 virtualenv venv_gmxMMPBSA
 source venv_gmxMMPBSA/bin/activate
@@ -997,38 +1008,43 @@ module load StdEnv/2020 gcc/9.3.0 python/3.8 ambertools/21 gromacs/2021.4 qt/5.1
 source venv_gmxMMPBSA/bin/activate
 ```
 
-## Links
-*   [Biomolecular simulation](molecular-sim/biomolecular_simulation.md)
+# Links
+
+[Biomolecular simulation](molecular-sim/biomolecular_simulation.md)
+
 *   Project resources
-    *   Main Website: <http://www.gromacs.org/>
-    *   Documentation & GROMACS Manuals: <http://manual.gromacs.org/documentation/>
-    *   GROMACS Community Forums: <https://gromacs.bioexcel.eu/>
+    *   [Main Website](http://www.gromacs.org/)
+    *   [Documentation & GROMACS Manuals](http://manual.gromacs.org/documentation/)
+    *   [GROMACS Community Forums](https://gromacs.bioexcel.eu/)
         The forums are the successors to the GROMACS email lists.
 *   Tutorials
-    *   Set of 7 very good Tutorials: <http://www.mdtutorials.com/gmx/>
-    *   Link collection to more tutorials: <http://www.gromacs.org/Documentation/Tutorials>
+    *   [Set of 7 very good Tutorials](http://www.mdtutorials.com/gmx/)
+    *   [Link collection to more tutorials](http://www.gromacs.org/Documentation/Tutorials)
 *   External resources
-    *   Tool to generate small molecule topology files: <http://www.ccpn.ac.uk/v2-software/software/ACPYPE-folder>
-    *   Database with Force Field topologies (CGenFF, GAFF and OPLS/AA) for small molecules: <http://www.virtualchemistry.org/>
-    *   Web service to generate small molecule topologies for GROMOS force fields: <https://atb.uq.edu.au/>
-    *   Discussion of best GPU configurations for running GROMACS: [Best bang for your buck: GPU nodes for GROMACS biomolecular simulations](https://arxiv.org/abs/1507.00898)
+    *   [Tool to generate small molecule topology files](http://www.ccpn.ac.uk/v2-software/software/ACPYPE-folder)
+    *   [Database with Force Field topologies (CGenFF, GAFF and OPLS/AA) for small molecules](http://www.virtualchemistry.org/)
+    *   [Web service to generate small molecule topologies for GROMOS force fields](https://atb.uq.edu.au/)
+    *   [Discussion of best GPU configurations for running GROMACS](https://arxiv.org/abs/1507.00898)
 
-## References
-[^gromacs-2021-release-notes]: "Fix missing synchronization in CUDA update kernels" in GROMACS 2021.6 Release Notes [https://manual.gromacs.org/2021.6/release-notes/2021/2021.6.html#fix-missing-synchronization-in-cuda-update-kernels]
-[^gromacs-gitlab-issue]: Issue #4393 in GROMACS Project on GitLab.com [https://gitlab.com/gromacs/gromacs/-/issues/4393]
-[^gromacs-user-guide-managing]: GROMACS User Guide: Managing long simulations. [http://manual.gromacs.org/documentation/current/user-guide/managing-simulations.html]
-[^gromacs-mdrun-manual]: GROMACS Manual page: gmx mdrun [http://manual.gromacs.org/documentation/current/onlinehelp/gmx-mdrun.html#gmx-mdrun]
-[^gromacs-user-guide-performance]: GROMACS User-Guide: Getting good performance from mdrun [http://manual.gromacs.org/documentation/current/user-guide/mdrun-performance.html]
-[^gromacs-gpu-pme]: GROMACS User-Guide: GPU accelerated calculation of PME [http://manual.gromacs.org/documentation/2018.1/user-guide/mdrun-performance.html#gpu-accelerated-calculation-of-pme]
-[^gromacs-2024-highlights]: GROMACS 2024 Major Release Highlights [https://manual.gromacs.org/2024.1/release-notes/2024/major/highlights.html]
-[^gromacs-colvars-manual]: Collective Variable simulations with the Colvars module (GROMACS Reference manual) [https://manual.gromacs.org/current/reference-manual/special/colvars.html]
-[^colvars-gromacs]: Colvars Reference manual for GROMACS [https://colvars.github.io/colvars-refman-gromacs/colvars-refman-gromacs.html]
-[^colvars-paper]: Fiorin et al. **2013**, *Using collective variables to drive molecular dynamics simulations.* [http://dx.doi.org/10.1080/00268976.2013.813594]
-[^gromacs-cp2k]: Building GROMACS with CP2K QM/MM support [https://manual.gromacs.org/documentation/current/install-guide/index.html#building-with-cp2k-qm-mm-support]
-[^gromacs-cp2k-qmmm-ref]: QM/MM with CP2K in the GROMACS Reference manual [https://manual.gromacs.org/documentation/current/reference-manual/special/qmmm.html]
-[^local-stress]: GROMACS-LS and MDStress library [https://vanegaslab.org/software]
-[^ramd]: Information on the RAMD method [https://kbbox.h-its.org/toolbox/methods/molecular-simulation/random-acceleration-molecular-dynamics-ramd/]
-[^gromacs-swaxs]: GROMACS-SWAXS Home [https://biophys.uni-saarland.de/software/gromacs-swaxs/]
-[^g-mmpbsa]: G_MMPBSA Homepage [http://rashmikumari.github.io/g_mmpbsa/]
-[^zhang2017]: Comparison of Implicit and Explicit Solvent Models for the Calculation of Solvation Free Energy in Organic Solvents [http://pubs.acs.org/doi/abs/10.1021/acs.jctc.7b00169]
-[^gmx-mmpbsa]: gmx_MMPBSA Homepage [https://valdes-tresanco-ms.github.io/gmx_MMPBSA/dev/getting-started/]
+# References
+
+[^1]: "Fix missing synchronization in CUDA update kernels" in [GROMACS 2021.6 Release Notes](https://manual.gromacs.org/2021.6/release-notes/2021/2021.6.html#fix-missing-synchronization-in-cuda-update-kernels)
+[^2]: [Issue #4393 in GROMACS Project on GitLab.com](https://gitlab.com/gromacs/gromacs/-/issues/4393)
+[^3]: [GROMACS User Guide: Managing long simulations.](http://manual.gromacs.org/documentation/current/user-guide/managing-simulations.html)
+[^4]: [GROMACS Manual page: gmx mdrun](http://manual.gromacs.org/documentation/current/onlinehelp/gmx-mdrun.html#gmx-mdrun)
+[^5]: [GROMACS User-Guide: Getting good performance from mdrun](http://manual.gromacs.org/documentation/current/user-guide/mdrun-performance.html)
+[^6]: [GROMACS User-Guide: Performance background information](http://manual.gromacs.org/documentation/current/user-guide/mdrun-performance.html#gromacs-background-information)
+[^7]: [GROMACS User-Guide: GPU accelerated calculation of PME](http://manual.gromacs.org/documentation/2018.1/user-guide/mdrun-performance.html#gpu-accelerated-calculation-of-pme)
+[^8]: [PLUMED Home](http://www.plumed.org/home)
+[^9]: [Colvars Home](https://colvars.github.io/)
+[^10]: [GROMACS 2024 Major Release Highlights](https://manual.gromacs.org/2024.1/release-notes/2024/major/highlights.html)
+[^11]: [CP2K Home](https://www.cp2k.org/)
+[^12]: [Building GROMACS with CP2K QM/MM support](https://manual.gromacs.org/documentation/current/install-guide/index.html#building-with-cp2k-qm-mm-support)
+[^13]: [QM/MM with CP2K in the GROMACS Reference manual](https://manual.gromacs.org/documentation/current/reference-manual/special/qmmm.html)
+[^14]: [GROMACS-LS and MDStress library](https://vanegaslab.org/software)
+[^15]: [Information on the RAMD method](https://kbbox.h-its.org/toolbox/methods/molecular-simulation/random-acceleration-molecular-dynamics-ramd/)
+[^16]: [RAMD-specific MDP options](https://github.com/HITS-MCM/gromacs-ramd#usage)
+[^17]: [GROMACS-SWAXS Home](https://biophys.uni-saarland.de/software/gromacs-swaxs/)
+[^18]: [gmx_MMPBSA Homepage](https://valdes-tresanco-ms.github.io/gmx_MMPBSA/dev/getting-started/)
+[^19]: [G_MMPBSA Homepage](http://rashmikumari.github.io/g_mmpbsa/)
+[^20]: [Comparison of Implicit and Explicit Solvent Models for the Calculation of Solvation Free Energy in Organic Solvents](http://pubs.acs.org/doi/abs/10.1021/acs.jctc.7b00169)

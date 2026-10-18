@@ -4,40 +4,40 @@ slug: "using_ipv6_in_cloud"
 lang: "en"
 
 source_wiki_title: "Using ipv6 in cloud/en"
-source_hash: "c6e0369e32cedd123f7b2be8f500b43f"
-last_synced: "2026-10-11T01:39:35.690021+00:00"
-last_processed: "2026-10-11T02:40:45.167376+00:00"
+source_hash: "c4f66bab7b868b4051e3d8c31eb92754"
+last_synced: "2026-10-18T00:43:06.821597+00:00"
+last_processed: "2026-10-18T01:35:04.824859+00:00"
 
 tags:
   - cloud
 
 keywords:
-  - "Launch Instance"
-  - "virtual machine"
-  - "IPv6 configuration"
-  - "Cloud Quick Start Guide"
-  - "Security Groups"
-  - "ping6"
-  - "OpenStack network"
-  - "Customization Script"
-  - "public key"
-  - "SSH key Permission Denied"
-  - "MTU 1452"
-  - "OpenStack attach interface"
   - "sysctl.conf"
-  - "/dev/eth1"
+  - "MTU 1452"
+  - "public key"
+  - "ifcfg-eth1"
+  - "virtual machine"
+  - "Cloud Quick Start Guide"
+  - "IPv6"
+  - "eth1"
+  - "Customization Script"
   - "IPv6 GUA"
+  - "ping6"
+  - "SLAAC"
+  - "Security Groups"
+  - "Arbutus Cloud"
+  - "Launch Instance"
 
 questions:
-  - "What temporary MTU value should be set on each end's IPv6 interface to mitigate connection issues between old and new Arbutus, and when can the default MTU be restored?"
-  - "Which OpenStack CLI commands are used to attach an IPv6‑GUA network interface to a VM and verify its assignment?"
-  - "What steps should be taken to work around the SSH key installation failure on Debian or Ubuntu 26.04 instances launched with an IPv6‑GUA network?"
-  - "How can you verify that IPv6 is enabled on the system before applying any configuration changes?"
-  - "Which files and kernel parameters must be edited to set up the new eth1 interface for IPv6?"
-  - "What commands should you run after the final reboot to confirm that the IPv6 interface is active and working?"
-  - "What steps are required to launch a new virtual machine instance using the “Compute→Instances” menu?"
-  - "Which sections of the Cloud Quick Start Guide must be followed to complete the virtual machine configuration form?"
-  - "How should the customization script be edited to create an initial user account, including the placeholders for the username and public key?"
+  - "What temporary MTU value should be set on each end's IPv6 interface to mitigate migration connection issues?"
+  - "How are IPv6 Global Unicast Addresses (GUA) provisioned in Arbutus Cloud, and what default outbound/inbound traffic rules apply via security groups?"
+  - "What steps should be taken to enable SSH access on Debian or Ubuntu 26.04 instances when the SSH key pair fails to install automatically?"
+  - "How can you verify that IPv6 is enabled on the Linux host before configuring the new interface?"
+  - "Which kernel parameters and `ifcfg-eth1` settings need to be added to enable IPv6 on the newly created eth1 interface?"
+  - "What commands should you run after the final reboot to confirm that the IPv6 address is assigned and that IPv6 connectivity works?"
+  - "What are the steps to launch a new virtual machine instance using the Compute → Instances menu?"
+  - "Where should the customization script be added, and what placeholders must be replaced in it?"
+  - "Which guide should be followed to complete the instance creation form, and what information is required for the initial user account?"
 
 status:
   downloaded: true
@@ -49,9 +49,10 @@ status:
 ---
 
 !!! warning "Attention"
-Some users have reported IPv6 connection issues between old and new Arbutus. A temporary MTU of 1452 on each end's IPv6 network interface may address the problem. Once migration has been completed, the default MTU can be restored.
+    Some users have reported IPv6 connection issues when migrating contents between old and new Arbutus. A temporary MTU of 1452 on each end's IPv6 network interface may address the problem. Once migration has been completed, the default MTU can be restored.
 
 ## IPv6 in Arbutus Cloud
+
 IPv6 Link-Local (LLA) and Global Unicast Addresses (GUA) are generally available within the Arbutus cloud environment.
 GUA can be set up via a separate interface, which in turn also handles only the IPv6 traffic.
 Addresses are being set up using *Stateless Address Auto Configuration* (SLAAC), which automatically sets up the IP on the VM interface. By default, the security group rules will allow all outbound traffic from the VM via the IPv6 GUA, but no traffic that originates from outside the VM will be allowed until specific security group rules have been defined. This is the same behaviour as IPv4.
@@ -87,15 +88,21 @@ openstack server list
 ```
 
 ### Example of a Web Interface Configuration
-Log into the dashboard and go to the *Instances* menu, then click on *Attach Interface* to open a dialog. From the network menu, select *IPv6-GUA (2607:f8f0:c11:7004::/64)* and click on *Attach*. The instance's details will then display the newly attached IPv6 interface.
 
-The shown IPv6 address is now available and can be used until the interface is detached. Every time the interface is detached, the GUA is released and put back into the pool and thus, can be used by anyone else. Rebuilding or restarting the VM however, will not release the GUA.
+Log into the dashboard and go to the *Instances* menu, click on *Attach Interface*, which will open a dialog.
+Use IPv6-GUA (2607:f8f0:c11:7004::/64) from the network menu and click on *Attach*.
+
+The IPv6 address is now available and can be used until the interface is detached. Every time the interface is detached,
+the GUA is released and put back into the pool and thus, can be used by anyone else. Rebuilding or restarting the VM however, will not
+release the GUA.
 
 Access from any IPv6 GUA can be granted via *Security Groups* in OpenStack; the only difference is the CIDR which automatically detects the address type.
 
 ### Example of a Debian or Ubuntu 26.04 Instance
-When researchers launch an instance with the Debian or Ubuntu 26.04 operating system with the IPv6 network (i.e., IPv6-GUA), the selected SSH key pair will not install successfully. As a result, the researchers cannot ssh into the instance and will receive a *Permission Denied* error message instead. To work around the problem, when researchers are launching a new instance, they can create an initial user account by completing the following steps:
-1.  To create a virtual machine, select *Compute->Instances* on the left menu, then click on the *Launch Instance* button.
+
+When researchers launch an instance with the Debian or Ubuntu 26.04 operating system with the IPv6 network (i.e., IPv6-GUA), the selected SSH key pair will not install successfully. As a result, the researchers cannot SSH into the instance and will receive a *Permission Denied* error message instead. To work around the problem, when researchers are launching a new instance, they can create an initial user account by completing the following steps:
+
+1.  To create a virtual machine, select *Compute* > *Instances* on the left menu, then click on the *Launch Instance* button.
 2.  Follow the [Cloud Quick Start Guide](cloud_quick_start.md) to complete the displayed form where you define your virtual machine.
 3.  Select *Configuration* in the left menu.
 4.  Add the following script to the *Customization Script*. Replace `[username]` with the researcher's preferred username and `[public key]` with the user's public key.
@@ -122,6 +129,7 @@ The OpenStack network you configured above will appear in Linux as an additional
 ```bash
 sudo sysctl -a | grep ipv6.*disable
 ```
+
 The output should all end in zeros. IPv6 enabled is the default in all recent images. Any kernel parameters that need to be changed to zero should be added to `/etc/sysctl.conf`.
 
 Also, add the following kernel parameters in `/etc/sysctl.conf`.
@@ -159,6 +167,7 @@ ping6 -c 1 www.google.com
 That's all. Congratulations. Your system is now configured to use IPv6.
 
 ## Further Reading
-* From RedHat, [What you need to know about IPv6](https://www.redhat.com/sysadmin/what-you-need-know-about-ipv6)
-* From RedHat, [Configuring an IPv6 address in Red Hat Enterprise Linux 7 and 8](https://www.redhat.com/sysadmin/configuring-ipv6-rhel-7-8)
-* From OpenStack, [IPv6](https://docs.openstack.org/neutron/pike/admin/config-ipv6.html)
+
+*   From Red Hat, [What you need to know about IPv6](https://www.redhat.com/sysadmin/what-you-need-know-about-ipv6)
+*   From Red Hat, [Configuring an IPv6 address in Red Hat Enterprise Linux 7 and 8](https://www.redhat.com/sysadmin/configuring-ipv6-rhel-7-8)
+*   From OpenStack, [IPv6](https://docs.openstack.org/neutron/pike/admin/config-ipv6.html)
