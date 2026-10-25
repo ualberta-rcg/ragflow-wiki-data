@@ -109,11 +109,6 @@ Tenez compte des points suivants quand votre logiciel dans un conteneur requiert
 
 Voyez l'exemple sous [https://docs.alliancecan.ca/wiki/Apptainer/fr#Travailler_avec_des_GPU_NVIDIA  Travailler avec des GPU NVIDIA ci-dessous].
 
-<span id="Using_MPI_programs"></span>
-==Lancer des programmes MPI==
-
-Pour lancer des programmes MPI dans un conteneur, il faut ajuster certaines choses dans l’environnement hôte. Voyez un exemple dans  [https://docs.alliancecan.ca/wiki/Apptainer/fr#Travailler_avec_des_programmes_MPI  Travailler avec des programmes MPI ci-dessous]. Vous trouverez plus d’information dans [https://apptainer.org/docs/admin/main/installation.html#lustre-gpfs la documentation officielle d'Apptainer].
-
 <span id="Container-specific_help:_apptainer_run-help"></span>
 ==Aide avec <code>apptainer run-help</code>==
 
@@ -206,15 +201,6 @@ Apptainer est conçu pour exécuter correctement des démons pour des tâches de
 <b>Remarque 1 :</b> N’exécutez pas manuellement un démon sans utiliser <code>apptainer instance</code> et les autres commandes reliées. Apptainer fonctionne bien avec d’autres outils comme l’ordonnanceur Slurm employé sur nos grappes. Quand une tâche plante, est annulée ou se termine de toute autre façon, les démons lancés avec <code>apptainer instance</code> ne seront pas bloqués et ne laisseront pas de processus défunts. Aussi, la commande <code>apptainer instance</code> vous permet de contrôler les démons et les programmes qui sont exécutés dans un même conteneur.
 
 <b>Remarque 2 :</b> Les démons ne sont exécutés que lorsque la tâche est en marche. Si l'ordonnanceur annule la tâche, tous les démons qui lui sont rattachés seront aussi annulés. Si vous avez besoin de démons qui restent actifs au-delà du temps d’exécution, vous pouvez à la place les exécuter  dans une machine virtuelle, dans un nuage; contactez alors le [[Technical support/fr|soutien technique]].
-
-<span id="Running_MPI_programs"></span>
-==Travailler avec des programmes MPI==
-
-L’exécution de programmes MPI sur des nœuds dans un conteneur Apptainer requiert une configuration particulière. La communication entre les nœuds est beaucoup plus efficace avec MPI en raison de sa bonne utilisation du matériel d’interconnexion. Ceci se fait habituellement de façon automatique et ne cause aucun souci, sauf quand le programme utilise plusieurs nœuds dans une grappe.
-
-<b>Remarque :</b>  Quand tous les processus MPI sont exécutés dans un conteneur Apptainer sur un seul nœud à mémoire partagée, le matériel d'interconnexion n’est pas sollicité et aucun problème ne survient, par exemple avec l’option  <code>--nodes=1</code> dans un script <code>sbatch</code>. Par contre, si le nombre de nœuds n'est pas <b>explicitement défini</b> comme étant <code>1</code>, l’ordonnanceur peut choisir d’exécuter le programme MPI sur plusieurs nœuds et il est possible que la tâche ne puisse pas être exécutée.
-
-(contenu en préparation)
 
 <span id="Bind_mounts_and_persistent_overlays"></span>
 =Bind mounts et overlays persistants=
@@ -338,20 +324,79 @@ L’utilisation d’un bac à sable entame significativement vos quotas d’espa
 
 {{:Using Conda in Apptainer/fr}}
 
-<span id="Using_Spack_in_Apptainer"></span>
-==Travailler avec Spack ==
+<span id="Using_GPUs_in_Apptainer"></span>
+==Travailler avec des GPU ==
 
-(contenu en préparation)
+Pour utiliser des GPU dans Apptainer, assurez-vous que le logiciel pour le ou les types de GPU utilisés dans le conteneur sont installés dans le conteneur, autrement il est peu probable que le logiciel de votre conteneur puisse utiliser des GPU.
 
-<span id="Using_NVIDIA_GPUs_in_Apptainer"></span>
-==Travailler avec des GPU NVIDIA ==
+Pour utiliser les GPU NVIDIA, assurez-vous que
+* l'option en ligne de commande <code>--nv</code> se trouve après la commande <code>apptainer exec</code> ou <code>apptainer run</code> (avant le fichier .sif);
+* les modules appropriés pour les GPU sont chargés, par exemple <code>module load cuda/13.3</code>.
 
-(contenu en préparation)
+Pour utiliser les GPU AMD, assurez-vous que
+* l'option en ligne de commande <code>--rocm</code> se trouve après la commande <code>apptainer exec</code> ou <code>apptainer run</code> (avant le fichier .sif);
+* les modules appropriés pour les GPU sont chargés.
 
 <span id="Using_MPI_in_Apptainer"></span>
 ==Travailler avec MPI==
 
-(contenu en préparation)
+La façon la plus simple d'exécuter une application MPI dans Apptainer est de la limiter à un seul nœud. Votre script de tâche ressemblera alors à celui d'une tâche multifils (''multithread'') s'exécutant sur un seul nœud, par exemple 
+
+    #!/bin/bash
+    #SBATCH --mem-per-cpu=1024M
+    #SBATCH --time=0-00:05
+    #SBATCH --nodes=1
+    #SBATCH --cpus-per-task=8 
+    apptainer exec -c mpirun ./your-mpi-program args
+
+Remarquez que <code>mpirun</code> s'exécute ''dans'' le conteneur.
+
+Si vous devez exécuter une application MPI sur plusieurs nœuds et que vous pouvez le faire sans Apptainer, nous recommandons de ne pas utiliser Apptainer. Exécuter une application MPI dans un conteneur sur plusieurs nœuds génère souvent des erreurs. 
+
+Pour exécuter une application MPI avec Apptainer sur plusieurs nœuds, la [[http://apptainer.org/docs/user/main/mpi.html documentation Apptainer]] décrit deux méthodes&nbsp;:
+# le modèle hybride [https://apptainer.org/docs/user/latest/mpi.html#hybrid-model],
+# le modèle de liaison [https://apptainer.org/docs/user/latest/mpi.html#bind-model].
+Nous recommandons le modèle hybride. 
+
+<div lang="en" dir="ltr" class="mw-content-ltr">
+Beware of these issues:
+* The MPI version installed inside the container '''must''' be compatible with the MPI used on the host.  This includes all needed fabrics, ''etc.''
+* You must <code>module load</code> the version of MPI needed on the host ''before'' running the <code>apptainer</code> command that runs the MPI job.
+</div>
+
+En supposant que votre tâche MPI utilise un fil par rang MPI (c'est-à-dire que ce n'est pas une tâche hybride à mémoire partagée), vous pouvez alors spécifier le nombre de rangs comme le étant le nombre de tâches dans votre script de tâche. Par exemple, s'il y a quatre rangs,
+
+    #!/bin/bash
+    #SBATCH --mem-per-cpu=3G
+    #SBATCH --time=0-00:05
+    #SBATCH --ntasks=4
+    module load openmpi apptainer
+    # This for loop ensures all special OMPI (OpenMPI) variables that are set in the host environment
+    # are properly exported for use inside the container:
+    for v in "${!OMPI_@}" ; do
+        export APPTAINERENV_${v}=${!v}
+    done
+    mpirun -np ${SLURM_NTASKS} -- apptainer exec -e YOUR_CONTAINER.sif ./your-mpi-program args
+
+<div lang="en" dir="ltr" class="mw-content-ltr">
+The above example depends on the <code>OMPI</code> prefix used by Open MPI.
+If you want to see which variables are set in the host environment by a given module,
+run <code>module show</code> for that module, e.g., <code>module show openmpi</code>.
+</div>
+
+<div lang="en" dir="ltr" class="mw-content-ltr">
+If you encounter problems and you are using one of the Apptainer clean environment options, 
+e.g., <code>-e</code>, <code>-c</code>, or <code>-C</code>, then try relaxing that option.  
+That is, if <code>-C</code> doesn't work, try <code>-c</code>, and if <code>-c</code> doesn't work, try <code>-e</code>.
+Our tests indicate that you will probably need at least one of these clean environment options.
+</div>
+
+<div lang="en" dir="ltr" class="mw-content-ltr">
+Bear in mind that a job script which works on a single node can easily fail when run on multiple nodes. 
+Consider forcing your job to run on more than one node while still in the testing phase.
+For example, if your test has 4 tasks, then you can force the test to run on 2 or more nodes by specifying
+<code>#SBATCH --nodes 2-4</code> in the job script.
+</div>
 
 <span id="Creating_an_Apptainer_container_from_a_Dockerfile"></span>
 ==Créer un conteneur Apptainer à partir de Dockerfile==

@@ -35,12 +35,9 @@ Below is a job script for a threaded simulation.  You can increase the number fo
   |lang="sh"
   |contents=
 #!/bin/bash
-#
-#SBATCH --cpus-per-task=8
-#SBATCH --mem 10g            # memory in Mb, increase as needed    
-#SBATCH -o slurm.%N.%j.out    # STDOUT file
-#SBATCH -t 0:05:00            # time (D-HH:MM), increase as needed
-#SBATCH --account=def-specifyaccount
+#SBATCH --cpus-per-task=8       # number of threads
+#SBATCH --mem-per-cpu=2000M     # memory per CPU (in MB)
+#SBATCH --time=0-05:00          # time limit (D-HH:MM)
 
 module load StdEnv/2023  gcc/12.3 namd-multicore/3.0.2
 namd3 +p$SLURM_CPUS_PER_TASK  +idlepoll +setcpuaffinity stmv.namd
@@ -63,13 +60,10 @@ This example runs 384 tasks in total on 2 nodes, each node running 192 tasks.  T
   |lang="sh"
   |contents=
 #!/bin/bash
-#
-#SBATCH --nodes=2
-#SBATCH --ntasks-per-node=192
-#SBATCH --mem=0            # memory per node, 0 means all memory
-#SBATCH -o slurm.%N.%j.out    # STDOUT
-#SBATCH -t 0:05:00            # time (D-HH:MM)
-#SBATCH --account=def-specifyaccount
+#SBATCH --nodes=2               # number of nodes
+#SBATCH --ntasks-per-node=192   # number of MPI processes per node
+#SBATCH --mem=0                 # memory per node, 0 means all memory
+#SBATCH --time=0-05:00          # time limit (D-HH:MM)
 
 module load StdEnv/2023 gcc/13.3 namd-ucx/3.0.2
 srun --mpi=pmi2 namd3 stmv.namd
@@ -98,12 +92,10 @@ GPUresident on;
   |lang="sh"
   |contents=
 #!/bin/bash
-
-#SBATCH --cpus-per-task=16 
-#SBATCH --mem=10g    
-#SBATCH --time=0:15:00
-#SBATCH --gpus-per-node=h100:1
-#SBATCH --account=def-specifyaccount
+#SBATCH --cpus-per-task=16      # number of threads
+#SBATCH --mem-per-cpu=2000M     # memory per CPU (in MB)
+#SBATCH --gpus-per-node=h100:1  # request a single GPU
+#SBATCH --time=0-05:00          # time limit (D-HH:MM)
 
 module load StdEnv/2023  gcc/12.3  cuda/12.6 namd-multicore/3.0.2
 namd3 +p$SLURM_CPUS_PER_TASK  +idlepoll stmv.namd
@@ -132,15 +124,12 @@ To use this script on other clusters, please look up the specifications of their
   |lang="sh"
   |contents=
 #!/bin/bash
-
-<!--T:62-->
-#SBATCH --nodes=2
-#SBATCH --ntasks-per-node=4
-#SBATCH --cpus-per-task=12 # number of threads per task (process)
-#SBATCH --gpus-per-node=a100:4
-#SBATCH --mem=0            # memory per node, 0 means all memory
-#SBATCH --time=0:15:00
-#SBATCH --account=def-specifyaccount
+#SBATCH --nodes=2               # number of nodes
+#SBATCH --ntasks-per-node=4     # number of MPI processes per node
+#SBATCH --cpus-per-task=12      # number of threads per MPI process
+#SBATCH --mem=0                 # memory per node, 0 means all memory
+#SBATCH --gpus-per-node=a100:4  # request all 4 GPUs on each node
+#SBATCH --time=0-05:00          # time limit (D-HH:MM)
 
 <!--T:47-->
 module load StdEnv/2020  intel/2020.1.217  cuda/11.0 namd-ucx-smp/2.14

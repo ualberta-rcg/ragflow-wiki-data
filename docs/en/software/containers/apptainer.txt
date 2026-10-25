@@ -100,10 +100,6 @@ When running software inside a container that requires the use of GPUs it is imp
 
 An example of [[#Using_NVIDIA_GPUs_Within_an_Apptainer_Container|using NVIDIA GPUs within an Apptainer container]] appears later on this page.
 
-==Using MPI programs==
-
-If you need to run MPI programs inside a container, there are things that need to be done in the host environment in order for such to work. Please see the [[#Running_MPI_Programs_Inside_an_Apptainer Container|Running MPI Programs section below]] for an example of how to run MPI programs inside a container. The [http://apptainer.org/docs/user/main/mpi.html official Apptainer documentation] has more information concerning how MPI programs can be run inside a container.
-
 ==Container-specific help: <code>apptainer run-help</code>==
 
 Apptainer containers built from [http://apptainer.org/docs/user/main/definition_files.html Definition files] often will have a <code>%help</code> section. To see this section run:
@@ -192,14 +188,6 @@ Apptainer has been designed to be able to properly run daemons within compute jo
 <b>NOTE 1:</b> Don't run daemons manually without using <code>apptainer instance</code> and related commands. Apptainer works properly with other tools such as the Slurm scheduler that run on our clusters. When a job is cancelled, killed, crashes, or is otherwise finished, daemons run using <code>apptainer instance</code> will not hang or result in defunct processes. Additionally by using the <code>apptainer instance</code> command you will be able to control the daemons and programs running in the same container.
 
 <b>NOTE 2:</b> Daemons can only run in your job while your job is running. Should the scheduler kill your job, all daemons running in that job will also be killed. Should you need to run daemons longer than the job they were started in, you may need to also have a virtual machine running in the cloud. If so please contact [[technical support]].
-
-==Running MPI programs==
-
-Running MPI programs within an Apptainer container across nodes likely will require special configuration. MPI exploits cluster interconnection hardware to communicate amongst nodes much more efficiently. Normally one does not need to worry about this since it is automatically done --except when running MPI programs across cluster nodes.
-
-<b>NOTE:</b> When all MPI processes are running on a single shared-memory node, there is no need to use interconnection hardware and there will be no issues running MPI programs within an Apptainer container when all MPI processes run on a single cluster node, e.g., when the slurm option <code>--nodes=1</code> is used with an <code>sbatch</code> script. Unless one <b>explicitly</b> sets the maximum number of cluster nodes used to <code>1</code>, the scheduler can choose to run an MPI program over multiple nodes. If such will run from within an Apptainer container and has not been set up to properly run, then it is possible it will fail to run.
-
-More in preparation.
 
 =Bind mounts and persistent overlays=
 
@@ -316,17 +304,73 @@ Within an account, using a "sandbox" directory will consume significant amounts 
 
 {{:Using Conda in Apptainer}}
 
-==Using Spack in Apptainer ==
+==Using GPUs in Apptainer ==
 
-In preparation.
+To use GPUs from within Apptainer ensure the software for the type(s) of GPUs being used in the container is installed inside the container.
+If it such software is not installed then it is unlikely that your container's software will be able to use any GPUs.
 
-==Using NVIDIA GPUs in Apptainer ==
+To use NVIDIA GPUs from within Apptainer ensure that:
+* the command line option <code>--nv</code> appears after the <code>apptainer exec</code> or <code>apptainer run</code> command (before the .sif file)
+* the appropriate module(s) are loaded for the GPU, e.g., <code>module load cuda/13.3</code>
 
-In preparation.
+To use AMD GPUs from within Apptainer ensure that:
+* the command line option <code>--rocm</code> appears after the <code>apptainer exec</code> or <code>apptainer run</code> command (before the .sif file)
+* the appropriate module(s) are loaded for the GPU.
 
 ==Using MPI in Apptainer ==
 
-In preparation.
+The easiest way to run an MPI application in Apptainer is to constrain it to a single node.
+In that case, your job script will resemble one for a multithreaded job running on a single node, ''e.g.'': 
+
+    #!/bin/bash
+    #SBATCH --mem-per-cpu=1024M
+    #SBATCH --time=0-00:05
+    #SBATCH --nodes=1
+    #SBATCH --cpus-per-task=8 
+    apptainer exec -c mpirun ./your-mpi-program args
+
+Observe that <code>mpirun</code> is executed ''inside'' the container.
+
+If you need to run an MPI application across nodes and you can do so without Apptainer, then we recommend not using Apptainer. 
+Running an MPI application within any container across nodes is error-prone. 
+
+Two methods are described the [http://apptainer.org/docs/user/main/mpi.html Apptainer documentation] to run an MPI application with Apptainer across nodes:
+# The hybrid model [https://apptainer.org/docs/user/latest/mpi.html#hybrid-model].
+# The bind model [https://apptainer.org/docs/user/latest/mpi.html#bind-model].
+Of these two, we recommend the hybrid model. 
+
+Beware of these issues:
+* The MPI version installed inside the container '''must''' be compatible with the MPI used on the host.  This includes all needed fabrics, ''etc.''
+* You must <code>module load</code> the version of MPI needed on the host ''before'' running the <code>apptainer</code> command that runs the MPI job.
+
+Assuming your MPI job uses one thread per MPI rank (that is, it is not a "hybrid" MPI/shared-memory job), then you can specify the number of ranks as the number of tasks in your job script.
+For example, if there are 4 ranks:
+
+    #!/bin/bash
+    #SBATCH --mem-per-cpu=3G
+    #SBATCH --time=0-00:05
+    #SBATCH --ntasks=4
+    module load openmpi apptainer
+    # This for loop ensures all special OMPI (OpenMPI) variables that are set in the host environment
+    # are properly exported for use inside the container:
+    for v in "${!OMPI_@}" ; do
+        export APPTAINERENV_${v}=${!v}
+    done
+    mpirun -np ${SLURM_NTASKS} -- apptainer exec -e YOUR_CONTAINER.sif ./your-mpi-program args
+
+The above example depends on the <code>OMPI</code> prefix used by Open MPI.
+If you want to see which variables are set in the host environment by a given module,
+run <code>module show</code> for that module, e.g., <code>module show openmpi</code>.
+
+If you encounter problems and you are using one of the Apptainer clean environment options, 
+e.g., <code>-e</code>, <code>-c</code>, or <code>-C</code>, then try relaxing that option.  
+That is, if <code>-C</code> doesn't work, try <code>-c</code>, and if <code>-c</code> doesn't work, try <code>-e</code>.
+Our tests indicate that you will probably need at least one of these clean environment options.
+
+Bear in mind that a job script which works on a single node can easily fail when run on multiple nodes. 
+Consider forcing your job to run on more than one node while still in the testing phase.
+For example, if your test has 4 tasks, then you can force the test to run on 2 or more nodes by specifying
+<code>#SBATCH --nodes 2-4</code> in the job script.
 
 ==Creating an Apptainer container from a Dockerfile==
 

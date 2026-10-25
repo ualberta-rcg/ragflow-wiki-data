@@ -4,70 +4,71 @@ slug: "namd"
 lang: "base"
 
 source_wiki_title: "NAMD"
-source_hash: "cdae9fd20fe46d417b7b21b594dc6f3c"
-last_synced: "2026-04-10T15:28:10.183781+00:00"
-last_processed: "2026-04-11T09:38:00.862873+00:00"
+source_hash: "41a1fb27591d944231adfe6f177afb15"
+last_synced: "2026-10-25T00:54:39.630071+00:00"
+last_processed: "2026-10-25T01:40:23.253021+00:00"
 
 tags:
   - software
   - biomolecularsimulation
 
 keywords:
-  - "SBATCH"
-  - "GPU jobs"
-  - "release notes"
-  - "version 3.0.1"
-  - "URL"
-  - "submission scripts"
-  - "software download"
-  - "Graham GPU nodes"
-  - "GPU benchmarking"
-  - "Efficiency"
-  - "multi-node"
-  - "molecular dynamics"
-  - "UCX"
-  - "NAMD"
-  - "cuda"
-  - "ks"
-  - "uiuc"
-  - "verbs module"
-  - "cores"
-  - "Wall time per step"
-  - "multicore module"
-  - "multicore_gpu_namd_job.sh"
-  - "Training"
-  - "benchmarking"
-  - "SLURM"
-  - "NAMD 2.12"
+  - "time=0-05:00"
+  - "SLURM script"
   - "GPUresident"
-  - "User's guide"
+  - "registration required"
+  - "scaling performance"
+  - "performance benchmarking"
+  - "NAMD download"
+  - "SLURM workload manager"
+  - "256 cores"
+  - "Training"
+  - "parallel molecular dynamics"
+  - "KS UIUC"
+  - "cpus-per-task=16"
+  - "gpus-per-node=h100:1"
+  - "http://www.ks.uiuc.edu/Training/Tutorials/"
+  - "GPU node"
+  - "namd-multicore/3.0.2"
   - "Tutorials"
+  - "efficiency"
+  - "version 2.14"
+  - "#SBATCH"
+  - "NAMD"
+  - "version 3.0.1"
+  - "wall time per step"
+  - "NAMD 3"
+  - "UCX"
+  - "H100 GPU"
+  - "multi-node GPU jobs"
+  - "wall time per step"
+  - "cores"
+  - "NAMD 2.12"
+  - "VMD"
+  - "NAMD User's guide"
 
 questions:
-  - "What is NAMD and how can users access its different versions on the clusters?"
-  - "Under what circumstances should a user utilize the UCX version of NAMD for multi-node CPU jobs?"
-  - "How can users optimize the performance of threaded GPU jobs using the new input flag introduced in NAMD 3?"
-  - "What specific command must be added to the NAMD input file to enable GPU residency and improve performance?"
-  - "What hardware resources, such as CPUs, memory, and GPUs, are allocated in the provided Slurm batch script?"
-  - "Which specific software modules and versions must be loaded to set up the environment for the NAMD job?"
-  - "How should a user configure a SLURM job script to efficiently run a multi-node NAMD job on a cluster like Narval?"
-  - "Why is it advised not to use NAMD version 2.14 on clusters equipped with H100 GPUs?"
-  - "What are the recommended practices for conducting a reliable performance benchmark for a NAMD simulation?"
-  - "Based on the benchmarking results, why is it recommended to use only one node for this specific system, and what is the most efficient core-to-GPU configuration?"
-  - "What factors should be considered when deciding whether to run a simulation with or without GPUs on the Graham system?"
-  - "How can users manually install a newer version of NAMD 3, and what configuration keyword is highly recommended to maximize its GPU performance?"
-  - "How is the efficiency of the NAMD 2.12 simulation calculated based on the provided text?"
-  - "What is the relationship between the number of cores used and the wall time per step?"
-  - "At what number of cores does the system achieve its peak efficiency percentage before it begins to decline?"
-  - "What specific topics or software are covered in the tutorials provided at the listed URL?"
-  - "Who is the intended audience for the training materials found on this website?"
-  - "Which institution or organization is responsible for hosting these training tutorials?"
-  - "What is the mandatory requirement for users who wish to download the NAMD software?"
-  - "Which two specific versions of the NAMD software have documentation linked in the text?"
-  - "What specific types of documentation are provided for the referenced NAMD versions?"
-  - "What specific topics or software are covered in the tutorials provided at the listed URL?"
-  - "Who is the intended audience for the training materials found on this website?"
-  - "Which institution or organization is responsible for hosting these training tutorials?"
+  - "How can users request a specific NAMD version or perform a custom installation if the provided modules do not meet their needs?"
+  - "What SLURM script parameters are recommended for efficiently running multi‑node CPU jobs with UCX in NAMD?"
+  - "Which input flag should be added to a NAMD input file to shift more calculations to the GPU and improve performance?"
+  - "Which compute resources (CPU cores, memory per CPU, and GPU) are requested by the SBATCH directives in the script?"
+  - "Which software modules are loaded, and what specific versions are specified for each module?"
+  - "What is the maximum runtime allowed for the job, and how is this time limit formatted in the SBATCH directive?"
+  - "What SLURM options and node specifications are recommended for efficiently running multi‑node GPU NAMD jobs on the Narval cluster?"
+  - "Why is NAMD 2.14 unsuitable for clusters equipped with H100 GPUs, and which NAMD version provides UCX support for those GPUs?"
+  - "How is efficiency defined in the NAMD benchmark table, and what pattern does the efficiency exhibit as the core count increases?"
+  - "What is the recommended maximum number of CPU cores to request for this system to avoid long queue times?"
+  - "According to the GPU benchmarking results, which single‑node configuration provides the highest efficiency for NAMD simulations?"
+  - "How does the cost‑effectiveness of using a GPU node compare to using multiple non‑GPU nodes, and what factor should influence the decision to submit GPU versus non‑GPU jobs?"
+  - "What is the formula used to calculate the efficiency values shown in the table?"
+  - "How does the efficiency change as the number of cores increases, and at which core counts does it fall below 100%?"
+  - "What are the wall‑time per step values for 1 core, 64 cores, and 256 cores according to the table?"
+  - "What kinds of tutorials are available at the linked KSIU training page?"
+  - "How can users access and navigate the tutorials provided at that URL?"
+  - "Are the tutorials suitable for beginners, or do they require prior knowledge?"
+  - "What is required to download NAMD from the provided link?"
+  - "Where can users find the user guides for NAMD versions 3.0.1 and 2.14?"
+  - "Where are the release notes for NAMD versions 3.0.1 and 2.14 located?"
 
 status:
   downloaded: true
@@ -92,16 +93,13 @@ To run jobs that span nodes, use UCX.
 Please refer to the [Running jobs](../running-jobs/running_jobs.md) page for help on using the SLURM workload manager.
 
 ### Threaded CPU jobs
-Below is a job script for a threaded simulation. You can increase the number for `--cpus-per-task` to use more cores, up to the maximum number of cores available on a cluster node. Check below in "Performance and benchmarking" section for advice on how to choose the number of cores to use.
+Below is a job script for a threaded simulation. You can increase the number for `--cpus-per-task` to use more cores, up to the maximum number of cores available on a cluster node. Refer to the "Performance and benchmarking" section below for advice on how to choose the number of cores to use.
 
 ```bash title="serial_namd_job.sh"
 #!/bin/bash
-#
-#SBATCH --cpus-per-task=8
-#SBATCH --mem 10g            # memory in Mb, increase as needed    
-#SBATCH -o slurm.%N.%j.out    # STDOUT file
-#SBATCH -t 0:05:00            # time (D-HH:MM), increase as needed
-#SBATCH --account=def-specifyaccount
+#SBATCH --cpus-per-task=8       # number of threads
+#SBATCH --mem-per-cpu=2000M     # memory per CPU (in MB)
+#SBATCH --time=0-05:00          # time limit (D-HH:MM)
 
 module load StdEnv/2023  gcc/12.3 namd-multicore/3.0.2
 namd3 +p$SLURM_CPUS_PER_TASK  +idlepoll +setcpuaffinity stmv.namd
@@ -110,17 +108,14 @@ namd3 +p$SLURM_CPUS_PER_TASK  +idlepoll +setcpuaffinity stmv.namd
 ### Multi-node CPU jobs
 
 #### UCX jobs
-This example runs 384 tasks in total on 2 nodes, each node running 192 tasks. This script assumes full nodes are used, thus `ntasks-per-node` should be equal to the number of cores available on the node (192 on fir, rorqual, nibi and trillium). For best performance, NAMD UCX jobs should use full nodes. Only use UCX version if the multicore version of NAMD is not sufficient for your needs and you need to run on multiple nodes.
+This example runs 384 tasks in total on 2 nodes, each node running 192 tasks. This script assumes full nodes are used, thus `--ntasks-per-node` should be equal to the number of cores available on the node (192 on fir, rorqual, nibi, and trillium). For best performance, NAMD UCX jobs should use full nodes. Only use the UCX version if the multicore version of NAMD is not sufficient for your needs and you need to run on multiple nodes.
 
 ```bash title="ucx_namd_job.sh"
 #!/bin/bash
-#
-#SBATCH --nodes=2
-#SBATCH --ntasks-per-node=192
-#SBATCH --mem=0            # memory per node, 0 means all memory
-#SBATCH -o slurm.%N.%j.out    # STDOUT
-#SBATCH -t 0:05:00            # time (D-HH:MM)
-#SBATCH --account=def-specifyaccount
+#SBATCH --nodes=2               # number of nodes
+#SBATCH --ntasks-per-node=192   # number of MPI processes per node
+#SBATCH --mem=0                 # memory per node, 0 means all memory
+#SBATCH --time=0-05:00          # time limit (D-HH:MM)
 
 module load StdEnv/2023 gcc/13.3 namd-ucx/3.0.2
 srun --mpi=pmi2 namd3 stmv.namd
@@ -132,20 +127,18 @@ This example uses 16 CPU cores and 1 H100 GPU on a single node. You can increase
 !!! important "Important"
     NAMD 3 added an input flag, which shifts more calculations to the GPU. This can improve performance considerably.
 
-To use it, add this line to your NAMD input file:
+    To use it, add this line to your NAMD input file:
 
-```
-GPUresident on;
-```
+    ```
+    GPUresident on;
+    ```
 
 ```bash title="multicore_gpu_namd_job.sh"
 #!/bin/bash
-
-#SBATCH --cpus-per-task=16 
-#SBATCH --mem=10g    
-#SBATCH --time=0:15:00
-#SBATCH --gpus-per-node=h100:1
-#SBATCH --account=def-specifyaccount
+#SBATCH --cpus-per-task=16      # number of threads
+#SBATCH --mem-per-cpu=2000M     # memory per CPU (in MB)
+#SBATCH --gpus-per-node=h100:1  # request a single GPU
+#SBATCH --time=0-05:00          # time limit (D-HH:MM)
 
 module load StdEnv/2023  gcc/12.3  cuda/12.6 namd-multicore/3.0.2
 namd3 +p$SLURM_CPUS_PER_TASK  +idlepoll stmv.namd
@@ -155,23 +148,21 @@ namd3 +p$SLURM_CPUS_PER_TASK  +idlepoll stmv.namd
 #### UCX GPU jobs
 Note that a single GPU node provides a great deal of computational power, so using multiple nodes is justified only when your job can use them efficiently.
 
-This example is for Narval and it assumes that full nodes are used, which gives best performance for NAMD jobs. It runs 8 tasks in total on 2 nodes, each task using 12 threads and 1 GPU. This fully utilizes Narval GPU nodes which have 48 cores and 4 GPUs per node. Note that 1 core per task has to be reserved for a communications thread, so NAMD will report that only 88 cores are being used but this is normal.
+This example is for Narval and assumes that full nodes are used, which gives the best performance for NAMD jobs. It runs 8 tasks in total on 2 nodes, each task using 12 threads and 1 GPU. This fully utilizes Narval GPU nodes, which have 48 cores and 4 GPUs per node. Note that 1 core per task has to be reserved for a communications thread, so NAMD will report that only 88 cores are being used, but this is normal.
 
 To use this script on other clusters, please look up the specifications of their available nodes and adjust `--cpus-per-task` and `--gpus-per-node` options accordingly.
 
 !!! note "Note"
-    NAMD 2.14 in this example should not be used on clusters with H100 GPUs. UCX version of NAMD 3.0.1 able to run on H100 is not yet installed on Alliance clusters.
+    NAMD 2.14 in this example should not be used on clusters with H100 GPUs. The UCX version of NAMD 3.0.1 able to run on H100 is not yet installed on Alliance clusters.
 
 ```bash title="ucx_namd_job.sh"
 #!/bin/bash
-
-#SBATCH --nodes=2
-#SBATCH --ntasks-per-node=4
-#SBATCH --cpus-per-task=12 # number of threads per task (process)
-#SBATCH --gpus-per-node=a100:4
-#SBATCH --mem=0            # memory per node, 0 means all memory
-#SBATCH --time=0:15:00
-#SBATCH --account=def-specifyaccount
+#SBATCH --nodes=2               # number of nodes
+#SBATCH --ntasks-per-node=4     # number of MPI processes per node
+#SBATCH --cpus-per-task=12      # number of threads per MPI process
+#SBATCH --mem=0                 # memory per node, 0 means all memory
+#SBATCH --gpus-per-node=a100:4  # request all 4 GPUs on each node
+#SBATCH --time=0-05:00          # time limit (D-HH:MM)
 
 module load StdEnv/2020  intel/2020.1.217  cuda/11.0 namd-ucx-smp/2.14
 NUM_PES=$(expr $SLURM_CPUS_PER_TASK - 1 )
@@ -179,62 +170,60 @@ srun --cpus-per-task=$SLURM_CPUS_PER_TASK --mpi=pmi2 namd2 ++ppn $NUM_PES stmv.n
 ```
 
 ## Performance and benchmarking
+A team at [ACENET](https://www.ace-net.ca/) has created a [Molecular Dynamics Performance Guide](https://mdbench.ace-net.ca/mdbench/) for Alliance clusters. It can help you determine optimal conditions for AMBER, GROMACS, NAMD, and OpenMM jobs. This section focuses on NAMD performance.
 
-A team at [ACENET](https://www.ace-net.ca/) has created a [Molecular Dynamics Performance Guide](https://mdbench.ace-net.ca/mdbench/) for Alliance clusters. It can help you determine optimal conditions for AMBER, GROMACS, NAMD, and OpenMM jobs. The present section focuses on NAMD performance.
-
-Here is an example of how you should conduct benchmarking of NAMD. Performance of NAMD will be different for different systems you are simulating, depending especially on the number of atoms in the simulation. Therefore, if you plan to spend a significant amount of time simulating a particular system, it would be very useful to conduct the kind of benchmarking shown below. Collecting and providing this kind of data is also very useful if you are applying for a RAC award.
+Here is an example of how you should conduct benchmarking of NAMD. NAMD's performance will differ for various systems you are simulating, especially depending on the number of atoms in the simulation. Therefore, if you plan to spend a significant amount of time simulating a particular system, it would be very useful to conduct the kind of benchmarking described below. Collecting and providing this kind of data is also very useful if you are applying for a RAC award.
 
 For a good benchmark, vary the number of steps so that your system runs for a few minutes, and that timing information is collected in reasonable time intervals of at least a few seconds. If your run is too short, you might see fluctuations in your timing results.
 
-The numbers below were obtained for the standard NAMD apoa1 benchmark. The benchmarking was conducted on the Graham cluster, which has CPU nodes with 32 cores and GPU nodes with 32 cores and 2 GPUs. Performing the benchmark on other clusters will have to take account of the different structure of their nodes.
+The numbers below were obtained for the standard NAMD apoa1 benchmark. The benchmarking was conducted on the Graham cluster, which has CPU nodes with 32 cores and GPU nodes with 32 cores and 2 GPUs. Performing the benchmark on other clusters will need to account for the different structure of their nodes.
 
-In the results shown in the first table below, we used NAMD 2.12 from the verbs module. Efficiency is computed from (time with 1 core) / (N * (time with N cores) ).
+In the results shown in the first table below, we used NAMD 2.12 from the verbs module. Efficiency is computed from (time with 1 core) / (N \* (time with N cores) ).
 
 | # cores | Wall time (s) per step | Efficiency |
-| :------ | :--------------------- | :--------- |
-| 1       | 0.8313                 | 100%       |
-| 2       | 0.4151                 | 100%       |
-| 4       | 0.1945                 | 107%       |
-| 8       | 0.0987                 | 105%       |
-| 16      | 0.0501                 | 104%       |
-| 32      | 0.0257                 | 101%       |
-| 64      | 0.0133                 | 98%        |
-| 128     | 0.0074                 | 88%        |
-| 256     | 0.0036                 | 90%        |
-| 512     | 0.0021                 | 77%        |
+|---|---|---|
+| 1 | 0.8313 | 100% |
+| 2 | 0.4151 | 100% |
+| 4 | 0.1945 | 107% |
+| 8 | 0.0987 | 105% |
+| 16 | 0.0501 | 104% |
+| 32 | 0.0257 | 101% |
+| 64 | 0.0133 | 98% |
+| 128 | 0.0074 | 88% |
+| 256 | 0.0036 | 90% |
+| 512 | 0.0021 | 77% |
 
 These results show that for this system it is acceptable to use up to 256 cores. Keep in mind that if you ask for more cores, your jobs will wait in the queue for a longer time, affecting your overall throughput.
 
-Now we perform benchmarking with GPUs. NAMD multicore module is used for simulations that fit within 1 node, and NAMD verbs-smp module is used for runs spanning nodes.
+Now we perform benchmarking with GPUs. The NAMD multicore module is used for simulations that fit within 1 node, and the NAMD verbs-smp module is used for runs spanning nodes.
 
-| # cores | #GPUs | Wall time (s) per step | Notes              |
-| :------ | :---- | :--------------------- | :----------------- |
-| 4       | 1     | 0.0165                 | 1 node, multicore  |
-| 8       | 1     | 0.0088                 | 1 node, multicore  |
-| 16      | 1     | 0.0071                 | 1 node, multicore  |
-| 32      | 2     | 0.0045                 | 1 node, multicore  |
-| 64      | 4     | 0.0058                 | 2 nodes, verbs-smp |
-| 128     | 8     | 0.0051                 | 2 nodes, verbs-smp |
+| # cores | #GPUs | Wall time (s) per step | Notes |
+|---|---|---|---|
+| 4 | 1 | 0.0165 | 1 node, multicore |
+| 8 | 1 | 0.0088 | 1 node, multicore |
+| 16 | 1 | 0.0071 | 1 node, multicore |
+| 32 | 2 | 0.0045 | 1 node, multicore |
+| 64 | 4 | 0.0058 | 2 nodes, verbs-smp |
+| 128 | 8 | 0.0051 | 2 nodes, verbs-smp |
 
-From this table it is clear that there is no point at all in using more than 1 node for this system, since performance actually becomes worse if we use 2 or more nodes. Using only 1 node, it is best to use 1GPU/16 core as that has the greatest efficiency, but also acceptable to use 2GPU/32core if you need to get your results quickly. Since on Graham GPU nodes your priority is charged the same for any job using up to 16 cores and 1 GPU, there is no benefit from running with 8 cores and 4 cores in this case.
+From this table, it is clear that there is no point in using more than 1 node for this system, as performance actually becomes worse if we use 2 or more nodes. Using only 1 node, it is best to use 1 GPU/16 cores as that has the greatest efficiency, but it is also acceptable to use 2 GPUs/32 cores if you need to get your results quickly. Since on Graham GPU nodes your priority is charged the same for any job using up to 16 cores and 1 GPU, there is no benefit from running with 8 cores and 4 cores in this case.
 
-Finally, you have to ask whether to run with or without GPUs for this simulation. From our numbers we can see that using a full GPU node of Graham (32 cores, 2 gpus) the job runs faster than it would on 4 non-GPU nodes of Graham. Since a GPU node on Graham costs about twice what a non-GPU node costs, in this case it is more cost effective to run with GPUs. You should run with GPUs if possible, however, given that there are fewer GPU than CPU nodes, you may need to consider submitting non-GPU jobs if your waiting time for GPU jobs is too long.
+Finally, you have to ask whether to run with or without GPUs for this simulation. From our numbers, we can see that using a full GPU node on Graham (32 cores, 2 GPUs) the job runs faster than it would on 4 non-GPU nodes on Graham. Since a GPU node on Graham costs about twice what a non-GPU node costs, in this case it is more cost-effective to run with GPUs. You should run with GPUs if possible; however, given that there are fewer GPU than CPU nodes, you may need to consider submitting non-GPU jobs if your waiting time for GPU jobs is too long.
 
 ## NAMD 3
-
 NAMD 3.0.1 is now installed as a module. It might offer better performance than NAMD 2.14 for certain system configurations.
 
-Sometimes a newer version of NAMD will become available on the NAMD website, but it might take us a while to install it as a module. If you want to try it right away, you can download the binary from the NAMD website and modify it so it can run on Alliance systems, like this (change version as needed):
+Sometimes a newer version of NAMD will become available on the NAMD website, but it might take some time for us to install it as a module. If you want to try it right away, you can download the binary from the NAMD website and modify it so it can run on Alliance systems, as shown below (change version as needed):
 
 ```bash
-tar xvfz NAMD_3.0alpha11_Linux-x86_64-multicore-CUDA-SingleNode.tar.gz 
+tar xvfz NAMD_3.0alpha11_Linux-x86_64-multicore-CUDA-SingleNode.tar.gz
 cd NAMD_3.0alpha11_Linux-x86_64-multicore-CUDA
 setrpaths.sh  --path .
 ```
 
-After this the `namd3` executable located in that directory will be linked to the correct libraries on our systems. You can then submit a job that uses that executable.
+After this, the `namd3` executable located in that directory will be linked to the correct libraries on our systems. You can then submit a job that uses that executable.
 
-For best performance of NAMD 3 on GPUs, we highly recommend adding the following keyword to the configuration file, if the input configuration you are running supports it.
+For the best performance of NAMD 3 on GPUs, we highly recommend adding the following keyword to the configuration file, if the input configuration you are running supports it.
 
 ```
 GPUresident on;
@@ -243,9 +232,9 @@ GPUresident on;
 Please see the [NAMD 3.0 Alpha web page](https://www.ks.uiuc.edu/Research/namd/alpha/3.0alpha/) for more on this parameter and related changes in NAMD 3.
 
 ## References
-*   Downloads: [http://www.ks.uiuc.edu/Development/Download/download.cgi?PackageName=NAMD](http://www.ks.uiuc.edu/Development/Download/download.cgi?PackageName=NAMD) -- Registration is required to download the software.
-*   [NAMD User's guide for version 3.0.1](https://www.ks.uiuc.edu/Research/namd/3.0.1/ug/)
-*   [NAMD User's guide for version 2.14](https://www.ks.uiuc.edu/Research/namd/2.14/ug/)
-*   [NAMD version 3.0.1 release notes](https://www.ks.uiuc.edu/Research/namd/3.0.1/notes.html)
-*   [NAMD version 2.14 release notes](https://www.ks.uiuc.edu/Research/namd/2.14/notes.html)
-*   Tutorials: [http://www.ks.uiuc.edu/Training/Tutorials/](http://www.ks.uiuc.edu/Training/Tutorials/)
+* Downloads: [http://www.ks.uiuc.edu/Development/Download/download.cgi?PackageName=NAMD](http://www.ks.uiuc.edu/Development/Download/download.cgi?PackageName=NAMD) — Registration is required to download the software.
+* [NAMD User's guide for version 3.0.1](https://www.ks.uiuc.edu/Research/namd/3.0.1/ug/)
+* [NAMD User's guide for version 2.14](https://www.ks.uiuc.edu/Research/namd/2.14/ug/)
+* [NAMD version 3.0.1 release notes](http://www.ks.uiuc.edu/Research/namd/3.0.1/notes.html)
+* [NAMD version 2.14 release notes](http://www.ks.uiuc.edu/Research/namd/2.14/notes.html)
+* Tutorials: [http://www.ks.uiuc.edu/Training/Tutorials/](http://www.ks.uiuc.edu/Training/Tutorials/)

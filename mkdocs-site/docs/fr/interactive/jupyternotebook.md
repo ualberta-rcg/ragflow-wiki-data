@@ -4,66 +4,64 @@ slug: "jupyternotebook"
 lang: "fr"
 
 source_wiki_title: "JupyterNotebook/fr"
-source_hash: "ecef32c1cb1e16a7affc4d08c5b2bf07"
-last_synced: "2026-04-10T15:28:10.183781+00:00"
-last_processed: "2026-04-11T08:22:29.903077+00:00"
+source_hash: "4c350c2b1b624a7170604b01842ab5bd"
+last_synced: "2026-10-25T00:54:39.630071+00:00"
+last_processed: "2026-10-25T01:34:46.034518+00:00"
 
 tags:
   []
 
 keywords:
-  - "sshuttle"
-  - "Jupyter"
-  - "IJulia"
-  - "nbserverproxy"
-  - "Environnement virtuel Python"
-  - "TensorBoard"
-  - "Jupyter Notebook"
-  - "MobaXTerm"
-  - "ipykernel"
-  - "nœud de calcul"
-  - "Installation"
-  - "tunnel SSH"
-  - "services web mandataires"
-  - "noyau Jupyter"
-  - "serveur local"
-  - "R"
-  - "environnement virtuel"
-  - "tâche interactive"
-  - "installation d'un noyau"
-  - "Python"
-  - "RStudio Launcher"
-  - "Modules d'extension"
-  - "poste de travail"
-  - "Nœud de calcul"
-  - "noyaux"
+  - "Project Jupyter"
   - "Julia"
+  - "activation de l'environnement virtuel"
+  - "ajouter des noyaux"
+  - "services web mandataires"
+  - "Pkg.add(\"IJulia\")"
+  - "Jupyter Notebook"
+  - "module Python"
+  - "ipykernel"
+  - "tunnel SSH"
+  - "poste de travail"
+  - "IRkernel"
+  - "virtualenv"
+  - "port local"
+  - "grappe"
+  - "source $HOME/jupyter_py3/bin/activate"
+  - "sshuttle"
+  - "module load julia"
+  - "environnement virtuel Python"
+  - "module R"
+  - "mkdir -p ~/.local/share/jupyter/kernels"
+  - "nbserverproxy"
+  - "module d'extension jupyterlmod"
+  - "TensorBoard"
+  - "serveur Jupyter"
+  - "MobaXTerm"
+  - "RStudio Launcher"
 
 questions:
-  - "Pourquoi est-il recommandé d'exécuter Jupyter Notebook sur un nœud de calcul plutôt que sur un nœud de connexion ?"
-  - "Quelles sont les étapes à suivre pour installer Jupyter Notebook dans un environnement virtuel Python ?"
-  - "Quelles fonctionnalités supplémentaires les modules d'extension comme Jupyter Lmod et nbserverproxy apportent-ils à l'application ?"
-  - "Quel est le rôle principal de l'extension nbserverproxy au sein d'un serveur Jupyter ?"
-  - "Dans quelle situation spécifique l'utilisation de services web mandataires s'avère-t-elle utile ?"
-  - "Quel exemple de service web local est cité pour illustrer l'utilité de ce système ?"
-  - "Comment configurer Jupyter Notebook pour qu'il puisse démarrer une session RStudio ?"
-  - "Quelle est la procédure pour lancer l'application Jupyter Notebook sur un nœud de calcul à l'aide d'une tâche interactive ?"
-  - "Pourquoi est-il nécessaire de créer un tunnel SSH pour accéder à l'interface web de Jupyter, et quel outil est recommandé sous Linux ou macOS ?"
-  - "Comment configurer un tunnel SSH sous Windows avec MobaXTerm pour accéder à l'interface de Jupyter Notebook ?"
-  - "Quelle est la procédure pour fermer correctement le serveur Jupyter Notebook et le tunnel SSH associé ?"
-  - "Quelles sont les étapes nécessaires pour ajouter un nouveau noyau de langage de programmation, comme Julia, à Jupyter Notebook ?"
-  - "Quel est l'objectif principal de la création d'un tunnel SSH entre la grappe et le poste de travail ?"
-  - "Quel paquet Python est spécifiquement recommandé pour configurer ce tunnel sous Linux ou macOS X ?"
-  - "Quelle commande doit-on exécuter dans le terminal du poste local pour établir la connexion ?"
-  - "Quelles sont les étapes requises pour créer un environnement virtuel et configurer un noyau Python pour Jupyter ?"
-  - "Comment procéder à l'installation des dépendances et du noyau R (IRkernel) dans l'environnement Jupyter ?"
-  - "Où l'utilisateur peut-il consulter la documentation officielle pour obtenir plus d'informations sur les noyaux IJulia, Python et R ?"
-  - "Quelle commande doit-on utiliser pour créer le répertoire destiné à stocker les noyaux Jupyter ?"
-  - "Quelles sont les étapes préalables requises pour préparer l'environnement avant l'installation du noyau Julia ?"
-  - "Quelle commande spécifique permet d'installer le paquet IJulia une fois l'environnement virtuel activé ?"
-  - "Quelles sont les étapes requises pour créer un environnement virtuel et configurer un noyau Python pour Jupyter ?"
-  - "Comment procéder à l'installation des dépendances et du noyau R (IRkernel) dans l'environnement Jupyter ?"
-  - "Où l'utilisateur peut-il consulter la documentation officielle pour obtenir plus d'informations sur les noyaux IJulia, Python et R ?"
+  - "Quelles sont les étapes détaillées pour installer Jupyter Notebook dans un environnement virtuel Python sur le serveur ?"
+  - "Pourquoi l’article conseille‑t‑il d’utiliser JupyterLab plutôt que Jupyter Notebook, et où peut‑on accéder à un environnement Jupyter préconfiguré ?"
+  - "Comment installer et activer les extensions Jupyter Lmod et nbserverproxy afin d’enrichir les fonctionnalités de Jupyter Notebook ?"
+  - "À quoi sert la commande `jupyter serverextension enable --py jupyterlmod --sys-prefix` ?"
+  - "Quel est le rôle de `nbserverproxy` pour accéder aux services web démarrés dans un serveur Jupyter ?"
+  - "Pourquoi un proxy est‑il nécessaire pour utiliser des services locaux tels que TensorBoard depuis Jupyter ?"
+  - "Quelles sont les étapes d’installation et d’activation de nbserverproxy et nbrsessionproxy pour rendre les services accessibles via le chemin /proxy/ dans Jupyter Notebook ?"
+  - "Comment démarrer une session RStudio depuis Jupyter Notebook à l’aide du RStudio Launcher, et quels environnements logiciels sont requis pour que cela fonctionne ?"
+  - "Quelle est la procédure complète pour lancer Jupyter Notebook sur le cluster (allocation de ressources, activation de l’environnement) et s’y connecter depuis un poste local en créant un tunnel SSH ?"
+  - "Comment lancer Jupyter Notebook sur un nœud distant en utilisant sshuttle et quelle URL doit‑on copier dans le navigateur ?"
+  - "Quelle procédure suivre sous Windows avec MobaXTerm pour créer un tunnel SSH et accéder à Jupyter Notebook via localhost ?"
+  - "Quelles sont les étapes nécessaires pour ajouter un nouveau noyau (par exemple Julia) à Jupyter Notebook sur le cluster ?"
+  - "Quel est l'objectif de créer un tunnel SSH entre la grappe et votre poste de travail ?"
+  - "Quel paquet Python est recommandé d’utiliser sous Linux ou macOS X pour établir ce tunnel ?"
+  - "Quelle commande doit‑être lancée dans le terminal de votre poste de travail pour créer le tunnel ?"
+  - "Quelles sont les étapes détaillées pour créer, activer et installer un noyau Python 3.5 dans Jupyter Notebook ?"
+  - "Comment installer et configurer le noyau R (IRkernel) ainsi que son environnement virtuel pour Jupyter Notebook ?"
+  - "Où peut‑on consulter la documentation supplémentaire mentionnée pour IJulia, ipykernel et IRKernel ?"
+  - "Quelle est la fonction de la commande `mkdir -p ~/.local/share/jupyter/kernels` mentionnée au début du texte ?"
+  - "Quelles sont les trois étapes décrites pour installer le noyau Julia dans Jupyter Notebook ?"
+  - "Comment active-t-on l’environnement virtuel Jupyter avant d’installer le paquet IJulia ?"
 
 status:
   downloaded: true
@@ -74,50 +72,52 @@ status:
   qa_generated: false
 ---
 
-!!! warning "Matériel avancé"
-Cette page est destinée aux utilisateurs avancés. Veuillez plutôt consulter [JupyterHub](jupyterhub.md).
+!!! warning "Contenu avancé"
+Cette page est destinée aux utilisateurs expérimentés. Veuillez plutôt consulter [JupyterHub](jupyterhub.md).
 
 ## Introduction
 
 [Project Jupyter](http://jupyter.org/) est un projet *open source* sans but lucratif dont la mission est de servir le calcul scientifique et la science des données interactives. Initié en 2014 dans le cadre du IPython Project, la portée de Project Jupyter s'étend à plusieurs autres langages de programmation.
+<small>http://jupyter.org/about.html</small>
 
 L'application web Jupyter Notebook rend possibles la création et le partage de documents contenant aussi bien du code, des équations et des visualisations que du texte.
+<small>http://www.jupyter.org/</small>
 
 Jupyter Notebook fonctionne sur un nœud de calcul ou sur un nœud de connexion (non recommandé). Dans le cas du nœud de connexion, diverses limites sont imposées tant pour l'utilisateur que pour les processus, et les applications sont parfois terminées quand elles utilisent trop de temps CPU ou de mémoire. Dans le cas du nœud de calcul, la tâche est soumise avec la spécification du nombre de CPU ou de GPU à utiliser, la quantité de mémoire et le temps d'exécution. Les directives qui suivent concernent la soumission d'une tâche Jupyter Notebook.
 
 **Autre information :**
-* Jupyter Notebook n'étant pas la plus récente interface de Jupyter, nous vous suggérons d'installer plutôt **[JupyterLab](../getting-started/advanced_jupyter_configuration.md)**.
-* Pour utiliser un environnement Jupyter préconfiguré, voyez la page **[Jupyter](../software/jupyter.md)**.
+*   Jupyter Notebook n'étant pas la plus récente interface de Jupyter, nous vous suggérons d'installer plutôt **[JupyterLab](../getting-started/advanced_jupyter_configuration.md)**.
+*   Pour utiliser un environnement Jupyter préconfiguré, voyez la page **[Jupyter](../software/jupyter.md)**.
 
 ## Installation
 
-Ces directives permettent d'installer Jupyter Notebook avec la commande `pip` dans un [environnement virtuel Python](../software/python.md) dans votre répertoire personnel (*home*). Les directives sont valides pour la version 3.6 de Python, mais vous pouvez installer l'application pour d'autres versions en chargeant le module Python approprié.
+Ces directives permettent d'installer Jupyter Notebook avec la commande `pip` dans un [environnement virtuel Python](../software/python.md) dans votre répertoire personnel (*home*). Les directives sont valides pour la version 3.7 de Python, mais vous pouvez installer l'application pour d'autres versions en chargeant le module Python approprié.
 
-1. Chargez le module Python.
-   ```bash
-   module load python/3.7
-   ```
-2. Créez un nouvel environnement virtuel Python.
-   ```bash
-   virtualenv $HOME/jupyter_py3
-   ```
-3. Activez votre nouvel environnement virtuel Python.
-   ```bash
-   source $HOME/jupyter_py3/bin/activate
-   ```
-4. Installez Jupyter Notebook dans votre nouvel environnement virtuel Python.
-   ```bash
-   (jupyter_py3)_[name@server ~]$ pip install --no-index --upgrade pip
-   (jupyter_py3)_[name@server ~]$ pip install --no-index jupyter
-   ```
-5. Dans votre nouvel environnement virtuel, créez un script (*wrapper*) pour lancer Jupyter Notebook.
-   ```bash
-   (jupyter_py3)_[name@server ~]$ echo -e '#!/bin/bash\nexport JUPYTER_RUNTIME_DIR=$SLURM_TMPDIR/jupyter\njupyter notebook --ip $(hostname -f) --no-browser' > $VIRTUAL_ENV/bin/notebook.sh
-   ```
-6. Enfin, rendez le script exécutable.
-   ```bash
-   (jupyter_py3)_[name@server ~]$ chmod u+x $VIRTUAL_ENV/bin/notebook.sh
-   ```
+1.  Chargez le module Python.
+    ```bash
+    module load python/3.7
+    ```
+2.  Créez un nouvel environnement virtuel Python.
+    ```bash
+    virtualenv $HOME/jupyter_py3
+    ```
+3.  Activez votre nouvel environnement virtuel Python.
+    ```bash
+    source $HOME/jupyter_py3/bin/activate
+    ```
+4.  Installez Jupyter Notebook dans votre nouvel environnement virtuel Python.
+    ```bash
+    (jupyter_py3)_[name@server ~]$ pip install --no-index --upgrade pip
+    (jupyter_py3)_[name@server ~]$ pip install --no-index jupyter
+    ```
+5.  Dans votre nouvel environnement virtuel, créez un script d'encapsulation pour lancer Jupyter Notebook.
+    ```bash
+    (jupyter_py3)_[name@server ~]$ echo -e '#!/bin/bash\nexport JUPYTER_RUNTIME_DIR=$SLURM_TMPDIR/jupyter\njupyter notebook --ip $(hostname -f) --no-browser' > $VIRTUAL_ENV/bin/notebook.sh
+    ```
+6.  Enfin, rendez le script exécutable.
+    ```bash
+    (jupyter_py3)_[name@server ~]$ chmod u+x $VIRTUAL_ENV/bin/notebook.sh
+    ```
 
 ## Installer des modules d'extension
 
@@ -145,19 +145,20 @@ Les modules d'extension ajoutent des fonctionnalités et peuvent modifier l'inte
 
 #### Exemple
 
-Avec Jupyter, un service web est démarré via *Terminal* dans la liste déroulante *New*.
+Avec Jupyter, un service web est démarré via le *Terminal* dans la liste déroulante *Nouveau*.
 
 ```bash
 tensorboard --port=8008
 ```
 
-Le service est disponible via /proxy/ sur https://address.of.notebook.server/user/theuser/proxy/8008.
+Le service est disponible via `/proxy/` sur `https://address.of.notebook.server/user/theuser/proxy/8008`.
 
 ### RStudio Launcher
 
-Jupyter Notebook peut démarrer une session RStudio qui utilise le système d'authentification par jeton de Jupyter Notebook. RStudio Launcher crée l'option *RStudio Session* dans la liste déroulante *New* de Jupyter Notebook.
+Jupyter Notebook peut démarrer une session RStudio qui utilise le système d'authentification par jeton de Jupyter Notebook. RStudio Launcher crée l'option *Session RStudio* dans la liste déroulante *Nouveau* de Jupyter Notebook.
 
-**Remarque :** la procédure suivante fonctionne uniquement avec les environnements logiciels `StdEnv/2016.4` et `StdEnv/2018.3`.
+!!! note
+    La procédure suivante fonctionne uniquement avec les environnements logiciels `StdEnv/2016.4` et `StdEnv/2018.3`.
 
 ```bash
 (jupyter_py3)_[name@server ~]$ pip install nbserverproxy
@@ -197,7 +198,6 @@ Pour lancer l'application, soumettez une tâche interactive. Ajustez les paramè
 ```bash
 (jupyter_py3)_[name@server ~]$ salloc --time=1:0:0 --ntasks=1 --cpus-per-task=2 --mem-per-cpu=1024M --account=def-yourpi srun $VIRTUAL_ENV/bin/notebook.sh
 ```
-
 ```text
 salloc: Granted job allocation 1422754
 salloc: Waiting for resource configuration
@@ -231,119 +231,116 @@ Sur votre poste de travail, ouvrez une nouvelle fenêtre terminal et lancez la c
 Dans la commande précédente, remplacez `<username>` par votre nom d'utilisateur et `<cluster>` par la grappe à laquelle vous vous êtes connecté pour lancer Jupyter Notebook.
 
 Puis copiez-collez l'adresse URL dans votre fureteur. Avec l'exemple précédent, le résultat serait
-```
- http://cdr544.int.cedar.computecanada.ca:8888/?token=7ed7059fad64446f837567e3
+```text
+http://cdr544.int.cedar.computecanada.ca:8888/?token=7ed7059fad64446f837567e3
 ```
 
 ### Sous Windows
 
 Pour créer un [tunnel SSH](../getting-started/ssh_tunnelling.md), utilisez [MobaXTerm](../getting-started/connecting_with_mobaxterm.md) comme suit, ce qui fonctionne aussi avec Unix (macOS, Linux, etc.).
 
-1. Dans MobaXTerm, ouvrez un premier onglet *Terminal* (session 1) et connectez-vous à une grappe. Suivez ensuite les directives de la section [Lancer Jupyter Notebook](#lancer-jupyter-notebook) ci-dessus. L'adresse URL suivante devrait s'afficher.
-   ```
-   http://cdr544.int.cedar.computecanada.ca:8888/?token= 7ed7059fad64446f837567e3
-          └────────────────┬───────────────────┘         └──────────┬───────────┘
-                 nom du serveur:port                              jeton
-   ```
-2. Dans MobaXTerm, ouvrez un second onglet *Terminal* (session 2). Dans la commande suivante, remplacez `<nom du serveur:port>` par la valeur correspondante dans l'adresse URL obtenue à la session 1 (voir l'image précédente); remplacez `<username>` par votre nom d'utilisateur et; remplacez `<cluster>` par la grappe à laquelle vous vous êtes connecté à la session 1. Lancez la commande.
-   ```bash
-   [name@my_computer ~]$ ssh -L 8888:<hostname:port> <username>@<cluster>.alliancecan.ca
-   ```
-3. Par votre fureteur, allez à
-   ```
+1.  Dans MobaXTerm, ouvrez un premier onglet *Terminal* (session 1) et connectez-vous à une grappe. Suivez ensuite les directives de la section [Lancer Jupyter Notebook](#lancer-jupyter-notebook) ci-dessus. L'adresse URL suivante devrait s'afficher.
+    ```text
+    http://cdr544.int.cedar.computecanada.ca:8888/?token=7ed7059fad64446f837567e3
+           └────────────────┬───────────────────┘         └──────────┬───────────┘
+                  nom du serveur:port                              jeton
+    ```
+2.  Dans MobaXTerm, ouvrez un second onglet *Terminal* (session 2). Dans la commande suivante, remplacez `<nom du serveur:port>` par la valeur correspondante dans la structure de l'adresse URL obtenue à la session 1 ci-dessus; remplacez `<username>` par votre nom d'utilisateur et; remplacez `<cluster>` par la grappe à laquelle vous vous êtes connecté à la session 1. Lancez la commande.
+    ```bash
+    [name@my_computer ~]$ ssh -L 8888:<hostname:port> <username>@<cluster>.alliancecan.ca
+    ```
+3.  Par votre fureteur, allez à
+    ```text
     http://localhost:8888/?token=<jeton>
-   ```
-   Remplacez `<jeton>` par la valeur obtenue à la session 1.
+    ```
+    Remplacez `<jeton>` par la valeur obtenue à la session 1.
 
 ## Fermer Jupyter Notebook
 
-Pour fermer le serveur Jupyter Notebook avant la fin du temps d'exécution, appuyez deux fois sur CTRL-C dans le terminal où la tâche interactive a été lancée.
+Pour fermer le serveur Jupyter Notebook avant la fin du temps d'exécution, appuyez deux fois sur `CTRL-C` dans le terminal où la tâche interactive a été lancée.
 
-Si le tunnel a été créé avec MobaXTerm, appuyez sur CTRL-D dans la session 2 pour fermer le tunnel.
+Si le tunnel a été créé avec MobaXTerm, appuyez sur `CTRL-D` dans la session 2 pour fermer le tunnel.
 
 ## Ajouter des noyaux (*kernels*)
 
 Il est possible d'ajouter des noyaux pour d'autres langages de programmation ou pour des versions de Python différentes de celle dans laquelle fonctionne Jupyter Notebook. Pour plus d'information, consultez [Making kernels for Jupyter](http://jupyter-client.readthedocs.io/en/latest/kernels.html).
 
 L'installation se fait en deux étapes :
-1. Installation des paquets permettant à l'interpréteur de communiquer avec Jupyter Notebook.
-2. Création du fichier pour que Jupyter Notebook puisse créer un canal de communication avec l'interpréteur : il s'agit du fichier de configuration du noyau.
+1.  Installation des paquets permettant à l'interpréteur de communiquer avec Jupyter Notebook.
+2.  Création du fichier pour que Jupyter Notebook puisse créer un canal de communication avec l'interpréteur : il s'agit du fichier de configuration du noyau.
 
-Chacun des fichiers de configuration du noyau doit être créé dans son propre sous-répertoire dans un répertoire de votre répertoire personnel (*home*) par le chemin `~/.local/share/jupyter/kernels`. Jupyter Notebook ne crée pas ce fichier; dans tous les cas, la première étape est de le créer avec la commande
-```bash
-mkdir -p ~/.local/share/jupyter/kernels
-```
+Chacun des fichiers de configuration du noyau doit être créé dans son propre sous-répertoire dans un répertoire de votre répertoire personnel (*home*) par le chemin `~/.local/share/jupyter/kernels`. Jupyter Notebook ne crée pas ce fichier; dans tous les cas, la première étape est de le créer avec la commande `mkdir -p ~/.local/share/jupyter/kernels`.
 
 Les prochaines sections présentent des exemples de procédures d'installation d'un noyau.
 
 ### Julia
 
-1. Chargez le module [Julia](../software/julia.md).
-   ```bash
-   module load julia
-   ```
-2. Activez l'environnement virtuel Jupyter Notebook.
-   ```bash
-   source $HOME/jupyter_py3/bin/activate
-   ```
-3. Installez IJulia.
-   ```bash
-   (jupyter_py3)_[name@server ~]$ echo 'Pkg.add("IJulia")' | julia
-   ```
+1.  Chargez le module [Julia](../software/julia.md).
+    ```bash
+    module load julia
+    ```
+2.  Activez l'environnement virtuel Jupyter Notebook.
+    ```bash
+    source $HOME/jupyter_py3/bin/activate
+    ```
+3.  Installez IJulia.
+    ```bash
+    (jupyter_py3)_[name@server ~]$ echo 'Pkg.add("IJulia")' | julia
+    ```
 
 Pour plus d'information, consultez la [documentation IJulia](https://github.com/JuliaLang/IJulia.jl).
 
 ### Python
 
-1. Chargez le module Python.
-   ```bash
-   module load python/3.5
-   ```
-2. Créez un nouvel environnement Python.
-   ```bash
-   virtualenv $HOME/jupyter_py3.5
-   ```
-3. Activez le nouvel environnement Python.
-   ```bash
-   source $HOME/jupyter_py3.5/bin/activate
-   ```
-4. Installez la bibliothèque `ipykernel`.
-   ```bash
-   (jupyter_py3.5)_[name@server ~]$ pip install ipykernel
-   ```
-5. Générez le fichier de configuration du noyau. Remplacez `<unique_name>` par un nom unique pour votre noyau.
-   ```bash
-   (jupyter_py3.5)_[name@server ~]$ python -m ipykernel install --user --name <unique_name> --display-name "Python 3.5 Kernel"
-   ```
-6. Désactivez l'environnement virtuel.
-   ```bash
-   (jupyter_py3.5)_[name@server ~]$ deactivate
-   ```
+1.  Chargez le module Python.
+    ```bash
+    module load python/3.5
+    ```
+2.  Créez un nouvel environnement Python.
+    ```bash
+    virtualenv $HOME/jupyter_py3.5
+    ```
+3.  Activez le nouvel environnement Python.
+    ```bash
+    source $HOME/jupyter_py3.5/bin/activate
+    ```
+4.  Installez la bibliothèque `ipykernel`.
+    ```bash
+    (jupyter_py3.5)_[name@server ~]$ pip install ipykernel
+    ```
+5.  Générez le fichier de configuration du noyau. Remplacez `<unique_name>` par un nom unique pour votre noyau.
+    ```bash
+    (jupyter_py3.5)_[name@server ~]$ python -m ipykernel install --user --name <unique_name> --display-name "Python 3.5 Kernel"
+    ```
+6.  Désactivez l'environnement virtuel.
+    ```bash
+    (jupyter_py3.5)_[name@server ~]$ deactivate
+    ```
 
 Pour plus d'information, voyez la [documentation ipykernel](http://ipython.readthedocs.io/en/stable/install/kernel_install.html).
 
 ### R
 
-1. Chargez le module R.
-   ```bash
-   module load r
-   ```
-2. Activez l'environnement virtuel Jupyter Notebook.
-   ```bash
-   source $HOME/jupyter_py3/bin/activate
-   ```
-3. Installez les dépendances du noyau.
-   ```bash
-   (jupyter_py3)_[name@server ~]$ R -e "install.packages(c('crayon', 'pbdZMQ', 'devtools'), repos='http://cran.us.r-project.org')"
-   ```
-4. Installez le noyau R.
-   ```bash
-   (jupyter_py3)_[name@server ~]$ R -e "devtools::install_github(paste0('IRkernel/', c('repr', 'IRdisplay', 'IRkernel')))"
-   ```
-5. Installez le fichier de configuration du noyau R.
-   ```bash
-   (jupyter_py3)_[name@server ~]$ R -e "IRkernel::installspec()"
-   ```
+1.  Chargez le module R.
+    ```bash
+    module load r
+    ```
+2.  Activez l'environnement virtuel Jupyter Notebook.
+    ```bash
+    source $HOME/jupyter_py3/bin/activate
+    ```
+3.  Installez les dépendances du noyau.
+    ```bash
+    (jupyter_py3)_[name@server ~]$ R -e "install.packages(c('crayon', 'pbdZMQ', 'devtools'), repos='http://cran.us.r-project.org')"
+    ```
+4.  Installez le noyau R.
+    ```bash
+    (jupyter_py3)_[name@server ~]$ R -e "devtools::install_github(paste0('IRkernel/', c('repr', 'IRdisplay', 'IRkernel')))"
+    ```
+5.  Installez le fichier de configuration du noyau R.
+    ```bash
+    (jupyter_py3)_[name@server ~]$ R -e "IRkernel::installspec()"
+    ```
 
 Pour plus d'information, consultez la [documentation IRKernel](https://irkernel.github.io/docs/).
 

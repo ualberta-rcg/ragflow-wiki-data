@@ -4,9 +4,9 @@ slug: "cloud_quick_start"
 lang: "fr"
 
 source_wiki_title: "Cloud Quick Start/fr"
-source_hash: "ee3cda2ebddb7b48a5ca373fc5b226c7"
-last_synced: "2026-10-18T00:43:06.821597+00:00"
-last_processed: "2026-10-18T01:26:31.115973+00:00"
+source_hash: "4556d3ba5828819db70e0c4b0c4a4ec8"
+last_synced: "2026-10-25T00:54:39.630071+00:00"
+last_processed: "2026-10-25T01:33:00.019090+00:00"
 
 tags:
   - cloud
@@ -126,37 +126,35 @@ status:
   converted: true
   tagged: true
   keywords_generated: true
-  ragflow_synced: true
+  ragflow_synced: false
   qa_generated: false
 ---
 
-Page enfant de [Service infonuagique](cloud.md)
+=== "Linux"
 
 ## Avant de commencer
 
-1.  **Avoir un projet infonuagique**
+1. **Posséder un projet infonuagique**
 
-    !!! note "Avoir un projet infonuagique"
-        **Vous devez posséder un projet infonuagique pour avoir accès à l'environnement infonuagique.** Si vous ne possédez pas de [projet infonuagique](managing_your_cloud_resources_with_openstack.md#projets), voyez [Obtenir un projet dans l'environnement infonuagique](cloud.md#obtenir-un-projet-dans-lenvironnement-infonuagique). Une fois qu'un projet infonuagique est associé à votre compte, vous recevrez un courriel de confirmation qui contient les détails sur comment accéder à votre projet; assurez-vous de savoir où trouver ces renseignements.
+   **Vous devez posséder un projet infonuagique pour avoir accès à l'environnement. Si vous n'avez pas de [projet infonuagique](managing_your_cloud_resources_with_openstack.md#projets), consultez [Obtenir un projet dans l'environnement infonuagique](cloud.md#obtenir-un-projet-dans-lenvironnement-infonuagique).** Une fois qu'un projet infonuagique est associé à votre compte, vous recevrez un courriel de confirmation qui contient les détails sur l'accès à votre projet; assurez-vous de savoir où trouver ces renseignements.
 
-2.  **Utiliser un navigateur compatible**
+2. **Utiliser un fureteur compatible**
 
-    !!! tip "Utiliser un navigateur compatible"
-        L'accès aux projets infonuagiques se fait sans problème avec les navigateurs [Firefox](https://www.mozilla.org/en-US/firefox/new/) et [Chrome](https://www.google.com/chrome/). D'autres navigateurs peuvent aussi bien fonctionner, mais certains ne sont pas pris en charge par notre interface web et affichent le message `` `Danger: There was an error submitting the form. Please try again.` ``. C'est le cas notamment de Safari sous Mac; une mise à jour pourrait résoudre le problème, mais nous vous recommandons d'utiliser [Firefox](https://www.mozilla.org/en-US/firefox/new/) ou [Chrome](https://www.google.com/chrome/). Si vous avez toujours des problèmes, écrivez au [soutien technique](../support/technical_support.md).
+   L'accès aux projets infonuagiques se fait sans problème avec les fureteurs [Firefox](https://www.mozilla.org/en-US/firefox/new/) et [Chrome](https://www.google.com/chrome/). D'autres fureteurs peuvent aussi bien fonctionner, mais certains ne sont pas pris en charge par notre interface web et affichent le message `Danger: There was an error submitting the form. Please try again.`. C'est le cas notamment de Safari sous Mac; une mise à jour pourrait résoudre le problème, mais nous vous recommandons d'utiliser [Firefox](https://www.mozilla.org/en-US/firefox/new/) ou [Chrome](https://www.google.com/chrome/). Si vous avez toujours des problèmes, écrivez au [soutien technique](../support/technical_support.md).
 
 ## Créer votre première instance
 
 Votre projet infonuagique vous permettra de créer des instances (aussi appelées *machines virtuelles* ou *VM*) auxquelles vous pourrez accéder à partir de votre ordinateur via notre interface web.
 
-1.  **Connectez-vous à l'interface infonuagique pour avoir accès à votre projet**
-    Le lien à cette interface se trouve dans le courriel de confirmation qui vous a été envoyé. Cliquez sur le lien pour ouvrir votre projet dans votre navigateur. Si votre navigateur n'est pas compatible, ouvrez un navigateur compatible et collez l'URL dans la barre d'adresse. Si vous connaissez le nom du nuage où se trouve votre projet mais n'avez pas son adresse URL, consultez la liste dans [Ressources infonuagiques](cloud.md#ressources-infonuagiques). Connectez-vous avec vos identifiants (nom d'utilisateur et mot de passe) et non avec votre adresse de courriel.
+1. **Connectez-vous à l'interface infonuagique pour avoir accès à votre projet**
 
-2.  **Consultez le tableau de bord OpenStack**
-    OpenStack est la plateforme qui permet l'accès web aux nuages. Une fois la connexion établie, le tableau de bord OpenStack affiche les ressources de votre projet. Pour des renseignements sur le tableau de bord et la navigation OpenStack, consultez [la documentation officielle d'OpenStack](https://docs.openstack.org/horizon/latest/user/index.html).
+   Le lien à cette interface se trouve dans le courriel de confirmation qui vous a été envoyé. Cliquez sur le lien pour ouvrir votre projet dans votre fureteur. Si votre fureteur n'est pas compatible, ouvrez un fureteur compatible et collez l'URL dans la barre d'adresse. Si vous connaissez le nom du nuage où se trouve votre projet mais n'avez pas son adresse URL, consultez la liste dans [Ressources infonuagiques](cloud.md#ressources-infonuagiques). Connectez-vous avec vos identifiants (nom d'utilisateur et mot de passe) et non avec votre adresse de courriel.
+
+2. **Consultez le tableau de bord OpenStack**
+
+   OpenStack est la plateforme qui permet l'accès web aux nuages. Une fois la connexion établie, le tableau de bord OpenStack affiche les ressources de votre projet. Pour des renseignements sur le tableau de bord et la navigation OpenStack, consultez [la documentation officielle de OpenStack](https://docs.openstack.org/horizon/latest/user/index.html).
 
 Vous trouverez ci-dessous les directives pour démarrer des instances Linux et Windows. **Le système d'exploitation est celui de l'instance et non celui de l'ordinateur que vous utilisez pour vous connecter.** Votre planification préalable devrait indiquer le système d'exploitation que vous utiliserez; en cas de doute, écrivez au [soutien technique](../support/technical_support.md).
-
-=== "Linux"
 
 ### Paires de clés SSH
 
@@ -166,30 +164,32 @@ OpenStack crée plutôt votre instance avec une clé SSH publique (*secure shell
 
 #### Importer une clé publique
 
-1.  Dans le menu OpenStack de gauche, sélectionnez *Compute > Paires de clés*.
+1.  Dans le menu OpenStack de gauche, sélectionnez *Calcul* -> *Paires de clés*.
 2.  Cliquez sur le bouton *Importer une clé publique*.
 3.  Entrez un nom pour la paire de clés.
 4.  Collez votre clé publique (présentement, seules les clés SSH de type RSA sont valides).
     Assurez-vous que la clé publique que vous collez ne contient pas de caractère de fin de ligne ou d'espace.
 5.  Cliquez sur le bouton *Importer une clé publique*.
 
-!!! warning "Sécurité des paires de clés SSH"
+!!! warning "Note importante sur la création de clés dans OpenStack"
     Il n'est pas recommandé de créer des paires de clés dans OpenStack parce qu'elles ne sont pas créées avec une phrase de passe, ce qui cause des problèmes pour la sécurité.
 
 ### Lancer une instance
 
-Pour créer une instance, sélectionnez *Compute > Instances* dans le menu de gauche, puis cliquez sur le bouton *Lancer une instance*.
+Pour créer une instance, sélectionnez *Calcul* -> *Instances* dans le menu de gauche, puis cliquez sur le bouton *Lancer une instance*.
 
 Le formulaire de création d'une instance est affiché. Vous pouvez utiliser les spécifications décrites à l'étape de votre préplanification ou reproduire l'exemple ci-dessous.
 La fenêtre *Lancer Instance* présente plusieurs options :
 
 **Détails**
+
 *   *Nom de l'instance* : Entrez le nom de l'instance, sans aucun caractère spécial ou espace; voir les [règles de nomenclature](https://fr.wikipedia.org/wiki/Nom_de_domaine).
 *   *Description* : Ce champ est optionnel.
 *   *Zone de disponibilité* : Laissez *Toute zone de disponibilité*.
 *   *Nombre* : Entrez le nombre d'instances à créer. Si vous n'avez pas besoin de plusieurs instances, laissez la valeur 1.
 
 **Source**
+
 *   *Sélectionnez la source de démarrage* : Pour votre première instance, sélectionnez *Image*; voir l'information sur les autres options dans [Démarrer depuis un volume](working_with_volumes.md#démarrer-depuis-un-volume).
 *   *Créer un nouveau volume* : Cliquez sur *Oui*; les données de l'instance seront enregistrées dans le volume du nuage (stockage persistant). Pour plus d'information sur l'utilisation et la gestion des volumes, voir [Travailler avec des volumes](working_with_volumes.md).
     *   *Taille du volume (Go)* : Entrez la taille planifiée; autrement, 30 Go est une taille raisonnable pour le système d'exploitation et une quantité modeste de données. Pour plus d'information sur l'utilisation et la gestion des volumes, voir [Travailler avec des volumes](working_with_volumes.md).
@@ -197,13 +197,16 @@ La fenêtre *Lancer Instance* présente plusieurs options :
 *   *Alloué* et *Disponible* : La liste sous *Disponible* montre les images que votre instance peut démarrer. Pour les débutants Linux, nous recommandons la plus récente image **Ubuntu**, mais vous pouvez sélectionner un des autres systèmes d'exploitation Linux. Pour sélectionner une image, cliquez sur la flèche à la fin de sa ligne et l'image sera déplacée sous *Alloué*. Il est important de se souvenir de l'image que vous avez sélectionnée, par exemple Ubuntu, Fedora, etc.
 
 **Gabarit**
+
 *   *Alloué* et *Disponible* : Le gabarit identifie le matériel utilisé par votre instance et donc la capacité de la mémoire et du traitement. La liste sous *Disponible* montre les gabarits pour l'image source de démarrage. Cliquez sur l'icône > au début de la ligne pour savoir si ce gabarit est conforme à l'allocation pour votre projet. Si cette ressource n'est pas suffisante, une alerte sera affichée. Sélectionnez un autre gabarit et cliquez sur la flèche à la fin de la ligne pour le déplacer vers la liste *Alloué*. Pour plus d'information, voir [Gabarits d'instances](virtual_machine_flavors.md).
 
-**Réseaux** : Changez les valeurs uniquement si nécessaire. Sur Arbutus, sélectionnez le réseau par défaut qui commence habituellement par *def-project-name*.
+**Réseaux** : Changez les valeurs uniquement si nécessaire. Sur Arbutus, sélectionnez le réseau par défaut qui commence habituellement par *def-nom-du-projet*.
+
 **Ports réseaux** : Ne changez pas les valeurs pour l'instant.
+
 **Groupes de sécurité** : Le groupe de sécurité par défaut devrait paraître dans la liste *Alloué*. Si ce n'est pas le cas, déplacez-le de la liste *Disponible* en cliquant sur la flèche à la fin de la ligne. Pour plus d'information, voir [Groupes de sécurité](managing_your_cloud_resources_with_openstack.md#groupes-de-sécurité).
 
-**Paires de clés** : Sous *Disponible*, sélectionnez la paire de clés SSH que vous avez créée plus tôt et déplacez-la vers la liste *Alloué* en cliquant sur la flèche à la fin de la ligne. Si vous n'avez pas de paire de clés, vous pouvez la créer ou l'importer en cliquant sur les boutons dans le haut de la fenêtre (voir [Paires de clés SSH ci-dessus](#paires-de-clés-ssh)). Pour l'information sur la gestion et l'utilisation des paires de clés, voir [Clés SSH](../getting-started/ssh_keys.md).
+**Paires de clés** : Sous *Disponible*, sélectionnez la paire de clés SSH que vous avez créée plus tôt et déplacez-la vers la liste *Alloué* en cliquant sur la flèche à la fin de la ligne. Si vous n'avez pas de paire de clés, vous pouvez la créer ou l'importer en cliquant sur les boutons en haut de la fenêtre (voir [Paires de clés SSH ci-dessus](#paires-de-clés-ssh)). Pour l'information sur la gestion et l'utilisation des paires de clés, voir [Clés SSH](../getting-started/ssh_keys.md).
 
 **Configuration** : Ne changez pas les valeurs pour l'instant; pour l'information sur la personnalisation des scripts, voir [Utilisation de cloud-init](automating_vm_creation.md#utilisation-de-cloud-init).
 
@@ -220,40 +223,47 @@ Une fois que vous avez vérifié les options et défini votre instance, cliquez 
 La page *Instances* montre la liste des instances avec les adresses IP correspondantes dans la colonne *Adresse IP*. Chaque instance a au moins une adresse IP privée, mais certaines instances peuvent aussi avoir une deuxième adresse IP publique. Un réseau local est automatiquement créé quand vous créez votre projet OpenStack. Ce réseau local sert à connecter les instances entre elles et aussi à une passerelle internet à l'intérieur du projet pour que les instances communiquent avec l'externe. Chacune des instances créées dans votre projet possède une adresse IP privée qui lui est assignée par le réseau, selon le format `192.168.X.Y`; cette adresse privée empêche la communication en provenance de l'extérieur. Pour sa part, l'adresse IP publique permet à des services ou des outils externes de communiquer avec l'instance via votre ordinateur personnel, par exemple pour effectuer des tâches administratives ou pour recevoir du contenu web. Une adresse IP publique sert aussi aux accès par nom de domaine.
 
 **Assigner une adresse IP publique**
-1.  Faites afficher la page des instances avec *Compute > Instances*. Un menu déroulant se trouve à la fin de la ligne de votre instance.
-2.  Cliquez sur l'icône &#x25BC; à la fin de la ligne pour votre instance et sélectionnez *Associer une adresse IP flottante* puis dans la fenêtre *Allouer une IP flottante*, cliquez sur le bouton *Allocation d'IP*. Si vous faites cette association pour la première fois, cliquez sur l'icône **+** de la fenêtre *Gérer les Associations d'IP flottantes*. Si plus tard vous devez allouer encore une adresse IP publique pour cette instance, vous pouvez en sélectionner une dans la liste déroulante du champ *Adresse IP*.
+
+1.  Faites afficher la page des instances avec *Calcul* -> *Instances*. Un menu déroulant se trouve à la fin de la ligne de votre instance.
+2.  Cliquez sur l'icône ▼ à la fin de la ligne pour votre instance et sélectionnez *Associer une adresse IP flottante*, puis dans la fenêtre *Allouer une IP flottante*, cliquez sur le bouton *Allocation d'IP*. Si vous faites cette association pour la première fois, cliquez sur l'icône + de la fenêtre *Gérer les Associations d'IP flottantes*. Si plus tard vous devez allouer encore une adresse IP publique pour cette instance, vous pouvez en sélectionner une dans la liste déroulante du champ *Adresse IP*.
     *   Cliquez sur le bouton *Associer*.
-    *   Vous devriez maintenant avoir deux adresses IP dans la colonne, une au format `192.168.X.Y` et l'autre, votre clé publique. La liste de vos adresses publiques et des projets associés se trouve aussi sous *Réseau > IP flottantes*. Vous aurez besoin de votre adresse IP publique pour vous connecter à votre instance.
+    *   Vous devriez maintenant avoir deux adresses IP dans la colonne, une au format `192.168.X.Y` et l'autre, votre clé publique. La liste de vos adresses publiques et des projets associés se trouve aussi sous *Réseau* -> *IP flottantes*. Vous aurez besoin de votre adresse IP publique pour vous connecter à votre instance.
 
 **Configurer le pare-feu**
-*   Faites afficher la page *Groupes de sécurité* avec *Réseau > Groupes de sécurité*.
+
+*   Faites afficher la page *Groupes de sécurité* avec *Réseau* -> *Groupes de sécurité*.
 *   Sur la ligne pour le groupe par défaut, cliquez sur le bouton *Gérer les Règles* à la droite.
 *   Sur la page de gestion des règles, cliquez sur le bouton *+Ajouter une règle*.
 *   Dans le menu déroulant *Règles*, sélectionnez *SSH*.
 *   Laissez *CIDR* dans le champ *Distant*.
-*   Remplacez le contenu du champ *CIDR* par `` `votre-ip/32` ``, ce qui est l'adresse IP de l'ordinateur physique que vous voulez utiliser pour vous connecter à votre instance. Pour connaître votre adresse IP courante, entrez [ipv4.icanhazip.com](http://ipv4.icanhazip.com) dans votre navigateur. Pour avoir accès à votre instance à partir d'une autre adresse IP, vous pouvez ajouter d'autres règles pour chacune des adresses. Pour indiquer une série d'adresses IP, utilisez [cet outil](https://www.ipaddressguide.com/cidr) pour calculer votre règle CIDR.
+*   Remplacez le contenu du champ *CIDR* par `votre-ip/32`, ce qui est l'adresse IP de l'ordinateur physique que vous voulez utiliser pour vous connecter à votre instance. Pour connaître votre adresse IP courante, entrez [ipv4.icanhazip.com](http://ipv4.icanhazip.com) dans votre fureteur. Pour avoir accès à votre instance à partir d'une autre adresse IP, vous pouvez ajouter d'autres règles pour chacune des adresses. Pour indiquer une série d'adresses IP, utilisez [cet outil](https://www.ipaddressguide.com/cidr) pour calculer votre règle CIDR.
 *   Cliquez sur le bouton *Ajouter* et la nouvelle règle sera affichée dans la liste des groupes de sécurité.
 
-!!! warning "Points importants"
-    *   **Ne supprimez pas les règles de sécurité par défaut**; le fonctionnement de votre instance serait compromis (voir [Groupes de sécurité](managing_your_cloud_resources_with_openstack.md#groupes-de-sécurité)).
-    *   **Ne modifiez pas les règles de sécurité**; pour ce faire, il faut les supprimer et les ajouter une fois modifiées. Si vous faites une erreur à la création d'une règle pour le groupe de sécurité, supprimez la règle en cliquant sur le bouton à gauche de la rangée dans la fenêtre des groupes de sécurité et ajoutez une nouvelle règle modifiée.
-    *   Si vous changez l'endroit à partir duquel vous travaillez (et par le fait même votre adresse IP), vous devez ajouter la règle décrite ici pour la nouvelle adresse. Sachez que quand vous changez votre lieu de travail physique, par exemple pour travailler de la maison plutôt que du travail, vous changez aussi de réseau.
-    *   Si vous n'avez pas d'adresse IP statique pour le réseau que vous utilisez, souvenez-vous que celle-ci peut changer. Si vous ne pouvez plus vous connecter à votre instance après un certain temps, vérifiez si votre adresse IP a changé en entrant [ipv4.icanhazip.com](http://ipv4.icanhazip.com) dans votre navigateur et vérifiez si elle correspond à ce qui se trouve dans votre règle de sécurité. Si votre adresse IP change souvent mais que les chiffres à l'extrême gauche restent les mêmes, il pourrait être plus raisonnable d'ajouter une plage d'adresses IP plutôt que d'avoir à modifier fréquemment les règles de sécurité. Pour déterminer une plage CIDR, [utilisez cet outil](https://www.ipaddressguide.com/cidr) ou consultez la [notation CIDR](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#CIDR_notation).
-    *   Il pourrait être utile de fournir une description pour vos règles de sécurité, par exemple *bureau* ou *maison*. Vous pourrez ainsi savoir si une règle n'est plus nécessaire quand vous voulez ajouter une nouvelle règle pour vous connecter par exemple de la maison.
+**Points importants**
+
+!!! warning "Ne pas supprimer les règles par défaut"
+    **Ne supprimez pas les règles de sécurité par défaut**; le fonctionnement de votre instance serait compromis (voir [Groupes de sécurité](managing_your_cloud_resources_with_openstack.md#groupes-de-sécurité)).
+
+!!! warning "Ne pas modifier les règles de sécurité"
+    **Ne modifiez pas les règles de sécurité**; pour ce faire, il faut les supprimer et les ajouter une fois modifiées. Si vous faites une erreur à la création d'une règle pour le groupe de sécurité, supprimez la règle en cliquant sur le bouton à gauche de la rangée dans la fenêtre des groupes de sécurité et ajoutez une nouvelle règle modifiée.
+
+*   Si vous changez l'endroit à partir duquel vous travaillez (et par le fait même votre adresse IP), vous devez ajouter la règle décrite ici pour la nouvelle adresse. Sachez que quand vous changez votre lieu de travail physique, par exemple pour travailler de la maison plutôt que du travail, vous changez aussi de réseau.
+*   Si vous n'avez pas d'adresse IP statique pour le réseau que vous utilisez, souvenez-vous que celle-ci peut changer. Si vous ne pouvez plus vous connecter à votre instance après un certain temps, vérifiez si votre adresse IP a changé en entrant [ipv4.icanhazip.com](http://ipv4.icanhazip.com) dans votre fureteur et vérifiez si elle correspond à ce qui se trouve dans votre règle de sécurité. Si votre adresse IP change souvent mais que les chiffres à l'extrême gauche restent les mêmes, il pourrait être plus raisonnable d'ajouter une plage d'adresses IP plutôt que d'avoir à modifier fréquemment les règles de sécurité. Pour déterminer une plage CIDR, [utilisez cet outil](https://www.ipaddressguide.com/cidr) ou consultez la [notation CIDR](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#CIDR_notation).
+*   Il pourrait être utile de fournir une description pour vos règles de sécurité, par exemple *bureau* ou *maison*. Vous pourrez ainsi savoir si une règle n'est plus nécessaire quand vous voulez ajouter une nouvelle règle pour vous connecter par exemple de la maison.
 
 ### Connexion à votre instance par SSH
 
 À la première étape de ce guide, vous avez sauvegardé une clé privée sur votre ordinateur; il est important de savoir où trouver cette clé parce que vous en avez besoin pour vous connecter à votre instance. Vous devez aussi vous souvenir du type d'image que vous avez sélectionnée (Ubuntu, Fedora, etc.) et de l'adresse IP publique associée à votre instance.
 
-### Connexion à partir de Linux ou Mac
+#### Connexion à partir de Linux ou Mac
 
 Ouvrez un terminal et entrez la commande
 
 ```bash
-ssh -i /path/where/your/private/key/is/my_key.key <user name>@<public IP of your server>
+ssh -i /chemin/vers/votre/clé/privée/ma_clé.key <nom_utilisateur>@<IP_publique_de_votre_serveur>
 ```
 
-où `` `<user name>` `` est le nom de l'utilisateur qui se connecte et `` `<public IP of your VM>` `` est l'IP publique que vous avez associée à votre instance à l'étape précédente. Le nom de l'utilisateur par défaut dépend de l'image.
+où `<nom_utilisateur>` est le nom de l'utilisateur qui se connecte et `<IP_publique_de_votre_serveur>` est l'IP publique que vous avez associée à votre instance à l'étape précédente. Le nom de l'utilisateur par défaut dépend de l'image.
 
 | Distribution | Nom d'utilisateur |
 | :----------- | :---------------- |
@@ -266,21 +276,21 @@ où `` `<user name>` `` est le nom de l'utilisateur qui se connecte et `` `<publ
 
 Ces utilisateurs par défaut possèdent tous les privilèges sudo. La connexion directe au compte racine via SSH est désactivée.
 
-### Connexion à partir de Windows
+#### Connexion à partir de Windows
 
-La connexion SSH doit se faire par une application d'interface. Nous recommandons **MobaXTerm** (voir les directives ci-dessous); vous pouvez aussi vous connecter par PuTTY (voir [Connexion à un serveur avec PuTTY](../getting-started/connecting_with_putty.md)).
+La connexion SSH doit se faire par une application d'interface. Nous recommandons **MobaXterm** (voir les directives ci-dessous); vous pouvez aussi vous connecter par PuTTY (voir [Connexion à un serveur avec PuTTY](../getting-started/connecting_with_putty.md)).
 
-[Téléchargez MobaXTerm](http://mobaxterm.mobatek.net/).
+[Téléchargez MobaXterm](http://mobaxterm.mobatek.net/).
 Pour vous connecter :
 
 1.  Lancez l'application MobaXterm.
 2.  Cliquez sur *Sessions* puis sur *Nouvelle session*.
 3.  Sélectionnez une session SSH.
-4.  Dans le champ *Hôte distant*, entrez l'adresse IP publique de votre instance.
+4.  Dans le champ *Hôte distant* entrez l'adresse IP publique de votre instance.
 5.  Assurez-vous que la case *Spécifier le nom d'utilisateur* est cochée et entrez le type d'image pour votre instance en minuscules (bas de casse).
-6.  Cliquez sur l'onglet *Paramètres SSH avancés* et cliquez sur la case *Utiliser la clé privée*.
-7.  Cliquez sur l'icône de la page à la droite du champ *Utiliser la clé privée*. Dans la fenêtre qui s'affiche, sélectionnez la paire de clés (fichier .pem) que vous avez enregistrée sur votre ordinateur au début de ce guide.
-8.  Cliquez sur *OK*. MobaXterm enregistre l'information que vous avez entrée pour vous connecter à d'autres moments et ouvre une connexion SSH pour votre instance. Une connexion SFTP est aussi ouverte pour vous permettre de glisser-déplacer des fichiers dans les deux sens, via le panneau de gauche.
+6.  Cliquez sur l'onglet *Paramètres SSH avancés* et cochez la case *Utiliser la clé privée*.
+7.  Cliquez sur l'icône à droite du champ *Utiliser la clé privée*. Dans la fenêtre qui s'affiche, sélectionnez la paire de clés (fichier .pem) que vous avez enregistrée sur votre ordinateur au début de ce guide.
+8.  Cliquez sur *OK*. MobaXterm enregistre l'information que vous avez entrée pour vous connecter à d'autres moments et ouvre une connexion SSH pour votre instance. Une connexion SFTP est aussi ouverte pour vous permettre de glisser-déplacer des fichiers dans les deux sens.
 
 ### Pour plus d'information
 
@@ -292,7 +302,6 @@ Pour vous connecter :
 *   [Automatiser la création d'instances](automating_vm_creation.md)
 *   [Sauvegarder une instance](backing_up_your_vm.md)
 *   [Soutien technique](../support/technical_support.md)
-
 === "Windows"
 
 ### Demande d'accès à une image Windows
@@ -307,25 +316,29 @@ Pour créer une instance, cliquez sur l'option *Instances* dans le menu de gauch
 
 Le formulaire de création d'une instance est affiché.
 
-**Détails**
-*   **Zone de disponibilité** : Conservez la valeur par défaut.
-*   **Nom de l'instance** : Entrez le nom de votre instance en respectant les [conventions de nomenclature](https://fr.wikipedia.org/wiki/Nom_de_domaine).
-*   **Nombre d'instances** : Nombre d'instances à créer.
+*Détails*
 
-**Source**
-*   **Source de démarrage de l'instance** : Source utilisée pour lancer l'instance; sélectionnez *Image*.
-*   **Créer un nouveau volume** : Conservez la valeur par défaut (oui).
-*   **Taille du volume** : entrez au moins 50 Go.
-*   **Supprimer le volume à la suppression de l'instance** : Si *Oui* est sélectionné, le volume créé avec la machine virtuelle sera supprimé lorsque la machine virtuelle est arrêtée. Il est généralement recommandé de ne pas supprimer le volume lors de la suppression de l'instance. Le volume peut être supprimé manuellement si désiré et permet d'arrêter la machine virtuelle sans supprimer le volume.
-*   **Nom de l'image** : Nom de l'image Windows qui vous est allouée (par exemple *Windows-2025-Datacenter*).
+-   *Zone de disponibilité* : Conservez la valeur par défaut.
+-   *Nom de l'instance* : Entrez le nom de votre instance en respectant les [conventions de nomenclature](https://fr.wikipedia.org/wiki/Nom_de_domaine).
+-   *Nombre d'instances* : Nombre d'instances à créer.
 
-**Gabarit**
-*   **Gabarit** : Le gabarit définit les spécifications matérielles de la machine virtuelle; choisissez le gabarit '*p4-15gb-windows*'.
+*Source*
 
-**Accès et Sécurité**
-*   **Groupes de sécurité** : Assurez-vous que la case '*default*' est cochée.
+-   *Source de démarrage de l'instance* : Source utilisée pour lancer l'instance; sélectionnez Image.
+-   *Créer un nouveau volume* : Conservez la valeur par défaut (oui).
+-   *Taille du volume* : entrez au moins 50 Go.
+-   *Supprimer le volume lors de la suppression de l'instance* : Si Oui est sélectionné, le volume créé avec la VM sera supprimé lorsque la VM sera terminée. Il est généralement recommandé de ne pas supprimer le volume lors de la suppression de l'instance. Le volume peut être supprimé manuellement si désiré et permet de terminer la VM sans supprimer le volume.
+-   *Nom de l'image* : Nom de l'image Windows qui vous est allouée (par exemple Windows-2025-Datacenter).
 
-**Réseau** : Sélectionnez IPv4 (par exemple *<nom-du-projet>-réseau*).
+*Gabarit*
+
+-   *Gabarit* : Le gabarit définit les spécifications matérielles de la machine virtuelle; choisissez le gabarit 'p4-15gb-windows'.
+
+*Accès et Sécurité*
+
+-   *Groupes de sécurité* : Assurez-vous que la case *default* est cochée.
+
+*Réseau* : Sélectionnez IPv4 (par exemple <nom-du-projet>-réseau).
 
 Après avoir vérifié le contenu de tous les champs, cliquez sur *Lancer l'instance*. La liste des instances est affichée et la colonne *Tâche* montre la tâche en cours de l'instance; au départ, la colonne *Tâche* montrera probablement *Block Device Mapping*. Une fois l'instance créée et le démarrage amorcé, la colonne *État de l'alimentation* montre *En fonctionnement*. Pour créer le volume, y copier l'image et amorcer le démarrage, il faudra au moins 10 minutes.
 
@@ -354,22 +367,22 @@ Lorsque vous créez un projet OpenStack, un réseau local est créé pour vous. 
 
 Les adresses IP publiques permettent aux outils et services externes d'entrer en contact avec l'instance, par exemple pour effectuer des tâches de gestion ou pour fournir du contenu web. Les noms de domaines peuvent aussi pointer sur une adresse IP publique.
 
-Pour assigner une adresse IP publique à une instance, cliquez sur l'icône ▼ pour dérouler le menu dans la colonne *Actions*, puis sélectionnez *Associer une adresse IP flottante*. Si vous faites cet exercice pour la première fois, votre projet n'a pas encore reçu une adresse IP externe. Vous devez appuyer sur le bouton **+**; ceci fait afficher la fenêtre *Gérer les Associations d'IP flottantes*. Il n'y a qu'un groupe d'adresses publiques et le groupe approprié sera sélectionné par défaut; cliquez sur le bouton *Associer*. La fenêtre *Allouer une IP flottante* est affichée et montre l'adresse IP et le port de son [NAT](https://en.wikipedia.org/wiki/Network_address_translation); cliquez sur le bouton *Allocation d'IP*.
+Pour assigner une adresse IP publique à une instance, cliquez sur l'icône ▼ pour dérouler le menu dans la colonne *Actions*, puis sélectionnez *Associer une adresse IP flottante*. Si vous faites cet exercice pour la première fois, votre projet n'a pas encore reçu une adresse IP externe. Vous devez appuyer sur le bouton +; ceci fait afficher la fenêtre *Gérer les Associations d'IP flottantes*. Il n'y a qu'un groupe d'adresses publiques et le groupe approprié sera sélectionné par défaut; cliquez sur le bouton *Associer*. La fenêtre *Allouer une IP flottante* est affichée et montre l'adresse IP et le port de sa [NAT](https://en.wikipedia.org/wiki/Network_address_translation); cliquez sur le bouton *Allocation d'IP*.
 
 #### Pare-feu et règles autorisant le protocole RDP (*Remote Desktop Protocol*)
 
 Pour vous connecter à votre instance avec un client à distance, vous devez d'abord autoriser le protocole RDP.
 
-1.  Dans le menu de gauche, sélectionnez *Accès et Sécurité*. Sous l'onglet *Groupes de sécurité*, sélectionnez le groupe '*default*' et cliquez sur le bouton *Gérer les règles*.
+1.  Sous l'onglet *Groupes de sécurité*, sélectionnez *Accès et Sécurité* (sous "Réseau"); sur la ligne *default*, cliquez sur le bouton *Gérer les règles*.
 2.  Dans la fenêtre de gestion des règles, cliquez sur le bouton *+Ajouter une règle*.
 3.  Il existe une règle prédéfinie pour RDP; sélectionnez cette règle dans le menu déroulant du champ *Règle*; dans le champ *Distant*, laissez *CIDR*.
-4.  Dans le champ *CIDR*, remplacez `` `0.0.0.0/0` `` par votre adresse IP.
-    Si vous ne connaissez pas votre adresse IP courante, vous pouvez l'obtenir en entrant [ipv4.icanhazip.com](http://ipv4.icanhazip.com) dans votre fureteur. Le fait de laisser `` `0.0.0.0/0` `` permet l'accès possible à votre instance par quiconque et la rend vulnérable aux [attaques par force brute](https://fr.wikipedia.org/wiki/Attaque_par_force_brute). Pour permettre l'accès pour d'autres adresses IP, ajoutez des règles pour ces adresses ou indiquez un groupe d'adresses avec [cet outil](https://www.ipaddressguide.com/cidr).
+4.  Dans le champ *CIDR*, remplacez `0.0.0.0/0` par votre adresse IP.
+    Si vous ne connaissez pas votre adresse IP courante, vous pouvez l'obtenir en entrant [ipv4.icanhazip.com](http://ipv4.icanhazip.com) dans votre fureteur. Le fait de laisser `0.0.0.0/0` permet l'accès possible à votre instance par quiconque et la rend vulnérable aux [attaques par force brute](https://fr.wikipedia.org/wiki/Attaque_par_force_brute). Pour permettre l'accès pour d'autres adresses IP, ajoutez des règles pour ces adresses ou indiquez un groupe d'adresses avec [cet outil](https://www.ipaddressguide.com/cidr).
 
-    !!! warning
-        **Si vous laissez `` `0.0.0.0/0` `` dans le champ *CIDR*, l'administrateur de la ressource peut bloquer tout accès à votre instance jusqu'à ce que les règles de sécurité soient adéquates.**
+    !!! warning "Sécurité : Ne pas laisser `0.0.0.0/0`"
+        **Si vous laissez `0.0.0.0/0` dans le champ *CIDR*, l'administrateur de la ressource peut bloquer tout accès à votre instance jusqu'à ce que les règles de sécurité soient adéquates.**
 
-5.  Enfin, cliquez sur le bouton *Ajoutez*.
+5.  Enfin, cliquez sur le bouton *Ajouter*.
 
 ### Connexion bureau à distance
 
@@ -382,21 +395,25 @@ Plusieurs versions de Windows offrent par défaut la connexion Bureau à distanc
 Lancez la connexion Bureau à distance et connectez-vous à votre instance Windows.
 
 1.  Dans le champ *Ordinateur*, entrez l'adresse IP publique.
-2.  Dans le champ *Nom d'utilisateur*, entrez '*Administrateur*'.
-3.  Cliquez sur le bouton *Connexion* dans le bas de la fenêtre.
+2.  Dans le champ *Nom d'utilisateur*, entrez *Administrateur*.
+3.  Cliquez sur le bouton *Connexion* en bas de la fenêtre.
 4.  À l'invite, entrez le mot de passe récupéré à l'étape précédente.
 5.  Cliquez sur *OK*.
 
-Si vous utilisez l'outil Windows App, une fenêtre similaire à celle affichée devrait apparaître. Pour vous connecter à votre machine virtuelle Windows :
+Si vous utilisez l'outil Windows App,
 
 1.  Sélectionnez *Ajouter* dans le menu de gauche.
-2.  Entrez l'adresse IP publique à côté de *Nom du PC*.
-3.  Cliquez sur le bouton *Ajouter et connecter* en bas.
-4.  Entrez le mot de passe lorsque vous y êtes invité.
+2.  Dans le champ *Nom du PC*, entrez l'adresse IP publique.
+3.  Cliquez sur le bouton *Ajouter et connecter* en bas de la fenêtre.
+4.  À l'invite, entrez le mot de passe.
 5.  Cliquez sur le bouton *OK*.
 
-!!! note "Certificat non fiable"
-    Il se peut que vous receviez un message indiquant que l'identité de l'ordinateur distant ne peut pas être vérifiée et vous demandant si vous voulez quand même poursuivre. Le message d'erreur spécifique est « Le certificat ne provient pas d'une autorité de certification fiable » (*The certificate is not from a trusted certifying authority*). Ceci est normal, alors répondez **Oui**. Votre instance Windows sera affichée dans la fenêtre du client de connexion au bureau à distance.
+Vous recevrez probablement un message indiquant que l'identité de l'ordinateur distant ne peut pas être vérifiée et vous demandant si vous voulez quand même poursuivre; ceci est normal, alors répondez *Oui*. Votre instance Windows sera affichée dans la fenêtre du client de connexion au bureau à distance.
+
+[ À compléter ]
+
+!!! todo "Erreur de certificat"
+    L'erreur de certificat spécifique est "Le certificat ne provient pas d'une autorité de certification fiable". Est-ce vraiment normal de voir cette alerte ? Voulons-nous enregistrer le certificat de l'image Windows auprès d'une autorité de signature ? Pourrions-nous utiliser Let's Encrypt ou devrions-nous simplement ignorer ce problème ?
 
 #### À partir d'un client Linux
 
@@ -412,21 +429,28 @@ Une fois la connexion établie avec votre instance Windows,
 
 #### À partir d'un client Mac
 
-Pour vous connecter via RDP à partir de macOS, vous aurez besoin d'un client de bureau à distance. Il existe plusieurs clients, mais l'application *Windows App* semble bien fonctionner. Pour installer le client, allez sur l'App Store et recherchez '*Windows App*'.
+Pour vous connecter via RDP, vous avez besoin d'un client de bureau à distance. Il existe plusieurs clients différents, mais Windows App semble bien fonctionner. Pour installer le client, allez sur l'App Store et recherchez *Windows App*.
 
-Une fois l'application *Windows App* installée et lancée, pour vous connecter à votre machine virtuelle Windows :
+Installez et lancez Windows App, pour vous connecter à votre instance Windows.
 
 1.  Sélectionnez *Périphériques* dans le menu de gauche.
-2.  Sélectionnez le **+** dans le coin supérieur droit, puis sélectionnez *Ajouter un PC*.
-3.  Entrez l'adresse IP publique à côté de *Nom du PC*.
-4.  Cliquez sur le bouton *Ajouter* en bas.
+2.  Sélectionnez + en haut à droite et sélectionnez *Ajouter un PC*.
+3.  Dans le champ *Nom du PC*, entrez l'adresse IP publique.
+4.  Cliquez sur le bouton *Ajouter* en bas de la fenêtre.
 5.  Double-cliquez sur la tuile nouvellement créée.
-6.  Entrez le nom d'utilisateur '*Administrateur*' et le mot de passe lorsque vous y êtes invité.
+6.  À l'invite, entrez le nom d'utilisateur *Administrateur* et le mot de passe.
 7.  Cliquez sur le bouton *Continuer*.
 
 ### Licence
 
 [ À compléter ]
+
+!!! todo "Informations sur la licence"
+    Besoin de fournir des informations qui seraient utiles aux utilisateurs pour savoir comment obtenir une licence. Cela devrait couvrir des points tels que :
+    *   Où aller pour obtenir une licence.
+    *   Quel type de licence est nécessaire / quelles licences fonctionneront sur le nuage.
+    *   Comment appliquer ma licence à ma VM infonuagique existante.
+    *   Comment l'appliquer à une nouvelle VM (si cela est différent du point précédent).
 
 ### Pour plus d'information
 

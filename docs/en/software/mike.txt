@@ -18,6 +18,14 @@ You need to download the installation archives for Linux.
 
 The following instructions assume that the installation archives are in one Zip-file (MIKE 2025 and newer) or three <code> *.tgz</code> files (MIKE 2024 and older):
 <tabs>
+<tab name="MIKE 2026">
+* <code>MIKE_Zero_2026_rhel9.zip</code>  This file contains:
+: * <code>MIKE_Common_2026_rhel9.tgz</code>
+: * <code>MIKE_Zero_2026_Examples.tgz</code>
+: * <code>MIKE_Zero_2026_Prerequisites.tgz</code> (not needed)
+: * <code>MIKE_Zero_2026_rhel9.tgz</code>
+: * <code>MIKE_Zero_2026_Tools_rhel9.tgz</code>
+</tab>
 <tab name="MIKE 2025">
 * <code>MIKE_Zero_2025_rhel9.zip</code>
 </tab>
@@ -44,7 +52,7 @@ The following instructions assume that the installation archives are in one Zip-
 2. MIKE was compiled with the Intel MPI library, therefore you must load a matching <code>intelmpi</code> module.
 
 <tabs>
-<tab name="MIKE 2024 and 2025">
+<tab name="MIKE 2024, 2025 and 2026">
  module load StdEnv/2023 intel/2023.2.1 intelmpi/2021.9.0
 </tab>
 <tab name="MIKE 2023">
@@ -61,6 +69,34 @@ and then [[Installing_software_in_your_home_directory#Installing_binary_packages
 the dynamic libraries of Intel MPI.
 
 <tabs>
+<tab name="MIKE 2026">
+ export MIKE_TGZ="$HOME/scratch/MIKE_TGZ"
+ export MIKE_HOME="$HOME/MIKE/2026"
+ 
+ cd $MIKE_TGZ
+ unzip -j  MIKE_Zero_2026_rhel9.zip
+ tar -xzf MIKE_Common_2026_rhel9.tgz
+ tar -xzf MIKE_Zero_2026_rhel9.tgz
+ tar -xzf MIKE_Zero_2026_Tools_rhel9.tgz
+ tar -xzf MIKE_Zero_2026_Examples.tgz
+ 
+ cd $MIKE_TGZ/MIKE_Common_2026_rhel9
+ sed -i 's/ cp -rp / cp -r /' install.sh
+ sh install.sh --eula --install-path "$MIKE_HOME"
+ cd $MIKE_TGZ/MIKE_Zero_2026_rhel9
+ sed -i 's/ cp -rp / cp -r /' install.sh
+ sh install.sh --eula --install-path "$MIKE_HOME"
+ cd $MIKE_TGZ/MIKE_Zero_2026_Tools_rhel9
+ sed -i 's/ cp -rp / cp -r /' install.sh
+ sh install.sh --eula --install-path "$MIKE_HOME"
+ cd $MIKE_TGZ/MIKE_Zero_2026_Examples
+ sed -i 's/ cp -rp / cp -r /' install.sh
+ sh install.sh --eula --install-path "$MIKE_HOME"
+ 
+ module load StdEnv/2023 intel/2023.2.1 intelmpi/2021.9.0
+ setrpaths.sh --path "$MIKE_HOME/bin"  --add_origin  \
+     --add_path="$EBROOTIMPI/mpi/latest/lib/release:$EBROOTIMPI/mpi/latest/lib"
+</tab>
 <tab name="MIKE 2025">
  export MIKE_TGZ="$HOME/scratch/MIKE_TGZ"
  export MIKE_HOME="$HOME/MIKE/2025"
@@ -176,6 +212,30 @@ After running the commands below, do a fresh login to have the newly created env
 
 
 <tabs>
+<tab name="MIKE 2026">
+ export MIKE_VERSION=2026
+ mkdir -p $HOME/modulefiles/mike
+ cat > $HOME/modulefiles/mike/${MIKE_VERSION}.lua <<EOF
+ help([[
+ Module for MIKE ${MIKE_VERSION} (by DHI group)
+ ]])
+ local version = "${MIKE_VERSION}"
+ whatis("Version:".. version)
+ whatis("Keywords: FEM, Finite Elements, Simulation")
+ whatis("URL: https://www.mikepoweredbydhi.com/mike-" .. version)
+ whatis("Description: MIKE is a hydraulic and hydrological modeling software package.")
+ 
+ local home = os.getenv("HOME") or "~"
+ local root = pathJoin( home, "MIKE", version)
+ 
+ depends_on("StdEnv/2023", "intel/2023.2.1", "intelmpi/2021.9.0")
+ setenv("I_MPI_PMI_LIBRARY", "/opt/software/slurm/lib/libpmi2.so")
+ setenv("SLURM_MPI_TYPE", "pmi2")
+ setenv("MIKE_HOME", root)
+ setenv("MIKE_PROGRESS", "STDOUT")
+ prepend_path( "PATH", pathJoin(root, "bin"))
+ EOF
+</tab>
 <tab name="MIKE 2025">
  export MIKE_VERSION=2025
  mkdir -p $HOME/modulefiles/mike
@@ -279,6 +339,9 @@ After running the commands below, do a fresh login to have the newly created env
 Activate this module in each job or login session with:
 
 <tabs>
+<tab name="MIKE 2026">
+{{Command|module load StdEnv/2023 mike/2026}}
+</tab>
 <tab name="MIKE 2025">
 {{Command|module load StdEnv/2023 mike/2025}}
 </tab>
@@ -303,6 +366,27 @@ The license information will be stored in a file <code>~/.config/DHI/license/Net
 == Example job script ==
 
 <tabs>
+<tab name="MIKE 2026">
+{{File
+|name=job_mike_2026_CPU.sh
+|lang="bash"
+|contents=
+#!/bin/bash
+#SBATCH --nodes=1
+#SBATCH --ntasks=8
+#SBATCH --cpus-per-task=1
+#SBATCH --mem-per-cpu=4000M
+#SBATCH --time=00:20:00
+
+module load  StdEnv/2023  intel/2023.2.1  intelmpi/2021.9.0  mike/2026
+export OMP_NUM_THREADS=${SLURM_CPUS_PER_TASK:-1}
+
+engine="FemEngineHD"
+model="my_model.m3fm"
+
+srun $engine $model
+}}
+</tab>
 <tab name="MIKE 2025">
 {{File
 |name=job_mike_2025_CPU.sh

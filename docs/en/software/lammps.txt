@@ -251,13 +251,15 @@ And identify a commit for future reference.
 |prompt=(ENV) [name@server ~]
 |
 pip install --no-index --upgrade pip
-pip install --no-index 'torch>{{=}}2.10.0'
+pip install --no-index 'torch>{{=}}2.10.0,<2.13'
 }}
 
 5. Configure MACE
-{{Command
+{{Commands
 |prompt=(ENV) [name@server ~]
-|cmake --fresh -S cmake -B _build -DBUILD_MPI{{=}}ON -DPKG_ML-MACE{{=}}ON -DCMAKE_PREFIX_PATH{{=}}"$(python -c 'import torch; print(torch.utils.cmake_prefix_path)')" -DCMAKE_INSTALL_PREFIX{{=}}$HOME/lammps-mace -DCMAKE_SKIP_RPATH{{=}}ON
+|TORCH_PREFIX{{=}}"$(python -c 'import torch; print(torch.utils.cmake_prefix_path)')"
+|TORCH_LIB{{=}}"$(python -c 'import torch, os; print(os.path.join(os.path.dirname(torch.__file__), "lib"))')"
+|cmake --fresh -S cmake -B _build -DBUILD_MPI{{=}}ON -DPKG_ML-MACE{{=}}ON -DCMAKE_PREFIX_PATH{{=}}"${TORCH_PREFIX}" -DCMAKE_INSTALL_PREFIX{{=}}"$HOME/lammps-mace" -DCMAKE_INSTALL_RPATH{{=}}"${TORCH_LIB}"
 }}
 </tab>
 <tab name="GPU">
@@ -274,13 +276,15 @@ Here we are using cuda 12.9 since it matches what PyTorch was built against.
 |prompt=(ENV) [name@server ~]
 |
 pip install --no-index --upgrade pip
-pip install --no-index 'torch>{{=}}2.10.0'
+pip install --no-index 'torch>{{=}}2.10.0,<2.13'
 }}
 
 5. Configure MACE
-{{Command
+{{Commands
 |prompt=(ENV) [name@server ~]
-|cmake --fresh -S cmake -B _build -DBUILD_MPI{{=}}ON -DPKG_ML-MACE{{=}}ON -DCMAKE_PREFIX_PATH{{=}}"$(python -c 'import torch; print(torch.utils.cmake_prefix_path)')" -DCMAKE_INSTALL_PREFIX{{=}}$HOME/lammps-mace -DCMAKE_SKIP_RPATH{{=}}ON -DTORCH_CUDA_ARCH_LIST{{=}}"9.0"
+|TORCH_PREFIX{{=}}"$(python -c 'import torch; print(torch.utils.cmake_prefix_path)')"
+|TORCH_LIB{{=}}"$(python -c 'import torch, os; print(os.path.join(os.path.dirname(torch.__file__), "lib"))')"
+|cmake --fresh -S cmake -B _build -DBUILD_MPI{{=}}ON -DPKG_ML-MACE{{=}}ON -DCMAKE_PREFIX_PATH{{=}}"${TORCH_PREFIX}" -DCMAKE_INSTALL_PREFIX{{=}}"$HOME/lammps-mace" -DCMAKE_INSTALL_RPATH{{=}}"${TORCH_LIB}" -DTORCH_CUDA_ARCH_LIST{{=}}"9.0"
 }}
 </tab>
 </tabs>

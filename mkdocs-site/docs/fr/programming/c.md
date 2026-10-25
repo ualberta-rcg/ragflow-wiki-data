@@ -5,23 +5,23 @@ lang: "fr"
 
 source_wiki_title: "C/fr"
 source_hash: "370b4e50fae6f77d4cff7eb03c134b26"
-last_synced: "2026-10-18T00:43:06.821597+00:00"
-last_processed: "2026-10-18T01:23:18.265428+00:00"
+last_synced: "2026-10-25T00:54:39.630071+00:00"
+last_processed: "2026-10-25T01:31:53.118488+00:00"
 
 tags:
   []
 
 keywords:
-  - "modèle de mémoire et concurrence"
-  - "options de compilation GCC -O2"
-  - "mot‑clé volatile"
+  - "modificateur volatile"
+  - "options de compilation -O2"
+  - "modèle de mémoire et de concurrence"
   - "langage C"
-  - "normes ISO C89 C99 C11"
+  - "normes ISO C11"
 
 questions:
-  - "Quelles sont les principales révisions du standard ISO du langage C et quelles nouveautés introduisent‑elles, notamment en matière de modèle de mémoire et de concurrence ?"
-  - "Pourquoi l’utilisation du mot‑clé <tt>volatile</tt> en C est‑elle souvent mal comprise, et à quoi correspond son équivalent en Java ?"
-  - "Quels sont les pièges liés aux options d’optimisation des compilateurs GCC et Intel lorsqu’on compile du code C concurrent ou à virgule flottante, et quelles alternatives sont recommandées ?"
+  - "Quelles sont les principales nouveautés apportées par les normes ISO C99 et C11 par rapport à C90, notamment en matière de modèle de mémoire et de concurrence ?"
+  - "En quoi le mot‑clé <tt>volatile</tt> en C diffère‑t‑il du <tt>volatile</tt> de Java, et quelle alternative C doit‑on utiliser pour obtenir un comportement de visibilité similaire entre threads ?"
+  - "Quels problèmes peuvent survenir avec l’option d’optimisation -O3 de GCC et quelles recommandations donneriez‑vous pour compiler du code C contenant de la concurrence de façon sûre ?"
 
 status:
   downloaded: true
@@ -40,30 +40,29 @@ C est un langage de programmation impératif et généraliste de haut niveau cr�
 *   [C99](https://en.wikipedia.org/wiki/C99), inclut les fonctions du langage et de la bibliothèque standard; `int` n'est plus le type par défaut.
 *   [C11](https://en.wikipedia.org/wiki/C11_(C_standard_revision)), mise à jour majeure, ajout du modèle de mémoire et des fonctionnalités de concurrence (multifil, *atomics*, *compare-and-swap*).
 
-!!! warning "Avertissement"
-    Ces liens peuvent contenir des erreurs. Le document officiel peut être commandé auprès du [Conseil canadien des normes](http://www.scc.ca/fr).
+Ces liens peuvent conduire à des pages qui contiennent des erreurs. Le document officiel peut être commandé auprès du [Conseil canadien des normes](http://www.scc.ca/fr).
 
-## Meilleurs modèles de mémoire et de concurrence
+# Meilleurs modèles de mémoire et de concurrence
 
-!!! tip "Conseil"
-    Ces modèles sont apparus dans la norme ISO de 2011; il n'y avait au préalable aucune gestion des accès concurrents à la mémoire en lecture et en écriture, par exemple en ce qui a trait aux comportements ambigus qui ont ou non été documentés par les fournisseurs de compilateurs. Nous recommandons de compiler le code C comportant de la concurrence en C11 ou plus.
+Ces modèles sont apparus dans la norme ISO de 2011; il n'y avait au préalable aucune gestion des accès concurrents à la mémoire en lecture et en écriture, par exemple en ce qui a trait aux comportements ambigus qui ont ou non été documentés par les fournisseurs de compilateurs.
 
-## Pièges
+!!! tip "Recommandation"
+    Nous recommandons de compiler le code C comportant de la concurrence en C11 ou plus.
 
-### Mot-clé `volatile`
+# Pièges
+## Mot-clé `volatile`
 
 Le modificateur `volatile` a un sens très particulier en C et C++ comme vous le constaterez en lisant [cette page](http://en.cppreference.com/w/cpp/language/cv). L'emploi de ce modificateur est toutefois rare et se limite à certains types de code de bas niveau.
 
 `volatile` est employé incorrectement en C car on le confond avec le `volatile` Java qui n'a pas du tout le même sens. Le mot-clé Java `volatile` correspond en C à `atomic_*`, où l'astérisque représente un nom de type fondamental tel que `int`.
 
-### Compilateurs
+## Compilateurs
+### GCC
 
-#### GCC
+!!! warning "Options de compilation GCC"
+    L'option `-O3` comprend des améliorations possiblement dangereuses, par exemple pour les fonctions de crénelage (*aliasing*). En cas de doute, utilisez plutôt l'option `-O2`. Si vous avez le temps, lisez la page de manuel (par exemple `man gcc`) et cherchez `-O3`; vous pouvez ainsi désactiver les paramètres qui ne sont pas sûrs.
 
-!!! warning "Attention aux optimisations avec GCC"
-    L'option `-O3` comprend des améliorations possiblement dangereuses, par exemple pour les fonctions de crénelage (*aliasing*). En cas de doute, utilisez plutôt l'option `-O2`. Si vous avez le temps, lisez la page man (par exemple `man gcc`) et cherchez `-O3`; vous pouvez ainsi désactiver les paramètres qui ne sont pas sûrs.
+### Intel
 
-#### Intel
-
-!!! warning "Attention aux compilateurs Intel"
-    Les compilateurs C et C++ d'Intel risquent de causer des difficultés dans le cas d'opérations avec virgule flottante. Prenez connaissance des pages man Intel (par exemple `man icc`) et utilisez les options `-fp-model precise` ou `-fp-model source` pour respecter les normes ANSI, ISO et IEEE. Pour des détails, consultez [ce document](https://software.intel.com/sites/default/files/article/326703/fp-control-2012-08.pdf).
+!!! warning "Compilateurs Intel"
+    Les compilateurs C et C++ d'Intel risquent de causer des difficultés dans le cas d'opérations avec virgule flottante. Prenez connaissance des pages de manuel Intel (par exemple `man icc`) et utilisez les options `-fp-model precise` ou `-fp-model source` pour respecter les normes ANSI, ISO et IEEE. Pour des détails, consultez [ce document](https://software.intel.com/sites/default/files/article/326703/fp-control-2012-08.pdf).

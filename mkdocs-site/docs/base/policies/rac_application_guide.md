@@ -4,210 +4,209 @@ slug: "rac_application_guide"
 lang: "base"
 
 source_wiki_title: "RAC application guide"
-source_hash: "0f88c84e4f33556f25615740895cf439"
-last_synced: "2026-10-11T01:39:35.690021+00:00"
-last_processed: "2026-10-11T02:33:17.647273+00:00"
+source_hash: "c8e3956ce2bd73bfbbf5fb11aa8d77a3"
+last_synced: "2026-10-25T00:54:39.630071+00:00"
+last_processed: "2026-10-25T01:45:06.227728+00:00"
 
 tags:
   []
 
 keywords:
-  - "vCPU-year"
-  - "core-years"
-  - "eligible HPC requests"
-  - "CPU core-year"
-  - "confidentiality"
-  - "resource management and feasibility"
-  - "clarification questions"
-  - "backend of a RPP project"
-  - "full application process"
-  - "project justification and objectives"
-  - "expected outcomes"
-  - "resource demand"
-  - "resource request justification"
-  - "computational expertise of the team"
-  - "Principal Investigator"
-  - "template required"
-  - "Alliance resources"
-  - "reviewer disclosure"
-  - "demand for GPUs"
+  - "CIHR"
+  - "resource allocation"
+  - "primary CCDB role"
+  - "one per competition round"
   - "Pre‑submission consultation"
-  - "annual RAC application"
-  - "RAC application"
-  - "minimum passing score"
-  - "measurement criteria"
-  - "problem or need"
-  - "Sub‑project limit (max four for RRG)"
-  - "Co-PIs CV requirement"
-  - "Object storage"
-  - "Maximum 10 pages"
   - "GPU allocations"
-  - "Resource Management and Expertise of the Team"
-  - "Peer Review Committee"
-  - "eligibility criteria"
-  - "scaling function"
-  - "nearline storage resources"
-  - "Co‑PI requirements"
-  - "objectives and goals"
-  - "Management Strategy"
-  - "Primary Academic PI role"
-  - "computational project outputs and impact"
-  - "timely response"
-  - "technical support consultation"
-  - "resource request discrepancies"
-  - "GPU utilization data"
-  - "Fast Track"
-  - "technical review"
-  - "Non-disclosure Agreement"
-  - "project storage"
-  - "Updated CV with harmonized format"
-  - "Very Large category"
-  - "project storage 41 TB"
-  - "RRG process"
-  - "RPP application"
-  - "peer review score"
-  - "capacity constraints"
-  - "pre‑submission consultation"
-  - "Scoring matrix"
-  - "final allocation decisions"
-  - "application document"
-  - "minimum amount of resources"
-  - "technical justification"
-  - "Only PDF format"
-  - "minimum eligible amount"
-  - "Conflict of Interest Policy"
-  - "one-year allocation duration"
   - "Floating IP"
-  - "vGPU (RGU-year)"
-  - "minimum eligible amounts"
-  - "added value for targeted communities"
-  - "continuation up to two years"
-  - "Submission deadline"
-  - "RAC Resource Allocation Projects"
-  - "online form"
-  - "dCache storage"
-  - "science score"
-  - "financial value of resources"
-  - "RAPAC"
-  - "GPU RGU-year"
-  - "conflict of interest"
-  - "resource request size"
-  - "allocation application"
-  - "online application form"
-  - "RAC application eligibility"
-  - "underutilization justification"
-  - "application submission guidelines"
-  - "co-PI"
-  - "additional information"
-  - "application impact"
-  - "allocation scaling function"
-  - "CPU vs GPU performance"
-  - "competition round"
-  - "Research Methods evaluation"
-  - "Team Configuration and Expertise"
-  - "Fast Track applications"
-  - "direct conflict"
-  - "peer review committees"
-  - "Resources for Research Groups (RRG)"
-  - "RRG application"
-  - "Allocation decisions"
-  - "Project Description and Objectives"
-  - "AI applications"
-  - "GPU utilization"
-  - "Funding"
-  - "research problem"
-  - "resource demand and supply constraints"
-  - "Resource Allocation Competition"
-  - "indirect conflict"
-  - "compute resources"
-  - "storage allocation scaling"
-  - "CIHR guidelines"
-  - "Rapid Access Service"
-  - "reasonable accommodations"
-  - "principal investigator"
-  - "48 hours"
-  - "Project Justification"
+  - "project storage"
+  - "core-years"
   - "overall goal and objectives"
-  - "cloud resources"
-  - "computational research"
+  - "Peer Review Committee"
+  - "application impact"
+  - "Team Configuration and Expertise"
+  - "Fast Track report"
+  - "online form must match application"
+  - "minimum eligible amount"
+  - "additional information"
+  - "demand vs supply constraints"
+  - "effective utilization of resources"
+  - "Object storage"
+  - "GPU utilization"
+  - "science score"
+  - "backend"
+  - "GPU utilization data"
+  - "technical staff consultation"
+  - "resource request"
+  - "vGPU"
+  - "RAC Resource Allocation Projects"
+  - "Conflict of Interest Policy"
+  - "financial value of resources"
+  - "Submission deadline November 3 2026"
+  - "compute resources"
+  - "pre‑submission consultation"
+  - "Application limits"
+  - "Only PDF format"
+  - "Fast Track progress report"
+  - "Rapid Access Service (RAS)"
+  - "co‑PI collaborations"
+  - "indirect conflict"
+  - "Co-PIs"
+  - "one-year allocation duration"
+  - "Fast Track applications"
   - "MIG scalability test"
+  - "application template"
+  - "Non-disclosure Agreement"
+  - "online form"
+  - "Principal Investigator"
+  - "48 hours"
+  - "computational project outputs and impact"
+  - "Project Description Objectives and Impact"
+  - "Resources for Research Groups (RRG) and Research Platforms and Portals (RPP)"
+  - "Secondary Contact Person"
+  - "annual renewal application"
+  - "dCache storage"
+  - "eligibility criteria"
+  - "peer review score"
+  - "allocation scaling function"
+  - "Expected Outcomes"
+  - "RAC application"
+  - "peer review"
+  - "Maximum 10 pages"
+  - "eligible HPC requests"
+  - "RAPAC discretion"
+  - "200 core‑years minimum"
+  - "minimum passing score"
+  - "demand for GPUs"
+  - "CPU vs GPU performance"
+  - "allocation application"
+  - "resource request discrepancies"
+  - "Allocation decisions final (RAPAC)"
+  - "application submission guidelines"
+  - "management strategy and resource management"
+  - "sub-project limit"
+  - "problem or need"
+  - "Very Large"
+  - "confidential information"
+  - "Project Justification"
+  - "project justification and objectives"
+  - "continuation up to two years"
+  - "timely response"
+  - "research problem"
+  - "full application process"
+  - "RAPAC approval"
+  - "measurement criteria"
+  - "expected outcomes"
+  - "41 TB project storage total"
+  - "RPP application"
+  - "vCPU-year"
+  - "Scoring Matrix"
+  - "Funding Availability"
+  - "technical review"
+  - "direct conflict"
+  - "LaTeX template"
+  - "CV requirements"
+  - "25 RGU‑year minimum"
+  - "cloud resources"
+  - "Resource Allocation Competition"
+  - "research methods evaluation"
+  - "scaling adjustments"
+  - "Alliance resources"
+  - "capacity constraints"
+  - "peer review committees"
+  - "RRG process"
+  - "RAC applicants"
+  - "Academic PI role"
+  - "101 TB nearline storage total"
+  - "justification of underutilization"
+  - "minimum eligible amounts"
+  - "storage allocation scaling"
+  - "resource request justification"
+  - "technical support consultation"
+  - "RPP project"
+  - "computational expertise of the team"
+  - "technical justification"
+  - "added value"
+  - "conflict of interest"
+  - "Resource Management and Expertise of the Team"
+  - "computational research"
 
 questions:
-  - "What is the deadline for submitting Resource Allocation Competition applications, and is an extension possible?"
-  - "What pre‑submission actions are recommended for first‑time applicants or those requesting a very large amount of resources?"
-  - "How are allocation decisions determined, and which factors can lead to a reduction in resources compared to the previous year?"
+  - "What are the official start date and final deadline for submitting RAC applications for Resources for Research Groups (RRG) and Research Platforms and Portals (RPP) in 2026?"
+  - "Which pre‑submission steps (such as attending information sessions, scheduling a consultation, or considering the Rapid Access Service) are strongly recommended before filing a RAC application?"
+  - "What are the main terms of access, including that awarded resources are free, allocation decisions are final, and allocations may be adjusted based on usage, peer‑review scores, and capacity constraints?"
   - "What factors are taken into account when scaling back resource requests each year?"
   - "Who retains final discretion over allocation decisions, even when reasonable accommodations are made?"
   - "Why is there no guarantee that a project will receive the same amount of resources as in the previous year?"
-  - "What steps must a researcher follow each year to renew a RAC allocation, and what happens if no renewal application is submitted?"
-  - "How do the Resources for Research Groups (RRG) and Research Platforms and Portals (RPP) application pathways differ in purpose, eligibility, and resource requests?"
-  - "What responsibilities does the principal investigator have regarding application information, public disclosure of project details, and acknowledgment of the Alliance in publications?"
-  - "What process should projects that primarily need cluster compute resources for research follow to request those resources?"
-  - "What are the required components and format for submitting the application document?"
-  - "Where can the mandatory application template be accessed, and in which document formats is it provided?"
-  - "What are the mandatory formatting rules for the required template, including page limit, file type, and version updates?"
-  - "How do the request periods and annual reporting requirements differ between RRG and RPP applications, and what steps are needed for continuation or Fast Track submissions?"
-  - "What are the limits on the number of RRG and RPP applications a principal investigator can submit in a competition round, and how can they participate as a co‑PI in additional projects?"
-  - "Who is eligible to apply for a RAC and which Academic PI roles must be active on the CCDB portal?"
-  - "What are the sub‑project limits for RRG applications compared to RPP applications?"
-  - "Which roles (Co‑PI, Delegated person, Secondary contact) and documentation (e.g., CV) are required, and what responsibilities do they entail in a RAC application?"
+  - "What steps must a principal investigator follow each year to renew a RAC allocation, and what happens if no renewal application is submitted?"
+  - "How do the Resources for Research Groups (RRG) and Research Platforms and Portals (RPP) application pathways differ in terms of primary project purpose and eligible resource requests?"
+  - "Which information is required in the RAC application, how must online form requests align with the application document, and how is personal data of applicants used and disclosed?"
+  - "How can compute resources for supporting the backend of an RPP project be requested?"
+  - "Under what circumstances should a project apply through the RRG process rather than the standard application?"
+  - "What are the required formats and where can the English and French application templates be accessed?"
+  - "What are the formatting requirements (page limit, file type) and how should the provided templates be downloaded and submitted?"
+  - "How do the request periods and mandatory progress‑report obligations differ between RRG and RPP applications, including the Fast Track continuation process?"
+  - "What are the limits on the number of RRG and RPP applications a principal investigator can submit in a competition round, and how can they participate as a co‑PI on additional submissions?"
+  - "Who is eligible to apply for a RAC and which Academic PI role must they hold on the CCDB portal?"
+  - "What are the limits on the number of sub‑projects for RRG, Fast Track, and RPP applications?"
+  - "What documentation and responsibilities are required from the PI, Co‑PI, delegated person, and secondary contact when submitting a RAC application?"
   - "How many RPP applications is a PI allowed to submit during a single competition round?"
-  - "Can a PI act as a co‑PI on multiple RRG or RPP submissions at the same time, and what requirement must be fulfilled for these collaborations?"
-  - "Is a PI permitted to submit additional RPP applications in subsequent competition rounds?"
-  - "What specific details should be highlighted in a CV to demonstrate computational research relevance for CIHR‑IRSC applications?"
-  - "Are Co‑Principal Investigators required to submit a new CV for Fast Track applications and RPP progress reports?"
-  - "Where can applicants access the detailed guidelines for updating their CV on the CIHR‑IRSC website?"
-  - "What are the minimum resource thresholds for CPU, GPU, project storage, and nearline storage required to be eligible for a RAC application?"
-  - "How should discrepancies between the resource amounts listed in the application document and those entered in the online RAC form be resolved?"
-  - "When can a researcher skip submitting a RAC application, and which storage types (e.g., /home, /scratch) are not allocated through the RAC?"
-  - "When should a RAC application include a CPU request instead of relying on RAS to provide the needed CPU resources?"
-  - "What are the minimum eligibility thresholds for CPU core‑years, project storage, nearline storage, GPU units, and cloud resources in a RAC request?"
-  - "How must memory requirements and mixed storage types (project vs. nearline) be specified when splitting resources across multiple clusters in a RAC application?"
-  - "What are the minimum eligibility criteria for requesting online form resources in the HPC system?"
-  - "Under what conditions can dCache storage be requested, and who must be consulted before doing so?"
-  - "Which types of projects are eligible for nearline storage resources according to the examples provided?"
-  - "What must be included in the online form when a request is deemed eligible according to the table?"
-  - "How are the minimum required amounts for cloud resources differentiated between the “Compute” and “Persistent” columns in the table?"
-  - "Which cloud resources listed have the same minimum quantity for both compute and persistent categories, and what are those quantities?"
-  - "How does the RAC define the thresholds for Small, Medium, Large, and Very large resource requests for each type of resource (e.g., HPC CPU, GPU, Cloud vCPU, storage, etc.)?"
-  - "In which cases is a pre‑submission consultation strongly recommended, and what are the main objectives and requirements of that consultation?"
-  - "What are the steps of the RAC evaluation process (administrative and technical review) and what obligations do applicants have during the technical review stage?"
+  - "Can a PI serve as a co‑PI on multiple RRG or RPP submissions at the same time, and what requirement must be fulfilled for these collaborations?"
+  - "Is it permissible for a PI to submit both a full application process and a Fast Track report in the same competition round?"
+  - "What specific aspects should applicants emphasize in their CV when highlighting computational research using Alliance resources?"
+  - "How do the CV submission requirements differ for Co‑PIs compared to Principal Investigators, especially in Fast Track applications and RPP progress reports?"
+  - "Where can applicants find the detailed guidelines for updating their CV according to the CIHR‑IRSC requirements?"
+  - "What are the minimum resource amounts required for eligibility in the RAC for CPUs, GPUs, project storage, and nearline storage?"
+  - "How must resources be listed in the online RAC application form to avoid discrepancies, and which version of the request takes precedence if a mismatch occurs?"
+  - "Which storage types are allocated through the RAC, and what special rules apply to requesting dCache storage?"
+  - "When should a RAC application request CPU resources directly, and when can CPU needs be met without a RAC allocation?"
+  - "What are the minimum eligibility thresholds for storage (project and nearline) and cloud resources, and how can these resources be split across multiple clusters or sites while remaining eligible?"
+  - "Which resource request scenarios are deemed ineligible for RAC approval, and what justification is required when requesting vGPUs in the cloud?"
+  - "What are the minimum eligibility requirements for a project to request HPC resources through the online form?"
+  - "Under what circumstances may dCache storage be requested, and which groups need to consult technical staff before doing so?"
+  - "Which projects are allowed to request nearline storage resources in addition to their primary HPC allocation?"
+  - "What are the minimum required quantities for each cloud resource listed in the table?"
+  - "How must the online request form treat resource amounts that fall below these minimum thresholds?"
+  - "Which resources differentiate between compute and persistent minimums, and which use a single combined minimum?"
+  - "How does the RAC categorize resource request sizes (Small, Medium, Large, Very large) for each type of resource?"
+  - "In which cases is a pre‑submission consultation strongly recommended, and what are its main objectives?"
+  - "What are the steps of the RAC evaluation process, and what response expectations are set for applicants during the technical review?"
   - "What are the main objectives of the technical review in the RAC application process?"
-  - "How are RAC applications evaluated and scored by the peer‑review committees, and what criteria are considered?"
-  - "What key requirements and common pitfalls should applicants avoid when preparing and submitting their RAC resource request, including resource consistency, use of the compute calculator, and GPU justification?"
+  - "How are RAC applications evaluated and scored by the peer‑review committees, and what criteria are used for the assessment?"
+  - "What are the essential requirements and common pitfalls applicants should avoid when preparing and submitting their RAC application, particularly concerning resource request consistency and GPU usage justification?"
   - "What is the expected response time for clarification requests during the application review?"
   - "Who may be contacted for additional information if clarification is needed?"
-  - "What are the potential consequences of not responding promptly to staff inquiries?"
-  - "What specific performance data must be included when describing GPU utilization for a typical job?"
-  - "How should applicants justify the selection of MIG configurations versus full GPUs in their scalability tests?"
-  - "What are the potential consequences if the required GPU vs. CPU performance comparison is omitted from the application?"
-  - "What justification and mitigation details are required when an allocation’s projected utilization is 50 % or less, and for which RAP allocation types does this requirement apply?"
-  - "How are CPU and GPU requests scaled according to application scores, request size, and system constraints, including any minimum limits or special considerations for GPU types?"
-  - "Beyond the peer‑review score, what other factors (e.g., demand, capacity, prior utilization, group size) are taken into account when determining the final allocation of resources?"
-  - "What factors limit GPU allocations in each system, and how does the increased demand for AI applications affect these constraints?"
-  - "How does the scaling of GPU requests differ from CPU scaling, and why must the scaling parameters be adjusted more aggressively for large GPU requests?"
-  - "What is the role of the RAPAC in the GPU allocation process, and how does it use the baseline scaling to approve, adjust, or reject requests?"
-  - "How are the science score and technical justification used to determine the allocation of GPU and CPU resources for RAC applications?"
-  - "What factors are considered when scaling storage requests and evaluating underutilization in RAC projects?"
-  - "How is the monetary value of allocated resources calculated and communicated to successful applicants?"
-  - "How does the proposal demonstrate that its anticipated outputs and impact are realistic, aligned with the project objectives, and of relevance?"
-  - "What evidence is provided regarding the team’s computational expertise, management strategy, and funding to ensure efficient and feasible use of the requested resources?"
-  - "How does the application describe progress made in the past year, the appropriate computational methods, and the justification for the amount and type of resources requested?"
-  - "How does the technical justification differ from the explanation of the research’s importance in the evaluation criteria?"
-  - "What elements must be included in the research outline to satisfy the evaluation criteria?"
-  - "How should anticipated outcomes be presented and measured according to the expected outcomes criteria?"
-  - "What problem or need does the proposed research platform/portal aim to address?"
-  - "How are the objectives and goals of the platform/portal defined, and what impact are they expected to achieve?"
-  - "What added value will the creation or maintenance of the platform/portal provide to the targeted communities?"
-  - "How does the application justify the amount of resources requested and demonstrate that they are appropriate to achieve the project objectives?"
-  - "What specific criteria are used to evaluate the research team’s expertise, funding, and management strategy for developing, managing, and operating the platform/portal?"
-  - "How does the scoring matrix categorize applications, and what score range determines whether an application is considered successful or unsuccessful?"
+  - "What are the possible consequences of not responding promptly to staff inquiries?"
+  - "What specific details about GPU utilization need to be included in the application, especially for typical job performance?"
+  - "How must the choice between MIG configurations and full GPUs be justified, and what scalability tests are required?"
+  - "What are the potential consequences if the application does not provide a performance comparison between GPU and CPU versions?"
+  - "What justification is required when the projected utilization of a RAC allocation is 50 % or less, and what details must be included?"
+  - "How are CPU and GPU requests scaled according to application scores and request size, and what minimum allocation limits apply?"
+  - "Besides the peer‑review score, what additional factors are considered when determining the final allocation of CPU and GPU resources?"
+  - "How does the type of GPU requested and its availability influence the allocation process?"
+  - "Why does the scaling function for GPU requests need more drastic adjustments compared to CPU requests?"
+  - "What criteria does the RAPAC use to approve, modify, or reject a GPU allocation request?"
+  - "What factors are taken into account when assessing the science score, GPU utilization, and storage needs for RAC resource allocations?"
+  - "How is the financial value of allocated HPC and cloud resources determined and conveyed to successful applicants?"
+  - "What are the two primary evaluation criteria for RRG applications, and what specific aspects does the Research Methods criterion evaluate?"
+  - "How clearly does the proposal describe the anticipated computational outputs, their impact, and their alignment with the project’s objectives?"
+  - "Does the research team demonstrate sufficient computational expertise, a realistic resource request, and an effective management strategy to carry out the project?"
+  - "For research platforms or portals, does the proposal convincingly explain the problem addressed, the platform’s objectives, and the added value for the targeted community?"
+  - "What criteria are considered when evaluating the technical justification of a research project?"
+  - "How should the research problem, goals, and objectives be presented in the research outline?"
+  - "In what way should anticipated outcomes be described and measured according to the evaluation guidelines?"
+  - "What specific problem or need does the proposed research platform/portal aim to address?"
+  - "What are the primary objectives and goals of the platform/portal, and how are they defined?"
+  - "How will the creation or maintenance of the platform/portal provide added value to the targeted communities?"
+  - "How does the application demonstrate that the research team has the necessary funding, expertise, and management strategy to develop, operate, and maintain the platform/portal?"
+  - "What evidence does the application provide regarding the clarity of expected outcomes, the timeline for delivery, and the methods for measuring those outcomes?"
+  - "According to the RAC scoring matrix, what score ranges correspond to each performance descriptor, and what threshold determines whether an application is successful?"
   - "What is the purpose of the Non‑disclosure Agreement and Conflict of Interest Policy described in Appendix D?"
-  - "Who is defined as the “Peer Review Committee” in this document?"
-  - "How does the policy define an “Applicant” for the Resource Allocation Competition (RAC)?"
-  - "What obligations do reviewers have to keep all application information and review materials strictly confidential?"
-  - "When are reviewers classified as being in direct conflict of interest with a RAC application?"
-  - "What steps should reviewers take if they are unsure whether a situation constitutes a conflict of interest?"
+  - "Who qualifies as a member of the “Peer Review Committee” under the provided definitions?"
+  - "How is an “Applicant” defined in relation to the Resource Allocation Competition (RAC)?"
+  - "What obligations does a reviewer have regarding the confidentiality of information received during the RAC review process?"
+  - "Which situations constitute a direct conflict of interest for a reviewer, and how do they differ from indirect conflicts?"
+  - "What steps must reviewers take if they identify a potential conflict of interest, and who has the authority to resolve difficult cases?"
 
 status:
   downloaded: true
@@ -218,13 +217,13 @@ status:
   qa_generated: false
 ---
 
-!!! important "Please read this guide carefully."
+**Please read this guide carefully.**
 
 ## Submission dates
 
-| **Application** | **Start** | **Deadline** |
-|:---|:---|:---|
-| - Resources for Research Groups (RRG)<br>  - Including [Fast Track applications](rac_fast_track_application_guide.md)<br> - Research Platforms and Portals (RPP)<br>  - Including [RPP Annual Progress Reports](rpp_annual_progress_report_guidelines.md) | **September 23, 2026** | **November 3, 2026,** at **11:59 p.m. Eastern Standard Time** |
+| Application | Start | Deadline |
+|---|---|---|
+| * Resources for Research Groups (RRG) <br>  * Including [Fast Track applications](rac_fast_track_application_guide.md) <br> * Research Platforms and Portals (RPP) <br> * Including [RPP Annual Progress Reports](rpp_annual_progress_report_guidelines.md) | **September 23, 2026** | **November 3, 2026,** at **11:59 p.m. Eastern Standard Time** |
 
 *Extension of this deadline is not possible.*
 
@@ -234,27 +233,27 @@ For any questions, please contact allocations@tech.alliancecan.ca. We also recom
 
 ## Before you apply
 
-1.  We encourage all applicants to attend, or watch the recording of, one or several [RAC information sessions](https://docs.alliancecan.ca/wiki/Resource_Allocation_Competition) this fall. The recordings will be available after the presentations [here](https://docs.alliancecan.ca/wiki/Resource_Allocation_Competition).
-2.  If you are applying for the first time, or you plan to submit a new application that will request resources that are asking for a [Very Large](#assessing-the-size-of-your-resource-request) amount of resources, **we strongly encourage you to** *schedule a [pre-submission consultation](#pre-submission-consultations) before October 30, 2026*.
-3.  **A considerable amount of compute resources can be obtained through the Rapid Access Service (RAS) with a Default Resource Allocation Project (RAP) and without the need to apply for RAC**. Please consult the [Job Scheduling Policy](https://docs.alliancecan.ca/wiki/Job_scheduling_policies) and the [Allocation and compute scheduling](https://docs.alliancecan.ca/wiki/Allocations_and_compute_scheduling) documentation to better understand how to access compute resources without a RAC allocation—this can save you significant time and effort by avoiding submitting an unnecessary RAC application.
-4.  Your resource allocation is based on demonstrated need, not solely on previous year's usage. If your existing allocation does not meet your computational needs, you may request a minimal increase with proper justification. Conversely, if your usage is significantly lower than your existing allocation by the submission deadline, you must explain the reasons for the [underutilization](#justification-of-underutilization) and the need to maintain the allocation. While a moderate underutilization does not automatically lead to the termination of an allocation, future allocations could be reduced or reverted to basic access to align with a historically low usage, particularly when no reasonable justification is provided.
-5.  Plan ahead and submit your application *before* the deadline: **late submissions will not be accepted.**
-6.  “Departmental" applications (that is, applications submitted on behalf of a group of PIs that may be from the same department or institution but are not collaborating in a common research project with clear goals and outcomes) *are not accepted*.
-7.  Do not submit multiple applications “just in case”: *all* applications submitted will be checked for eligibility but *only those that meet the eligibility requirements will be considered*: if you don't know what application pathway is best for you or have eligibility questions, please contact allocations@tech.alliancecan.ca *before* you start doing any work.
+1. We encourage all applicants to attend, or watch the recording of, one or several [RAC information sessions](https://docs.alliancecan.ca/wiki/Resource_Allocation_Competition) this fall. The recordings will be available after the presentations [here](https://docs.alliancecan.ca/wiki/Resource_Allocation_Competition).
+2. If you are applying for the first time, or you plan to submit a new application that will request resources that are asking for a [Very Large](#assessing-the-size-of-your-resource-request) amount of resources, **we strongly encourage you to** *schedule a [pre-submission consultation](#pre-submission-consultations) before October 30, 2026*.
+3. **A considerable amount of compute resources can be obtained through the Rapid Access Service (RAS) with a Default Resource Allocation Project (RAP) and without the need to apply for RAC**. Please consult the [Job Scheduling Policy](https://docs.alliancecan.ca/wiki/Job_scheduling_policies) and the [Allocation and compute scheduling](https://docs.alliancecan.ca/wiki/Allocations_and_compute_scheduling) documentation to better understand how to access compute resources without a RAC allocation—this can save you significant time and effort by avoiding submitting an unnecessary RAC application.
+4. Your resource allocation is based on demonstrated need, not solely on previous year's usage. If your existing allocation does not meet your computational needs, you may request a minimal increase with proper justification. Conversely, if your usage is significantly lower than your existing allocation by the submission deadline, you must explain the reasons for the [underutilization](#justification-of-underutilization) and the need to maintain the allocation. While a moderate underutilization does not automatically lead to the termination of an allocation, future allocations could be reduced or reverted to basic access to align with a historically low usage, particularly when no reasonable justification is provided.
+5. Plan ahead and submit your application *before* the deadline: **late submissions will not be accepted.**
+6. "Departmental" applications (that is, applications submitted on behalf of a group of PIs that may be from the same department or institution but are not collaborating in a common research project with clear goals and outcomes) *are not accepted*.
+7. Do not submit multiple applications "just in case": *all* applications submitted will be checked for eligibility but *only those that meet the eligibility requirements will be considered*: if you don't know what application pathway is best for you or have eligibility questions, please contact allocations@tech.alliancecan.ca *before* you start doing any work.
 
 ## Terms of Access
 
 By submitting a RAC application, you understand that
 
-1.  Resources awarded to successful applicants are provided FREE OF CHARGE.
-2.  Allocation decisions are the responsibility of the Resource Access Program Administrative Committee (RAPAC): these decisions are final and there is no appeal process. Applicants are welcome to share with the RAPAC any questions or concerns they may have about the results of an application and flag any potential errors. The RAPAC will analyze these concerns on a case-by-case basis and make every effort to answer questions, correct potential errors, and make reasonable accommodations when appropriate, but final allocation decisions remain at the discretion of the RAPAC.
-3.  All requests are scaled back every year based on different considerations that include, but are not limited to, the score from the peer review, the resource demand, capacity constraints, the size and computational expertise of the research group, and evidence of effective and efficient utilization of resources. Due to capacity constraints, there is no guarantee that a project will receive the same amount of resources than the previous year.
-4.  RAC allocations are not automatically renewed: an application must be submitted every year through any of the pathways available to confirm that the resources are still needed so that all requests can be properly reviewed. If no application is received, the existing allocation(s) will expire and no extension will be granted.
-5.  Only applications above the minimum passing score will be considered for an allocation. A successful score, however, does not guarantee that a project will receive the entirety of the resources requested.
-6.  The standard duration of a RAC allocation is one (1) year. Exceptionally, this duration may be extended or shortened during a specific competition round due to technical, logistical or other critical constraints (e.g. the delivery of new infrastructure is delayed).
-7.  Successful RAC applications are generally allowed to apply for continuation of resources for up to two years with the submission of a lightweight annual progress report; however, *all requests received are reviewed and successful ones are allocated for one(1) year*. For continuing projects, the score obtained from the original peer-review of the application will be carried over and used to make subsequent allocation decisions.
-8.  The PI is responsible for meeting the information requirements and overseeing the overall quality of the submitted RAC application, which will be evaluated based on the information provided.
-9.  Resources requested in the online form must match those listed in the application document and there should be no discrepancies between the two: *in case of discrepancy, what is requested in the online form will prevail.*
+1. Resources awarded to successful applicants are provided **FREE OF CHARGE.**
+2. Allocation decisions are the responsibility of the Resource Access Program Administrative Committee (RAPAC): these decisions are final and there is no appeal process. Applicants are welcome to share with the RAPAC any questions or concerns they may have about the results of an application and flag any potential errors. The RAPAC will analyze these concerns on a case-by-case basis and make every effort to answer questions, correct potential errors, and make reasonable accommodations when appropriate, but final allocation decisions remain at the discretion of the RAPAC.
+3. All requests are scaled back every year based on different considerations that include, but are not limited to, the score from the peer review, the resource demand, capacity constraints, the size and computational expertise of the research group, and evidence of effective and efficient utilization of resources. Due to capacity constraints, there is no guarantee that a project will receive the same amount of resources than the previous year.
+4. RAC allocations are not automatically renewed: an application must be submitted every year through any of the pathways available to confirm that the resources are still needed so that all requests can be properly reviewed. If no application is received, the existing allocation(s) will expire and no extension will be granted.
+5. Only applications above the minimum passing score will be considered for an allocation. A successful score, however, does not guarantee that a project will receive the entirety of the resources requested.
+6. The standard duration of a RAC allocation is one (1) year. Exceptionally, this duration may be extended or shortened during a specific competition round due to technical, logistical or other critical constraints (e.g. the delivery of new infrastructure is delayed).
+7. Successful RAC applications are generally allowed to apply for continuation of resources for up to two years with the submission of a lightweight annual progress report; however, *all requests received are reviewed and successful ones are allocated for one(1) year*. For continuing projects, the score obtained from the original peer-review of the application will be carried over and used to make subsequent allocation decisions.
+8. The PI is responsible for meeting the information requirements and overseeing the overall quality of the submitted RAC application, which will be evaluated based on the information provided.
+9. Resources requested in the online form must match those listed in the application document and there should be no discrepancies between the two: *in case of discrepancy, what is requested in the online form will prevail.*
 10. Any personal information collected by the Alliance is used only to review applications. Such information may be shared with relevant officials in the corresponding Alliance regional partner, as well as with the home institutions of the RAC applicant.
 11. The Alliance will make publicly available the following information of successful projects: *Name, Institution and Department of the PI; Project title and Summary; Field of research; Specific Research Area, and Amount allocated.*
 12. Researchers are required to acknowledge the Alliance and its regional partner organizations when publications or reports are published on research that uses the resources provided. For details about the wording to use, please visit [Acknowledging the Alliance](https://www.alliancecan.ca/en/our-services/advanced-research-computing/acknowledging-alliance).
@@ -265,22 +264,22 @@ The RAC enables faculty members and their research groups to access compute, sto
 
 **These resources are provided FREE OF CHARGE.**
 
-| | **Resources for Research Groups (RRG)** | **Research Platforms and Portals (RPP)** |
-|:---|:---|:---|
-| ### Description | The RRG is a peer reviewed application process for projects whose **primary purpose** is to conduct research requiring compute, storage and cloud resources to meet their goals. Refer to the Appendices at the end of this Guide for the [RRG Evaluation Criteria](#appendix-a-resources-for-research-groups-evaluation-criteria) and [scoring matrix](#appendix-c-scoring-matrix).<br><br>Projects *primarily* needing persistent instances in the cloud to provide a service through a platform or a portal should apply through the RPP application process instead. | The RPP is a peer reviewed application process for projects whose **primary purpose** is to provide a service to a larger research community through *scientific gateways* using a set of cloud-based tools or applications that improve access to shared datasets, enhance existing online research tools and facilities, or advance national or international research collaborations via a common interface. RPP projects must be able to develop, operate and manage the proposed portal or platform with minimal support from the Alliance.<br><br>Please refer to the Appendices at the end of this Guide for the [RPP Evaluation Criteria](#appendix-b-research-platforms-and-portals-evaluation-criteria) and the [scoring matrix](#appendix-c-scoring-matrix).<br><br>Compute resources needed to support the backend of a RPP project can be requested with the application. However, projects *primarily* needing compute resources in a cluster to conduct research should apply through the RRG process instead. |
-| ### Application document | **The template provided is required.**<br><br>* Word or OpenDocument ([English](https://docs.google.com/document/d/1XxA5FEeX13MxWpR3g1_VMhr5lQ86yAW0_d6z5Bliryg/edit?tab=t.0), [French](https://docs.google.com/document/d/1rYb-bGCze20OxmFBe5f1YDemmRw_0_sZiQ6q_rl07kA/edit?usp=drive_link))<br><br>LaTeX ([English](https://drive.google.com/file/d/1Dej5LYIL2fqGV6yp9nke8k1exz-yMa7W/view?usp=drive_link), [French](https://drive.google.com/file/d/1c0nnNYLfqZ_L29foQz2oci5DAdO-5WiZ/view?usp=drive_link))<br><br>**This link will open a non-editable Google document. Once there, go to** File → Download **in the main menu and select** Microsoft Word **or** OpenDocument Format **to download the template in the format of your choosing.**<br><br>Important:<br><br>* Maximum 10 pages (enforced).<br>* Only PDF format is accepted.<br>* Instructions may change from year to year so always use the latest version of the template. | **The template provided is required.**<br><br>* Word or OpenDocument ([English](https://docs.google.com/document/d/1STqa2U-iAXNxx8J1I4XVXCEbEFaYAcsA3s77tBjhrWw/edit?tab=t.0#heading=h.wjqj0o92eujh), [French](https://docs.google.com/document/d/1iod6DFQP63KBULp9Xy_9dXi21HqankF6hy3P31sGDN0/edit?usp=drive_link))<br><br>LaTeX ([English](https://drive.google.com/file/d/1OsvGSiIxKiDc7QgaU05xFcXm5g8QVuS6/view?usp=drive_link), [French](https://drive.google.com/file/d/1xn3YatVvS-ladTuC2FjWn2bL5JJK67eq/view?usp=drive_link))<br><br>**This link will open a non-editable Google document. Once there, go to** File → Download **in the main menu and select** Microsoft Word **or** OpenDocument Format **to download the template in the format of your choosing.**<br><br>Important:<br><br>* Maximum 10 pages (enforced).<br>* Only PDF format is accepted.<br>* Instructions may change from year to year so always use the latest version of the template. |
-| ### Request period | RRG applications can request resources for one (1) year. | RPP applications can request resources for up to three (3) years in advance. However, resources are awarded for one (1) year and reassessed annually with the submission of a *mandatory* [progress report](https://docs.alliancecan.ca/wiki/RPP_Annual_Progress_Report_Guidelines). |
-| ### Request for continuation | Users with an existing RRG award who meet the Fast Track eligibility are allowed to submit a lightweight progress report to renew their request for computational resources. Please read the [Fast Track guideline](https://docs.alliancecan.ca/wiki/RAC_Fast_Track_Application_Guide) *carefully* as this process includes important conditions and limitations that should be considered when deciding whether to use the Fast Track process or submit a new application.<br><br>The Fast Track progress report must be completed online on [CCDB](https://ccdb.alliancecan.ca/resource_allocation_competitions/applications). | Awarded multi-year projects do *not* need to submit a new application every year but are required to complete an annual progress report. The PI will be notified by email with instructions for the information required and the submission process. For more details, visit the [RPP Progress Report page](rpp_annual_progress_report_guidelines.md).<br><br>However, if you were awarded a multi-year RPP that expires in April 2027, you **must** submit a new RPP application this fall if your need for resources will continue for the 2027-2028 allocation cycle.<br><br>The [RPP progress report](https://docs.alliancecan.ca/wiki/RPP_Annual_Progress_Report_Guidelines) must be completed online on [CCDB](https://ccdb.alliancecan.ca/resource_allocation_competitions/applications). |
-| ### Application limits | Eligible PIs can only submit **one** RRG application per contest (either a full application process *or* a Fast Track report).<br><br>The same PI can simultaneously submit one RPP application during the same competition round.<br><br>This PI can, however, be involved in multiple RRG or RPP submissions as a co-PI, as long as these collaborations are clearly disclosed in all the applications in which the PI is participating. | Eligible PIs may submit **one** RPP application *per competition round*, but can submit additional RPPs in subsequent competition rounds.<br><br>The same PI can simultaneously submit one RRG or Fast Track application during the same competition round.<br><br>This PI can, however, be involved in multiple RRG or RPP submissions as a co-PI, as long as these collaborations are clearly disclosed in all the applications in which the PI is participating. |
-| ### Sub-projects | Each RRG application may include multiple sub-projects. While there is no limit to the number of sub-projects that can be included, we *recommend* a maximum of four (4) per application so that enough information about each sub-project can be provided within the page limit allowed. | Each RPP application must include only *one* (1) project. Sub-projects for RPP applications are not allowed. |
+| | Resources for Research Groups (RRG) | Research Platforms and Portals (RPP) |
+|---|---|---|
+| **Description** | The RRG is a peer reviewed application process for projects whose **primary purpose** is to conduct research requiring compute, storage and cloud resources to meet their goals. Refer to the Appendices at the end of this Guide for the [RRG Evaluation Criteria](#appendix-a-resources-for-research-groups-evaluation-criteria) and [scoring matrix](#appendix-c-scoring-matrix).<br><br>Projects *primarily* needing persistent instances in the cloud to provide a service through a platform or a portal should apply through the RPP application process instead. | The RPP is a peer reviewed application process for projects whose **primary purpose** is to provide a service to a larger research community through *scientific gateways* using a set of cloud-based tools or applications that improve access to shared datasets, enhance existing online research tools and facilities, or advance national or international research collaborations via a common interface. RPP projects must be able to develop, operate and manage the proposed portal or platform with minimal support from the Alliance.<br><br>Please refer to the Appendices at the end of this Guide for the [RPP Evaluation Criteria](#appendix-b-research-platforms-and-portals-evaluation-criteria) and the [scoring matrix](#appendix-c-scoring-matrix).<br><br>Compute resources needed to support the backend of a RPP project can be requested with the application. However, projects *primarily* needing compute resources in a cluster to conduct research should apply through the RRG process instead. |
+| **Application document** | **The template provided is required.**<br><br>* Word or OpenDocument ([English](https://docs.google.com/document/d/1XxA5FEeX13MxWpR3g1_VMhr5lQ86yAW0_d6z5Bliryg/edit?tab=t.0), [French)](https://docs.google.com/document/d/1rYb-bGCze20OxmFBe5f1YDemmRw_0_sZiQ6q_rl07kA/edit?usp=drive_link)<br><br>LaTeX ([English](https://drive.google.com/file/d/1Dej5LYIL2fqGV6yp9nke8k1exz-yMa7W/view?usp=drive_link), [French)](https://drive.google.com/file/d/1c0nnNYLfqZ_L29foQz2oci5DAdO-5WiZ/view?usp=drive_link)<br><br>**This link will open a non-editable Google document. Once there, go to** File → Download **in the main menu and select** Microsoft Word **or** OpenDocument Format **to download the template in the format of your choosing.**<br><br>!!! important<br>    * Maximum 10 pages (enforced).<br>    * Only PDF format is accepted.<br>    * Instructions may change from year to year so always use the latest version of the template. | **The template provided is required.**<br><br>* Word or OpenDocument ([English,](https://docs.google.com/document/d/1STqa2U-iAXNxx8J1I4XVXCEbEFaYAcsA3s77tBjhrWw/edit?tab=t.0#heading=h.wjqj0o92eujh) [French)](https://docs.google.com/document/d/1iod6DFQP63KBULp9Xy_9dXi21HqankF6hy3P31sGDN0/edit?usp=drive_link)<br><br>LaTeX ([English](https://drive.google.com/file/d/1OsvGSiIxKiDc7QgaU05xFcXm5g8QVuS6/view?usp=drive_link), [French)](https://drive.google.com/file/d/1xn3YatVvS-ladTuC2FjWn2bL5JJK67eq/view?usp=drive_link)<br><br>**This link will open a non-editable Google document. Once there, go to** File → Download **in the main menu and select** Microsoft Word **or** OpenDocument Format **to download the template in the format of your choosing.**<br><br>!!! important<br>    * Maximum 10 pages (enforced).<br>    * Only PDF format is accepted.<br>    * Instructions may change from year to year so always use the latest version of the template. |
+| **Request period** | RRG applications can request resources for one (1) year. | RPP applications can request resources for up to three (3) years in advance. However, resources are awarded for one (1) year and reassessed annually with the submission of a *mandatory* [progress report](rpp_annual_progress_report_guidelines.md). |
+| **Request for continuation** | Users with an existing RRG award who meet the Fast Track eligibility are allowed to submit a lightweight progress report to renew their request for computational resources. Please read the [Fast Track guideline](rac_fast_track_application_guide.md) *carefully* as this process includes important conditions and limitations that should be considered when deciding whether to use the Fast Track process or submit a new application.<br><br>The Fast Track progress report must be completed online on [CCDB](https://ccdb.alliancecan.ca/resource_allocation_competitions/applications). | Awarded multi-year projects do *not* need to submit a new application every year but are required to complete an annual progress report. The PI will be notified by email with instructions for the information required and the submission process. For more details, visit the [RPP Progress Report page](rpp_annual_progress_report_guidelines.md).<br><br>However, if you were awarded a multi-year RPP that expires in April 2027, you **must** submit a new RPP application this fall if your need for resources will continue for the 2027-2028 allocation cycle.<br><br>The [RPP progress report](rpp_annual_progress_report_guidelines.md) must be completed online on [CCDB](https://ccdb.alliancecan.ca/resource_allocation_competitions/applications). |
+| **Application limits** | Eligible PIs can only submit **one** RRG application per contest (either a full application process *or* a Fast Track report).<br><br>The same PI can simultaneously submit one RPP application during the same competition round.<br><br>This PI can, however, be involved in multiple RRG or RPP submissions as a co-PI, as long as these collaborations are clearly disclosed in all the applications in which the PI is participating. | Eligible PIs may submit **one** RPP application *per competition round*, but can submit additional RPPs in subsequent competition rounds.<br><br>The same PI can simultaneously submit one RRG or Fast Track application during the same competition round.<br><br>This PI can, however, be involved in multiple RRG or RPP submissions as a co-PI, as long as these collaborations are clearly disclosed in all the applications in which the PI is participating. |
+| **Sub-projects** | Each RRG application may include multiple sub-projects. While there is no limit to the number of sub-projects that can be included, we *recommend* a maximum of four (4) per application so that enough information about each sub-project can be provided within the page limit allowed. | Each RPP application must include only *one* (1) project. Sub-projects for RPP applications are not allowed. |
 
 ## Who can apply
 
 RAC applicants must be a faculty member at a Canadian academic institution *and* have an active CCDB account with an [Academic PI role](https://docs.alliancecan.ca/wiki/User_roles_to_access_resources_and_services_of_the_Alliance_Federation) (Faculty, Adjunct Faculty or Librarian). Users with Research Institute PI or Non-academic PI roles are not eligible to apply for RAC.
 
-!!! important "Important"
-    *   **First-time applicants may submit an application to the RAC after having used resources available through the Rapid Access Service (RAS) or by other means (e.g. in another country or at your institution) and determining, after consulting with a technical support staff, that these resources are no longer sufficient to meet their computational needs.**
-    *   *PIs must apply with their primary, most up-to-date position.* If a PI recently moved to a different institution but has not yet applied for a new faculty role on the CCDB portal, please do so *before* submitting your RAC application. PIs with more than one active faculty role in the CCDB portal must ensure that the most up-to-date position is set as primary. To do so, go to the *Home* page on the CCDB portal and click on the *Make this role primary* button next to the role that you want to set as primary. Failing to do this could cause problems if your application is successful.
+!!! important
+    * **First-time applicants may submit an application to the RAC after having used resources available through the Rapid Access Service (RAS) or by other means (e.g. in another country or at your institution) and determining, after consulting with a technical support staff, that these resources are no longer sufficient to meet their computational needs.**
+    * *PIs must apply with their primary, most up-to-date position.* If a PI recently moved to a different institution but has not yet applied for a new faculty role on the CCDB portal, please do so *before* submitting your RAC application. PIs with more than one active faculty role in the CCDB portal must ensure that the most up-to-date position is set as primary. To do so, go to the *Home* page on the CCDB portal and click on the *Make this role primary* button next to the role that you want to set as primary. *Failing to do this could cause problems if your application is successful.*
 
 ### Contributors
 
@@ -290,7 +289,7 @@ A Co-PI is any faculty at a Canadian institution that is *actively involved* in 
 
 #### Delegated person
 
-PIs can grant any other user with an active CCDB account permissions to complete and submit the RAC online form on their behalf. The PI or a senior member of the research group should review the application before it is submitted to make the entire document cohesive, to ensure that the eligibility and the information requirements are met, and to check that the application is complete: *the PI is ultimately responsible for the quality of the proposal presented*.
+PIs can grant any other user with an active CCDB account permissions to complete and submit the RAC online form on their behalf. The PI or a senior member of the research group should review the application before it is submitted to make the entire document cohesive, to ensure that the eligibility and the information requirements are met, and to check that the application is complete: *the PI is ultimately responsible* *for the quality of the proposal presented*.
 
 #### Secondary contact person
 
@@ -304,7 +303,7 @@ A collaborator is anyone actively involved in the project but that *does not* ha
 
 The PI must upload an updated CV as part of the full application. CVs must use the harmonized, narrative style format CV template developed by the three federal granting agencies, the Canadian Institutes of Health Research (CIHR), the Natural Sciences and Engineering Research Council (NSERC), and the Social Sciences and Humanities Research Council (SSHRC). Please visit this page for detailed guidelines: [https://cihr-irsc.gc.ca/e/53574.html](https://cihr-irsc.gc.ca/e/53574.html)
 
-!!! important "Important"
+!!! important
     When updating your CV, highlight what it is relevant to assess your *computational research specifically* (e.g., highlight publications enabled by the use of Alliance resources) and *not* your entire research program more broadly: this is what peer-reviewers evaluating your application will focus on.
 
 Co-PIs are not required to submit a CV (Fast Track applications and RPP progress reports do not require submission of a new CV).
@@ -313,9 +312,9 @@ Co-PIs are not required to submit a CV (Fast Track applications and RPP progress
 
 **If your need for computational resources can be met with what is available via the [Rapid Access Service](https://docs.alliancecan.ca/wiki/Rapid_Access_Service), do not submit a RAC application.**
 
-**There should be NO DISCREPANCIES between the amount of resources requested in your application document and the online form. *In case of discrepancy, what is requested in the online form will prevail*.**
+**It is extremely important that the online application form includes a request *for every resource (CPU, GPU, storage or cloud) that your project needs on each cluster*. There should be NO DISCREPANCIES between the amount of resources requested in your application document and the online form. *In case of discrepancy, what is requested in the online form will prevail*.**
 
-Note that `/home` and `/scratch` storage are not allocated through the RAC.
+Note that /home and /scratch storage are not allocated through the RAC.
 
 Please visit the [Available Resources](https://docs.alliancecan.ca/wiki/RAC_available_resources) page for a list of systems available for this competition and to understand how resources must be requested in the online form. If you don't understand some of the terms listed above, please visit the [Technical Glossary](https://docs.alliancecan.ca/wiki/Technical_glossary_for_the_resource_allocation_competitions).
 
@@ -323,30 +322,30 @@ Please visit the [Available Resources](https://docs.alliancecan.ca/wiki/RAC_avai
 
 To be eligible for RAC, your request for HPC resources must meet the specific conditions specified for *each* of the resources in the list below *that you plan to request*.
 
-| **Resource** | **Unit** | **Minimum** | **Important information** |
-|:---|:---|:---|:---|
-| CPU | Core-year or<br>Core-equivalent-year | 200 | A CPU request must be *equal to or greater* than 200 core-years, or core-equivalent-years, *in each of the clusters where these resources are needed.*<br><br>If you require 200 core-years or less but high memory per core, please use the formula below to calculate the core-equivalent-years. The resulting calculation must be *equal to or greater* than 200 in order to be eligible.<br><br>`core-equivalent-years = MAX(core-years, mem requested / 4GB)`<br><br>`Mem requested = core-years * mem per core requested`<br><br>For more information about compute allocations, core-equivalent-years, and scheduler priority, please visit the [Allocation and compute scheduling](https://docs.alliancecan.ca/wiki/Allocations_and_compute_scheduling) page. |
+| Resource | Unit | Minimum | Important information |
+|---|---|---|---|
+| CPU | Core-year or<br><br>Core-equivalent-year | 200 | A CPU request must be *equal to or greater* than 200 core-years, or core-equivalent-years, *in each of the clusters where these resources are needed.*<br><br>If you require 200 core-years or less but high memory per core, please use the formula below to calculate the core-equivalent-years. The resulting calculation must be *equal to or greater* than 200 in order to be eligible.<br><br>*core-equivalent-years = MAX(core-years, mem requested / 4GB)*<br><br>*Mem requested = core-years * mem per core requested*<br><br>For more information about compute allocations, core-equivalent-years, and scheduler priority, please visit the [Allocation and compute scheduling](https://docs.alliancecan.ca/wiki/Allocations_and_compute_scheduling) page. |
 | GPU | RGU-year | 25 | A GPU request must be equal to or greater than 25 reference GPU units (RGU) years *in each of the clusters where you need these resources.*<br><br>For more information about the GPU models available and what they will be charged for in RGU, visit the [Allocation and compute scheduling](https://docs.alliancecan.ca/wiki/Allocations_and_compute_scheduling) page |
-| Project storage | TB | 41 | *Contrary to CPU and GPU, where the minimum amount is required for each cluster, the minimum of 41 TB is the **sum** of all the project storage needed across all clusters.*<br><br>Important:<br><br>* This limit applies to General Purpose clusters only (Fir, Nibi, Rorqual and Narval).<br>* Any amount of project storage needed on Trillium must be requested through the RAC.<br>* If you need project and nearline storage, you can request both as long as *one* of them *is equal to or greater* than the minimum eligible amount. In that case, the online form must include the project and nearline storage resources needed. |
-| Nearline storage | TB | 101 | *Contrary to CPU and GPU, where the minimum amount is required for each cluster, the minimum of 101 TB is the **sum** of all the nearline storage needed across all clusters.*<br><br>Important:<br><br>* This limit applies to General Purpose clusters only (Fir, Nibi, Rorqual and Narval)<br>* Any amount of project storage needed on HPSS must be requested through the RAC.<br>* If you need project and nearline storage, you can request both as long as *one* of them *is equal to or greater* than the minimum eligible amount. In that case, the online form must include the project and nearline storage resources needed. |
-| dCache storage\* | - | - | Any amount of dCache storage must be requested. |
+| Project storage | TB | 41 | *Contrary to CPU and GPU, where the minimum amount is required for each cluster, the minimum of 41 TB is the **sum** of all the project storage needed across all clusters.*<br><br>!!! important<br>    * This limit applies to General Purpose clusters only (Fir, Nibi, Rorqual and Narval).<br>    * Any amount of project storage needed on Trillium must be requested through the RAC.<br>    * If you need project and nearline storage, you can request both as long as *one* of them *is equal to or greater* than the minimum eligible amount. In that case, the online form must include the project and nearline storage resources needed. |
+| Nearline storage | TB | 101 | *Contrary to CPU and GPU, where the minimum amount is required for each cluster, the minimum of 101 TB is the **sum** of all the nearline storage needed across all clusters.*<br><br>!!! important<br>    * This limit applies to General Purpose clusters only (Fir, Nibi, Rorqual and Narval)<br>    * Any amount of project storage needed on HPSS must be requested through the RAC.<br>    * If you need project and nearline storage, you can request both as long as *one* of them *is equal to or greater* than the minimum eligible amount. In that case, the online form must include the project and nearline storage resources needed. |
+| dCache storage* | - | - | Any amount of dCache storage must be requested. |
 
-\*dCache storage is primarily used by certain sub-atomic physics projects. **Groups coming from a different field of research must consult with a technical staff before requesting this type of storage.***
+*dCache storage is primarily used by certain sub-atomic physics projects. **Groups coming from a different field of research must consult with a technical staff before requesting this type of storage**.*
 
 #### Examples of eligible HPC requests
 
-*   If you need 180 core-years (or core-equivalent-years) and 50 TB of project storage on Fir, your RAC application should **only** request 50 TB of storage on that cluster. Do not request CPU in your application as you will be able to get the CPU that you need without a RAC allocation.
-*   If you need 500 core-years, 20 TB of project storage and 80 TB of nearline storage on Rorqual, your RAC application should **only** request 500 core-years on that cluster, as your storage needs can be met with what is available via RAS.
-*   If you need 100 core-years with 10 TB of project storage on Trillium and 50 TB of nearline storage on HPSS, then you should only request the 10 TB and 50 TB of storage on those clusters, respectively, as your need for CPU resources can be met without a RAC allocation.
-*   If you need 400 core-years, 30 RGU-years and 200 TB of project storage on Nibi, then you **must** request all these resources in your RAC application as they are all above the minimum eligible amounts specified in the table.
-*   If you need 150 core-years on Rorqual with different memory requirements: 100 cores with 16 GB per core (which results in 400 core-equivalent-years) and 50 cores with 4 GB per core (50 core-equivalent-years), then you should make two separate CPU requests on Rorqual to account for the different memory requirements. This request is acceptable because the total core-equivalent-years needed on a single cluster is greater than the minimum amount of CPU specified in the table. Another acceptable option would be to average out the total memory per core needed and just make one request for 150 cores with 12 GB per core.
-*   If you need 45 TB of project storage and you want to split it between Rorqual and Narval as follows: 20 TB on Rorqual and 25 TB on Narval, then this request is eligible since the total amount of project storage needed exceeds 41 TB.
-*   If you need a total of 100 TB of storage on Fir, split as follows: 50 TB of project storage and 50 TB of nearline, then this request is eligible because even though the nearline amount is below the minimum (101 TB), the project storage request is eligible. Therefore, you should include both requests in your application.
+* If you need 180 core-years (or core-equivalent-years) and 50 TB of project storage on Fir, your RAC application should **only** request 50 TB of storage on that cluster. Do not request CPU in your application as you will be able to get the CPU that you need without a RAC allocation.
+* If you need 500 core-years, 20 TB of project storage and 80 TB of nearline storage on Rorqual, your RAC application should only request 500 core-years on that cluster, as your storage needs can be met with what is available via RAS.
+* If you need 100 core-years with 10 TB of project storage on Trillium and 50 TB of nearline storage on HPSS, then you should only request the 10 TB and 50 TB of storage on those clusters, respectively, as your need for CPU resources can be met without a RAC allocation.
+* If you need 400 core-years, 30 RGU-years and 200 TB of project storage on Nibi, then you must request all these resources in your RAC application as they are all above the minimum eligible amounts specified in the table.
+* If you need 150 core-years on Rorqual with different memory requirements: 100 cores with 16 GB per core (which results in 400 core-equivalent-years) and 50 cores with 4 GB per core (50 core-equivalent-years), then you should make two separate CPU requests on Rorqual to account for the different memory requirements. This request is acceptable because the total core-equivalent-years needed on a single cluster is greater than the minimum amount of CPU specified in the table. Another acceptable option would be to average out the total memory per core needed and just make one request for 150 cores with 12 GB per core.
+* If you need 45 TB of project storage and you want to split it between Rorqual and Narval as follows: 20 TB on Rorqual and 25 TB on Narval, then this request is eligible since the total amount of project storage needed exceeds 41 TB.
+* If you need a total of 100 TB of storage on Fir, split as follows: 50 TB of project storage and 50 TB of nearline, then this request is eligible because even though the nearline amount is below the minimum (101 TB), the project storage request is eligible. Therefore, you should include both requests in your application.
 
 #### Examples of ineligible HPC requests
 
-*   If you need 250 core-years *in total* but you want to split the CPU request between Fir and Nibi as follows: 100 cores with 4 GB per core on Fir and 150 cores with 4 GB per core on Nibi; this request will **NOT** be accepted because you should be able to get the CPU that you need without a RAC allocation. If your application only includes a CPU request in this way (that is, it does not include any additional storage, GPU or cloud resources), it will be rejected.
-*   If you need 20 reference GPU units *in total* but you want to split the GPU request between Narval and Rorqual with 10 RGU and 10 RGU, respectively, this request will not be accepted.
+* If you need 250 core-years *in total* but you want to split the CPU request between Fir and Nibi as follows: 100 cores with 4 GB per core on Fir and 150 cores with 4 GB per core on Nibi; this request will **NOT** be accepted because you should be able to get the CPU that you need without a RAC allocation. If your application only includes a CPU request in this way (that is, it does not include any additional storage, GPU or cloud resources), it will be rejected.
+* If you need 20 reference GPU units *in total* but you want to split the GPU request between Narval and Rorqual with 10 RGU and 10 RGU, respectively, this request will not be accepted.
 
 ### Cloud Resources
 
@@ -356,24 +355,25 @@ To be eligible for RAC, your request for Cloud resources must be equal to or gre
 
 If you plan to request vGPUs in the cloud, you **must** justify in the Application Document why the project cannot use standard HPC GPUs.
 
-As long as one of the resources needed in a particular cloud site is equal to or greater than the minimum specified in this table, the request is eligible. In that case, the online form must include all the cloud resources needed on that site, even if the amounts requested for some resources are below the minimum listed here.
+!!! note "Eligibility for Cloud Resources"
+    As long as one of the resources needed in a particular cloud site is equal to or greater than the minimum specified in this table, the request is eligible. In that case, the online form must include all the cloud resources needed on that site, even if the amounts requested for some resources are below the minimum listed here.
 
-| **Resource** | **Unit** | **Compute** | **Persistent** |
-|:---|:---|:---|:---|
+| Resource | Unit | Compute | Persistent |
+|---|---|---|---|
 | vCPU | vCPU-year | 81 | 26 |
 | vGPU | RGU-year | 3.6 | N/A |
 | RAM (GB) | GB | 301 | 51 |
-| Floating IP | Number of IP | 3 | |
-| Volumes and Snapshot (persistent) storage | TB | 11 | |
-| Object storage | TB | 11 | |
-| Shared filesystem storage | TB | 11 | |
+| Floating IP | Number of IP | 3 | 3 |
+| Volumes and Snapshot (persistent) storage | TB | 11 | 11 |
+| Object storage | TB | 11 | 11 |
+| Shared filesystem storage | TB | 11 | 11 |
 
 ## Assessing the size of your resource request
 
 The table below provides applicants an idea of whether the amount of resources they plan to request is Small, Medium, Large or Very large by RAC standards.
 
-| **Type** | **Resource** | **Unit** | **Small** | **Medium** | **Large** | **Very large** |
-|:---|:---|:---|:---|:---|:---|:---|
+| Type | Resource | Unit | Small | Medium | Large | Very large |
+|---|---|---|---|---|---|---|
 | HPC | CPU | core-years | ≤ 500 | > 500 ≤ 2500 | > 2500 ≤ 10000 | > 10000 |
 | HPC | GPU | RGU-years | ≤ 50 | > 50 ≤ 250 | > 250 ≤ 500 | > 500 |
 | Cloud | vGPU | RGU-years | ≤ 5 | > 5 ≤ 10 | > 10 ≤ 25 | > 25 |
@@ -387,20 +387,18 @@ The table below provides applicants an idea of whether the amount of resources t
 
 ## Pre-submission consultations
 
-While we encourage all applicants to consult with our technical staff if they have questions about eligibility or need help estimating your resource needs,
+While we encourage all applicants to consult with our technical staff if they have questions about eligibility or need help estimating your resource needs, **a pre-submission consultation is *strongly recommended* in the following cases:**
 
-!!! tip "Pre-submission Consultation Recommendation"
-    A pre-submission consultation is *strongly recommended* in the following cases:
-    1.  The resource request of your RRG or RPP application falls into the **Very Large** category, as described in the [Assessing the size of your resource request](#assessing-the-size-of-your-resource-request) section.
-    2.  You are applying for the first time: this includes PIs that are already using resources available through the RAS as well as new PIs, irrespective of whether they have previously used ARC resources.
-    3.  Your project has very specific requirements such as large bursty usage needs (e.g., you would like to use a significant portion of a cluster).
+1. The resource request of your RRG or RPP application falls into the **Very Large** category, as described in the [Assessing the size of your resource request](#assessing-the-size-of-your-resource-request) section.
+2. You are applying for the first time: this includes PIs that are already using resources available through the RAS as well as new PIs, irrespective of whether they have previously used ARC resources.
+3. Your project has very specific requirements such as large bursty usage needs (e.g., you would like to use a significant portion of a cluster).
 
 The goal of the consultation is to
 
-*   determine whether the resources needed for your project justify submitting a RAC application;
-*   verify the project's eligibility to the right application process (RPP vs RRG);
-*   provide technical assistance with the calculation of the resources needed;
-*   determine the feasibility of meeting a very large request within our current resource constraints.
+* determine whether the resources needed for your project justify submitting a RAC application;
+* verify the project's eligibility to the right application process (RPP vs RRG);
+* provide technical assistance with the calculation of the resources needed;
+* determine the feasibility of meeting a very large request within our current resource constraints.
 
 Consulting with a technical staff to prepare your application can help you build a stronger case for the resources needed—**we ask you to mention in the application the name of the staff with whom you talked to and, when applicable, a brief summary with the results of that conversation** (if you have a ticket number, please also mention it). Note, however, that participating in a pre-consultation does not guarantee the success of your application.
 
@@ -416,17 +414,19 @@ Proposals not complying with the eligibility criteria will be rejected at this s
 
 Eligible applications will receive one or several technical reviews. These reviewers are required to sign a Non-Disclosure Agreement prior to accessing any RAC application.
 
-!!! warning "Timely Response Required"
-    During this process, we may require additional information about your application and try to contact you (or the designated Secondary Contact Person) to ask some clarification questions. In order to ensure that an application can progress beyond the technical review, we expect you to respond in a timely manner (ideally within 48 hours). Failing to promptly communicate with our staff and provide clear answers to their questions may negatively impact your application.
+**During this process, we may require additional information about your application and try to contact you (or the designated Secondary Contact Person) to ask some clarification questions. In order to ensure that an application can progress beyond the technical review, we expect you to respond in a timely manner (ideally within 48 hours)**.
+
+!!! warning
+    Failing to promptly communicate with our staff and provide clear answers to their questions may negatively impact your application.
 
 The purpose of the technical review is to
 
-*   ensure the appropriate system is requested by the PI and the required software is available;
-*   evaluate application efficiency and scalability;
-*   identify groups that may need help with application and workflow optimization;
-*   identify discrepancies between the resource request included in the online form and the application document;
-*   identify special software requirements;
-*   provide a technical opinion on the reasonability of the request.
+* ensure the appropriate system is requested by the PI and the required software is available;
+* evaluate application efficiency and scalability;
+* identify groups that may need help with application and workflow optimization;
+* identify discrepancies between the resource request included in the online form and the application document;
+* identify special software requirements;
+* provide a technical opinion on the reasonability of the request.
 
 ### Peer review
 
@@ -434,53 +434,53 @@ Eligible applications are peer reviewed by interdisciplinary committees, which a
 
 Many disciplinary experts volunteer each year to serve in a peer-review committee. All these experts are based in Canada and are required to accept the Alliance's [Non-Disclosure Agreement and Conflict of Interest Policy](#appendix-d-non-disclosure-agreement-and-conflict-of-interest-policy-for-peer-reviewers).
 
-While PIs have the option to select the committee that best matches the field(s) of research of their RAC project, applications can be moved to a different committee at the discretion of the committee Chairs.
+While PIs have the option to select the committee that best matches the field(s) of research of their RAC project, applications can be moved to a different committee *at the discretion of the committee Chairs.*
 
 The score resulting from this process is based on
 
-*   the feasibility of the computational research project based on what research will be done and what outcomes will be delivered, and not on why it is important;
-*   the appropriateness of the resources requested to achieve the objectives of the computational research project based on the technical justification provided; and
-*   the likelihood that the resources requested will be efficiently used.
+* *the feasibility of the computational research project based on what research will be done and what outcomes will be delivered, and not on why it is important;*
+* *the appropriateness of the resources requested to achieve the objectives of the computational research project based on the technical justification provided; and*
+* *the likelihood that the resources requested will be efficiently used.*
 
 Full applications will be evaluated by one of the following committees:
 
-*   Astronomy, Astrophysics and Cosmology
-*   Bioinformatics
-*   Chemistry, Biochemistry and Biophysics
-*   Computer Sciences and Mathematics
-*   Engineering
-*   Environmental and Earth Sciences
-*   Humanities and Social Sciences
-*   Nano, Materials and Condensed Matter
-*   Neurosciences, Medical Imaging and Medical Physics
-*   Subatomic Physics, Nuclear Physics and Space Physics
+* Astronomy, Astrophysics and Cosmology
+* Bioinformatics
+* Chemistry, Biochemistry and Biophysics
+* Computer Sciences and Mathematics
+* Engineering
+* Environmental and Earth Sciences
+* Humanities and Social Sciences
+* Nano, Materials and Condensed Matter
+* Neurosciences, Medical Imaging and Medical Physics
+* Subatomic Physics, Nuclear Physics and Space Physics
 
 ## Preparing your application
 
 Please keep in mind the following when writing your RRG or RPP application:
 
-*   Once completed, make sure that it is actually submitted: applications that are complete but not submitted will not be evaluated.
-*   The online application must include a request *for every resource (CPU, GPU, storage or cloud) that your project needs on each cluster according to the [minimum eligible amounts](#minimum-amount-of-resources-eligible-for-rac)*. **There should be NO DISCREPANCIES between the amount of resources requested in your application document and what you request in the online form. *In case of discrepancy, what was requested in the online form will prevail*.**
-*   Use the latest version of the [application template](#application-document) provided and avoid writing an extremely technical proposal as the RAC peer-review committees are interdisciplinary.
-*   *References*, when applicable, must be submitted as a separate document. However, if the total number of pages of the entire application, including *References*, is 10 pages or less, then submitting everything in just one document is acceptable.
-*   If you are requesting CPU or GPU resources, you must use this [Compute Calculator spreadsheet](https://docs.google.com/spreadsheets/d/1kgaK-gl44ZIqMtdgoLXJeBj_dNt4tYfa/edit?gid=1485674472#gid=1485674472) and include the table with the results of the calculations in your proposal. Note that while you can use decimals in this spreadsheet, the online form on CCDB only accepts integers, so you may round up the request to the next integer when completing the online request.
-*   When available, CPU and GPU utilization information will be shown in the application form on CCDB, but the most accurate way to monitor utilization of your group is by going to [https://portal.alliancecan.ca/slurm](https://portal.alliancecan.ca/slurm). Documentation about how to use this portal and read the charts is available on this [page](https://docs.alliancecan.ca/wiki/Allocations_and_compute_scheduling#Viewing_resource_usage_in_the_portal).
-*   In general, RAC applicants find it difficult to estimate their GPU needs, which in most cases are over-requested and underutilized. We strongly encourage future RAC applicants to do two things before applying: start using GPU resources in order to get a better understanding of your needs, and consult with a technical support staff before submitting an application.
-*   In case of GPU codes, you must discuss the GPU utilization that a typical job would achieve. Any choice of MIG or full GPUs must be justified with a scalability test performed with MIGs of different sizes and full GPUs. If a CPU version of the code exists, you must compare the performance of GPU and CPU versions. *Failing to provide this information may negatively impact your application and any potential GPU allocation.* If you need assistance, contact allocations@tech.alliancecan.ca.
-    *   Note that on [Rorqual](https://metrix.rorqual.calculquebec.ca/) and [Narval](https://portail.narval.calculquebec.ca/), GPU utilization data is available on their cluster job portals and can be used to test H100 and A100 GPU utilization, respectively (GPU utilization tests can be performed on Rorqual even if you are requesting H100 GPUs on other clusters).
+* Once completed, make sure that it is actually submitted: applications that are complete but not submitted will not be evaluated.
+* The online application must include a request *for every resource (CPU, GPU, storage or cloud) that your project needs on each cluster according to the [minimum eligible amounts](#minimum-amount-of-resources-eligible-for-rac)*. **There should be NO DISCREPANCIES between the amount of resources requested in your application document and what you request in the online form. *In case of discrepancy, what was requested in the online form will prevail*.**
+* Use the latest version of the [application template](#application-document) provided and avoid writing an extremely technical proposal as the RAC peer-review committees are interdisciplinary.
+* *References*, when applicable, must be submitted as a separate document. However, if the total number of pages of the entire application, including *References*, is 10 pages or less, then submitting everything in just one document is acceptable.
+* If you are requesting CPU or GPU resources, you must use this [Compute Calculator spreadsheet](https://docs.google.com/spreadsheets/d/1kgaK-gl44ZIqMtdgoLXJeBj_dNt4tYfa/edit?gid=1485674472#gid=1485674472) and include the table with the results of the calculations in your proposal. Note that while you can use decimals in this spreadsheet, the online form on CCDB only accepts integers, so you may round up the request to the next integer when completing the online request.
+* When available, CPU and GPU utilization information will be shown in the application form on CCDB, but the most accurate way to monitor utilization of your group is by going to [https://portal.alliancecan.ca/slurm](https://portal.alliancecan.ca/slurm). Documentation about how to use this portal and read the charts is available on this [page](https://docs.alliancecan.ca/wiki/Allocations_and_compute_scheduling#Viewing_resource_usage_in_the_portal).
+* In general, RAC applicants find it difficult to estimate their GPU needs, which in most cases are over-requested and underutilized. We strongly encourage future RAC applicants to do two things before applying: start using GPU resources in order to get a better understanding of your needs, and consult with a technical support staff before submitting an application.
+* In case of GPU codes, you must discuss the GPU utilization that a typical job would achieve. Any choice of MIG or full GPUs must be justified with a scalability test performed with MIGs of different sizes and full GPUs. If a CPU version of the code exists, you must compare the performance of GPU and CPU versions. *Failing to provide this information may negatively impact your application and any potential GPU allocation.* If you need assistance, contact allocations@tech.alliancecan.ca.
+    * Note that on [Rorqual](https://metrix.rorqual.calculquebec.ca/) and [Narval](https://portail.narval.calculquebec.ca/), GPU utilization data is available on their cluster job portals and can be used to test H100 and A100 GPU utilization, respectively (GPU utilization tests can be performed on Rorqual even if you are requesting H100 GPUs on other clusters).
 
 ## Justification of underutilization
 
-If the projected utilization of an allocation you hold is 50% or less, you must explain the reasons for the underutilization and describe any mitigation in place.
+If the projected utilization of an allocation you hold is 50% or less, you must explain the reasons for the underutilization and describe any mitigation in place. **We want to understand why resources allocated from the RAC pool to your research group may have not been fully utilized and what you plan to do about it**. While we understand that there may be legitimate reasons for underutilization of resources allocated, we need to know what those reasons are to make appropriate allocation decisions.
 
-!!! note "Underutilization Justification"
-    We want to understand why resources allocated from the RAC pool to your research group may have not been fully utilized and what you plan to do about it. While we understand that there may be legitimate reasons for underutilization of resources allocated, we need to know what those reasons are to make appropriate allocation decisions—failing to provide a reasonable justification with sufficient details may negatively impact your application.
+!!! warning
+    failing to provide a reasonable justification with sufficient details may negatively impact your application.
 
 Keep in mind the following:
 
-*   The justification is only required for resources allocated in [RAC Resource Allocation Projects](https://docs.alliancecan.ca/wiki/Frequently_Asked_Questions_about_the_CCDB#Resource_Allocation_Projects_(RAP)) (RAP), which are labelled rrg-name or rpp-name (for HPC allocations) and crg-name or cpp-name (for cloud allocations). For example, if you were allocated 500 core-years in your rrg-name RAP and you are projected to use 100 core-years in rrg-name but 300 core-years in def-name project, then you **must** justify the underutilization (100 core-years) of the 500 core-years allocated in the rrg-name project.
-*   If the utilization of CPU or GPU resources in your Default project (def-name) is greater than the utilization in your RAC project (rrg-name or rpp-name), you **must** explain why this is the case and describe how your research group plans to address this issue to make effective and efficient use of your allocation.
-*   If you have access to other computational resources (e.g. contributed hardware, access to a local cluster at your institution, etc.) within Canada or abroad, please also mention it.
+* The justification is only required for resources allocated in [RAC Resource Allocation Projects](https://docs.alliancecan.ca/wiki/Frequently_Asked_Questions_about_the_CCDB#Resource_Allocation_Projects_(RAP)) (RAP), which are labelled rrg-name or rpp-name (for HPC allocations) and crg-name or cpp-name (for cloud allocations). For example, if you were allocated 500 core-years in your rrg-name RAP and you are projected to use 100 core-years in rrg-name but 300 core-years in def-name project, then you **must** justify the underutilization (100 core-years) of the 500 core-years allocated in the rrg-name project.
+* If the utilization of CPU or GPU resources in your Default project (def-name) is greater than the utilization in your RAC project (rrg-name or rpp-name), you **must** explain why this is the case and describe how your research group plans to address this issue to make effective and efficient use of your allocation.
+* If you have access to other computational resources (e.g. contributed hardware, access to a local cluster at your institution, etc.) within Canada or abroad, please also mention it.
 
 ## How allocations are determined
 
@@ -490,10 +490,10 @@ The score resulting from the peer-review evaluation is used as the main referenc
 
 The table below provides an overview of the approach followed to make allocation decisions.
 
-| **Resource** | **Scaling** |
-|:---|:---|
+| Resource | Scaling |
+|---|---|
 | CPU | CPU requests are scaled based on the overall score of the application *and* the size of the request. A function is established so that only applications with a score equal to or greater than 2.1 (out of 5) receive a CPU allocation. The parameters of this function are updated every year to adjust for supply and demand. The function rewards higher scores but may need to cut large requests based on capacity constraints; conversely, it penalizes applications with a low score and large requests with more severe cuts.<br><br>If the scaled CPU request is less than the minimum limit (currently 200 core-years), then the allocation will be set to that minimum limit.<br><br>Details and examples of the scaling function for RAC 2026 are available [here](https://drive.google.com/file/d/10AfvVk7ybywtgV72nQi2MkwOFzPxwDfl/view?usp=drive_link). |
-| GPU | GPU allocations are constrained, among other things, by the type of GPU requested and available in each system, and by the fact that the demand for GPUs for AI applications has increased considerably.<br><br>All GPU requests are scaled similarly to CPU; however, because the demand for GPUs is *several times the total available capacity*, the parameters of this function must be adjusted to make more drastic cuts, particularly for large requests. The resulting scaling produces a baseline that the RAPAC then uses to approve, adjust (up or down) or reject (no allocation) a request according to the following factors:<br><br>*   the science score of the full application;<br>*   the science score (for Fast Track and ongoing RPPs, the score of the original RRG or RPP application is reused);<br>*   the available capacity on each cluster (including memory and CPU cores per GPU available);<br>*   the technical justification provided in the application document;<br>*   evidence of previous GPU utilization;<br>*   justification for underutilization (if applicable);<br>*   the size of the research group.<br><br>Groups with an active RAC allocation that show a significantly larger GPU utilization in the Default project than their RAC project without a reasonable justification for it are penalized, as this indicates that their need for GPU resources can be met without applying for RAC resources. |
+| GPU | GPU allocations are constrained, among other things, by the type of GPU requested and available in each system, and by the fact that the demand for GPUs for AI applications has increased considerably.<br><br>All GPU requests are scaled similarly to CPU; however, because the demand for GPUs is *several times the total available capacity*, the parameters of this function must be adjusted to make more drastic cuts, particularly for large requests. The resulting scaling produces a baseline that the RAPAC then uses to approve, adjust (up or down) or reject (no allocation) a request according to the following factors:<br><br>* the science score of the full application;<br>* the science score (for Fast Track and ongoing RPPs, the score of the original RRG or RPP application is reused);<br>* the available capacity on each cluster (including memory and CPU cores per GPU available);<br>* the technical justification provided in the application document;<br>* evidence of previous GPU utilization;<br>* justification for underutilization (if applicable);<br>* the size of the research group.<br><br>Groups with an active RAC allocation that show a significantly larger GPU utilization in the Default project than their RAC project without a reasonable justification for it are penalized, as this indicates that their need for GPU resources can be met without applying for RAC resources. |
 | Storage | As a general practice, a similar scaling is applied to all storage requests to provide a baseline. However, storage allocations cannot be universally scaled similarly to CPU or GPU resources as many projects have significant datasets that must be stored in their entirety.<br><br>A comprehensive storage-focused technical review is then undertaken to identify projects that would be materially affected by the scaling. This takes into account the project’s proposed storage use, the total demand and capacity available on each cluster, the current and historical project usage, and any justification provided for the underutilization of a storage allocation. For instance, storage of simulation results may be proportional to the compute allocation for those simulations, while storage of a major experimental database may be independent of any other scaling. The science score is also taken into consideration, especially when significant decreases are required due to lack of capacity. |
 
 ## Monetary value of resources
@@ -506,12 +506,12 @@ The email sent to successful candidates with the results of their application wi
 
 For RAC 2026, the value of the resources allocated was calculated using the rates below (these values are updated every year and included in the annual RAC report published in this [page](https://docs.alliancecan.ca/wiki/RAC_Annual_Reports)).
 
-| **Type** | **Resource** | **Financial value** |
-|:---|:---|:---|
+| Type | Resource | Financial value |
+|---|---|---|
 | HPC | 1 core-year (CPU) | $36.03 |
 | HPC | 1 RGU-year (GPU) | $1,032.05 |
 | HPC | 1 TB of project storage | $25.55 |
-| HPC | 1 TB of of dCache storage | $25.55 |
+| HPC | 1 TB of dCache storage | $25.55 |
 | HPC | 1 TB of nearline storage | $22.16 |
 | Cloud | 1 vCPU-year | $24.80 |
 | Cloud | 1 RGU-year (vGPU) | $980.62 |
@@ -531,36 +531,36 @@ This criterion evaluates the *methods* proposed to achieve the objectives of the
 
 Considerations for the evaluation of this criterion include the following:
 
-#### **Research Outline**
+##### *Research Outline*
 
-*   *The research problem is clearly presented.*
-*   *The overall goal and objectives of the project are well-defined and clear, and they state what the computational project is ultimately expected to achieve.*
+* *The research problem is clearly presented.*
+* *The overall goal and objectives of the project are well-defined and clear, and they state what the computational project is ultimately expected to achieve.*
 
-#### **Expected Outcomes**
+##### *Expected Outcomes*
 
-*   *The application presents anticipated outcomes and indicates the means by which these will be measured.*
-*   *The proposed computational project outputs (i.e., the anticipated results of the project) and impact are clearly described, are aligned to the objectives, are of relevance and are realistic and attainable.*
-*   *The proposed computational research project is likely to lead to advances in the research area.*
+* *The application presents anticipated outcomes and indicates the means by which these will be measured.*
+* *The proposed computational project outputs (i.e., the anticipated results of the project) and impact are clearly described, are aligned to the objectives, are of relevance and are realistic and attainable.*
+* *The proposed computational research project is likely to lead to advances in the research area.*
 
-#### **Progress Over the Past Year**
+##### *Progress Over the Past Year*
 
-*   *The application shows achievements, outcomes and/or evidence of progress resulting from the utilization of resources provided by the Federation over the past year.*
+* *The application shows achievements, outcomes and/or evidence of progress resulting from the utilization of resources provided by the Federation over the past year.*
 
-#### **Computational Methods**
+##### *Computational Methods*
 
-*   *The application describes appropriate tools, methods and approaches for addressing the research objectives. These methodologies may be community codes or models, data analysis methods, algorithmic formulations expressed in user-developed scripts or tools, as well as trials or test implementations.*
+* *The application describes appropriate tools, methods and approaches for addressing the research objectives. These methodologies may be community codes or models, data analysis methods, algorithmic formulations expressed in user-developed scripts or tools, as well as trials or test implementations.*
 
-#### **Resource Request Justification**
+##### *Resource Request Justification*
 
-*   *When applicable, a justification for low utilization (or lack thereof) of an existing allocation is provided and deemed reasonable.*
-*   *The amount of resources requested is deemed appropriate to achieve the project objectives, and the technical justification provided is excellent.*
-*   *The application describes necessary and sufficient computational experiments to answer the research questions posed.*
+* *When applicable, a justification for low utilization (or lack thereof) of an existing allocation is provided and deemed reasonable.*
+* *The amount of resources requested is deemed appropriate to achieve the project objectives, and the technical justification provided is excellent.*
+* *The application describes necessary and sufficient computational experiments to answer the research questions posed.*
 
 ### **Resource Management and Computational Expertise (30%)**
 
-This criterion evaluates the capacity of the research team *as a whole* to manage the project and make efficient use of the resources requested. It also assesses the *overall feasibility* of the computational project based on the *research and computational expertise of the team*.
+This criterion evaluates the capacity of the research team *as a whole* to manage the project and make efficient use of the resources requested. It also assesses the *overall feasibility* of the computational project based on the *research and computational* *expertise* *of the team*.
 
-The team includes the Principal Investigator (PI) and, if applicable, Co-PIs and any Highly Qualified Personnel (HQP) *actively* participating in the computational project.
+The team includes the Principal Investigator (PI) and, if applicable, Co-PIs and any Highly Qualified Personnel (HQP) **actively** participating in the computational project.
 
 HQP includes all research personnel involved in the applicant’s computational project, whether from academia, government or industry. The number of HQP *using* resources provided by the Federation *directly* is expected to be appropriate to the scope of the project.
 
@@ -572,19 +572,19 @@ The level of detail needed to get a high score for the Resource Management crite
 
 Considerations of this review criterion include the following:
 
-#### **Funding**
+##### *Funding*
 
-*   *Funding is available for the research project to justify the request for computational resources; when funding is not available, a reasonable explanation for how the compute resources will be utilized is provided.*
+* *Funding is available for the research project to justify the request for computational resources; when funding is not available, a reasonable explanation for how the compute resources will be utilized is provided.*
 
-#### **Computational Expertise of the Team**
+##### *Computational Expertise of the Team*
 
-*   *The team shows sufficient computational expertise or a training plan to make effective and efficient use of the computational resources requested.*
+* *The team shows sufficient computational expertise or a training plan to make effective and efficient use of the computational resources requested.*
 
-#### **Management Strategy**
+##### *Management Strategy*
 
-*   *Information about each team member (PI, Co-PIs and HQP, when applicable) and their requested computational resources are clearly described.*
-*   *The roles and responsibilities of the PI and Co-PIs, if applicable, are clearly described with respect to making efficient use of the resources requested and are linked to the objectives of the computational project (Co-PIs contribute to the Resource Management score in accordance with their involvement).*
-*   *The team demonstrates the combined expertise and experience needed to execute the computational project, i.e., deliver the proposed outputs as well as achieve the proposed contribution(s).*
+* *Information about each team member (PI, Co-PIs and HQP, when applicable) and their requested computational resources are clearly described.*
+* *The roles and responsibilities of the PI and Co-PIs, if applicable, are clearly described with respect to making efficient use of the resources requested and are linked to the objectives of the computational project (Co-PIs contribute to the Resource Management score in accordance with their involvement).*
+* *The team demonstrates the combined expertise and experience needed to execute the computational project, i.e., deliver the proposed outputs as well as achieve the proposed contribution(s).*
 
 ## Appendix B: Research Platforms and Portals evaluation criteria
 
@@ -594,28 +594,28 @@ RPP applications are evaluated based on the following two criteria: *Project Jus
 
 Considerations for the evaluation of this criterion include the following:
 
-#### **Project Description, Objectives and Impact**
+##### *Project Description, Objectives and Impact*
 
-*   *The problem or need that the research platform/portal will address is clearly presented.*
-*   *The objectives and goals of the platform/portal clearly described.*
+* *The problem or need that the research platform/portal will address is clearly presented.*
+* *The objectives and goals of the platform/portal clearly described.*
 
-#### **Use of the Platform/Portal**
+##### *Use of the Platform/Portal*
 
-*   *The added value from the creation or maintenance of the platform or portal for the targeted communities is clearly explained.*
-*   *If applicable, the level of interaction between Canadian and international research groups is clearly described.*
+* *The added value from the creation or maintenance of the platform or portal for the targeted communities is clearly explained.*
+* *If applicable, the level of interaction between Canadian and international research groups is clearly described.*
 
-#### **Expected Outcomes**
+##### *Expected Outcomes*
 
-*   *The application presents a clear timeline for the delivery of the anticipated outcomes over the entire duration of the requested resources and indicates the means by which these outcomes will be measured.*
+* *The application presents a clear timeline for the delivery of the anticipated outcomes over the entire duration of the requested resources and indicates the means by which these outcomes will be measured.*
 
-#### **Progress over the Past Year**
+##### *Progress over the Past Year*
 
-*   *The application shows achievements, outcomes and/or evidence of progress resulting from the utilization of resources provided by the Federation over the past year.*
-*   *When applicable, a justification for low utilization (or lack thereof) of an existing allocation is provided and deemed reasonable.*
+* *The application shows achievements, outcomes and/or evidence of progress resulting from the utilization of resources provided by the Federation over the past year.*
+* *When applicable, a justification for low utilization (or lack thereof) of an existing allocation is provided and deemed reasonable.*
 
-#### **Resource Request Justification**
+##### *Resource Request Justification*
 
-*   *The amount of resources requested is deemed appropriate to achieve the project objectives, and the technical justification provided is solid.*
+* *The amount of resources requested is deemed appropriate to achieve the project objectives, and the technical justification provided is solid.*
 
 ### **Resource Management and Expertise of the Team (50%)**
 
@@ -629,28 +629,27 @@ It is expected that applications asking for large amounts of resources will have
 
 Considerations of this criterion include:
 
-#### **Funding**
+##### *Funding*
 
-*   *Funding is available to support the management, development and operation of the platform/portal and to justify the request for computational resources; when funding is not available, a reasonable explanation for how the platform/portal will be managed, operated and developed and how the compute resources will be utilized is provided.*
+* *Funding is available to support the management, development and operation of the platform/portal and to justify the request for computational resources; when funding is not available, a reasonable explanation for how the platform/portal will be managed, operated and developed and how the compute resources will be utilized is provided.*
 
-#### **Team Configuration and Expertise**
+##### *Team Configuration and Expertise*
 
-*   *The team assembled to manage, develop and operate the platform has the right combination of skills (where positions are not yet filled, a description of the position has been included).*
+* *The team assembled to manage, develop and operate the platform has the right combination of skills (where positions are not yet filled, a description of the position has been included).*
 
-#### **Management Strategy**
+##### *Management Strategy*
 
-*   *The proposed management of the resources is well defined and will provide broad access to the research community.*
-*   *The process for resource access is well defined, and a credible strategy to maintain or increase the community accessing resources is described.*
-*   *The proposed methods and technologies are suitable and well justified for the services to be provided by the platform.*
-*   *The approach to sharing data sets across the platform or portal is well described, and potential accessibility issues are properly addressed.*
+* *The proposed management of the resources is well defined and will provide broad access to the research community.*
+* *The process for resource access is well defined, and a credible strategy to maintain or increase the community accessing resources is described.*
+* *The proposed methods and technologies are suitable and well justified for the services to be provided by the platform.*
+* *The approach to sharing data sets across the platform or portal is well described, and potential accessibility issues are properly addressed.*
 
 ## Appendix C: Scoring matrix
 
-!!! warning "Unsuccessful Application Threshold"
-    Applications with a score of 2.0 or lower are considered unsuccessful and will not be awarded.
+**Applications with a score of 2.0 or lower are considered unsuccessful and will not be awarded.**
 
-| **Descriptor** | **Range** | **Definitions** |
-|:---|:---|:---|
+| Descriptor | Range | Definitions |
+|---|---|---|
 | *Excellent* | 4.1 - 5.0 | The application excels in **all** relevant aspects of the review criteria. Any shortcomings are minimal. |
 | *Good* | 3.1 - 4.0 | The application excels in **most** relevant aspects of the review criteria and reasonably addresses all others. Certain improvements are possible. |
 | *Fair* | 2.1 - 3.0 | The application excels in **some** relevant aspects of the review criteria. Relevant aspects could be better addressed and/or need to be revised or improved. |
@@ -661,8 +660,8 @@ Considerations of this criterion include:
 
 Definitions:
 
-*   **Peer Review Committee**: panel of experts in multiple disciplines that volunteer to peer review applications submitted to the Resource Allocation Competition (RAC).
-*   **Applicant:** The Principal Investigator (PI) and any co-PI listed in an application submitted to the Resource Allocation Competition (RAC).
+* **Peer Review Committee**: panel of experts in multiple disciplines that volunteer to peer review applications submitted to the Resource Allocation Competition (RAC).
+* **Applicant:** The Principal Investigator (PI) and any co-PI listed in an application submitted to the Resource Allocation Competition (RAC).
 
 By signing this agreement, you are accepting to abide by the policy outlined below.
 
@@ -676,21 +675,21 @@ Reviewers must disclose, as early as possible, any conflict of interests with a 
 
 Reviewers are in **direct conflict** if they:
 
-*   submitted an application that will be reviewed in the committee they are serving (in this case, they are in conflict *with their own application only*);
-*   are from the same university department as the applicant;
-*   have been a research supervisor or graduate student of the applicant within the past five (5) years;
-*   have collaborated or published with the applicant within the past two (2) years or have plans to collaborate or publish in the immediate future;
-*   are providing direct or indirect support for the application;
-*   are a relative or close friend, or have a personal relationship with the applicants;
-*   have had scientific or personal differences with the applicant that have been expressed publicly;
-*   are in a position to gain or lose financially from the outcome of the application (e.g., hold stock in the company of an industry partner or a competitor), or for some other reason feel that they cannot provide an objective review of the application.
+* submitted an application that will be reviewed in the committee they are serving (in this case, they are in conflict *with their own application only*);
+* are from the same university department as the applicant;
+* have been a research supervisor or graduate student of the applicant within the past five (5) years;
+* have collaborated or published with the applicant within the past two (2) years or have plans to collaborate or publish in the immediate future;
+* are providing direct or indirect support for the application;
+* are a relative or close friend, or have a personal relationship with the applicants;
+* have had scientific or personal differences with the applicant that have been expressed publicly;
+* are in a position to gain or lose financially from the outcome of the application (e.g., hold stock in the company of an industry partner or a competitor), or for some other reason feel that they cannot provide an objective review of the application.
 
 Committee members are in **indirect conflict** if they:
 
-*   are from the same immediate institution\* or company as the applicant *and* interact with the applicant in the course of their duties at the institution or company;
-*   have other reasons not to review an application.
+* are from the same immediate institution* or company as the applicant *and* interact with the applicant in the course of their duties at the institution or company;
+* have other reasons not to review an application.
 
-\*A reviewer is not in conflict with an application if they are from the same institution as the applicant but do not know or interact with the latter.
+*A reviewer is not in conflict with an application if they are from the same institution as the applicant but do not know or interact with the latter.*
 
 Difficult cases should be brought to the administrators of the RAC process, who have the authority to rule.
 

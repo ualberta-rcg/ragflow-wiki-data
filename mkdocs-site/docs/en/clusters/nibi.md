@@ -4,71 +4,72 @@ slug: "nibi"
 lang: "en"
 
 source_wiki_title: "Nibi/en"
-source_hash: "12fe0a7ff0a05e01db0973accc332456"
-last_synced: "2026-09-13T00:40:43.713374+00:00"
-last_processed: "2026-09-13T01:22:36.882753+00:00"
+source_hash: "a091d0522cad6a740707278d67c48c3c"
+last_synced: "2026-10-25T00:54:39.630071+00:00"
+last_processed: "2026-10-25T01:42:50.884034+00:00"
 
 tags:
   []
 
 keywords:
-  - "read‑only snapshots"
-  - "AMD MI300A nodes"
-  - "Nibi data centre"
-  - "Bash shell terminal"
-  - "134"
-  - "JupyterLab session"
-  - "25 petabytes SSD storage"
-  - "H100-80gb"
-  - "Python virtual environment"
   - "JupyterLab"
-  - "GPU instance sizes"
-  - "Brine AI-as-a-Service"
-  - "API key"
-  - "Open OnDemand"
   - "deleted file"
-  - "instance names"
-  - "multifactor authentication"
-  - "oops command"
-  - "Nibi Open OnDemand"
-  - "snapshots"
-  - "200 Gbit/s Ethernet interconnect"
-  - "GPU instances"
-  - "SHARCNET"
-  - "nvidia_h100_80gb_hbm3"
-  - "snapshot backup"
-  - "recover file"
-  - "unified memory"
-  - "400 CPU cores"
-  - "288 H100 NVIDIA GPUs"
-  - "remote desktop session"
+  - "read-only"
   - "Slurm --gpus option"
-  - "Nibi cluster"
+  - "Python virtual environment"
+  - "OpenAI-compatible API"
+  - "AMD MI300A nodes"
+  - "134"
+  - "Bash shell terminal"
+  - "recover a file"
   - "MIG technology"
+  - "Open OnDemand"
+  - "400 CPU cores"
+  - "SHARCNET"
+  - "JupyterLab session"
+  - "snapshots"
+  - "unified memory"
+  - "oops command"
+  - "multifactor authentication"
+  - "remote desktop session"
+  - "H100-80gb"
+  - "200 Gbit/s network fabric"
+  - "25 petabytes SSD storage"
+  - "288 H100 NVIDIA GPUs"
+  - "short name"
+  - "Nibi Open OnDemand"
+  - "snapshot backup"
   - "LiteLLM"
+  - "Nibi datacenter"
+  - "H100 GPU"
+  - "1 TB /scratch quota"
+  - "Nibi cluster"
+  - "nvidia_h100_80gb_hbm3"
+  - "Brine AI-as-a-Service"
+  - "GPU instances"
 
 questions:
   - "How can a researcher request access to the Nibi cluster and how long does it typically take for the access to be enabled?"
-  - "What are the storage capacities, types, and quota enforcement policies for the /home, /project, and /scratch filesystems on Nibi?"
-  - "Which GPU models are provided on Nibi, and what are their corresponding short names and memory specifications?"
-  - "Which GPU instance is identified by the short name “h100”?"
-  - "What is the full name associated with the “H100‑80gb” model in the table?"
-  - "According to the description, how do these GPU instances share resources within the same socket?"
-  - "How do you request a full H100‑80 GB GPU or multiple full H100 GPUs using Slurm options?"
-  - "What MIG instance sizes are available for the H100 GPUs, and which Slurm commands request a single instance of each size?"
-  - "What are the storage quotas (e.g., /scratch) and access methods (e.g., internet, Open OnDemand, JupyterLab) for users on the Nibi cluster?"
-  - "How do you launch a pre‑configured JupyterLab session on Nibi through the Open OnDemand portal?"
-  - "What steps are needed to create or activate a Python virtual environment and start JupyterLab from a Compute Desktop session?"
-  - "How can you recover accidentally deleted files on Nibi using the snapshot system, and what are its limitations?"
-  - "How do you log into Nibi using the Open OnDemand portal?"
-  - "What authentication method is required to access the Nibi interface?"
-  - "Which options does the Open OnDemand interface provide for running JupyterLab and other sessions?"
-  - "How can a researcher request access to the SHARCNET Brine AI-as-a-Service platform?"
-  - "What types of data are prohibited from being submitted to the Brine service?"
-  - "Which key features does the LiteLLM backend provide for users of the Brine platform?"
+  - "What are the storage quota rules for the /scratch filesystem on Nibi, including the soft limit, grace period, and enforcement details?"
+  - "What are the key hardware specifications of Nibi’s compute nodes, such as CPU models, GPU types, memory capacities, and interconnect bandwidth?"
+  - "What GPU instance names are listed in the table?"
+  - "Which GPU model corresponds to the short name “h100” and what is its memory capacity?"
+  - "How does the text describe GPUs that are in the same socket sharing unified memory?"
+  - "How do you request a full H100‑80 GB GPU versus a specific MIG instance using Slurm options?"
+  - "What are the three available H100 MIG instance sizes and their respective compute fractions and memory allocations?"
+  - "What are the storage quotas, internet access policies, and web‑based access methods (Open OnDemand, JupyterLab) for users on the Nibi cluster?"
+  - "How can a user launch a pre‑configured JupyterLab session on Nibi through the Open OnDemand portal?"
+  - "What steps are needed to create or activate a Python virtual environment on a Compute Desktop and start JupyterLab from it?"
+  - "How does the Nibi backup snapshot system work for recovering deleted files, and what are its limitations?"
+  - "How do you log into the Nibi system using Open OnDemand, and what authentication method is required?"
+  - "What interactive options does the Open OnDemand interface provide for Nibi users after signing in?"
+  - "How can a user launch and use JupyterLab through the Nibi Open OnDemand portal?"
+  - "What steps must a researcher follow to request and set up access to the SHARCNET Brine AI‑as‑a‑Service platform?"
+  - "Which categories of data are explicitly prohibited from being submitted to Brine, and what is the reason for this restriction?"
+  - "What key features does the LiteLLM backend offer to users of the Brine service (e.g., token monitoring, playground, vector stores, MCP management)?"
   - "What is the purpose of the `oops` command and how do you use it to locate deleted files?"
-  - "Why are snapshots read‑only, and what must you do to modify or delete files that reside in them?"
-  - "How can you recover a deleted file once `oops` has identified its path?"
+  - "Why are snapshots read‑only, and what steps must be taken to modify or delete files within them?"
+  - "How can a user recover a file that was deleted from the most recent snapshot?"
 
 status:
   downloaded: true
@@ -79,15 +80,14 @@ status:
   qa_generated: false
 ---
 
-| Availability: | since 31 July 2025 |
-| :------------ | :----------------- |
-| SSH login node: | `nibi.alliancecan.ca` |
-| Automation node: | *robot.nibi.alliancecan.ca* |
-| Web interface: | [ondemand.sharcnet.ca](https://ondemand.sharcnet.ca) |
-| Globus collection: | [alliancecan#nibi](https://app.globus.org/file-manager?origin_id=07baf15f-d7fd-4b6a-bf8a-5b5ef2e29d3) |
-| Data transfer node (rsync, scp, sftp,...): | use login nodes |
-| Portal: | [portal.nibi.sharcnet.ca](https://portal.nibi.sharcnet.ca) |
-| AI Platform: | brine.sharcnet.ca/ui/ |
+**Availability**: since 31 July 2025
+**SSH login node**: nibi.alliancecan.ca
+**Automation node**: *robot.nibi.alliancecan.ca*
+**Web interface**: [ondemand.sharcnet.ca](https://ondemand.sharcnet.ca)
+**Globus collection**: [alliancecan#nibi](https://app.globus.org/file-manager?origin_id=07baf15f-d7fd-4b6a-bf8a-5b5ef2e229d3)
+**Data transfer node (rsync, scp, sftp,...)**: use login nodes
+**Portal**: [portal.nibi.sharcnet.ca](https://portal.nibi.sharcnet.ca)
+**AI Platform**: brine.sharcnet.ca/ui/
 
 Nibi, the Anishinaabemowin word for water, is a general purpose cluster of 134,400 CPU cores and 288 H100 NVIDIA GPUs. Built by [Hypertec](https://www.hypertec.com/), the cluster is hosted and operated by [SHARCNET](https://www.sharcnet.ca/) at University of Waterloo.
 
@@ -97,34 +97,39 @@ Each researcher must [request access in CCDB](https://ccdb.alliancecan.ca/me/acc
 *   Select Nibi from the list on the left.
 *   Select I request access.
 
-It can take up to one hour for your access to be enabled.
+!!! tip
+    It can take up to one hour for your access to be enabled.
 
 ## Storage
 Parallel storage: 25 petabytes, all [SSD](https://en.wikipedia.org/wiki/Solid-state_drive) from [VAST Data](https://www.vastdata.com/) for /home, /project and /scratch.
 
-!!! note "Storage Accounting"
+!!! note
     Vast implements space accounting for quotas differently. You are "charged" for the apparent size of your files. This is in contrast to some Lustre configurations, which transparently compress files and charge for the space used after compression.
 
-!!! note "Scratch Quota Experiment"
-    Nibi is using a new, experimental mechanism for handling /scratch. As on all systems, you have a soft and a hard limit, but on Nibi, the soft limit is low (1TB), and you have a 60-day grace period. After the grace period expires, the soft limit is enforced (no further file creation/expansion). To rectify this, your usage must drop below the soft limit.
+!!! note
+    Nibi is using a new, experimental mechanism for handling /scratch. As on all systems, you have a soft and a hard limit, but on Nibi, the soft limit is low (1TB), and you have a 60d grace period. After the grace period expires, the soft limit is enforced (no further file creation/expansion). To rectify this, your usage must drop below the soft limit.
 
-## Interconnect Fabric
+## Interconnect fabric
 *   Nokia 200/400G ethernet
-    *   200 Gbit/s network bandwidth for CPU nodes
-    *   200 Gbit/s non-blocking network bandwidth between all Nvidia GPU nodes
-    *   200 Gbit/s network bandwidth between all AMD GPU nodes
-    *   24x100 Gbit/s connection to the VAST storage nodes
-    *   2:1 blocking at 400 Gbit/s uplinks for all compute nodes
+    *   200 Gbit/s network bandwidth for CPU nodes,
+    *   200 Gbit/s non-blocking network bandwidth between all Nvidia GPU nodes,
+    *   200 Gbit/s network bandwidth between all AMD GPU nodes,
+    *   24x100 Gbit/s connection to the VAST storage nodes,
+    *   2:1 blocking at 400 Gbit/s uplinks for all compute nodes.
 
-The topology of the network is described in the file `/etc/slurm/topology.conf`.
+The topology of the network is described in the file
 
-For better performance of tightly coupled multinode jobs, you may constrain them to use only one network switch, by adding this next option to your job submission script:
+```
+/etc/slurm/topology.conf
+```
+
+For better performance of tightly coupled multinode jobs, you may constrain them to use only one network switch, by adding this next option to your job submission script
 
 ```bash
 #SBATCH --switches=1
 ```
 
-## Node Characteristics
+## Node characteristics
 | nodes | cores | available memory | node-local storage | CPU | GPU |
 | :---- | :---- | :--------------- | :----------------- | :-- | :-- |
 | 700 | 192 | 748G or 766000M | 3T | 2 x Intel 6972P @ 2.4 GHz, 384MB cache L3 | |
@@ -132,15 +137,15 @@ For better performance of tightly coupled multinode jobs, you may constrain them
 | 36 | 112 | 2000G or 2048000M | 11T | 2 x Intel 8570 @ 2.1 GHz, 300MB cache L3 | 8 x Nvidia H100 SXM (80 GB), connected via NVLink |
 | 6 | 96 | 495G or 507000M | 3T | 4 x AMD MI300A @ 2.1GHz (Zen4+CDNA3) | The CPU cores and CDNA3-based GPUs are in the same socket and share a unified memory. See section below for use instructions. |
 
-### GPU Instances
+### GPU instances
 Available GPU instance names are:
 
 | Model or instance | Short name | Without unit | By memory | Full name |
 | :---------------- | :--------- | :----------- | :-------- | :-------- |
-| **GPU** | **H100-80gb** | `h100` | `h100` | `h100_80gb` | `nvidia_h100_80gb_hbm3` |
-| **MIG** | **H100-1g.10gb** | `h100_1g.10gb` | `h100_1.10` | `h100_10gb` | `nvidia_h100_80gb_hbm3_1g.10gb` |
-| | **H100-2g.20gb** | `h100_2g.20gb` | `h100_2.20` | `h100_20gb` | `nvidia_h100_80gb_hbm3_2g.20gb` |
-| | **H100-3g.40gb** | `h100_3g.40gb` | `h100_3.40` | `h100_40gb` | `nvidia_h100_80gb_hbm3_3g.40gb` |
+| **GPU H100-80gb** | `h100` | `h100` | `h100_80gb` | `nvidia_h100_80gb_hbm3` |
+| **MIG H100-1g.10gb** | `h100_1g.10gb` | `h100_1.10` | `h100_10gb` | `nvidia_h100_80gb_hbm3_1g.10gb` |
+| **MIG H100-2g.20gb** | `h100_2g.20gb` | `h100_2.20` | `h100_20gb` | `nvidia_h100_80gb_hbm3_2g.20gb` |
+| **MIG H100-3g.40gb** | `h100_3g.40gb` | `h100_3.40` | `h100_40gb` | `nvidia_h100_80gb_hbm3_3g.40gb` |
 
 To request one or more full H100 GPUs, you need to use one of the following Slurm options:
 
@@ -165,19 +170,19 @@ To request **one and only one GPU instance** for your compute job, use the corre
 
 The maximum recommended number of CPU cores and system memory per GPU instance is listed [in this table](../running-jobs/allocations_and_compute_scheduling.md#ratios-in-bundles).
 
-## Site Specifics
+## Site specifics
 
-### Internet Access
+### Internet access
 All nodes on Nibi have internet access; no special firewall permission or proxying is necessary.
 
-### /project and /nearline Spaces
+### /project and /nearline spaces
 User directories are no longer created by default in /project or /nearline. Users can always create their own directories in the group's /project or /nearline using `mkdir`. This allows groups to decide how their /project or /nearline spaces are organized for sharing data amongst group members. [Index files](../storage-and-data/using_nearline_storage.md#create-an-index) and other small files are not archived to tape or backed up on Nibi /nearline.
 
-### /scratch Quota
-An 1 TB soft quota on /scratch applies to each user. This soft quota can be exceeded for up to 60 days, after which no additional files may be written to /scratch. Files may be written again once the user has removed or deleted enough files to bring their total /scratch use under 1 TB. See [Storage and file management](../storage-and-data/storage_and_file_management.md) for more information.
+### /scratch quota
+An 1 TB soft quota on /scratch applies to each user. This soft quota can be exceeded for up to 60 days after which no additional files may be written to /scratch. Files may be written again once the user has removed or deleted enough files to bring their total /scratch use under 1 TB. See [Storage and file management](../storage-and-data/storage_and_file_management.md) for more information.
 
-### Access Through Open OnDemand (OOD)
-You can now access the Nibi cluster simply through a web browser. Nibi uses Open OnDemand (OOD), a web-based platform that simplifies cluster access by providing a web interface to the login nodes and a remote desktop environment. To log into Nibi, go to [ondemand.sharcnet.ca](https://ondemand.sharcnet.ca/) and sign in with [multifactor authentication](../getting-started/multifactor_authentication.md); you will see a user-friendly interface offering options to open a Bash shell terminal or launch a remote desktop session.
+### Access through Open OnDemand (OOD)
+You can now access the Nibi cluster simply through a web browser. Nibi uses Open OnDemand (OOD), a web-based platform that simplifies cluster access by providing a web interface to the login nodes and a remote desktop environment. To log into Nibi, go to [https://ondemand.sharcnet.ca/](https://ondemand.sharcnet.ca/) and sign in with [multifactor authentication](../getting-started/multifactor_authentication.md); you will see a user-friendly interface offering options to open a Bash shell terminal or launch a remote desktop session.
 
 ### Use of JupyterLab via OOD
 You can run JupyterLab interactively via the Nibi Open OnDemand [portal](https://ondemand.sharcnet.ca).
@@ -198,16 +203,18 @@ After completing the form with your requirement details, click on *Launch* to su
 
 On the Compute Desktop, right-click the mouse in any blank area to display a shortcut menu. Select *Open in Terminal* to open a terminal window, where you can create or activate your Python virtual environment that has JupyterLab installed.
 
-If you do not have JupyterLab installed in the Python virtual environment you would like to work with, you can have it installed with the command:
+If you do not have JupyterLab installed in the Python virtual environment you would like to work with, you can have it installed with the command
 
-```bash title="Terminal"
-(your_python_ENV) [username@<node>.nibi]$ pip install --no-index jupyterlab
+```bash
+# (your_python_ENV) [username@<node>.nibi]$
+pip install --no-index jupyterlab
 ```
 
-Then, you can launch JupyterLab from your Python virtual environment with the command:
+Then, you can launch JupyterLab from your Python virtual environment with the command
 
-```bash title="Terminal"
-(your_python_ENV) [username@<node>.nibi]$ jupyter-lab --notebook-dir $HOME
+```bash
+# (your_python_ENV) [username@<node>.nibi]$
+jupyter-lab --notebook-dir $HOME
 ```
 
 You will see JupyterLab is opened in the web browser on the desktop with your $HOME contents listed in the file browser panel on JupyterLab.
@@ -215,16 +222,16 @@ You will see JupyterLab is opened in the web browser on the desktop with your $H
 ### Support for VDI via OOD
 Nibi no longer offers Virtual Desktop Infrastructure (VDI). Instead, it provides a remote desktop environment through the [portal](https://ondemand.sharcnet.ca/) of Open OnDemand (OOD), offering improved hardware performance and software support.
 
-### AMD MI300A Nodes
+### AMD MI300A nodes
 
 At this time, the MI300A should be scheduled as full nodes. It is your responsibility to make sure the processes inside the job run with the correct core and memory bindings. Here is a representative job script that uses 4 processes.
 
 !!! warning
     Your code must be compiled with ROCm to use the MI300A nodes properly. Code compiled with CUDA will not work, as it will not be able to use the AMD GPUs.
 
-As of May 2026, work has just started to support the MI300A in our software stack, and there are no modules available with ROCm support. You can install software yourself, building against the ROCm toolkit we installed in the /opt/rocm directory. Please write to [technical support](../support/technical_support.md) if you run into problems.
+As of May 2026, work has just started to support the MI300A in our software stack and there are no modules available with ROCm support. You can install software yourself, building against the ROCm toolkit we installed in the /opt/rocm directory. Please write to [technical support](../support/technical_support.md) if you run into problems.
 
-```sh title="simple_job.sh"
+```bash title="simple_job.sh"
 #!/bin/bash
 #SBATCH --account=def-someuser
 #SBATCH --nodes=1
@@ -241,12 +248,12 @@ rocm-smi
 # run program compiled with ROCm support for MI300A
 ```
 
-## Oops, I Accidentally Deleted My Files, What Should I Do?
+### Oops, I accidentally deleted my files, what should I do?
 A backup mechanism on Nibi takes a snapshot of your files on /home and /project every 30 minutes, and saves the snapshots for two weeks. If you accidentally delete a file, you may be able to retrieve it from these snapshots, providing the file was deleted less than two weeks back. However, if you make changes to a file after the most recent snapshot and then delete it, the changes cannot be recovered.
 
-To find a deleted file, use the `oops` command to check the current directory, or give an optional directory name to check there instead. To recover a file, copy it from the path returned by `oops` using standard tools like `cp`. Snapshots are read-only; you cannot delete or change files in snapshots, you must copy them first. Do not refer to files in snapshots in your job scripts.
+To find a deleted file, use the `oops` command to check the current directory, or give an optional directory name to check there instead. To recover a file, copy it from the path returned by `oops` using standard tools like cp. Snapshots are read-only; you cannot delete or change files in snapshots, you must copy them first. Do not refer to files in snapshots in your job scripts.
 
-```bash title="Terminal"
+```bash
 [username@<node>.nibi]$ ls
 dont_delete_me.txt
 [username@<node>.nibi]$ rm dont_delete_me.txt
@@ -261,7 +268,7 @@ Files deleted more than 0 days ago (2026-04-01 13:30:00-04:00) please submit a h
 dont_delete_me.txt
 ```
 
-## Brine: AI-as-a-Service Platform
+### Brine: AI-as-a-Service platform
 As part of a new effort, SHARCNET has launched an AI-as-a-Service platform hosted from within the Nibi data centre. This service gives Canadian researchers access to hosted AI models on SHARCNET infrastructure, without the usual HPC queue wait.
 
 Brine provides an always-on, OpenAI-compatible API for hosted models that support chat, tool calling, and audio transcription. Model availability and parameters are outlined [here](https://github.com/sharcnet/brine-examples/tree/main/model-cards).
@@ -270,7 +277,7 @@ Brine runs on hardware in the Nibi data centre, so data is processed in Canada r
 
 To request access, email help@sharcnet.ca and mention SHARCNET Brine.
 
-### Receiving Access
+#### Receiving access
 After accepting the terms of service, you will receive an email invitation to your mailbox prompting you to register for a new account with LiteLLM. This is a new account for only this service.
 
 !!! warning
@@ -280,7 +287,7 @@ Upon logging in, you should be presented with an interface that prompts you to c
 
 This key is what is required to access the service as an API outlined in the [brine examples](https://github.com/sharcnet/brine-examples) repository. This includes Python, Javascript, and Curl examples.
 
-### LiteLLM Interface
+#### LiteLLM interface
 The back end of this service is powered by [LiteLLM](https://www.litellm.ai/) and offers several interesting features outside of API key creation and model service.
 
 *   Monitor your own token usage and key activity
@@ -288,7 +295,7 @@ The back end of this service is powered by [LiteLLM](https://www.litellm.ai/) an
 *   Add Vector stores
 *   Manage MCP connections
 
-### Service Status
+#### Service status
 To keep up to date with changes to this service, an invitation to a Slack channel is available upon request.
 
 For outage alerts and updates, please see the status page [here](https://status.alliancecan.ca/system/Nibi%20AIaaS:%20Brine).

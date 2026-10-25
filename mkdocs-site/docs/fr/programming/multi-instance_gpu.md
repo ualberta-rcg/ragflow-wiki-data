@@ -90,7 +90,7 @@ Les tâches avec GPU qui nécessitent de nombreux cœurs CPU par GPU peuvent ég
 [Plusieurs configurations et profils MIG sont possibles](https://docs.nvidia.com/datacenter/tesla/mig-user-guide/index.html#supported-mig-profiles), mais les profils suivants dépendent du système :
 * [Narval, GPU NVIDIA A100-40gb](../clusters/narval.md#instances-gpu)
 * [Rorqual, GPU NVIDIA H100-80gb](../clusters/rorqual.md#instances-gpu)
-* [Nibi, GPU NVIDIA H100-80gb](../clusters/nibi.md#instances-gpu)
+* [Nibi, GPU NVIDIA H100-80gb](../clusters/nibi.md)
 * [Fir, GPU NVIDIA H100-80gb](../software/fir.md)
 
 Le nom du profil indique la taille de l'instance.
