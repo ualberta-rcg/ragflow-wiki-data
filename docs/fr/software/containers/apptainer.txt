@@ -15,7 +15,7 @@ Pour installer Apptainer sur votre ordinateur, [http://apptainer.org/docs/user/m
 Nous vous recommandons d'utiliser Apptainer plutôt que Singularity. La Fondation Linux a adopté SingularityCE (jusqu'à v3.9.5) et renommé Apptainer, avec les modifications suivantes&nbsp;:
 
 * ajout du support pour  [https://dmtcp.sourceforge.io/ DMTCP (<i>Distributed MultiThreaded Checkpointing</i>)];
-* abandon du support pour l'option <code>--nvccli</code> en ligne de commande;
+* abandon du support pour l'option de ligne de commande <code>--nvccli</code>;
 * abandon du support pour <code>apptainer build --remote</code>;
 * remplacement du point de chute distant SylabsCloud par un point de chute DefaultRemote, sans définition du serveur pour <code>library://</code>;
 ** au besoin, vous pouvez  [https://apptainer.org/docs/user/1.0/endpoint.html#restoring-pre-apptainer-library-behavior restorer le point de chute distant SylabsCloud];
@@ -76,7 +76,7 @@ Pour connaître toutes les versions disponibles, lancez
 Les logiciels exécutés dans un conteneur se trouvent dans un environnement qui utilise des bibliothèques et outils différents de ceux installés dans le système hôte. Il est donc important que les programmes exécutés dans un conteneur <b>n’utilisent pas de paramètres de configuration ou de logiciels définis hors du conteneur</b>. Cependant, Apptainer adopte par défaut l’environnement de l’interpréteur de l’hôte, ce qui peut causer des problèmes à l’exécution de certains programmes. Les options suivantes utilisées avec <code>apptainer run</code>, <code>apptainer shell</code>, <code>apptainer exec</code>, et/ou <code>apptainer instance</code> évitent ces problèmes.
 
 {| class="wikitable"
-|+Options en ligne de commande
+|+Options de ligne de commande
 
 |-
 | style="width: 20pt;" |<code>-C</code> || Isole le conteneur actif de <b>tous les systèmes de fichiers</b>, du PID parent, des IPC et de l’environnement. Pour accéder aux systèmes de fichiers à l’extérieur du conteneur, vous devez utiliser des [https://docs.alliancecan.ca/wiki/Apptainer/fr#Bind_mounts bind mounts].
@@ -353,16 +353,14 @@ Remarquez que <code>mpirun</code> s'exécute ''dans'' le conteneur.
 
 Si vous devez exécuter une application MPI sur plusieurs nœuds et que vous pouvez le faire sans Apptainer, nous recommandons de ne pas utiliser Apptainer. Exécuter une application MPI dans un conteneur sur plusieurs nœuds génère souvent des erreurs. 
 
-Pour exécuter une application MPI avec Apptainer sur plusieurs nœuds, la [[http://apptainer.org/docs/user/main/mpi.html documentation Apptainer]] décrit deux méthodes&nbsp;:
+Pour exécuter une application MPI avec Apptainer sur plusieurs nœuds, la [http://apptainer.org/docs/user/main/mpi.html documentation Apptainer] décrit deux méthodes&nbsp;:
 # le modèle hybride [https://apptainer.org/docs/user/latest/mpi.html#hybrid-model],
 # le modèle de liaison [https://apptainer.org/docs/user/latest/mpi.html#bind-model].
 Nous recommandons le modèle hybride. 
 
-<div lang="en" dir="ltr" class="mw-content-ltr">
-Beware of these issues:
-* The MPI version installed inside the container '''must''' be compatible with the MPI used on the host.  This includes all needed fabrics, ''etc.''
-* You must <code>module load</code> the version of MPI needed on the host ''before'' running the <code>apptainer</code> command that runs the MPI job.
-</div>
+Points importants
+* La version de MPI installée dans le conteneur '''doit être compatible''' avec le module chargé avec <code>module load</code> pour pouvoir exécuter des tâches sur plusieurs nœuds; ceci inclut le type précis de réseautique (par exemple InfiniBand). 
+* La version de MPI sur l’hôte doit être chargée avec <code>module load</code> '''avant''' de lancer la commande <code>apptainer</code> qui exécute la tâche MPI. 
 
 En supposant que votre tâche MPI utilise un fil par rang MPI (c'est-à-dire que ce n'est pas une tâche hybride à mémoire partagée), vous pouvez alors spécifier le nombre de rangs comme le étant le nombre de tâches dans votre script de tâche. Par exemple, s'il y a quatre rangs,
 
@@ -378,25 +376,14 @@ En supposant que votre tâche MPI utilise un fil par rang MPI (c'est-à-dire que
     done
     mpirun -np ${SLURM_NTASKS} -- apptainer exec -e YOUR_CONTAINER.sif ./your-mpi-program args
 
-<div lang="en" dir="ltr" class="mw-content-ltr">
-The above example depends on the <code>OMPI</code> prefix used by Open MPI.
-If you want to see which variables are set in the host environment by a given module,
-run <code>module show</code> for that module, e.g., <code>module show openmpi</code>.
-</div>
+<div class="mw-translate-fuzzy">
+Cet exemple sera différent selon les variables OpenMPI utilisées. Celles-ci peuvent être identifiées par leur préfixe <code>OMPI</code>. Pour connaître les variables définies dans l'environnement de l'hôte pour un module donné, lancez la commande <code>module show</code> pour ce module, par exemple <code>module show openmpi</code>.
+</div> 
 
-<div lang="en" dir="ltr" class="mw-content-ltr">
-If you encounter problems and you are using one of the Apptainer clean environment options, 
-e.g., <code>-e</code>, <code>-c</code>, or <code>-C</code>, then try relaxing that option.  
-That is, if <code>-C</code> doesn't work, try <code>-c</code>, and if <code>-c</code> doesn't work, try <code>-e</code>.
-Our tests indicate that you will probably need at least one of these clean environment options.
-</div>
+Nos tests indiquent que vous aurez probablement besoin d'au moins une des [[Apptainer/fr#Options_de_ligne_de_commande_à_retenir|options d'environnement propre]]. Si un problème survient à l’utilisation de ces options, écrivez à [mailto:support@tech.alliancecan.ca support@tech.alliancecan.ca].
 
-<div lang="en" dir="ltr" class="mw-content-ltr">
-Bear in mind that a job script which works on a single node can easily fail when run on multiple nodes. 
-Consider forcing your job to run on more than one node while still in the testing phase.
-For example, if your test has 4 tasks, then you can force the test to run on 2 or more nodes by specifying
-<code>#SBATCH --nodes 2-4</code> in the job script.
-</div>
+Il faut savoir qu'un script de tâche qui fonctionne sur un seul nœud peut facilement échouer lorsqu'il est exécuté sur plusieurs nœuds; effectuez donc des tests avec plus d’un nœud. Par exemple, si votre test comporte quatre tâches, vous pouvez forcer son exécution sur deux nœuds ou plus en spécifiant  
+<code>#SBATCH --nodes 2-4</code> dans le script de la tâche. 
 
 <span id="Creating_an_Apptainer_container_from_a_Dockerfile"></span>
 ==Créer un conteneur Apptainer à partir de Dockerfile==

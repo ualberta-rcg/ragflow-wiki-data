@@ -76,21 +76,9 @@ title: Home
 
 | Service | Status |
 |---------|--------|
-| **Vulcan** | :material-check-circle:{ style="color: green" } Operational |
-| **Trillium** | :material-check-circle:{ style="color: green" } Operational |
-| **Narval** | :material-calendar:{ style="color: blue" } 2026-10-27 |
-| **Cedar Cloud** | :material-check-circle:{ style="color: green" } Operational |
-| **Graham Cloud** | :material-calendar:{ style="color: blue" } External network maintenance |
-| **Nibi** | :material-alert:{ style="color: orange" } Reduced Throughput |
-| **Fir** | :material-check-circle:{ style="color: green" } Operational |
-| **Rorqual** | :material-calendar:{ style="color: blue" } 2026-10-27 |
 | **Arbutus** | :material-alert:{ style="color: orange" } Ongoing Volume Storage Slowness |
-| **Juno** | :material-calendar:{ style="color: blue" } 2026-10-27 |
-| **Killarney** | :material-check-circle:{ style="color: green" } Operational |
-| **Lunaris** | :material-check-circle:{ style="color: green" } Operational |
-| **tamIA** | :material-check-circle:{ style="color: green" } Operational |
 
-<small>*Auto-generated from [status.alliancecan.ca](https://status.alliancecan.ca) &mdash; updated 2026-10-25 01:53 UTC. See that page for current incident details.*</small>
+<small>*Auto-generated from [status.alliancecan.ca](https://status.alliancecan.ca) &mdash; updated 2026-11-01 02:36 UTC. See that page for current incident details.*</small>
 
 ---
 
@@ -100,18 +88,18 @@ Events from the [Alliance training calendar](https://explora.alliancecan.ca/even
 
 | Date | Event | Link |
 |------|-------|------|
-| TBD | Untitled | [Details](https://www.eventbrite.com/e/inscription-how-can-calcul-quebec-support-your-research-2002429888701?aff=explora) |
-| TBD | Untitled | [Details](https://www.eventbrite.com/e/inscription-gestion-de-versions-avec-git-en-ligne-git101-2002429910767?aff=explora) |
+| TBD | Untitled | [Details](https://www.ace-net.ca/training-course/intro-to-machine-learning/) |
+| TBD | Untitled | [Details](https://www.eventbrite.com/e/inscription-comment-travailler-avec-python-sur-les-superordinateurs-2002429944869?aff=explora) |
+| TBD | Untitled | [Details](https://www.ace-net.ca/training-course/introduction-to-openrefine/) |
 | TBD | Untitled | [Details](https://scinet.courses/1408) |
-| TBD | Untitled | [Details](https://training.sharcnet.ca/courses/course/view.php?id=46) |
-| TBD | Untitled | [Register](https://forms.gle/LzzZnTie1beHC2Tr9) |
-| TBD | Untitled | [Details](https://www.eventbrite.com/e/inscription-programmation-quantique-avec-pennylane-en-ligne-ciq102-2002429920797?aff=explora) |
-| TBD | Untitled | [Register](https://libcal.library.ubc.ca/event/4058333) |
-| TBD | Untitled | [Details](https://www.eventbrite.com/e/python-code-acceleration-with-numba-online-pyt301-registration-2002429927818?aff=explora) |
-| TBD | Untitled | [Register](https://libcal.uwaterloo.ca/event/4058794) |
-| TBD | Untitled | [Details](https://www.ace-net.ca/training-course/using-spreadsheets-for-organizing-data/) |
+| TBD | Untitled | [Details](https://engagedri-ca.zoom.us/meeting/register/3ESy_EARQ7uW7a7UPovfnQ) |
+| TBD | Untitled | [Details](https://www.eventbrite.com/e/accelerating-research-with-gpu-on-high-performance-computing-cluster-hpc-tickets-2003967553899) |
+| TBD | Untitled | [Register](https://yorku.libcal.com/event/4056783) |
+| TBD | Untitled | [Register](https://libcal.mcmaster.ca/event/4052849) |
+| TBD | Untitled | [Details](https://bioinformatics.ca/workshops-all/2026-high-throughput-genomics-vancouver-bc/) |
+| TBD | Untitled | [Details](https://www.eventbrite.com/e/data-analysis-with-python-online-dat201-registration-2002430013073?aff=explora) |
 
-<small>*Auto-generated from [explora.alliancecan.ca/events](https://explora.alliancecan.ca/events) &mdash; updated 2026-10-25 01:53 UTC.*</small>
+<small>*Auto-generated from [explora.alliancecan.ca/events](https://explora.alliancecan.ca/events) &mdash; updated 2026-11-01 02:36 UTC.*</small>
 
 ---
 

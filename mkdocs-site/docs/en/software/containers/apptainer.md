@@ -4,9 +4,9 @@ slug: "apptainer"
 lang: "en"
 
 source_wiki_title: "Apptainer/en"
-source_hash: "b7693257afb47dc1a08cc2223cf01f81"
-last_synced: "2026-10-25T00:54:39.630071+00:00"
-last_processed: "2026-10-25T01:29:48.916694+00:00"
+source_hash: "244fbdc07b8c69b035728d800aab27e4"
+last_synced: "2026-11-01T01:58:40.824100+00:00"
+last_processed: "2026-11-01T02:26:52.037242+00:00"
 
 tags:
   []
@@ -136,21 +136,19 @@ status:
   converted: true
   tagged: false
   keywords_generated: true
-  ragflow_synced: true
+  ragflow_synced: false
   qa_generated: false
 ---
 
-## Apptainer
+# Forewords
 
-## Forewords
-
-### Official Apptainer documentation
+## Official Apptainer documentation
 
 This page does not describe all features of Apptainer and does not replace [Apptainer's official documentation](http://apptainer.org/docs). It summarizes basic use, documents some aspects of using Apptainer on Alliance systems, and provides some relevant examples. We recommend you read the official Apptainer documentation concerning the features of Apptainer you are using.
 
 Should you wish to install Apptainer on your own system, [instructions appear here](http://apptainer.org/docs/user/main/quick_start.html#quick-installation). If you are using a recent Windows system, [install WSL](https://learn.microsoft.com/en-ca/windows/wsl/install) first, then within such, install Apptainer. If you are using a Mac, install a Linux distribution in a virtual machine on your computer first, then install Apptainer within such.
 
-### If you are currently using Singularity
+## If you are currently using Singularity
 
 We strongly recommend that you use Apptainer instead of Singularity. The Linux Foundation has adopted SingularityCE (up to v3.9.5) and renamed it Apptainer with these changes:
 
@@ -166,36 +164,32 @@ We strongly recommend that you use Apptainer instead of Singularity. The Linux F
 
 Should you need to port scripts to Apptainer, know Apptainer version 1 is backwards compatible with Singularity so switching to Apptainer can be done incrementally.
 
-### Other Linux container technologies
+## Other Linux container technologies
 
 HPC clusters typically use Apptainer. Many users ask about other Linux container technologies so here are some with some comments:
 *   [Podman](https://podman.io/)
     *   Supports rootless (i.e., normal) container use, etc. similar to Apptainer.
     *   Is available as a package in rpm-supporting (and some other) Linux distributions.
     *   While Podman is a Linux container technology, there are [instructions for installing Podman on Windows/Mac machines](https://github.com/containers/podman/blob/main/docs/tutorials/mac_win_client.md).
-    *   Podman version 4 supports Apptainer .SIF files.
+    *   Podman version 4 supports Apptainer `.SIF` files.
 *   [Docker](https://www.docker.com/)
     *   Using Docker on a multiuser cluster creates security risks, therefore we do not make Docker available on our HPC clusters.
     *   In many cases you can build an Apptainer image from a Docker image; see [Building an SIF image](#building-an-sif-image) below.
     *   You can install Docker on your own computer and use it to create an Apptainer image, which can then be uploaded to an HPC cluster as outlined in [Creating an Apptainer container from a Dockerfile](#creating-an-apptainer-container-from-a-dockerfile) below.
 
-### Other items
-
-#### General
-
+## Other items
+### General
 *   In order to use Apptainer you must have a container **image**, e.g., a `.sif` file or a "sandbox" directory created previously. If you don't already have an image or a sandbox, see the section on **[building an image](#building-an-apptainer-image)** below.
 *   While Apptainer is installed and available for use, using Apptainer will require you to install and/or build all software you will need to make use of in your container. In many instances, **[we already have such software installed on our clusters](../../programming/available_software.md)** so there is often no need to create a container with the same installed in it.
 
-#### `sudo`
-
+### `sudo`
 Many users ask about `sudo` since documentation and websites often discuss using `sudo`. Know the ability to use `sudo` to obtain superuser/root permissions is not available on our clusters. Should you require using `sudo`, consider the following options:
 
 *   Install Linux, Apptainer, and `sudo` in a virtual machine on a system you control so you will be able to have `sudo` access within such. Build your image(s) on that machine and upload them in order to use them on Alliance systems.
 *   If appropriate, [submit a ticket](../../support/technical_support.md) asking if Alliance staff would be able to help build the image(s) required needing `sudo`. This may or may not be possible, but feel free to ask in a ticket if what you wish to achieve is beyond your means. Additionally, we may respond with other ways to achieve such which may or may not involve Apptainer.
 *   Apptainer version 1.1.x and newer has improved support for users using `--fakeroot` implicitly and explicitly so some things may be possible that were not with Apptainer version 1.0 and Singularity. This includes being able to build some images from `.def` definition files and building some images without needing to use `sudo`. That said, not all images will be able to be built without needing to use `sudo` or superuser/root.
 
-#### Building images or overlays
-
+### Building images or overlays
 Should you need to build your own container image(s) or overlay(s), be aware of the following:
 *   Avoid building a sandbox image using `--fakeroot` on networked filesystem(s): [link to Apptainer documentation](https://apptainer.org/docs/admin/main/installation.html#fakeroot-with-uid-gid-mapping-on-network-filesystems).
 *   Explicitly set `APPTAINER_CACHEDIR` to a non-networked filesystem location before using Apptainer: [link to Apptainer documentation](https://apptainer.org/docs/admin/main/installation.html#apptainer-cache-atomic-rename).
@@ -203,7 +197,6 @@ Should you need to build your own container image(s) or overlay(s), be aware of 
 *   Avoid using Lustre/GPFS filesystems as they don't have the feature set required to properly support building Apptainer containers (including `--fakeroot`): [link to Apptainer documentation](https://apptainer.org/docs/admin/main/installation.html#lustre-gpfs).
 
 ## Loading an Apptainer module
-
 In order to use the default version of Apptainer available run:
 ```bash
 $ module load apptainer
@@ -220,13 +213,11 @@ $ module spider apptainer
 
 Software that is run inside a container is in an environment that uses different libraries and tools than what is installed on the host system. It is, therefore, important to run programs within containers by **not** using any environment settings or software defined outside of the container. Unfortunately, by default, Apptainer will run adopting the shell environment of the host and this can result in issues when running programs. To avoid such issues when using `apptainer run`, `apptainer shell`, `apptainer exec`, and/or `apptainer instance`, use one of these options:
 
-### Apptainer environment command line options
-
 | Option | Description |
 | :----- | :---------- |
-| `-C` | Isolates the running container from **all filesystems** as well as the parent PID, IPC, and environment. Using this option will require [using bind mounts](#bind-mounts) if access to filesystems outside of the container is needed. |
-| `-c` | Isolates the running container from **most filesystems** only using a minimal `/dev`, an empty `/tmp` directory, and an empty `/home` directory. Using this option will require [using bind mounts](#bind-mounts) if access to filesystems outside of the container is needed. |
-| `-e` | Cleans (some) shell environment variables before running container commands and applies settings for increased OCI/Docker compatibility. Using this option also implies the use of options `--containall`, `--no-init`, `--no-umask`, and `--writable-tmpfs`. |
+| `-C`   | Isolates the running container from **all filesystems** as well as the parent PID, IPC, and environment. Using this option will require [using bind mounts](#bind-mounts) if access to filesystems outside of the container is needed. |
+| `-c`   | Isolates the running container from **most filesystems** only using a minimal `/dev`, an empty `/tmp` directory, and an empty `/home` directory. Using this option will require [using bind mounts](#bind-mounts) if access to filesystems outside of the container is needed. |
+| `-e`   | Cleans (some) shell environment variables before running container commands and applies settings for increased OCI/Docker compatibility. Using this option also implies the use of options `--containall`, `--no-init`, `--no-umask`, and `--writable-tmpfs`. |
 
 Another important option is the `-W` or `--workdir` option. On our clusters and on most Linux systems, `/tmp` and similar filesystems use RAM, not disk space. Since jobs typically run on our clusters with limited RAM amounts, this can result in jobs getting killed because they consume too much RAM relative to what was requested for the job. A suitable workaround for this is to tell Apptainer to use a real disk location for its working directory (`workdir`). This is done by passing the `-W` option followed by a path to a disk location where Apptainer can read/write temporary files For example, to run a command called `myprogram` in an Apptainer container image called `myimage.sif` with its working directory set to `/path/to/a/workdir` in the filesystem, you would use
 
@@ -343,7 +334,7 @@ For more information on these options see the following sections on this page:
 
 as well as the [official Apptainer documentation](http://apptainer.org/docs/user/main/index.html).
 
-!!! important
+!!! important "Important"
     In addition to choosing to use the above options, if you are making use of a persistent overlay image (as a separate file or contained within the SIF file) and want changes to be written to that image, it is extremely important to pass the `-w` or `--writable` option to your container. If this option is not passed to it, any changes you make to the image in the `apptainer shell` session will not be saved!
 
 ### Running daemons: `apptainer instance`
@@ -420,7 +411,7 @@ Please refer to Apptainer documentation page about [persistent overlays](https:/
 
 ## Building an Apptainer image
 
-!!! note
+!!! note "Building Images or Overlays"
     Please note and heed the advice given in section [Building images and overlays](#building-images-or-overlays).
 
 Apptainer images can be created in the following formats:
@@ -455,7 +446,7 @@ If all you need is to use a Docker image as-is with Apptainer, often those image
 
 ### Building an SIF image
 
-!!! note
+!!! note "Building Images or Overlays"
     Please note and heed the advice concerning building images/overlays in section [Building images and overlays](#building-images-or-overlays) above.
 
 To build an Apptainer SIF file image from Docker's latest available busybox image, use the `apptainer build` command:
@@ -463,11 +454,11 @@ To build an Apptainer SIF file image from Docker's latest available busybox imag
 $ apptainer build bb.sif docker://busybox
 ```
 
-See the [Apptainer documentation](http://apptainer.org/docs) for more advanced aspects of building images.
+See the [Apptainer documentation](https://apptainer.org/docs) for more advanced aspects of building images.
 
 ### Building a sandbox image
 
-!!! note
+!!! note "Building Images or Overlays"
     Please note and heed the advice concerning building images/overlays in section [Building images and overlays](#building-images-or-overlays) above.
 
 In order to build a "sandbox" directory instead of an `SIF` file instead of providing an `SIF` file name, instead provide `--sandbox DIR_NAME` or `-s DIR_NAME` where `DIR_NAME` is the name of the to-be-created-directory where you want your "sandbox" image. For example, if the `apptainer build` command to create an `SIF` file was:
@@ -490,11 +481,10 @@ Within an account, using a "sandbox" directory will consume significant amounts 
 
 ### Using Conda in Apptainer
 
-[Using Conda in Apptainer](using_conda_in_apptainer.md)
-
 ### Using GPUs in Apptainer
 
-To use GPUs from within Apptainer ensure the software for the type(s) of GPUs being used in the container is installed inside the container. If such software is not installed then it is unlikely that your container's software will be able to use any GPUs.
+To use GPUs from within Apptainer ensure the software for the type(s) of GPUs being used in the container is installed inside the container.
+If it such software is not installed then it is unlikely that your container's software will be able to use any GPUs.
 
 To use NVIDIA GPUs from within Apptainer ensure that:
 *   the command line option `--nv` appears after the `apptainer exec` or `apptainer run` command (before the .sif file)
@@ -506,7 +496,8 @@ To use AMD GPUs from within Apptainer ensure that:
 
 ### Using MPI in Apptainer
 
-The easiest way to run an MPI application in Apptainer is to constrain it to a single node. In that case, your job script will resemble one for a multithreaded job running on a single node, *e.g.*:
+The easiest way to run an MPI application in Apptainer is to constrain it to a single node.
+In that case, your job script will resemble one for a multithreaded job running on a single node, *e.g.*:
 
 ```bash
 #!/bin/bash
@@ -519,18 +510,20 @@ apptainer exec -c mpirun ./your-mpi-program args
 
 Observe that `mpirun` is executed *inside* the container.
 
-If you need to run an MPI application across nodes and you can do so without Apptainer, then we recommend not using Apptainer. Running an MPI application within any container across nodes is error-prone.
+If you need to run an MPI application across nodes and you can do so without Apptainer, then we recommend not using Apptainer.
+Running an MPI application within any container across nodes is error-prone.
 
-Two methods are described the [Apptainer documentation](http://apptainer.org/docs/user/main/mpi.html) to run an MPI application with Apptainer across nodes:
+Two methods are described in the [Apptainer documentation](http://apptainer.org/docs/user/main/mpi.html) to run an MPI application with Apptainer across nodes:
 1.  [The hybrid model](https://apptainer.org/docs/user/latest/mpi.html#hybrid-model).
 2.  [The bind model](https://apptainer.org/docs/user/latest/mpi.html#bind-model).
 Of these two, we recommend the hybrid model.
 
-Beware of these issues:
-*   The MPI version installed inside the container **must** be compatible with the MPI used on the host. This includes all needed fabrics, *etc.*
-*   You must `module load` the version of MPI needed on the host *before* running the `apptainer` command that runs the MPI job.
+!!! warning "Beware of These Issues"
+    *   The MPI version installed inside the container **must** be compatible with the MPI module loaded with `module load` for jobs to run across multiple nodes. This includes the specific network interconnect (e.g., InfiniBand).
+    *   You must `module load` the version of MPI needed on the host *before* running the `apptainer` command that runs the MPI job.
 
-Assuming your MPI job uses one thread per MPI rank (that is, it is not a "hybrid" MPI/shared-memory job), then you can specify the number of ranks as the number of tasks in your job script. For example, if there are 4 ranks:
+Assuming your MPI job uses one thread per MPI rank (that is, it is not a "hybrid" MPI/shared-memory job), then you can specify the number of ranks as the number of tasks in your job script.
+For example, if there are 4 ranks:
 
 ```bash
 #!/bin/bash
@@ -546,20 +539,22 @@ done
 mpirun -np ${SLURM_NTASKS} -- apptainer exec -e YOUR_CONTAINER.sif ./your-mpi-program args
 ```
 
-The above example depends on the `OMPI` prefix used by Open MPI. If you want to see which variables are set in the host environment by a given module, run `module show` for that module, e.g., `module show openmpi`.
+The above example will vary depending on the variables set by OpenMPI. These can be identified by their `OMPI` prefix. To see which variables are set in the host environment by a given module, run `module show` for that module (e.g., `module show openmpi`).
 
-If you encounter problems and you are using one of the Apptainer clean environment options, e.g., `-e`, `-c`, or `-C`, then try relaxing that option. That is, if `-C` doesn't work, try `-c`, and if `-c` doesn't work, try `-e`. Our tests indicate that you will probably need at least one of these clean environment options.
+Our tests indicate that you will probably need at least one of the [clean environment options](#important-command-line-options). If you encounter problems with these options, please write to [support@tech.alliancecan.ca](mailto:support@tech.alliancecan.ca).
 
-Bear in mind that a job script which works on a single node can easily fail when run on multiple nodes. Consider forcing your job to run on more than one node while still in the testing phase. For example, if your test has 4 tasks, then you can force the test to run on 2 or more nodes by specifying `#SBATCH --nodes 2-4` in the job script.
+Bear in mind that a job script which works on a single node can easily fail when run on multiple nodes.
+Consider forcing your job to run on more than one node while still in the testing phase. For example, if your test has 4 tasks, then you can force the test to run on 2 or more nodes by specifying
+`#SBATCH --nodes 2-4` in the job script.
 
 ### Creating an Apptainer container from a Dockerfile
 
-!!! note
+!!! important "Note"
     **This section requires you to install and use Docker and Apptainer on a system where you have appropriate privileges. These instructions will *not* work on our compute clusters.**
 
 Unfortunately, some instructions for packages only provide a `Dockerfile` without a container image. A `Dockerfile` contains the instructions necessary for the Docker software to build that container. Our clusters do not have the Docker software installed. That said, if you've access to a system with both Docker and Apptainer installed, and, sufficient access to Docker (e.g., `sudo` or root access, or, you are in that system's `docker` group) and if needed Apptainer (e.g., `sudo` or root access, or, you have `--fakeroot` access), then you can follow the instructions below to use Docker and then Apptainer to build an Apptainer image on that system.
 
-!!! note
+!!! warning "Note"
     Using Docker may fail if you are not in the `docker` group. Similarly, building some containers may fail with Apptainer without appropriate `sudo`, root, or `--fakeroot` permissions. It is your responsibility to ensure you've such access on the system you are running the commands below.
 
 If one only has a Dockerfile and wishes to create an Apptainer image, run the following on a computer with Docker and Apptainer installed (where you've sufficient permissions):
@@ -581,7 +576,7 @@ where:
 
 After this is done, the SIF file is an Apptainer container for the `Dockerfile`. Transfer the SIF to the appropriate cluster(s) in order to use such.
 
-!!! note
+!!! note "Note"
     It is possible that the Dockerfile pulled in more layers which means you will have to manually delete those additional layers by running:
 
     ```bash

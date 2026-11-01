@@ -4,27 +4,24 @@ slug: "cloud_shared_security_responsibility_model"
 lang: "en"
 
 source_wiki_title: "Cloud shared security responsibility model/en"
-source_hash: "513f913bf5cbc489e39549f0fc696094"
-last_synced: "2026-04-10T15:28:10.183781+00:00"
-last_processed: "2026-04-11T06:25:43.541331+00:00"
+source_hash: "1331078a154920561621f9a60fe6706f"
+last_synced: "2026-11-01T01:58:40.824100+00:00"
+last_processed: "2026-11-01T02:30:45.714231+00:00"
 
 tags:
   - cloud
 
 keywords:
-  - "Shared responsibility model"
-  - "Research teams"
-  - "Virtual machines"
-  - "Cloud security"
-  - "Cloud support team"
+  - "cloud shared security responsibility model"
+  - "cloud team responsibilities"
+  - "shared compliance responsibilities"
+  - "research team responsibilities"
+  - "security in the cloud"
 
 questions:
-  - "What specific security tasks and management duties are research teams responsible for when using the cloud platforms?"
-  - "What are the primary responsibilities of the cloud support team regarding the maintenance and protection of the cloud infrastructure?"
-  - "How do the cloud support team and research teams share the responsibility of compliance and adhering to institutional policies?"
-  - "What specific security tasks and management duties are research teams responsible for when using the cloud platforms?"
-  - "What are the primary responsibilities of the cloud support team regarding the maintenance and protection of the cloud infrastructure?"
-  - "How do the cloud support team and research teams share the responsibility of compliance and adhering to institutional policies?"
+  - "What security controls and practices are research teams required to implement and manage for their virtual machines and data in the cloud?"
+  - "What responsibilities does the cloud support team have for protecting the cloud infrastructure, and how does it intervene when a research team's virtual machine adversely affects others?"
+  - "How is compliance shared between the cloud team and research teams, and where can users obtain further guidance or assistance regarding the shared security responsibility model?"
 
 status:
   downloaded: true
@@ -39,32 +36,31 @@ Canada’s advanced research computing environment includes several cloud platfo
 
 ## Research team responsibilities: Security in the cloud
 Research teams are responsible for the following:
-* implementing security controls to protect the confidentiality, integrity, and availability of their research data;
-* installing, configuring, and managing their virtual machines, as well as their operating systems, services and applications;
-* [applying updates](security_considerations_when_running_a_vm.md#updating-your-vm) and security patches on a timely basis;
-* configuring security group rules that limit the services exposed to the Internet;
-* implementing and testing backup and recovery procedures;
-* encrypting sensitive data in transit and/or at rest;
-* ensuring the [principle of least privilege](https://en.wikipedia.org/wiki/Principle_of_least_privilege) is followed when granting access.
+*   implementing security controls to protect the confidentiality, integrity, and availability of their research data;
+*   installing, configuring, and managing their virtual machines, as well as their operating systems, services and applications;
+*   [applying updates](security_considerations_when_running_a_vm.md#updating-your-vm) and security patches on a timely basis;
+*   configuring security group rules that limit the services exposed to the Internet;
+*   implementing and testing backup and recovery procedures;
+*   encrypting sensitive data in transit and/or at rest;
+*   ensuring the [principle of least privilege](https://en.wikipedia.org/wiki/Principle_of_least_privilege) is followed when granting access.
 
 ## Cloud team responsibilities: Security of the cloud
 The cloud support team is responsible for the following:
-* protecting our cloud platforms;
-* configuring and managing these compute, storage, database, and networking capabilities;
-* applying updates and security patches applicable to the cloud platform on a timely basis;
-* maintaining logs sufficient for supporting investigations and incident response;
-* ensuring the environmental and physical security of the cloud infrastructure.
+*   protecting our cloud platforms;
+*   configuring and managing these compute, storage, database, and networking capabilities;
+*   applying updates and security patches applicable to the cloud platform on a timely basis;
+*   maintaining logs sufficient for supporting investigations and incident response;
+*   ensuring the environmental and physical security of the cloud infrastructure.
 
-!!! warning
-    Our cloud support team does not support or manage virtual machines. However, if a virtual machine is adversely impacting others, it may be shut down and locked by the team. In these cases, the research team may be asked to provide remediation plans before access to the virtual machine is restored. This is so that others are protected.
+Our cloud support team does not support or manage virtual machines. However, if a virtual machine is adversely impacting others, it may be shut down and locked by the team. In these cases, the research team may be asked to provide remediation plans before access to the virtual machine is restored. This is so that others are protected.
 
 ## Shared responsibilities
-Compliance is a shared responsibility between our cloud support team and the research teams using our cloud services. Everyone is responsible to comply with applicable laws, policies, procedures, and contracts. Alliance Federation and institutional policy compliance is required, particularly with respect to the [Terms of Use](https://alliancecan.ca/sites/default/files/2022-03/1-terms-of-use.pdf). Being *good Net citizens* will protect the reputation of our networks and prevent all of us from being blocked or banned.
+Compliance is a shared responsibility between our cloud support team and the research teams using our cloud services. Everyone is responsible to comply with applicable laws, policies, procedures, and contracts. Alliance Federation and institutional policy compliance is required, particularly with respect to the [Terms of Service](https://www.alliancecan.ca/en/policies). Being *good Net citizens* will protect the reputation of our networks and prevent all of us from being blocked or banned.
 
 If you have any questions about this model please contact cloud@tech.alliancecan.ca.
 
 ## Further resources
 For more information please see the following resources:
-* [Alliance Federation’s cloud service description](cloud.md)
-* [Cloud security considerations for research teams](security_considerations_when_running_a_vm.md)
-* [Alliance Federation Terms of Use](https://alliancecan.ca/sites/default/files/2022-03/1-terms-of-use.pdf)
+*   [Alliance Federation’s cloud service description](cloud.md)
+*   [Cloud security considerations for research teams](security_considerations_when_running_a_vm.md)
+*   [Alliance Policies](https://www.alliancecan.ca/en/policies)

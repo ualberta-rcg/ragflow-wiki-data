@@ -104,8 +104,13 @@ OUTPUTFILE="SolvedModel.mph"       # Specify output filename
 module load StdEnv/2023            # Versions >= 6.2
 module load comsol/6.4
 
+RECOVERYDIR=$SCRATCH/comsol/recoverydir
+mkdir -p $RECOVERYDIR
+
 <!--T:10-->
-comsol batch -inputfile ${INPUTFILE} -outputfile ${OUTPUTFILE} -np $SLURM_CPUS_ON_NODE
+comsol batch -inputfile ${INPUTFILE} -outputfile ${OUTPUTFILE} -np $SLURM_CPUS_ON_NODE \
+-tmpdir $SLURM_TMPDIR -recoverydir $RECOVERYDIR \
+# -recover
 }}
 
 <!--T:12-->
@@ -150,11 +155,10 @@ cp -f ${EBROOTCOMSOL}/mli/startup/java.opts java.opts
 # export I_MPI_COLL_EXTERNAL=0      # Uncomment this line on narval 
 
 <!--T:211-->
-comsol batch -inputfile $INPUTFILE -outputfile $OUTPUTFILE -np $SLURM_CPUS_ON_NODE -nn $SLURM_NNODES \
--recoverydir $RECOVERYDIR -tmpdir $SLURM_TMPDIR -comsolinifile comsolbatch.ini -alivetime 15 \
-# -recover -continue                # Uncomment this line to restart solving from latest recovery files
-
-<!--T:221-->
+comsol batch -inputfile $INPUTFILE -outputfile $OUTPUTFILE -np $SLURM_CPUS_ON_NODE \
+-nn $SLURM_NNODES -comsolinifile comsolbatch.ini -alivetime 15 \
+-tmpdir $SLURM_TMPDIR -recoverydir $RECOVERYDIR \
+# -recover
 }}
 
 <!--T:218-->

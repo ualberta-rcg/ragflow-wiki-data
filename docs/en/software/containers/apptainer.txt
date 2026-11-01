@@ -340,8 +340,8 @@ Two methods are described the [http://apptainer.org/docs/user/main/mpi.html Appt
 Of these two, we recommend the hybrid model. 
 
 Beware of these issues:
-* The MPI version installed inside the container '''must''' be compatible with the MPI used on the host.  This includes all needed fabrics, ''etc.''
-* You must <code>module load</code> the version of MPI needed on the host ''before'' running the <code>apptainer</code> command that runs the MPI job.
+* The MPI version installed inside the container '''must''' be compatible with the MPI module loaded with <code>module load</code> for jobs to run across multiple nodes. This includes the specific network interconnect (e.g., InfiniBand).
+* You must <code>module load</code> the version of MPI needed on the host ''before'' running the <code>apptainer</code> command that runs the MPI job. 
 
 Assuming your MPI job uses one thread per MPI rank (that is, it is not a "hybrid" MPI/shared-memory job), then you can specify the number of ranks as the number of tasks in your job script.
 For example, if there are 4 ranks:
@@ -358,19 +358,13 @@ For example, if there are 4 ranks:
     done
     mpirun -np ${SLURM_NTASKS} -- apptainer exec -e YOUR_CONTAINER.sif ./your-mpi-program args
 
-The above example depends on the <code>OMPI</code> prefix used by Open MPI.
-If you want to see which variables are set in the host environment by a given module,
-run <code>module show</code> for that module, e.g., <code>module show openmpi</code>.
+The above example will vary depending on the variables set by OpenMPI. These can be identified by their <code>OMPI</code> prefix. To see which variables are set in the host environment by a given module, run <code>module show</code> for that module (e.g., <code>module show openmpi</code>). 
 
-If you encounter problems and you are using one of the Apptainer clean environment options, 
-e.g., <code>-e</code>, <code>-c</code>, or <code>-C</code>, then try relaxing that option.  
-That is, if <code>-C</code> doesn't work, try <code>-c</code>, and if <code>-c</code> doesn't work, try <code>-e</code>.
-Our tests indicate that you will probably need at least one of these clean environment options.
+Our tests indicate that you will probably need at least one of the [[Apptainer#Important_command_line_options|clean environment options]]. If you encounter problems with these options, please write to [mailto:support@tech.alliancecan.ca support@tech.alliancecan.ca].
 
 Bear in mind that a job script which works on a single node can easily fail when run on multiple nodes. 
-Consider forcing your job to run on more than one node while still in the testing phase.
-For example, if your test has 4 tasks, then you can force the test to run on 2 or more nodes by specifying
-<code>#SBATCH --nodes 2-4</code> in the job script.
+Consider forcing your job to run on more than one node while still in the testing phase. For example, if your test has 4 tasks, then you can force the test to run on 2 or more nodes by specifying
+<code>#SBATCH --nodes 2-4</code> in the job script. 
 
 ==Creating an Apptainer container from a Dockerfile==
 

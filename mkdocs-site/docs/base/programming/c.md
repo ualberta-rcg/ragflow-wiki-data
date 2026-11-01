@@ -5,39 +5,39 @@ lang: "base"
 
 source_wiki_title: "C++"
 source_hash: "c7b09b188074cbdf67fb8065e597ea0e"
-last_synced: "2026-10-25T00:54:39.630071+00:00"
-last_processed: "2026-10-25T01:31:22.795829+00:00"
+last_synced: "2026-11-01T01:58:40.824100+00:00"
+last_processed: "2026-11-01T02:29:13.620806+00:00"
 
 tags:
   []
 
 keywords:
-  - "C++ standards"
-  - "C++ ABI compatibility"
-  - "C11/C++11 atomic operations"
-  - "GCC dual ABI"
+  - "ISO C++ standards"
   - "high-performance computing"
-  - "libstdc++"
-  - "volatile keyword"
+  - "Intel -fp-model precise/source"
+  - "-fabi-version"
+  - "compiler support"
   - "synchronization"
-  - "cppreference.com"
-  - "-O3 unsafe optimizations"
-  - "compiler optimization"
-  - "C++11 concurrency"
-  - "-D_GLIBCXX_USE_CXX11_ABI=0"
-  - "-fp-model precise"
   - "volatile"
+  - "GCC -O3 unsafe optimizations"
+  - "compiler optimization"
+  - "C11/C++11 atomic operations"
+  - "GCC ABI change v4.9 to v5.1"
+  - "C++11 concurrency"
+  - "libstdc++"
+  - "Dual ABI -D_GLIBCXX_USE_CXX11_ABI=0"
+  - "volatile keyword"
 
 questions:
-  - "What are the major ISO C++ standard versions released so far, and how does the ISO committee schedule future releases?"
-  - "Why is it recommended to compile concurrent C++ code with C++11 or newer standards rather than older versions?"
-  - "What are the typical pitfalls of using the volatile keyword in C++, and what proper mechanisms should be used for synchronization?"
-  - "What are the potential safety issues when using GCC’s ‑O3 optimization flag, and how can developers mitigate them?"
-  - "How does the ABI change introduced in GCC 5.1 impact linking with older precompiled libraries, and which compiler option can be used to retain compatibility?"
-  - "Which Intel compiler options should be selected to obtain ANSI/ISO/IEEE‑compliant floating‑point behavior, and why are they recommended?"
-  - "In what situations is the `volatile` keyword appropriate to use in high‑performance C/C++ code?"
-  - "Why should `volatile` never be used for thread synchronization, and what alternatives are recommended?"
-  - "How does the meaning of `volatile` in languages such as Java differ from its usage in C/C++?"
+  - "What are the major ISO C++ standard versions released since its creation, and how often are new standards expected to be released?"
+  - "Why is it recommended to compile concurrent C++ code using C++11 or newer standards, and what issues can arise when using pre‑C++11 standards?"
+  - "What are common pitfalls related to the `volatile` keyword in C++, and how should synchronization be correctly handled instead?"
+  - "What are the risks of using GCC’s -O3 optimization level and how can they be mitigated?"
+  - "How does the ABI change introduced in GCC 5.1 affect linking with precompiled libraries, and what compiler flags can be used to maintain compatibility?"
+  - "Which Intel compiler options should be used to ensure standards‑compliant floating‑point behavior, and why are they recommended?"
+  - "When is it appropriate to use `volatile` in C/C++ code, and what specific side‑effects does it prevent the compiler from optimizing away?"
+  - "Why is `volatile` considered unsafe for thread synchronization, and what alternatives (e.g., C11/C++11 atomics, locks) should be used instead?"
+  - "How does the meaning and typical usage of `volatile` in languages like Java differ from its role in C/C++?"
 
 status:
   downloaded: true
@@ -54,56 +54,46 @@ A definitive, up-to-date, free online wiki reference for C++ (and its C Standard
 
 It is important to understand that the C language is a distinct language from the C++ language. While a lot of C code can be used as-is in C++ there are times when differences will affect compilation and/or program execution due to differences between C and C++. If you are compiling your C code as C++ code, then when asking for help refer to your code as C++ code as it is being compiled as C++ code.
 
-## Well-defined Concurrency and Memory Models
+## Well-defined concurrency and memory models
 
-Prior to 2011 the ISO C++ standards had no definitions of concurrency and memory models in them, thus, in pre-C++11 compiled code there are no guarantees concerning the ordering of memory reads and writes under concurrency, i.e., such is likely undefined behaviour which the compiler vendor may or may not have documented.
+Prior to 2011 the ISO C++ standards had no definitions of concurrency and memory models in them, thus, in pre-C++11 compiled code there are no guarantees concerning the ordering of memory reads and writes under concurrency, i.e., such is likely undefined behaviour which the compiler vendor may or may not have documented. **It is therefore preferable to compile concurrent C++ code as C++11 code (or newer).**
 
-!!! tip
-    It is therefore preferable to compile concurrent C++ code as C++11 code (or newer).
+Another reason to use the newer compiler and standards possible with C++ code is to take full advantage of optimizations as a result of features such as `constexpr`. With each newer C++ standard, besides additions, there are updates to existing definitions that improve code correctness and/or optimizations that can be applied. Using an old compiler and/or an older standard when newer ones can be used will not be able to take advantage of newer compiler abilities and C++ definitions.
 
-Another reason to use the newer compiler and standards possible with C++ code is to take full advantage of optimisations as a result of features such as `constexpr`. With each newer C++ standard, besides additions, there are updates to existing definitions that improve code correctness and/or optimisations that can be applied. Using an old compiler and/or an older standard when newer ones can be used will not be able to take advantage of newer compiler abilities and C++ definitions.
-
-## Compiler Support
-
-### Language Features
-
+## Compiler support
+### Language features
 Various compilers implement various language features differently. Compiler releases at times only partially implement a specific ISO C++ standard. This can sometimes be frustrating when compiling code with a compiler that does not yet implement a specific language feature. Fortunately there is a wiki page covering virtually all major C++ compilers and [listing the earlier compiler version implementing specific language features](http://en.cppreference.com/w/cpp/compiler_support) at cppreference.com. This page also provides reference links to each compiler's web site concerning the details of such.
 
-### Standard Library Implementation
-
-It is important to realise that many C++ compilers under Linux do not actually provide their own implementation of the C++ Standard Library under certain operating systems (especially Linux). Instead these compilers will use one that is normally installed on the system. Typically this implies that libstdc++, which is distributed with GCC, is used.
+### Standard library implementation
+It is important to realize that many C++ compilers under Linux do not actually provide their own implementation of the C++ Standard Library under certain operating systems (especially Linux). Instead these compilers will use one that is normally installed on the system. Typically this implies that libstdc++, which is distributed with GCC, is used.
 
 !!! note
     While you need not worry about this, this is a reason C++ compilers other than GCC on systems across Compute Canada must be configured by administrators to use a specific version of libstdc++ as several versions of GCC (and therefore libstdc++) are typically installed on a system. If such is set improperly, then there may be issues. This is also a reason why users should **never** hard-code paths to administrator-installed libraries in order to compile software.
 
 The GCC documentation has a section which details [Standard Library components are supported in libstdc++](https://gcc.gnu.org/onlinedocs/libstdc++/manual/status.html).
 
-## New to C++ or Need an Update?
+## New to C++ or need an update?
 
-If you are new to C++ or need an update then start by checking out the ISO C++ advocacy site's [Get Started](https://isocpp.org/get-started) page — especially its recommended books. All of these books are excellent.
+If you are new to C++ or need an update then start by checking out the ISO C++ advocacy site's [Get Started](https://isocpp.org/get-started) page --especially its recommended books. All of these books are excellent.
 
 ## Pitfalls
-
-### The `volatile` Keyword
-
-The reader should note that `volatile` in C and C++ have very specific meanings, e.g., see [this page](http://en.cppreference.com/w/cpp/language/cv). Needing to use `volatile` in C/C++ code is a rare event. Within high-performance computing code, `volatile` in rare instances might be used to declare a variable in order tell the compiler to not optimise away load/store side-effects from/to that variable. That said, **never** use `volatile` for synchronization: instead, use C11/C++11 atomic operations and locks, etc. Finally, know `volatile` in other programming languages, e.g., Java, is often different than in C/C++. Typically the latter would be implemented in C/C++ using synchronization constructs.
+### The `volatile` keyword
+The reader should note that `volatile` in C and C++ have very specific meanings, e.g., see [this page](http://en.cppreference.com/w/cpp/language/cv). Needing to use `volatile` in C/C++ code is a rare event. Within high-performance computing code, `volatile` in rare instances might be used to declare a variable in order tell the compiler to not optimize away load/store side-effects from/to that variable. That said, **never** use volatile for synchronization: instead, use C11/C++11 atomic operations and locks, etc. Finally, know `volatile` in other programming languages, e.g., Java, is often different than in C/C++. Typically the latter would be implemented in C/C++ using synchronization constructs.
 
 ### Compilers
-
 #### GCC
-
 ##### -O3
+The GCC compiler's `-O3` option includes possibly unsafe optimizations for some types of code (e.g., code relying on aliasing). If unsure, compile and optimize code using the `-O2` option instead. If you've more time, read the man page (e.g., `man g++`) and unset the appropriate options by searching for "-O3" to see which options are turned on and turn off the settings that are not safe.
 
-The GCC compiler's `-O3` option includes possibly unsafe optimisations for some types of code (e.g., code relying on aliasing). If unsure, compile and optimise code using the `-O2` option instead. If you've more time, read the man page (e.g., `man g++`) and unset the appropriate options by searching for `"-O3"` to see which options are turned on and turn off the settings that are not safe.
+##### Linking with older previously compiled binaries
+The transition from GCC version 4.9 to version 5.1 introduced a major change to its ABI. If all source code including all dependent libraries is recompiled using the same version of the compiler then there will be no issues. If different compilers are used, the ABI change may cause linking to fail. The latter is likely to occur if you are linking to precompiled libraries provided in a vendor's product. If this occurs, you can use GCC's Dual ABI[^1] feature to tell GCC to use the old ABI in order for your application to link properly with those legacy libraries, e.g., you would pass `-D_GLIBCXX_USE_CXX11_ABI=0` to GCC if using GCC v5.1 or higher to link to libraries built using the older ABI.
 
-##### Linking with Older Previously Compiled Binaries
-
-The transition from GCC version 4.9 to version 5.1 introduced a major change to its ABI. If all source code including all dependent libraries is recompiled using the same version of the compiler then there will be no issues. If different compilers are used, the ABI change may cause linking to fail. The latter is likely to occur if you are linking to precompiled libraries provided in a vendor's product. If this occurs, you can use GCC's Dual ABI feature to tell GCC to use the old ABI in order for your application to link properly with those legacy libraries, e.g., you would pass `-D_GLIBCXX_USE_CXX11_ABI=0` to GCC if using GCC v5.1 or higher to link to libraries built using the older ABI.
-
-An example of how the ABI is affected by various GCC command-line options here: GCC C++ Dual ABI.
+An example of how the ABI is affected by various GCC command-line options here: [GCC C++ Dual ABI](gcc_c___dual_abi.md).
 
 Generally speaking, the C++ ABI is frequently updated. One should assume each major compiler release might break the C++ ABI enough that older binaries will have trouble linking C++ code. The solution is typically to keep using the same compiler, or, recompile the older binaries from source with the newer compiler. With GCC such options can be controlled, e.g., see [this page](https://gcc.gnu.org/onlinedocs/gcc/C_002b_002b-Dialect-Options.html) on `-fabi-version`.
 
 #### Intel
+Intel C/C++ compilers may default to using possibly unsafe optimizations for floating-point operations. Users using the Intel compilers should read the Intel man pages (e.g., `man icpc`) and are recommended to use one of two options, `-fp-model precise` or `-fp-model source`, for ANSI/ISO/IEEE standards-compliant floating-point support. For more details, read this Intel slideshow called, [Floating-point control in the Intel compiler and libraries](https://software.intel.com/sites/default/files/article/326703/fp-control-2012-08.pdf).
 
-Intel C/C++ compilers may default to using possibly unsafe optimisations for floating-point operations. Users using the Intel compilers should read the Intel man pages (e.g., `man icpc`) and are recommended to use one of two options, `-fp-model precise` or `-fp-model source`, for ANSI/ISO/IEEE standards-compliant floating-point support. For more details, read this Intel slideshow called, [Floating-point control in the Intel compiler and libraries](https://software.intel.com/sites/default/files/article/326703/fp-control-2012-08.pdf).
+## References
+[^1]: Free Software Foundation. The GNU C++ Library, Chapter 3. [https://gcc.gnu.org/onlinedocs/libstdc++/manual/using_dual_abi.html](https://gcc.gnu.org/onlinedocs/libstdc++/manual/using_dual_abi.html)

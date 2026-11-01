@@ -112,8 +112,7 @@ Plusieurs modules sont installés pour exécuter des tâches sur plusieurs nœud
 <span id="Specify_node_count"></span>
 === Spécifier le nombre de nœuds ===
 
-<div class="mw-translate-fuzzy">
-Le script suivant demande un nombre spécifique de '''nœuds de calcul entiers'''. 
+Le script suivant demande un nombre spécifique de '''nœuds de calcul entiers'''.  Important&nbsp;: Dans le script ci-dessous, le nom des modules est passé de ls-dyna-mpi à ls-dyna-mpp pour toutes les versions >= 13.2.0. De plus, ces modules utilisent des binaires avx512 et sharelib.
 {{File
 |name=script-mpp-bynode.sh
 |lang="bash"
@@ -121,11 +120,10 @@ Le script suivant demande un nombre spécifique de '''nœuds de calcul entiers''
 #!/bin/bash
 #SBATCH --account=def-account    # Specify
 #SBATCH --time=0-03:00           # D-HH:MM
-#SBATCH --ntasks-per-node=192    # Specify all cores per node (narval/nibi/fir/trillium 192)
-#SBATCH --nodes=1                # Specify number compute nodes (1 or more)
-#SBATCH --mem=0                  # Use all memory per compute node (do not change)
-##SBATCH --constraint=cascade    # Uncomment to specify a cluster specific node type
-</div>
+#SBATCH --ntasks-per-node=192    # Specify all cores per node (narval/nibi/fir/trillium 192, narval 64)
+#SBATCH --mem=0                  # Set to 0 to use all memory per compute node 
+#SBATCH --nodes=1                # Specify number of compute nodes (1 or more)
+##SBATCH --constraint=granite    # Uncomment to specify a cluster specific node type
 
 #module load StdEnv/2023          # Versions 12.2.1, 12.2.2 :
 #module load intel/2023.2.1       # available on all clusters,
@@ -147,16 +145,15 @@ MPPSOLVER="ls-dyna_d"             # Specify ls-dyna_s OR ls-dyna_d
 
 srun $MPPSOLVER i=$INPUTFILE memory=200M
 }}
-where 
-*ls-dyna_s = single precision mpp solver
-*ls-dyna_d = double precision mpp solver\
-note
-To use version 12.2.1 or 12.2.2 on narval the above script will likely need to be modified to run jobs under $SLURM_TMPDIR otherwise performance may be ~100x slower than other clusters.  Narval only has lsdyna modules for 12.2.1 and 12.2.2 installed on it since all of its servers are legacy AVX2 based.  Newer versions have been installed using AVX512 binaries and are therefore only available on other clusters.
+où
+*ls-dyna_s = solveur MPP en simple précision
+*ls-dyna_d = solveur MPP en double précision
+Pour utiliser la version 12.2.1 ou 12.2.2 sur Narval, le script ci-dessus devra probablement être modifié afin d'exécuter les calculs dans $SLURM_TMPDIR; autrement, les performances pourraient être environ 100 fois inférieures à celles observées sur d'autres grappes. Sur Narval, seuls les modules LS-DYNA 12.2.1 et 12.2.2 sont installés, car tous ses serveurs font partie d'une architecture plus ancienne de type AVX2. Les versions plus récentes qui utilisent des binaires AVX512, ne sont donc disponibles que sur les autres grappes.
 
 <span id="Specify_core_count"></span>
 === Spécifier le nombre de cœurs ===
 
-<div class="mw-translate-fuzzy">
+Les tâches peuvent être soumises à un nombre arbitraire de nœuds de calcul en spécifiant le nombre de cœurs. Cette approche permet à l'ordonnanceur de déterminer le nombre optimal de nœuds de calcul pour minimiser le temps d'attente des tâches dans la queue. Les limites de mémoire s'appliquent par cœur; il faut donc spécifier une valeur suffisamment grande de <code>mem-per-cpu</code> pour que le processeur principal puisse décomposer et traiter correctement ses calculs, comme expliqué pla présente section. Notez que le nom des modules est passé de ls-dyna-mpi à ls-dyna-mpp pour toutes les versions >= 13.2.0 dans le script ci-dessous. De plus, ces modules utilisent des binaires avx512 et sharelib.
 {{File
 |name=script-mpp-bycore.sh
 |lang="bash"
@@ -165,9 +162,8 @@ To use version 12.2.1 or 12.2.2 on narval the above script will likely need to b
 #SBATCH --account=def-account     # Specify
 #SBATCH --time=0-03:00            # D-HH:MM
 #SBATCH --ntasks=64               # Specify any total number of cores
-#SBATCH --mem-per-cpu=2G          # Specify memory per core
-##SBATCH --constraint=cascade     # Uncomment to specify a cluster specific node type
-</div>
+##SBATCH --nodes=1                # Uncomment to specify number of compute nodes (1 or more)
+##SBATCH --constraint=granite     # Uncomment to specify a cluster specific node type
 
 #module load StdEnv/2023          # Versions 12.2.1, 12.2.2 :
 #module load intel/2023.2.1       # available on all clusters,
@@ -189,10 +185,10 @@ MPPSOLVER="ls-dyna_d"             # Specify ls-dyna_s OR ls-dyna_d
 
 srun $MPPSOLVER i=$INPUTFILE memory=200M
 }}
-where
-*ls-dyna_s = single precision mpp solver
-*ls-dyna_d = double precision mpp solver
-To use version 12.2.1 or 12.2.2 on narval the above script will likely need to be modified to run jobs under $SLURM_TMPDIR otherwise performance may be ~100x slower than other clusters.  Narval only has lsdyna modules for 12.2.1 and 12.2.2 installed on it since all of its servers are legacy AVX2 based.  Newer versions have been installed using AVX512 binaries and are therefore only available on other clusters.
+où
+*ls-dyna_s = solveur MPP en simple précision
+*ls-dyna_d = solveur MPP en double précision
+Pour utiliser la version 12.2.1 ou 12.2.2 sur Narval, le script ci-dessus devra probablement être modifié afin d'exécuter les calculs avec $SLURM_TMPDIR; dans le cas contraire, les performances pourraient être environ 100 fois inférieures à celles observées sur d'autres grappes. Sur Narval, seuls les modules LS-DYNA 12.2.1 et 12.2.2 sont installés, car tous ses serveurs fnt partie d'une architecture plus ancienne de type AVX2. Les versions plus récentes, qui utilisent des binaires AVX512, ne sont donc disponibles que sur les autres grappes.
 
 <span id="Performance_testing"></span>
 == Test de performance ==
