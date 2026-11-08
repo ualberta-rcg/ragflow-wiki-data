@@ -80,7 +80,7 @@ Once a Slurm script has been prepared for a Gurobi problem, it can be submitted 
 
 === Data example === 
 
-The following Slurm script utilizes the [https://www.gurobi.com/documentation/9.5/quickstart_linux/solving_the_model_using_th.html Gurobi command-line interface] to solve a [https://www.gurobi.com/documentation/9.5/quickstart_linux/solving_a_simple_model_the.html simple coin production model] written in [https://www.gurobi.com/documentation/9.5/refman/lp_format.html LP format].  The last line demonstrates how [https://www.gurobi.com/documentation/9.5/refman/parameters.html parameters] can be passed directly to the Gurobi command-line tool <code>gurobi_cl</code> using simple command line arguments.  For help selecting which [https://www.gurobi.com/documentation/9.5/refman/parameters.html parameters] are best used for a particular problem and for choosing optimal values, refer to both the <i>Performance and Parameters</i> and <i>Algorithms and Search</I> sections found in the [https://support.gurobi.com/hc/en-us/categories/360000840331-Knowledge-Base Gurobi Knowledge Base] as well as the extensive online [https://www.gurobi.com/documentation/ Gurobi documentation].
+The following Slurm script utilizes the Gurobi command-line interface to solve a simple coin production model written in LP format.  The last line demonstrates how [https://docs.gurobi.com/projects/optimizer/en/current/concepts/parameters.html parameters] can be passed directly to the Gurobi command-line tool "gurobi_cl" using simple command line arguments.  For help choosing values see the <i>Performance and Parameters</i> and <i>Algorithms and Search</I> sections found in the [https://support.gurobi.com/hc/en-us/categories/360000840331-Knowledge-Base Gurobi Knowledge Base] and the online [https://docs.gurobi.com/current/ Gurobi documentation].
 {{File
   |name=script-lp_coins.sh
   |lang="sh"
@@ -92,10 +92,9 @@ The following Slurm script utilizes the [https://www.gurobi.com/documentation/9.
 #SBATCH --mem=4G              # specify total memory
 #SBATCH --nodes=1             # do not change
 
-#module load StdEnv/2016      # for versions < 9.0.3 
-module load StdEnv/2020       # for versions > 9.0.2
+module load StdEnv/2023       # versions >= 10.0.1
 
-module load gurobi/9.5.0
+module load gurobi/13.0.0
 
 rm -f coins.sol
 gurobi_cl Threads=$SLURM_CPUS_ON_NODE Method=2 ResultFile=coins.sol ${GUROBI_HOME}/examples/data/coins.lp

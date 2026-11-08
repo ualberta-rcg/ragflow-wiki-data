@@ -4,42 +4,40 @@ slug: "standard_software_environments"
 lang: "base"
 
 source_wiki_title: "Standard software environments"
-source_hash: "0a6df92003ed790a785a9f483d610d85"
-last_synced: "2026-04-10T15:28:10.183781+00:00"
-last_processed: "2026-04-11T11:33:49.267527+00:00"
+source_hash: "f8d39030f6fb38a441895533080bcea7"
+last_synced: "2026-11-08T02:07:32.985064+00:00"
+last_processed: "2026-11-08T03:00:28.156735+00:00"
 
 tags:
   []
 
 keywords:
-  - "Open MPI"
-  - "operating system"
+  - "CUDA"
+  - "Python extensions in core modules"
+  - "gcc module"
+  - "optimizations"
   - "Gentoo Prefix"
-  - "Performance improvements"
-  - "software environment"
   - "compatibility layer"
   - "StdEnv"
-  - "Standard software environments"
-  - "Compilers"
-  - "CentOS"
-  - "2020 release"
-  - "module extensions"
-  - "Nix package manager"
-  - "Linux kernel"
+  - "Linux Kernel"
+  - "GCC"
+  - "CPU architectures"
+  - "GNU C Library"
+  - "Linux kernel 3.10"
+  - "AVX2"
+  - "OpenMPI"
+  - "StdEnv/2018.3 deprecated"
 
 questions:
-  - "What are standard software environments and how are their modules organized?"
-  - "What are the major default module changes and performance improvements introduced in the StdEnv/2023 version?"
-  - "How does the StdEnv/2020 version handle multi-architecture binaries and what changes were made to its compatibility layer?"
-  - "How do the Linux kernel and CentOS requirements change when upgrading to the 2020 software environment?"
-  - "How are Python extensions, such as PyQt5, installed and located within the module system of the 2020 environment?"
-  - "What are the key differences in default compilers and AVX512 instruction support between the deprecated 2016.4 and 2018.3 environments?"
-  - "What is the primary purpose of the compatibility layer within the software architecture?"
-  - "Which specific operating systems is the compatibility layer designed to support?"
-  - "How did the tools used for the compatibility layer change between the older versions and the 2020 release?"
-  - "How do the Linux kernel and CentOS requirements change when upgrading to the 2020 software environment?"
-  - "How are Python extensions, such as PyQt5, installed and located within the module system of the 2020 environment?"
-  - "What are the key differences in default compilers and AVX512 instruction support between the deprecated 2016.4 and 2018.3 environments?"
+  - "What are the standard software environments that are still actively supported, and which compiler, MPI, and CUDA versions do they provide by default?"
+  - "How do the performance improvements and default module changes introduced in StdEnv/2023 differ from those in the older StdEnv/2020 environment?"
+  - "What consequences does the deprecation of StdEnv/2020 have for users, especially regarding compatibility on newer systems and CPU‑only software?"
+  - "What changes were made to the compatibility layer in the 2020 release compared to the 2016.4 and 2018.3 versions?"
+  - "How does the required Linux kernel version differ in the 2020 environment, and what effect does this have on supported CentOS releases?"
+  - "What adjustments were introduced for Python extensions and the module system in the 2020 StdEnv?"
+  - "How were the CPU‑architecture‑specific optimizations implemented to eliminate the need for loading the gcc module?"
+  - "What optimizations does the newer GNU C Library introduce, particularly in mathematical functions?"
+  - "Why does installing the newer GNU C Library raise the minimum required version of the Linux kernel?"
 
 status:
   downloaded: true
@@ -57,14 +55,23 @@ Our software environments are provided through a set of [modules](utiliser_des_m
 
 Standard environments identify combinations of specific compiler and MPI modules that are used most commonly by our team to build other software. These combinations are grouped in modules named `StdEnv`.
 
-As of February 2023, there are four such standard environments, versioned 2023, 2020, 2018.3 and 2016.4, with each new version incorporating major improvements. Only versions 2020 and 2023 are actively supported.
+As of November 2026, there are five such standard environments, versioned 2026, 2023, 2020, 2018.3 and 2016.4, with each new version incorporating major improvements. **Only versions 2026 and 2023 are actively supported.**
 
 This page describes these changes and explains why you should upgrade to a more recent version.
 
 In general, new versions of software packages will get installed with the newest software environment.
 
+### `StdEnv/2026`
+This is the most recent iteration of our software environment.
+It uses GCC 15.3.0, Intel 2026.1, CUDA 13.3 and Open MPI 5.0.10 as defaults.
+
+To activate this environment, use the command
+```bash
+module load StdEnv/2026
+```
+
 ### `StdEnv/2023`
-This is the most recent iteration of our software environment. It uses GCC 12.3.0, Intel 2023.1, and Open MPI 4.1.5 as defaults.
+It uses GCC 12.3.0, Intel 2023.1, and Open MPI 4.1.5 as defaults.
 
 To activate this environment, use the command
 ```bash
@@ -78,11 +85,11 @@ The minimum CPU instruction set supported by this environment is AVX2, or more g
 GCC becomes the default compiler, instead of Intel. We compile with Intel only software which have been known to offer better performance using Intel. CUDA becomes an add-on to OpenMPI, rather than the other way around, i.e. CUDA-aware MPI is loaded at run time if CUDA is loaded. This allows to share a lot of MPI libraries across CUDA and non-CUDA branches.
 
 The following core modules have seen their default version upgraded:
-* GCC 9.3 => GCC 12.3
-* OpenMPI 4.0.3 => OpenMPI 4.1.5
-* Intel compilers 2020 => 2023
-* Intel MKL 2020 => Flexiblas 3.3.1 (with MKL 2023 or BLIS 0.9.0)
-* CUDA 11 => CUDA 12
+*   GCC 9.3 => GCC 12.3
+*   OpenMPI 4.0.3 => OpenMPI 4.1.5
+*   Intel compilers 2020 => 2023
+*   Intel MKL 2020 => Flexiblas 3.3.1 (with MKL 2023 or BLIS 0.9.0)
+*   CUDA 11 => CUDA 12
 
 ### `StdEnv/2020`
 !!! warning "Deprecated"
@@ -96,11 +103,11 @@ module load StdEnv/2020
 ```
 
 #### Performance improvements
-Binaries compiled with the Intel compiler now automatically support both AVX2 and AVX512 instruction sets. In technical terms, we call them *multi-architecture binaries*, also known as [fat binaries](https://en.wikipedia.org/wiki/Fat_binary). This means that when running on a cluster such as Cedar and Graham which has multiple generations of processors, you don't have to manually load one of the `arch` modules if you use software packages generated by the Intel compiler.
+Binaries compiled with the Intel compiler now automatically support both AVX2 and AVX512 instruction sets. In technical terms, we call them *multi-architecture binaries*, also known as [fat binaries](https://en.wikipedia.org/wiki/Fat_binary). This means that when running on a cluster such as [Cedar](../clusters/cedar.md) and [Graham](../clusters/graham.md) which has multiple generations of processors, you don't have to manually load one of the `arch` modules if you use software packages generated by the Intel compiler.
 
-Many software packages which were previously installed either with GCC or with Intel are now installed at a lower level of the software hierarchy, which makes the same module visible, irrespective of which compiler is loaded. For example, this is the case for many bioinformatics software packages as well as the [R](../software/r.md) modules, which previously required loading the `gcc` module. This could be done because we introduced optimizations specific to CPU architectures at a level of the software hierarchy lower than the compiler level.
+Many software packages which were previously installed either with GCC or with Intel are now installed at a lower level of the software hierarchy, which makes the same module visible, irrespective of which compiler is loaded. For example, this is the case for many bioinformatics software packages as well as the [R](../software/r.md) modules, which previously required loading the `gcc` module. This could be done because we introduced optimisations specific to CPU architectures at a level of the software hierarchy lower than the compiler level.
 
-We also installed a more recent version of the [GNU C Library](https://en.wikipedia.org/wiki/GNU_C_Library), which introduces optimizations in some mathematical functions. This has increased the requirement on the version of the Linux Kernel (see below).
+We also installed a more recent version of the [GNU C Library](https://en.wikipedia.org/wiki/GNU_C_Library), which introduces optimisations in some mathematical functions. This has increased the requirement on the version of the Linux Kernel (see below).
 
 #### Change in the compatibility layer
 Another enhancement for the 2020 release was a change in tools for our compatibility layer. The compatibility layer is between the operating system and all other software packages. This layer is designed to ensure that compilers and scientific applications will work whether they run on CentOS, Ubuntu, or Fedora. For the 2016.4 and 2018.3 versions, we used the [Nix package manager](https://en.wikipedia.org/wiki/Nix_package_manager), while for the 2020 version, we used [Gentoo Prefix](https://wiki.gentoo.org/wiki/Project:Prefix).
@@ -118,6 +125,7 @@ it will tell you that you can get this by loading the `qt/5.12.8` module.
 ### `StdEnv/2018.3`
 !!! warning "Deprecated"
     This environment is no longer supported.
+
 This is the second version of our software environment. It was released in 2018 with the deployment of [Béluga](../clusters/béluga.md), and shortly after the deployment of [Niagara](../clusters/national_systems.md). Defaults were upgraded to GCC 7.3.0, Intel 2018.3, and Open MPI 3.1.2. This is the first version to support AVX512 instructions.
 
 To activate this environment, use the command
@@ -128,6 +136,7 @@ module load StdEnv/2018.3
 ### `StdEnv/2016.4`
 !!! warning "Deprecated"
     This environment is no longer supported.
+
 This is the initial version of our software environment released in 2016 with the deployment of [Cedar](../clusters/cedar.md) and [Graham](../clusters/graham.md). It features GCC 5.4.0 and Intel 2016.4 as default compilers, and Open MPI 2.1.1 as its default implementation of MPI. Most of the software compiled with this environment does not support AVX512 instructions provided by the Skylake processors on [Béluga](../clusters/béluga.md), [Niagara](../clusters/national_systems.md), as well as on the most recent additions to Cedar and Graham.
 
 To activate this environment, use the command

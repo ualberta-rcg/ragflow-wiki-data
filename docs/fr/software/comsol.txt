@@ -94,8 +94,13 @@ OUTPUTFILE="SolvedModel.mph"       # indiquer le nom du fichier en sortie
 module load StdEnv/2023            # Versions >= 6.2
 module load comsol/6.4
 
+RECOVERYDIR=$SCRATCH/comsol/recoverydir
+mkdir -p $RECOVERYDIR
+
+<div class="mw-translate-fuzzy">
 comsol batch -inputfile ${INPUTFILE} -outputfile ${OUTPUTFILE} -np $SLURM_CPUS_ON_NODE
 }}
+</div>
 
 Selon la complexité de la simulation, il est possible que COMSOL n'utilise pas efficacement plusieurs cœurs. Il est donc suggéré de vérifier la scalabilité de la simulation en augmentant graduellement le nombre de cœurs. Si l'accélération est presque linéaire avec tous les cœurs d'un nœud, considérez l'exécution de la tâche avec plusieurs nœuds entiers en ajustant le script ci-dessous.
 
@@ -131,11 +136,11 @@ cp -f ${EBROOTCOMSOL}/mli/startup/java.opts java.opts
 
 #export I_MPI_COLL_EXTERNAL=0       # supprimer cette ligne sur Narval 
 
+<div class="mw-translate-fuzzy">
 comsol batch -inputfile $INPUTFILE -outputfile $OUTPUTFILE -np $SLURM_CPUS_ON_NODE -nn $SLURM_NNODES \
 -recoverydir $RECOVERYDIR -tmpdir $SLURM_TMPDIR -comsolinifile comsolbatch.ini -alivetime 15 \
 # -recover -continue                # supprimer cette ligne pour redémarrer à partir du dernier fichier récupéré
-
-}}
+</div>
 
 Remarque 1&nbsp;: Si votre tâche plante au démarrage en raison d'une erreur de segmentation Java, augmentez le monceau (<i>heap</i>), ajoutez les deux lignes <code>sed</code> immédiatement après les commandes <code>cp -f</code>. Si le problème n'est toujours pas réglé, remplacez 4G par 8G sur les deux lignes.
 Pour plus d'information, voir [https://www.comsol.ch/support/knowledgebase/1243 Out of Memory].

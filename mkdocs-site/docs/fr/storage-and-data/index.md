@@ -23,7 +23,6 @@ Auto-generated index for `fr/storage-and-data`.
 - [Scratch Purging Policy](scratch_purging_policy.md)
 - [Sharing Data](sharing_data.md)
 - [Storage And File Management](storage_and_file_management.md)
-- [Tar](tar.md)
 - [Transferring Files With Aspera Connect Ascp](transferring_files_with_aspera_connect_ascp.md)
 - [Tuning Lustre](tuning_lustre.md)
 - [Using A New Empty Volume On A Linux Vm](using_a_new_empty_volume_on_a_linux_vm.md)

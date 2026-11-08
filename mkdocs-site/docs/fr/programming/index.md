@@ -14,7 +14,6 @@ Auto-generated index for `fr/programming`.
 - [Blas And Lapack](blas_and_lapack.md)
 - [Build Tools](build_tools.md)
 - [C](c.md)
-- [Cloud Images](cloud_images.md)
 - [Cmake](cmake.md)
 - [Computational Fluid Dynamics](computational_fluid_dynamics.md)
 - [Covid19 Related Requests](covid19_related_requests.md)

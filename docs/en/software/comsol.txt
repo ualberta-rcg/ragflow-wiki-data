@@ -86,7 +86,12 @@ OUTPUTFILE="SolvedModel.mph"       # Specify output filename
 module load StdEnv/2023            # Versions >= 6.2
 module load comsol/6.4
 
-comsol batch -inputfile ${INPUTFILE} -outputfile ${OUTPUTFILE} -np $SLURM_CPUS_ON_NODE
+RECOVERYDIR=$SCRATCH/comsol/recoverydir
+mkdir -p $RECOVERYDIR
+
+comsol batch -inputfile ${INPUTFILE} -outputfile ${OUTPUTFILE} -np $SLURM_CPUS_ON_NODE \
+-tmpdir $SLURM_TMPDIR -recoverydir $RECOVERYDIR \
+# -recover
 }}
 
 Depending on the complexity of the simulation, COMSOL may not be able to efficiently use very many cores.  Therefore, it is advisable to test the scaling of your simulation by gradually increasing the number of cores. If near-linear speedup is obtained using all cores on a compute node, consider running the job over multiple full nodes using the next Slurm script.
@@ -122,10 +127,10 @@ cp -f ${EBROOTCOMSOL}/mli/startup/java.opts java.opts
 
 # export I_MPI_COLL_EXTERNAL=0      # Uncomment this line on narval 
 
-comsol batch -inputfile $INPUTFILE -outputfile $OUTPUTFILE -np $SLURM_CPUS_ON_NODE -nn $SLURM_NNODES \
--recoverydir $RECOVERYDIR -tmpdir $SLURM_TMPDIR -comsolinifile comsolbatch.ini -alivetime 15 \
-# -recover -continue                # Uncomment this line to restart solving from latest recovery files
-
+comsol batch -inputfile $INPUTFILE -outputfile $OUTPUTFILE -np $SLURM_CPUS_ON_NODE \
+-nn $SLURM_NNODES -comsolinifile comsolbatch.ini -alivetime 15 \
+-tmpdir $SLURM_TMPDIR -recoverydir $RECOVERYDIR \
+# -recover
 }}
 
 Note 1: If your multiple node job crashes on startup with a java segmentation fault, try increasing the java heap by adding the following two <code>sed</code> lines after the two <code>cp -f</code> lines.  If it does not help, try further changing both 4g values to 8g. For further information see [https://www.comsol.ch/support/knowledgebase/1243 Out of Memory].

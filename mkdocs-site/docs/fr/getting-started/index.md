@@ -33,7 +33,6 @@ Auto-generated index for `fr/getting-started`.
 - [Securing Your Account](securing_your_account.md)
 - [Ssh](ssh.md)
 - [Ssh Configuration File](ssh_configuration_file.md)
-- [Ssh Host Keys](ssh_host_keys.md)
 - [Ssh Keys](ssh_keys.md)
 - [Ssh Security Improvements](ssh_security_improvements.md)
 - [Ssh Tunnelling](ssh_tunnelling.md)

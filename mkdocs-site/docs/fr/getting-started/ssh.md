@@ -106,7 +106,7 @@ Il est possible que vous receviez un message d'erreur lors de votre connexion à
 *   *couldn't agree a key exchange algorithm*
 *   *remote host identification has changed*
 
-Ce dernier message peut indiquer une attaque de l'homme du milieu (*man-in-the-middle attack*) ou une mise à jour de la sécurité pour la grappe à laquelle vous voulez vous connecter. Si ce message est affiché, vérifiez si l'empreinte de la clé hôte mentionnée correspond à une des [clés hôtes valides](ssh_host_keys.md); si c'est le cas, vous pouvez poursuivre la connexion.
+Ce dernier message peut indiquer une attaque de l'homme du milieu (*man-in-the-middle attack*) ou une mise à jour de la sécurité pour la grappe à laquelle vous voulez vous connecter. Si ce message est affiché, vérifiez si l'empreinte de la clé hôte mentionnée correspond à une des clés hôtes valides; si c'est le cas, vous pouvez poursuivre la connexion.
 Si la clé hôte n'est pas dans la liste, fermez la connexion et contactez le [soutien technique](../support/technical_support.md).
 
 Les utilisateurs de Niagara ont eu [des mesures à prendre](https://docs.scinet.utoronto.ca/index.php/SSH_Changes_in_May_2019) suite à la mise à jour de sécurité du 31 mai 2019. Des mises à jour semblables ont été effectuées sur les autres grappes vers la fin de septembre 2019; pour plus d'information, consultez la [page wiki sur l'amélioration de la sécurité](ssh_security_improvements.md).

@@ -104,7 +104,7 @@ While connecting to one of our clusters, you might get an error message such as:
 * remote host identification has changed.
 
 The last of these error messages can point to a man-in-the-middle attack, or to an upgrade of security of the cluster you are trying to connect to.
-If you get this, verify that the host key fingerprint mentioned in the message matches one of the host key fingerprints published at [SSH host keys](ssh_host_keys.md).
+If you get this, verify that the host key fingerprint mentioned in the message matches one of the host key fingerprints published at SSH host keys.
 If it does, it is safe to continue connecting. If the host key fingerprint does not appear on our published list, terminate the connection and [contact support](../support/technical_support.md).
 
 One such upgrade occurred on the Niagara cluster on May 31, 2019. See [this page](https://docs.scinet.utoronto.ca/index.php/SSH_Changes_in_May_2019) for the one-time action required from users after the security upgrade. Further upgrades of this type were made on all clusters in September/October 2019; see [SSH security improvements](ssh_security_improvements.md) for more information.

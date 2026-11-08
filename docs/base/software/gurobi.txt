@@ -33,10 +33,22 @@ If it returns "Success" you can begin using Gurobi immediately.  If the test ret
 ===Minimizing license checkouts=== <!--T:216-->
 
 <!--T:217-->
-Note that all Gurobi license checkouts are handled by a single license server located in Ontario; it is therefore important to limit license checkout attempts as much as possible.  Rather than checking out a license for each invocation of Gurobi in a job---which may occur dozens or even hundreds of times---you should ensure that your program, whatever the language or computing environment used, only makes a single license checkout and then reuses this license token throughout the lifetime of the job. This will improve your job's performance because contacting a remote license server is very costly in time; moreover, responsiveness of our license server for everyone using Gurobi will also improve.  <span style="color:red">Failure to use Gurobi carefully in this regard may ultimately result in random intermittent license checkout failures for all users.  If this happens, you will be contacted and asked to kill all your jobs until your program is fixed and tested to ensure the problem is resolved.</span>   Some documentation on this subject for C++ programs may be found [https://support.gurobi.com/hc/en-us/articles/360013417731-How-do-I-release-a-shared-license here], explaining how to create a single Gurobi environment which can then be used for all your models. Python users can consult this [https://support.gurobi.com/hc/en-us/articles/360013417731-How-do-I-release-a-shared-license page], which discusses how to implement this same idea of using a single environment and thus a single license token with multiple models.   Other programs that call Gurobi, such as R, can also easily trigger the problem when run in parallel, especially when many simultaneous parallel jobs are submitted and/or run.
+Note that all Gurobi license checkouts are handled by a single license server located in Ontario; it is therefore important to limit license checkout attempts as much as possible.  Rather than checking out a license for each invocation of Gurobi in a job---which may occur dozens or even hundreds of times---you should ensure that your program, whatever the language or computing environment used, only makes a single license checkout and reuses this license as required for the lifetime of the job.  This will improve your job's performance because contacting a remote license server is very costly in time; moreover, responsiveness of our license server for everyone using Gurobi will also improve.  <span style="color:red">Failure to use Gurobi carefully in this regard may ultimately result in random intermittent license checkout failures for all users.  If this happens, you will be contacted and asked to kill all your jobs until your program is fixed and tested to ensure the problem is resolved.</span>   Some documentation on this subject for C++ programs may be found [https://support.gurobi.com/hc/en-us/articles/360013417731-How-do-I-release-a-shared-license here], explaining how to create a single Gurobi environment which can then be used for all your models. Python users can consult this [https://support.gurobi.com/hc/en-us/articles/360013417731-How-do-I-release-a-shared-license page], which discusses how to implement this same idea of using a single environment and thus a single license token with multiple models.   Other programs that call Gurobi, such as R, can also easily trigger the problem when run in parallel, especially when many simultaneous parallel jobs are submitted and/or run.
+
+There are two other conditions that your jobs should satisfy to ensure the license server is not overloaded. The first is that all of your jobs running on all Alliance clusters are not consuming more than 1000 licenses since there are only 4096 license.  This maybe checked by logging into any cluster and issuing :
+  module load gurobi
+  gurobi_cl --tokens | grep $USER | wc -l  (should be < 1000)
+
+The second condition is that each running gurobi job should be using just 1 license (less commonly 2). Assuming all of your Gurobi jobs are running on the cluster that you are logged into, the average license usage per jobs maybe checked by running:
+  module load gurobi
+  echo "$(gurobi_cl --tokens | grep $USER | wc -l) / $(squeue -h -r -u $USER -t running | wc -l)" | bc -l (should be <= 2)
+If however you are running jobs on many clusters, then instead this modifed form of the previous command (which runs much slower) should be used :
+  module load gurobi
+  echo $(for n in $(gurobi_cl --tokens | grep $USER | awk "{print $1}"); do host $n; done | grep address | wc -l) / $(squeue -u $USER -h -t running -r | wc -l) | bc -l (should be <= 2)
+Note that if you run either command on a cluster where there are no gurobi jobs running then a "Runtime error Divide by zero error" message will be output accordingly.
 
 <!--T:218-->
-If you will be submitting many Gurobi jobs to the scheduler in a loop, use the following sample script (or equivalent) to ensure the jobs start gradually.  Doing so will help minimize the license checkout rate and hence the load imposed on our Gurobi license server.  The script uses the [https://slurm.schedmd.com/sbatch.html slurm] dependency <code>after</code> option introduced in [[Advanced Job Submission]].  Currently, we request no more than 10000 Gurobi license checkouts/jobs be performed on a cluster over a 24-hour period.  If your Gurobi program uses an algorithm that requires checking out two licenses per job, this would translate into submitting no more than 5000 jobs per day.
+If you will be submitting many Gurobi jobs to the scheduler in a loop, the following sample script may be used to ensure the jobs start gradually instead of all at once.  Submitting jobs this way will in turn ensure licenses are checked out gradually rather than all at once and hence control the load imposed on our Gurobi license server.  The script uses the [https://slurm.schedmd.com/sbatch.html slurm] dependency <code>after</code> option introduced in [[Advanced Job Submission]]. 
   
  [l2(nibi):~] cat submit.sh
  i=1; jobid=$(sbatch --parsable --output=slurm-%j-$i.out script.sh)
@@ -98,7 +110,7 @@ Once a Slurm script has been prepared for a Gurobi problem, it can be submitted 
 === Data example === <!--T:71--> 
 
 <!--T:73-->
-The following Slurm script utilizes the [https://www.gurobi.com/documentation/9.5/quickstart_linux/solving_the_model_using_th.html Gurobi command-line interface] to solve a [https://www.gurobi.com/documentation/9.5/quickstart_linux/solving_a_simple_model_the.html simple coin production model] written in [https://www.gurobi.com/documentation/9.5/refman/lp_format.html LP format].  The last line demonstrates how [https://www.gurobi.com/documentation/9.5/refman/parameters.html parameters] can be passed directly to the Gurobi command-line tool <code>gurobi_cl</code> using simple command line arguments.  For help selecting which [https://www.gurobi.com/documentation/9.5/refman/parameters.html parameters] are best used for a particular problem and for choosing optimal values, refer to both the <i>Performance and Parameters</i> and <i>Algorithms and Search</I> sections found in the [https://support.gurobi.com/hc/en-us/categories/360000840331-Knowledge-Base Gurobi Knowledge Base] as well as the extensive online [https://www.gurobi.com/documentation/ Gurobi documentation].
+The following Slurm script utilizes the Gurobi command-line interface to solve a simple coin production model written in LP format.  The last line demonstrates how [https://docs.gurobi.com/projects/optimizer/en/current/concepts/parameters.html parameters] can be passed directly to the Gurobi command-line tool "gurobi_cl" using simple command line arguments.  For help choosing values see the <i>Performance and Parameters</i> and <i>Algorithms and Search</I> sections found in the [https://support.gurobi.com/hc/en-us/categories/360000840331-Knowledge-Base Gurobi Knowledge Base] and the online [https://docs.gurobi.com/current/ Gurobi documentation].
 {{File
   |name=script-lp_coins.sh
   |lang="sh"
@@ -111,11 +123,10 @@ The following Slurm script utilizes the [https://www.gurobi.com/documentation/9.
 #SBATCH --nodes=1             # do not change
 
 <!--T:74-->
-#module load StdEnv/2016      # for versions < 9.0.3 
-module load StdEnv/2020       # for versions > 9.0.2
+module load StdEnv/2023       # versions >= 10.0.1
 
 <!--T:75-->
-module load gurobi/9.5.0
+module load gurobi/13.0.0
 
 <!--T:76-->
 rm -f coins.sol

@@ -4,42 +4,39 @@ slug: "standard_software_environments"
 lang: "en"
 
 source_wiki_title: "Standard software environments/en"
-source_hash: "26e3f87a60909fe4c52fa61927975ced"
-last_synced: "2026-04-10T15:28:10.183781+00:00"
-last_processed: "2026-04-11T11:34:13.794865+00:00"
+source_hash: "3446758d9eb1ca60e3b6d81d48aa5397"
+last_synced: "2026-11-08T02:07:32.985064+00:00"
+last_processed: "2026-11-08T03:00:44.723672+00:00"
 
 tags:
   []
 
 keywords:
+  - "AVX512 instructions"
+  - "CentOS Ubuntu Fedora"
+  - "PyQt5 module extension"
+  - "Nix package manager"
+  - "StdEnv/2018.3"
   - "Open MPI"
   - "Gentoo Prefix"
-  - "operating system"
-  - "software environment"
-  - "Modules"
+  - "Linux kernel 3.10"
   - "compatibility layer"
   - "StdEnv"
-  - "Standard software environments"
-  - "Compilers"
-  - "CentOS"
+  - "GCC"
+  - "CentOS 7"
   - "2020 release"
-  - "module extensions"
-  - "Nix package manager"
-  - "Linux kernel"
+  - "AVX2"
 
 questions:
-  - "What is a standard software environment and how are its modules organized within the system?"
-  - "What are the key performance improvements and default module changes introduced in the StdEnv/2023 release?"
-  - "How does the StdEnv/2020 release handle CPU architecture optimizations, and what tool does it use for its compatibility layer?"
-  - "How did the Linux kernel and operating system requirements change with the release of the 2020 software environment?"
-  - "How are Python extensions installed and located within the module system in the 2020 environment?"
-  - "What are the primary differences in compiler defaults and hardware instruction support between the deprecated 2016.4 and 2018.3 environments?"
-  - "What is the primary function of the compatibility layer across different operating systems?"
-  - "Which tool was used for the compatibility layer in the 2016.4 and 2018.3 versions?"
-  - "What new tool replaced the previous package manager for the 2020 release?"
-  - "How did the Linux kernel and operating system requirements change with the release of the 2020 software environment?"
-  - "How are Python extensions installed and located within the module system in the 2020 environment?"
-  - "What are the primary differences in compiler defaults and hardware instruction support between the deprecated 2016.4 and 2018.3 environments?"
+  - "What are the main differences in default compiler, MPI, and CUDA configurations between StdEnv/2026 and earlier standard environments?"
+  - "Which standard environments are currently supported, and why is it recommended to upgrade to a newer version?"
+  - "How has the compatibility layer changed across the StdEnv versions, and what effect does this have on software portability across different Linux distributions?"
+  - "What kernel version is required for the 2020 StdEnv, and how does this change affect support for CentOS distributions?"
+  - "How are Python extensions like PyQt5 now organized within modules in the 2020 environment, and how can users discover them?"
+  - "Which StdEnv versions are deprecated, and what are the key compiler and MPI defaults for the 2016.4 and 2018.3 environments?"
+  - "What is the purpose of the compatibility layer described in the text?"
+  - "Which package manager was used for the compatibility layer in the 2016.4 and 2018.3 versions?"
+  - "Which package manager was adopted for the compatibility layer in the 2020 release?"
 
 status:
   downloaded: true
@@ -57,14 +54,23 @@ Our software environments are provided through a set of [modules](utiliser_des_m
 
 Standard environments identify combinations of specific compiler and MPI modules that are used most commonly by our team to build other software. These combinations are grouped in modules named `StdEnv`.
 
-As of February 2023, there are four such standard environments, versioned 2023, 2020, 2018.3 and 2016.4, with each new version incorporating major improvements. Only versions 2020 and 2023 are actively supported.
+As of November 2026, there are five such standard environments, versioned 2026, 2023, 2020, 2018.3 and 2016.4, with each new version incorporating major improvements. **Only versions 2026 and 2023 are actively supported.**
 
 This page describes these changes and explains why you should upgrade to a more recent version.
 
 In general, new versions of software packages will get installed with the newest software environment.
 
+### `StdEnv/2026`
+This is the most recent iteration of our software environment.
+It uses GCC 15.3.0, Intel 2026.1, CUDA 13.3 and Open MPI 5.0.10 as defaults.
+
+To activate this environment, use the command
+```bash
+module load StdEnv/2026
+```
+
 ### `StdEnv/2023`
-This is the most recent iteration of our software environment. It uses GCC 12.3.0, Intel 2023.1, and Open MPI 4.1.5 as defaults.
+It uses GCC 12.3.0, Intel 2023.1, and Open MPI 4.1.5 as defaults.
 
 To activate this environment, use the command
 ```bash
@@ -98,9 +104,9 @@ module load StdEnv/2020
 #### Performance improvements
 Binaries compiled with the Intel compiler now automatically support both AVX2 and AVX512 instruction sets. In technical terms, we call them *multi-architecture binaries*, also known as [fat binaries](https://en.wikipedia.org/wiki/Fat_binary). This means that when running on a cluster such as Cedar and Graham which has multiple generations of processors, you don't have to manually load one of the `arch` modules if you use software packages generated by the Intel compiler.
 
-Many software packages which were previously installed either with GCC or with Intel are now installed at a lower level of the software hierarchy, which makes the same module visible, irrespective of which compiler is loaded. For example, this is the case for many bioinformatics software packages as well as the [R](../software/r.md) modules, which previously required loading the `gcc` module. This could be done because we introduced optimizations specific to CPU architectures at a level of the software hierarchy lower than the compiler level.
+Many software packages which were previously installed either with GCC or with Intel are now installed at a lower level of the software hierarchy, which makes the same module visible, irrespective of which compiler is loaded. For example, this is the case for many bioinformatics software packages as well as the [R](../software/r.md) modules, which previously required loading the `gcc` module. This could be done because we introduced optimisations specific to CPU architectures at a level of the software hierarchy lower than the compiler level.
 
-We also installed a more recent version of the [GNU C Library](https://en.wikipedia.org/wiki/GNU_C_Library), which introduces optimizations in some mathematical functions. This has increased the requirement on the version of the Linux Kernel (see below).
+We also installed a more recent version of the [GNU C Library](https://en.wikipedia.org/wiki/GNU_C_Library), which introduces optimisations in some mathematical functions. This has increased the requirement on the version of the Linux Kernel (see below).
 
 #### Change in the compatibility layer
 Another enhancement for the 2020 release was a change in tools for our compatibility layer. The compatibility layer is between the operating system and all other software packages. This layer is designed to ensure that compilers and scientific applications will work whether they run on CentOS, Ubuntu, or Fedora. For the 2016.4 and 2018.3 versions, we used the [Nix package manager](https://en.wikipedia.org/wiki/Nix_package_manager), while for the 2020 version, we used [Gentoo Prefix](https://wiki.gentoo.org/wiki/Project:Prefix).

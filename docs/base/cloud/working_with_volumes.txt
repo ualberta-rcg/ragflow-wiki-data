@@ -130,13 +130,14 @@ To detach a volume, log in to the OpenStack dashboard (see the [[Cloud#Cloud_sys
 <!--T:19-->
 *With volumes attached to <code>/dev/vdb</code>, <code>/dev/vdc</code>, etc. you do not need to delete the VM it is attached to before proceeding. In the ''Actions'' column drop-down list, select ''Manage Attachments'', click on the ''Detach Volume'' button and again on the next ''Detach Volume'' button to confirm.
 
-<!--T:20-->
-=Changing the Volume Type of an Existing Volume=
+=Changing the Volume Type of an Existing Volume= <!--T:20-->
 
+<!--T:30-->
 OpenStack clouds (like Arbutus) can provide multiple volume types with different storage performance characteristics.
 The two primary volume types available on Arbutus are:
 
-{| class="wikitable" style="margin:auto"
+<!--T:31-->
+{| class="wikitable" style="margin-right: auto;"
 |- 
 ! Volume type !! Storage !! Recommended use
 |- 
@@ -145,6 +146,7 @@ The two primary volume types available on Arbutus are:
 | high_performance || NVMe-based storage || Operating Systems, Databases and other I/O-intensive or latency-sensitive workloads. Note: Quota is very limited on this volume type. 
 |}
 
+<!--T:32-->
 Before changing a volume type
 We recommend that you:
 # Back up important data. As with any storage operation, ensure that important data is backed up before making changes. 
@@ -152,15 +154,19 @@ We recommend that you:
 # Plan for the operation to take some time. Changing the backing storage of a large volume may require data to be migrated between storage systems. 
 # Avoid unnecessary disk activity during migration. For important or write-intensive applications, consider scheduling the change during a maintenance period. 
 
+<!--T:33-->
 Existing volumes can be changed from rbd1 to high_performance without creating a new volume. This can be done in both the Web Interface or CLI: 
 
-==Changing an existing volume using the Dashboard==
+==Changing an existing volume using the Dashboard== <!--T:34-->
 
+<!--T:35-->
 Before starting, we recommend backing up any important data on the volume. This example will explain the process of migrating a volume from rbd1 to high_performance volume type. 
 
 
+<!--T:36-->
 [[File:Change volume type.png|thumb]]
 
+<!--T:37-->
 # Log in to the OpenStack Horizon dashboard. 
 # Select the appropriate project.
 # From the navigation menu, select Project → Volumes -> Volumes.
@@ -173,22 +179,28 @@ Before starting, we recommend backing up any important data on the volume. This 
 # Return to the Volumes page and monitor the volume's status. While the operation is underway, the volume may show a status of Retyping.
 # When the operation is complete, verify that the volume's Type is now high_performance.
 
+<!--T:38-->
 Important: Changing between rbd1 and high_performance may require the volume's data to be migrated between different storage backends. The operation can therefore take some time, particularly for larger volumes. Do not assume that a volume-type change is instantaneous.
 
-==Changing an existing volume using the CLI==
+==Changing an existing volume using the CLI== <!--T:39-->
 
+<!--T:40-->
 Using the OpenStack command-line client, first identify the volume:
 {{Command|openstack volume list}}
 
+<!--T:41-->
 Check its current volume type:
 {{Command|openstack volume show <volume>}}
 
+<!--T:42-->
 Then request that the volume be changed to the high_performance type:
 {{Command|openstack volume set --type high_performance --retype-policy on-demand <volume>}}
 
+<!--T:43-->
 You can monitor the volume while the change is taking place:
 {{Command|openstack volume show <volume>}}
 
+<!--T:44-->
 Once the operation has completed, verify that the volume type is reported as high_performance.
 [[Category:Cloud]]
 </translate>

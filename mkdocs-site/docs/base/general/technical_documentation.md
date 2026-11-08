@@ -4,27 +4,24 @@ slug: "technical_documentation"
 lang: "base"
 
 source_wiki_title: "Technical documentation"
-source_hash: "09f60ac461ae9550413733edfab0fe35"
-last_synced: "2026-04-10T15:28:10.183781+00:00"
-last_processed: "2026-04-11T11:49:24.672713+00:00"
+source_hash: "0f16bbbbac3878fdbf905062080f6628"
+last_synced: "2026-11-08T02:07:32.985064+00:00"
+last_processed: "2026-11-08T03:01:29.625942+00:00"
 
 tags:
   []
 
 keywords:
-  - "compute clusters"
-  - "technical documentation wiki"
-  - "national systems and services"
-  - "research data management"
   - "Digital Research Alliance of Canada"
+  - "cloud computing service"
+  - "compute clusters"
+  - "research data management"
+  - "regional partners"
 
 questions:
-  - "What types of national computing systems and services are available through the Digital Research Alliance of Canada?"
-  - "What topics are covered in the how-to and discipline-specific guides provided for users?"
-  - "Where can users find documentation and training resources for systems managed by regional partners?"
-  - "What types of national computing systems and services are available through the Digital Research Alliance of Canada?"
-  - "What topics are covered in the how-to and discipline-specific guides provided for users?"
-  - "Where can users find documentation and training resources for systems managed by regional partners?"
+  - "What national compute clusters and services are listed in the Alliance’s technical documentation wiki?"
+  - "Which how‑to guides are provided to help users get started with the Alliance’s systems and services?"
+  - "Where can users find information about regional partners and the training resources they offer?"
 
 status:
   downloaded: true
@@ -46,12 +43,12 @@ This wiki is a constant work-in-progress and some links might take you to pages 
 **Systems**
 * 2025 [infrastructure renewal](../clusters/infrastructure_renewal.md)
 * **[General-purpose clusters](../clusters/national_systems.md#compute-clusters)**, for CPU or GPU jobs:
-  * [Fir](../software/fir.md), [Nibi](../clusters/nibi.md), [Narval](../clusters/narval.md), [Rorqual](../clusters/rorqual.md)
+    * [Fir](../software/fir.md), [Nibi](../clusters/nibi.md), [Narval](../clusters/narval.md), [Rorqual](../clusters/rorqual.md)
 * [Trillium](../clusters/trillium.md), a cluster designed for large parallel jobs
 * GPU clusters which are part of the Pan-Canadian AI Compute Environment (PAICE)
-  * [Killarney](../clusters/killarney.md), [tamIA](../clusters/tamia.md), [Vulcan](../clusters/vulcan.md)
+    * [Killarney](../clusters/killarney.md), [tamIA](../clusters/tamia.md), [Vulcan](../clusters/vulcan.md)
 * Legacy clusters that are at the end of their life or retired:
-  * [Béluga](../clusters/béluga.md), [Cedar](../clusters/cedar.md), [Graham](../clusters/graham.md), [Niagara](../clusters/national_systems.md)
+    * [Béluga](../clusters/béluga.md), [Cedar](../clusters/cedar.md), [Graham](../clusters/graham.md), [Niagara](../clusters/national_systems.md)
 
 **Services**
 * [Available software](../programming/available_software.md)
@@ -68,13 +65,13 @@ FAQ: [Frequently Asked Questions](../getting-started/frequently_asked_questions.
 
 ## How-to guides
 * **[Getting started](../getting-started/getting_started.md)**
-  * [Trillium Quick Start Guide](../clusters/trillium_quickstart.md)
-  * [Cloud Quick Start Guide](../cloud/cloud_quick_start.md)
-  * [SSH](../getting-started/ssh.md) - How to connect to our compute clusters
-  * [Linux introduction](../getting-started/linux_introduction.md)
+    * [Trillium Quick Start Guide](../clusters/trillium_quickstart.md)
+    * [Cloud Quick Start Guide](../cloud/cloud_quick_start.md)
+    * [SSH](../getting-started/ssh.md) - How to connect to our compute clusters
+    * [Linux introduction](../getting-started/linux_introduction.md)
 * [Storage and file management](../storage-and-data/storage_and_file_management.md)
-  * [Transferring data](../getting-started/transferring_data.md)
-  * [Scratch purging policy](../storage-and-data/scratch_purging_policy.md)
+    * [Transferring data](../getting-started/transferring_data.md)
+    * [Scratch purging policy](../storage-and-data/scratch_purging_policy.md)
 * Best practices for data migration
 * [Using modules](../programming/utiliser_des_modules.md) and [Standard software environments](../programming/standard_software_environments.md) to access software
 * **[Running jobs](../running-jobs/running_jobs.md)**
@@ -97,9 +94,11 @@ FAQ: [Frequently Asked Questions](../getting-started/frequently_asked_questions.
 
 ## Regional partners and services
 * [Western training](https://training.westdri.ca/)
-  * [UAlberta training](https://www.ualberta.ca/information-services-and-technology/research-computing/bootcamps.html)
+    * [UAlberta training](https://www.ualberta.ca/information-services-and-technology/research-computing/bootcamps.html)
 * [SHARCNET](https://sharcnet.ca)
 * [SciNet](https://docs.scinet.utoronto.ca/index.php/Main_Page)
 * [Centre for Advanced Computing](http://cac.queensu.ca/wiki)
 * [Calcul Québec](https://www.calculquebec.ca/)
-* [ACENET](http://www.ace-net.ca/wiki/)
+* [ACENET](https://www.ace-net.ca/)
+    * [ACENET Training](https://www.acenet.training/)
+    * [ACENET Technical Wiki](https://wiki.ace-net.ca/)

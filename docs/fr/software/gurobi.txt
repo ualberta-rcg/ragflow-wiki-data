@@ -91,6 +91,7 @@ Une fois que votre script Slurm est prêt, vous pouvez le soumettre à la queue 
 <span id="Data_example"></span>
 === Exemple de données === 
 
+<div class="mw-translate-fuzzy">
 Le script Slurm suivant utilise l' [https://www.gurobi.com/documentation/9.5/quickstart_linux/solving_the_model_using_th.html interface ligne de commande] pour résoudre un [https://www.gurobi.com/documentation/9.5/quickstart_linux/solving_a_simple_model_the.html modèle simple pour produire des pièces de monnaie] écrit en [https://www.gurobi.com/documentation/9.5/refman/lp_format.html format LP]. La dernière ligne montre comment des [https://www.gurobi.com/documentation/9.5/refman/parameters.html paramètres] peuvent être passés directement à l'outil ligne de commande <code>gurobi_cl</code> avec des arguments simples. Pour sélectionner les meilleurs [https://www.gurobi.com/documentation/9.5/refman/parameters.html paramètres] pour un problème particulier et pour choisir les valeurs optimales, voyez les sections <i>Performance and Parameters</i> et <i>Algorithms and Search</I> dans la page [https://support.gurobi.com/hc/en-us/categories/360000840331-Knowledge-Base Knowledge Base] et dans la [https://www.gurobi.com/documentation/ documentation Gurobi].
 {{File
   |name=script-lp_coins.sh
@@ -102,11 +103,16 @@ Le script Slurm suivant utilise l' [https://www.gurobi.com/documentation/9.5/qui
 #SBATCH --cpus-per-task=8     # specify number threads
 #SBATCH --mem=4G              # specify total memory
 #SBATCH --nodes=1             # do not change
+</div>
 
+<div class="mw-translate-fuzzy">
 #module load StdEnv/2016      # for versions < 9.0.3 
 module load StdEnv/2020       # for versions > 9.0.2
+</div>
 
+<div class="mw-translate-fuzzy">
 module load gurobi/9.5.0
+</div>
 
 rm -f coins.sol
 gurobi_cl Threads=$SLURM_CPUS_ON_NODE Method=2 ResultFile=coins.sol ${GUROBI_HOME}/examples/data/coins.lp

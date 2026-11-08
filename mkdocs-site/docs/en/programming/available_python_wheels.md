@@ -4,27 +4,24 @@ slug: "available_python_wheels"
 lang: "en"
 
 source_wiki_title: "Available Python wheels/en"
-source_hash: "a4a5fa8a8ddc49537f75e772bb3d908d"
-last_synced: "2026-04-10T15:28:10.183781+00:00"
-last_processed: "2026-04-11T05:37:52.028736+00:00"
+source_hash: "cade787eb3dfbe83c070195256d0a7b5"
+last_synced: "2026-11-08T02:07:32.985064+00:00"
+last_processed: "2026-11-08T02:48:58.234259+00:00"
 
 tags:
   []
 
 keywords:
-  - "wheelhouse"
+  - "module spider"
+  - "Wheels3.15"
+  - "avail_wheels"
   - "StdEnv"
   - "Python wheels"
-  - "avail_wheels"
-  - "modules"
 
 questions:
-  - "How can a user request the installation or update of a specific Python wheel?"
-  - "What command should be used to check if a specific wheel is available in the currently loaded software environment?"
-  - "How can a user search for Python wheels that are provided as part of system modules rather than the standard wheelhouse?"
-  - "How can a user request the installation or update of a specific Python wheel?"
-  - "What command should be used to check if a specific wheel is available in the currently loaded software environment?"
-  - "How can a user search for Python wheels that are provided as part of system modules rather than the standard wheelhouse?"
+  - "How can I determine which Python wheels are available in my active StdEnv?"
+  - "Which command should I use to list wheels that belong to loaded modules rather than the wheelhouse?"
+  - "What is the procedure to request installation or an update of a particular wheel that is not listed?"
 
 status:
   downloaded: true
@@ -43,42 +40,39 @@ A current list of the [Python wheels](https://pythonwheels.com/) available from 
     To find out which wheels can be installed in your active StdEnv, use the `avail_wheels` command described in [Available wheels](../software/python.md#available-wheels).
 
 ## Listing wheels from modules
-Some wheels may not be listed, as they are part of modules. For example:
-*   [pyarrow (Arrow)](../software/arrow.md#pyarrow)
-*   pyqt5 (QT)
-*   petsc4py (PETSc)
-*   [opencv_python (OpenCV)](../software/opencv.md#python-bindings)
 
-You can search for such extension with:
+Some wheels may not be listed, as they are part of modules. For example:
+* [pyarrow (Arrow)](../software/arrow.md#pyarrow)
+* pyqt5 (QT)
+* petsc4py (PETSc)
+* [opencv_python (OpenCV)](../software/opencv.md#python-bindings)
+
+You can search for such extensions with:
 ```bash
 module spider <python package>
 ```
 
-## Listing wheels from current software environment
+## Listing wheels from your current software environment
+
 1.  Load the software environment.
     ```bash
     module load StdEnv/YYYY
     ```
-    where `YYYY` is `2020` or `2023`
+    where `YYYY` is `2026` or `2023`.
 
 2.  Look for a specific wheel.
     ```bash
     avail_wheels <name>
     ```
-    where `name` is the name the wheel you are looking for.
+    where `name` is the name of the wheel you are looking for.
 
 ## Available wheels across all software environments
 
-=== "Python 3.14"
+You can find lists of available Python wheels for specific Python versions by following these links:
 
-=== "Python 3.13"
-
-=== "Python 3.12"
-
-=== "Python 3.11"
-
-=== "Python 3.10"
-
-=== "Python 3.9 (no longer supported)"
-
-=== "Python 3.8 (no longer supported)"
+*   Python 3.15
+*   Python 3.14
+*   Python 3.13
+*   Python 3.12
+*   Python 3.11
+*   Python 3.10
