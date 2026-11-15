@@ -19,7 +19,6 @@ $ sbatch simple_job.sh
 Submitted batch job 123456
 </source>
 
-<div class="mw-translate-fuzzy">
 Un script simple Slurm ressemble à ceci&nbsp;:
 {{File
   |name=simple_job.sh
@@ -29,9 +28,9 @@ Un script simple Slurm ressemble à ceci&nbsp;:
 #SBATCH --time=00:15:00
 #SBATCH --account=def-someuser
 echo 'Hello, world!'
-sleep 30  
+date
+hostname  
 }}
-</div>
 
 Sur les superordinateurs d'usage général, cette tâche réserve un (1) cœur et 256Mo de mémoire pendant 15 minutes. Sur [[Trillium/fr|Trillium]], la tâche réserve le nœud entier avec toute sa mémoire.
 Les directives (ou <i>options</i>) comprises dans le script ont le préfixe <code>#SBATCH</code> et doivent précéder toutes les commandes exécutables. La [https://slurm.schedmd.com/sbatch.html page sbatch] décrit toutes les directives disponibles. Pour chaque tâche, notre politique demande de fournir au moins une durée (<code>--time</code>) et un nom de compte (<code>--account</code>); voyez la section [[Running jobs/fr#Comptes_et_projets|Comptes et projets]] ci-après.
@@ -231,7 +230,7 @@ Consultez l'information sur le [[Tutoriel_Apprentissage_machine#Morcellement_d'u
 <span id="Restarting_using_job_arrays"></span>
 === Redémarrage avec des vecteurs de tâches===
 
-La syntaxe <code>--array=1-100%10</code> permet de soumettre une collection de tâches identiques en n'exécutant qu'une tâche à la fois.
+La syntaxe <code>--array=1-10%1</code> permet de soumettre une collection de tâches identiques en n'exécutant qu'une tâche à la fois.
 Le script doit faire en sorte que le dernier point de contrôle soit toujours utilisé pour la prochaine tâche. Le nombre de redémarrages est spécifié avec l'argument <code>--array</code>.
 
 Dans l'exemple suivant en dynamique moléculaire, la simulation comporte 1 million d'étapes et dépasse la limite de temps imposée pour la grappe. La simulation peut cependant être divisée en 10 tâches de 100,000 étapes séquentielles. 

@@ -106,35 +106,33 @@ Pour détacher un volume, connectez-vous à OpenStack (voir la [[Cloud/fr#Ressou
 
 *Si la colonne indique <code>/dev/vdb</code>, <code>/dev/vdc</code>, etc., il n'est pas nécessaire de détacher l'instance. Dans la liste déroulante sous ''Actions'', sélectionnez ''Gérer les attachements'', cliquez sur le bouton ''Détacher le volume'' puis sur l'autre bouton  ''Détacher le volume'' pour confirmer.
 
-<span id="Changing_the_Volume_Type_of_an_Existing_Volume"></span>
-<div class="mw-translate-fuzzy">
-[[Category:Cloud]]
-</div>
+<span id="Changing_the_type_of_an_existing_volume"></span>
+=Changer le type d'un volume existant=
 
-OpenStack clouds (like Arbutus) can provide multiple volume types with different storage performance characteristics.
-The two primary volume types available on Arbutus are:
+Les nuages OpenStack offrent plusieurs types de stockage pour les volumes. Sur Arbutus, les principaux types sont
 
 {| class="wikitable" style="margin-right: auto;"
 |- 
-! Volume type !! Storage !! Recommended use
+! Type de volume !! Stockage !! Utilisation recommandée
 |- 
-| rbd1 || Hard disk drive (HDD) based storage || General-purpose storage and workloads where high storage performance is not required or large size is desired
+| rbd1 || stockage sur disque HDD || utilisation générale et tâches non intensives ou qui ne demandent pas de stockage de haute performance
 |- 
-| high_performance || NVMe-based storage || Operating Systems, Databases and other I/O-intensive or latency-sensitive workloads. Note: Quota is very limited on this volume type. 
+| high_performance || stockage MVE (M-Profile Vector Extension) || systèmes d'exploitation, bases de données et autres tâches intensives en entrée/sortie, ou sensibles à la latence.
+Remarque : le quota est très limité pour ce type de volume.
 |}
 
-Before changing a volume type
-We recommend that you:
-# Back up important data. As with any storage operation, ensure that important data is backed up before making changes. 
-# Check available quota. The destination storage tier may have different quota or availability constraints. 
-# Plan for the operation to take some time. Changing the backing storage of a large volume may require data to be migrated between storage systems. 
-# Avoid unnecessary disk activity during migration. For important or write-intensive applications, consider scheduling the change during a maintenance period. 
+Avant de changer le type d'un volume, il est recommandé de&nbsp;:
+* Sauvegarder les données importantes; comme pour toute opération de stockage, assurez-vous que les données importantes sont sauvegardées avant de faire des modifications.
+* Vérifier le quota disponible; le stockage de destination peut avoir des quotas ou des contraintes de disponibilité différents de ceux de la source.
+* Prévoir que l'opération prenne un certain temps; la migration peut nécessiter migration des données d'autres systèmes de stockage.
+* Éviter les activités inutiles pendant la migration. Pour les applications importantes ou à forte intensité d'écriture, pensez à planifier le changement pendant une période de maintenance. 
 
-Existing volumes can be changed from rbd1 to high_performance without creating a new volume. This can be done in both the Web Interface or CLI: 
+Il est possible de passer de rbd1 à high_performance sans avoir à créer un nouveau volume, soit dans l'interface web ou dans la ligne de commande client. 
 
-==Changing an existing volume using the Dashboard==
+<span id="Changing_an_existing_volume_using_the_Dashboard"></span>
+==Changer via le tableau de bord==
 
-Before starting, we recommend backing up any important data on the volume. This example will explain the process of migrating a volume from rbd1 to high_performance volume type. 
+Avant de commencer, nous recommandons de sauvegarder toutes les données importantes. L'exemple suivant décrit le processus de migration de rbd1 vers high_performance. 
 
 
 [[File:Change volume type.png|thumb]]
@@ -151,21 +149,22 @@ Before starting, we recommend backing up any important data on the volume. This 
 # Return to the Volumes page and monitor the volume's status. While the operation is underway, the volume may show a status of Retyping.
 # When the operation is complete, verify that the volume's Type is now high_performance.
 
-Important: Changing between rbd1 and high_performance may require the volume's data to be migrated between different storage backends. The operation can therefore take some time, particularly for larger volumes. Do not assume that a volume-type change is instantaneous.
+Important : Passer de rbd1 à high_performance pourrait nécessiter que les données du volume soient migrées vers d'autres espaces de stockage; l'opération peut donc prendre un certain temps, surtout pour les volumes plus gros. Ne supposez pas qu'un tel changement se fait instantanément.
 
-==Changing an existing volume using the CLI==
+<span id="Changing_an_existing_volume_using_the_CLI"></span>
+==Changer via la ligne de commande==
 
-Using the OpenStack command-line client, first identify the volume:
+Identifiez d'abord le volume sur la ligne de commande du client avec
 {{Command|openstack volume list}}
 
-Check its current volume type:
+Vérifiez le type actuel avec
 {{Command|openstack volume show <volume>}}
 
-Then request that the volume be changed to the high_performance type:
+Changez pour le type high_performance.
 {{Command|openstack volume set --type high_performance --retype-policy on-demand <volume>}}
 
-You can monitor the volume while the change is taking place:
+Pour suivre le processus de changement du volume, utilisez
 {{Command|openstack volume show <volume>}}
 
-Once the operation has completed, verify that the volume type is reported as high_performance.
+Quand l'opération est terminée, vérifiez que le changement s'est bien fait.
 [[Category:Cloud]]

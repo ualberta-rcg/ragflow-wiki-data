@@ -132,9 +132,11 @@ export GPAW_SETUP_PATH=/scratch/$USER/gpaw-setups-0.9.20000
 
 srun --cpus-per-task=$OMP_NUM_THREADS gpaw python my_gpaw_script.py
 }}
+<div class="mw-translate-fuzzy">
 Le scrip utilise un nœud simple avec 8 rangs MPI (ntasks) et 4 fils OpenMP par rang MPI  pour un total de 32 CPU.
 Vous voudrez probablement modifier ces valeurs pour que le produit corresponde au nombre de cœurs d'un nœud entier 
 (soit 32 sur [[Graham/fr|Graham]], 40 sur [[Béluga]] et [[Niagara/fr|Niagara]], 48 sur [[Cedar/fr|Cedar]] ou 64 sur [[Narval]]).
+</div>
 
 Le fait de configurer  <code>OMP_NUM_THREADS</code> comme expliqué ci-dessus fait en sorte qu'il a toujours la même valeur que cpus-per-task ou 1 quand cpus-per-task n'est pas défini.
 Le chargement des modules <code>gcc/9.3.0</code> et  <code>openmpi/4.0.3</code> fait en sorte que la bonne bibliothèque MPI est utilisée pour la tâche, la même qui a été utilisée pour construire les wheels.

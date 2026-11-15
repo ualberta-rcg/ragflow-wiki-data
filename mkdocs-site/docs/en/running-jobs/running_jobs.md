@@ -4,116 +4,117 @@ slug: "running_jobs"
 lang: "en"
 
 source_wiki_title: "Running jobs/en"
-source_hash: "bc67360d0a53bc2da86aaf544c2f57c8"
-last_synced: "2026-09-06T00:43:13.954271+00:00"
-last_processed: "2026-09-06T02:52:36.814654+00:00"
+source_hash: "ff8be707da35cc391fe968a00d804ffe"
+last_synced: "2026-11-15T02:27:25.182546+00:00"
+last_processed: "2026-11-15T03:43:11.949402+00:00"
 
 tags:
   - slurm
 
 keywords:
-  - "Slurm specification"
-  - "job scheduling"
-  - "jobs"
-  - "maximum memory"
-  - "checkpointing"
-  - "stopping condition"
-  - "Troubleshooting"
-  - "interactive jobs"
-  - "cluster"
-  - "memory allocation"
-  - "test nodes"
-  - "Cluster particularities"
-  - "sbatch"
-  - "GP cluster"
-  - "follow-up job"
-  - "account directive"
-  - "job arrays"
-  - "job duration"
-  - "Automating job submission"
-  - "binary prefixes"
-  - "job output"
-  - "Job scripts"
-  - "account name"
-  - "chain of jobs"
-  - "scancel"
+  - "SBATCH_ACCOUNT"
+  - "resubmission"
+  - "SLURM script"
+  - "dedicated test nodes"
   - "positive test"
-  - "Slurm"
-  - "electronic-structure calculations"
-  - "salloc"
-  - "density-functional theory"
-  - "Quantum ESPRESSO"
-  - "Slurm jobs"
-  - "squeue"
-  - "resubmitting jobs"
+  - "module load error"
+  - "META-Farm"
+  - "job arrays"
+  - "convergence criterion"
+  - "--export=none"
+  - "Slurm specification"
+  - "GNU Parallel"
+  - "sq"
+  - "three hours"
+  - "array jobs"
   - "X11 forwarding"
-  - "materials modeling"
-  - "SLURM"
-  - ".bashrc"
-  - "Node characteristics"
-  - "output buffering"
-  - "chemistry libraries"
-  - "job script"
-  - "job scheduler"
-  - "work_should_continue"
-  - "Resource Allocation Project"
+  - "Quantum ESPRESSO"
+  - "checkpoint file"
+  - "pseudopotentials"
+  - "--mem"
+  - "--account=def-fuenma"
   - "interactive job"
+  - "#SBATCH directives"
+  - "--time"
+  - "~/.bashrc"
+  - "scancel"
+  - "sbatch"
+  - "chain of jobs"
+  - "module purge"
+  - "--mem=125G"
+  - "Available memory"
+  - "OpenMP job"
+  - "plane waves"
+  - "stopping condition"
+  - "output buffering"
+  - "SLURM_ARRAY_TASK_ID"
+  - "array job"
   - "environment variables"
-  - "Slurm Workload Manager"
-  - "job scripts"
+  - "regular set of nodes"
+  - "work_should_continue"
+  - "Resource Allocation Project (RAP)"
+  - "squeue"
+  - "density-functional theory"
+  - "dependency=afterok"
+  - "--account"
+  - "slurm-<jobid>.out"
+  - "electronic-structure calculations"
+  - "binary prefixes"
+  - "module load"
+  - "RAP zhf-914-aa"
+  - "Node characteristics"
 
 questions:
-  - "Under what specific conditions are users permitted to run tasks on a login node rather than submitting them through the scheduler?"
-  - "What is the primary command used to submit jobs, and which specific directives are required in the job script?"
-  - "How does requesting a specific amount of memory affect the availability of nodes for a job, and how does Slurm interpret memory units?"
-  - "How can a user check the status of their Slurm jobs, and why should they avoid running these status commands at a high frequency?"
-  - "Where does the standard output and error of a Slurm job go by default, and how can these file locations be customized?"
-  - "What steps must a user take to specify an account for their job submission if they belong to multiple Resource Allocation Projects?"
-  - "How are binary prefixes like 'G' and 'M' interpreted when specifying memory requests in Slurm?"
-  - "Where can users find the maximum memory limits they are allowed to request for a given node?"
-  - "Which specific computing clusters are listed as having available memory specifications?"
-  - "How does using the `--account` flag during submission affect the Resource Allocation Project (RAP) accounting?"
-  - "How can a user find the correct group name for their Resource Allocation Project?"
-  - "Which file should be edited to set environment variables for using a consistent account across all jobs?"
-  - "How does Slurm prioritize account names when they are provided through environment variables, job script directives, and command-line arguments?"
-  - "What are the distinct characteristics and configurations of the various batch job scripts, such as serial, array, OpenMP, and MPI jobs?"
-  - "How do you initiate an interactive job using the `salloc` command, and how does the requested time duration impact the scheduling wait time?"
-  - "How can a user cancel specific jobs, all their jobs, or all their pending jobs using the scancel command?"
-  - "What is checkpointing, and why is it essential for computations that exceed the system's time limits?"
-  - "What are the two recommended methods for automatically restarting long-running jobs, and how should the continuation test be designed to prevent infinite loops?"
-  - "What must be enabled during the SSH connection for the `/code>` command to function properly?"
-  - "Why do interactive jobs requesting three hours or less usually start almost immediately?"
-  - "What are the scheduling consequences of submitting an interactive job that requires more than three hours?"
-  - "Why is it recommended to use a positive test rather than a negative test when determining whether to submit a follow-up job?"
-  - "What specific risks are associated with relying on a stopping condition to control job chains?"
-  - "How can unforeseen errors lead to an indefinite loop of useless jobs in an automated submission process?"
-  - "What tools and practices are recommended for automating the submission of a large number of related calculations?"
-  - "What are the specific job scheduling limits and restrictions for clusters such as Beluga, Fir, Narval, Nibi, and Rorqual?"
-  - "How can users troubleshoot common job submission issues like hidden characters in scripts, cancelled dependent jobs, and unloaded modules?"
-  - "What specific modules must be loaded before the Quantum ESPRESSO 6.1 module becomes available for use?"
-  - "What is the primary purpose and application of the Quantum ESPRESSO software suite?"
-  - "What scientific theories and computational methods form the foundation of Quantum ESPRESSO's modeling capabilities?"
-  - "How can users prevent issues caused by jobs inheriting environment variables from the submitting shell?"
-  - "Why might a submitted job appear to hang with no output, and what is the recommended way to monitor its progress in real-time?"
-  - "Where can users find information regarding job scheduling policies and managing priorities for competing jobs within a research group?"
+  - "How do you submit a job with sbatch and what mandatory directives must be included in the Slurm job script?"
+  - "What are the recommended ways to request memory (per‑CPU vs. per‑node) on general‑purpose clusters compared to Trillium, and how do node memory limits affect your request?"
+  - "Why should you avoid submitting a large number of jobs simultaneously, and what strategies (e.g., array jobs or spacing calls) are suggested to prevent Slurm from becoming unresponsive?"
+  - "How can you list only your own Slurm jobs and what do the ST column values (e.g., PD, R) represent?"
+  - "Where is the default job output written, and how can you customize the output and error file names using --output and --error directives?"
+  - "If you belong to multiple accounts, how do you specify the correct account when submitting a job, and where can you find the appropriate group name for that account?"
+  - "How are binary prefixes (e.g., G, M) interpreted in Slurm memory specifications, and what conversion does “--mem=125G” undergo?"
+  - "Why does “--mem=125G” correspond to “--mem=128000M” rather than “--mem=125000M”?"
+  - "Which table and column should you consult to find the maximum memory you can request on nodes of the GP clusters (Fir, Narval, Nibi, Rorqual)?"
+  - "What is the purpose of using the `--account=def-fuenma` option when submitting jobs?"
+  - "How can you determine the correct group name for a Resource Allocation Project (RAP) as shown in the provided image?"
+  - "Which three environment variables should be added to `~/.bashrc` to consistently use a single account for all jobs?"
+  - "How do the environment variables SLURM_ACCOUNT, SBATCH_ACCOUNT, and SALLOC_ACCOUNT influence the account used for sbatch and srun submissions, and how can they be overridden?"
+  - "What are the key characteristics and submission directives for the different job types described (serial, array, OpenMP/threaded, MPI, GPU, and interactive) in Slurm?"
+  - "How do you request resources and start an interactive session with salloc, and what constraints apply to job duration and node allocation for interactive jobs?"
+  - "How do you cancel a specific job or all of your pending jobs using the `scancel` command?"
+  - "What are the two recommended methods for automatically restarting long‑running computations that exceed the cluster’s time limits?"
+  - "In a job‑resubmission script, what is the purpose of the `work_should_continue` test and why should it be a positive condition?"
+  - "What steps must you take to connect to the cluster with X11 forwarding enabled before using the /code> command?"
+  - "How does the expected start time differ for interactive jobs that request three hours or less versus those that request more than three hours?"
+  - "Where can you find the instructions for enabling X11 forwarding via SSH, and why is this information important for submitting interactive jobs?"
+  - "What is the recommended way to implement the `work_should_continue` test when deciding whether to submit a follow‑up job?"
+  - "Why should this test be a positive test rather than a negative one that checks for a stopping condition?"
+  - "What risk does using a negative test pose if an unforeseen error prevents the stopping condition from being met?"
+  - "What tools are provided on the clusters to automate the submission of many related serial, parallel, or GPU calculations?"
+  - "Why should users avoid specifying a partition in their job submissions, and how can software that automatically sets a partition be adjusted to follow this recommendation?"
+  - "What common problems can arise with job scripts (such as hidden characters, unmet dependency conditions, or module loading errors), and what steps are suggested to resolve each issue?"
+  - "Which prerequisite modules must be loaded before the “quantumespresso/6.1” module becomes available?"
+  - "What computational approaches (e.g., theory, basis set, pseudopotentials) does Quantum ESPRESSO rely on?"
+  - "For what kinds of scientific calculations and materials modeling is Quantum ESPRESSO typically used?"
+  - "What steps should be added to a job script to load required modules correctly and avoid environment‑variable conflicts?"
+  - "Why can a job appear to hang with no output in its log file, and how can you monitor its progress while it runs?"
+  - "How can you prevent a job from inheriting environment variables from the submitting shell, and when should you use the `--export=none` option?"
 
 status:
   downloaded: true
   converted: true
   tagged: true
   keywords_generated: true
-  ragflow_synced: false
+  ragflow_synced: true
   qa_generated: false
 ---
 
 This page is intended for the user who is already familiar with the concepts of job scheduling and job scripts, and who wants guidance on submitting jobs to our clusters.
 If you have not worked on a large shared computer cluster before, you should probably read [What is a scheduler?](what_is_a_scheduler.md) first.
 
-!!! note "All jobs must be submitted via the scheduler!"
+!!! warning "All jobs must be submitted via the scheduler!"
     Exceptions are made for compilation and other tasks not expected to consume more than about 10 CPU-minutes and about 4 gigabytes of RAM. Such tasks may be run on a login node. In no case should you run processes on compute nodes except via the scheduler.
 
-On our clusters, the job scheduler is the
-[Slurm Workload Manager](https://en.wikipedia.org/wiki/Slurm_Workload_Manager).
+On our clusters, the job scheduler is the [Slurm Workload Manager](https://en.wikipedia.org/wiki/Slurm_Workload_Manager).
 Comprehensive [documentation for Slurm](https://slurm.schedmd.com/documentation.html) is maintained by SchedMD. If you are coming to Slurm from PBS/Torque, SGE, LSF, or LoadLeveler, you might find this table of [corresponding commands](https://slurm.schedmd.com/rosetta.pdf) useful.
 
 ## Use `sbatch` to submit jobs
@@ -182,16 +183,16 @@ Error output will normally appear in the same file as standard output, just as i
 
 ## Accounts and projects
 
-Every job must have an associated account name corresponding to a [Resource Allocation Project](../getting-started/frequently_asked_questions_about_the_ccdb.md#what-is-a-rap). If you are a member of only one account, the scheduler will automatically associate your jobs with that account.
+Every job must have an associated account name corresponding to a [Resource Allocation Project](../getting-started/frequently_asked_questions_about_the_ccdb.md#what-is-a-rap) (RAP). If you are a member of only one account, the scheduler will automatically associate your jobs with that account.
 
 If you receive one of the following messages when you submit a job, then you have access to more than one account:
 
-```
+```text
  You are associated with multiple _cpu allocations...
  Please specify one of the following accounts to submit this job:
 ```
 
-```
+```text
  You are associated with multiple _gpu allocations...
  Please specify one of the following accounts to submit this job:
 ```
@@ -207,14 +208,12 @@ a given project is under the column *Group Name*. Note that a Resource
 Allocation Project may only apply to a specific cluster (or set of clusters) and therefore
 may not be transferable from one cluster to another.
 
-As an example, jobs submitted with `--account=def-fuenma` will be accounted against RAP zhf-914-aa.
+For example, jobs submitted with `--account=def-fuenma` will be accounted against RAP zhf-914-aa
 
 If you plan to use one account consistently for all jobs, once you have determined the right account name you may find it convenient to set the following three environment variables in your `~/.bashrc` file:
-```bash
-export SLURM_ACCOUNT=def-someuser
-export SBATCH_ACCOUNT=$SLURM_ACCOUNT
-export SALLOC_ACCOUNT=$SLURM_ACCOUNT
-```
+`export SLURM_ACCOUNT=def-someuser`
+`export SBATCH_ACCOUNT=$SLURM_ACCOUNT`
+`export SALLOC_ACCOUNT=$SLURM_ACCOUNT`
 Slurm will use the value of `SBATCH_ACCOUNT` in place of the `--account` directive in the job script. Note that even if you supply an account name inside the job script, *the environment variable takes priority.* In order to override the environment variable, you must supply an account name as a command-line argument to `sbatch`.
 
 `SLURM_ACCOUNT` plays the same role as `SBATCH_ACCOUNT`, but for the `srun` command instead of `sbatch`. The same idea holds for `SALLOC_ACCOUNT`.
@@ -277,12 +276,13 @@ Though batch submission is the most common and most efficient way to take advant
 *   Significant software development, debugging, or compiling
 
 You can start an interactive session on a compute node with [`salloc`](https://slurm.schedmd.com/salloc.html). In the following example we request one task, which corresponds to one CPU cores and 3 GB of memory, for an hour:
+
 ```bash
 $ salloc --time=1:0:0 --mem-per-cpu=3G --ntasks=1 --account=def-someuser
- salloc: Granted job allocation 1234567
- $ ...             # do some work
- $ exit            # terminate the allocation
- salloc: Relinquishing job allocation 1234567
+salloc: Granted job allocation 1234567
+$ ...             # do some work
+$ exit            # terminate the allocation
+salloc: Relinquishing job allocation 1234567
 ```
 
 It is also possible to run graphical programs interactively on a compute node by adding the **--x11** flag to your `salloc` command. In order for this to work, you must first connect to the cluster with X11 forwarding enabled (see the [SSH](../getting-started/ssh.md) page for instructions on how to do that). Note that an interactive job with a duration of three hours or less will likely start very soon after submission as we have dedicated test nodes for jobs of this duration. Interactive jobs that request more than three hours run on the cluster's regular set of nodes and may wait for many hours or even days before starting, at an unpredictable (and possibly inconvenient) hour.
@@ -309,7 +309,7 @@ $ scancel -t PENDING -u $USER
 ## Resubmitting jobs for long-running computations
 
 When a computation is going to require a long time to complete, so long that it cannot be done within the time limits on the system,
-the application you are running must support checkpointing. The application should be able to save its state to a file, called a *checkpoint file*, and
+the application you are running must support [checkpointing](points_de_contrôle.md). The application should be able to save its state to a file, called a *checkpoint file*, and
 then it should be able to restart and continue the computation from that saved state.
 
 For many users restarting a calculation will be rare and may be done manually,
@@ -324,7 +324,7 @@ Our [Machine Learning tutorial](../software/ai-ml/tutoriel_apprentissage_machine
 
 ### Restarting using job arrays
 
-Using the `--array=1-100%10` syntax one can submit a collection of identical jobs with the condition that only one job of them will run at any given time.
+Using the `--array=1-10%1` syntax one can submit a collection of identical jobs with the condition that only one job of them will run at any given time.
 The script should be written to ensure that the last checkpoint is always used for the next job. The number of restarts is fixed by the `--array` argument.
 
 Consider, for example, a molecular dynamics simulations that has to be run for 1 000 000 steps, and such simulation does not fit into the time limit on the cluster.
@@ -431,13 +431,12 @@ There are certain differences in the job scheduling policies from one of our clu
 
 === "Beluga, Fir, Narval, Nibi, Rorqual"
     On these clusters, no jobs are permitted longer than 168 hours (7 days) and there is a limit of 1000 jobs, queued and running, per user. Production jobs should have a duration of at least an hour.
-
 === "Trillium"
     See [Trillium specific restrictions](../clusters/trillium_quickstart.md#trillium-specific-restrictions).
 
 ## Troubleshooting
 
-### Avoid hidden characters in job scripts
+#### Avoid hidden characters in job scripts
 Preparing a job script with a word processor instead of a text editor is a common cause of trouble. Best practice is to prepare your job script on the cluster using an editor such as nano, vim, or emacs. If you prefer to prepare or alter the script off-line, then:
 *   **Windows users:**
     *   Use a text editor such as Notepad or [Notepad++](https://notepad-plus-plus.org/).
@@ -445,16 +444,16 @@ Preparing a job script with a word processor instead of a text editor is a commo
 *   **Mac users:**
     *   Open a terminal window and use an editor such as nano, vim, or emacs.
 
-### Cancellation of jobs with dependency conditions which cannot be met
+#### Cancellation of jobs with dependency conditions which cannot be met
 A job submitted with `--dependency=afterok:<jobid>` is a *dependent job*. A dependent job will wait for the parent job to be completed. If the parent job fails (that is, ends with a non-zero exit code) the dependent job can never be scheduled and so will be automatically cancelled. See [sbatch](https://slurm.schedmd.com/sbatch.html#OPT_dependency) for more on dependency.
 
-### Job cannot load a module
+#### Job cannot load a module
 It is possible to see an error such as:
 
-```
+```text
 Lmod has detected the following error: These module(s) exist but cannot be
- loaded as requested: "<module-name>/<version>"
-    Try: "module spider <module-name>/<version>" to see how to load the module(s).
+loaded as requested: "<module-name>/<version>"
+   Try: "module spider <module-name>/<version>" to see how to load the module(s).
 ```
 
 This can occur if the particular module has an unsatisfied prerequisite. For example
@@ -497,12 +496,12 @@ $ module spider quantumespresso/6.1
 
 In this case adding the line `module load nixpkgs/16.09 intel/2016.4 openmpi/2.1.1` to your job script before loading quantumespresso/6.1 will solve the problem.
 
-### Jobs inherit environment variables
+#### Jobs inherit environment variables
 By default a job will inherit the environment variables of the shell where the job was submitted. The [module](../programming/modules.md) command, which is used to make various software packages available, changes and sets environment variables. Changes will propagate to any job submitted from the shell and thus could affect the job's ability to load modules if there are missing prerequisites. It is best to include the line `module purge` in your job script before loading all the required modules to ensure a consistent state for each job submission and avoid changes made in your shell affecting your jobs.
 
 Inheriting environment settings from the submitting shell can sometimes lead to hard-to-diagnose problems. If you wish to suppress this inheritance, use the `--export=none` directive when submitting jobs.
 
-### Job hangs / no output / incomplete output
+#### Job hangs / no output / incomplete output
 
 Sometimes a submitted job writes no output to the log file for an extended period of time, looking like it is hanging. A common reason for this is the aggressive [buffering](#output-buffering) performed by the Slurm scheduler, which will aggregate many output lines before flushing them to the log file. Often the output file will only be written after the job completes; and if the job is cancelled (or runs out of time), part of the output may be lost. If you wish to monitor the progress of your submitted job as it runs, consider running an [interactive job](#interactive-jobs). This is also a good way to find how much time your job needs.
 

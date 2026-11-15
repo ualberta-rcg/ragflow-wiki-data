@@ -79,18 +79,16 @@ title: Home
 | **Vulcan** | :material-check-circle:{ style="color: green" } Operational |
 | **Trillium** | :material-check-circle:{ style="color: green" } Operational |
 | **Narval** | :material-check-circle:{ style="color: green" } Operational |
-| **Cedar Cloud** | :material-check-circle:{ style="color: green" } Operational |
 | **Graham Cloud** | :material-check-circle:{ style="color: green" } Operational |
-| **Nibi** | :material-alert:{ style="color: orange" } Reduced Throughput |
-| **Fir** | :material-check-circle:{ style="color: green" } Operational |
-| **Rorqual** | :material-calendar:{ style="color: blue" } 2026-11-09 |
+| **Nibi** | :material-check-circle:{ style="color: green" } Operational |
+| **Rorqual** | :material-check-circle:{ style="color: green" } Operational |
 | **Arbutus** | :material-alert:{ style="color: orange" } Ongoing Volume Storage Slowness |
 | **Juno** | :material-check-circle:{ style="color: green" } Operational |
 | **Killarney** | :material-check-circle:{ style="color: green" } Operational |
 | **Lunaris** | :material-check-circle:{ style="color: green" } Operational |
 | **tamIA** | :material-check-circle:{ style="color: green" } Operational |
 
-<small>*Auto-generated from [status.alliancecan.ca](https://status.alliancecan.ca) &mdash; updated 2026-11-08 03:04 UTC. See that page for current incident details.*</small>
+<small>*Auto-generated from [status.alliancecan.ca](https://status.alliancecan.ca) &mdash; updated 2026-11-15 03:54 UTC. See that page for current incident details.*</small>
 
 ---
 
@@ -100,18 +98,18 @@ Events from the [Alliance training calendar](https://explora.alliancecan.ca/even
 
 | Date | Event | Link |
 |------|-------|------|
-| TBD | Untitled | [Details](https://www.eventbrite.com/e/inscription-debug-your-python-code-from-the-command-line-2002430050184?aff=explora) |
+| TBD | Untitled | [Details](https://hub.bioinformatics.ca/en/workshops/cbw/2026-large-language-models-for-bioinformatics-edmonton-ab-2026) |
+| TBD | Untitled | [Details](https://www.eventbrite.com/e/inscription-comment-travailler-avec-r-sur-les-superordinateurs-2002430101337?aff=explora) |
+| TBD | Untitled | [Details](https://www.ace-net.ca/training-course/introduction-a-python-pour-les-shs-partie-i/) |
 | TBD | Untitled | [Details](https://scinet.courses/1408) |
-| TBD | Untitled | [Details](https://www.eventbrite.com/e/quantum-computing-theory-online-ciq101-registration-2002430062220?aff=explora) |
-| TBD | Untitled | [Register](https://libcal.mcmaster.ca/event/4052915) |
-| TBD | Untitled | [Register](https://forms.gle/tYgFGUPdoPAuAbfd8) |
-| TBD | Untitled | [Details](https://training.sharcnet.ca/courses/course/view.php?id=52) |
-| TBD | Untitled | [Register](https://libcal.library.ubc.ca/event/4058334) |
-| TBD | Untitled | [Details](https://www.eventbrite.com/e/inscription-gestion-de-grands-lots-de-taches-en-ligne-cip202-2002430087295?aff=explora) |
-| TBD | Untitled | [Details](https://www.eventbrite.com/e/inscription-apprentissage-machine-avec-scikit-learn-en-ligne-ia101-2002429953896?aff=explora) |
-| TBD | Untitled | [Details](https://scinet.courses/1408) |
+| TBD | Untitled | [Details](https://www.eventbrite.com/e/inscription-introduction-a-python-pour-les-shs-partie-i-en-ligne-pytshs101-2002430107355?aff=explora) |
+| TBD | Untitled | [Details](https://www.ace-net.ca/training-course/introduction-to-r-for-reproducible-scientific-analysis/) |
+| TBD | Untitled | [Details](https://engagedri-ca.zoom.us/meeting/register/w_QcbDm1QtuM4z1wxW5D1w) |
+| TBD | Untitled | [Details](https://training.sharcnet.ca/courses/course/view.php?id=47) |
+| TBD | Untitled | [Details](https://crdcn.ca/events/crdcn-statcan-open-mic-longitudinal-immigration-statistical-environment/) |
+| TBD | Untitled | [Register](https://libcal.mcmaster.ca/event/4052917) |
 
-<small>*Auto-generated from [explora.alliancecan.ca/events](https://explora.alliancecan.ca/events) &mdash; updated 2026-11-08 03:04 UTC.*</small>
+<small>*Auto-generated from [explora.alliancecan.ca/events](https://explora.alliancecan.ca/events) &mdash; updated 2026-11-15 03:54 UTC.*</small>
 
 ---
 

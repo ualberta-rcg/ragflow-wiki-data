@@ -4,24 +4,24 @@ slug: "mist"
 lang: "en"
 
 source_wiki_title: "Mist/en"
-source_hash: "078a9b36efe186dc4f94f683431c4f03"
-last_synced: "2026-04-10T15:28:10.183781+00:00"
-last_processed: "2026-04-11T09:09:07.702997+00:00"
+source_hash: "38adebb00e75a76086f05f3598f60740"
+last_synced: "2026-11-15T02:27:25.182546+00:00"
+last_processed: "2026-11-15T03:37:48.144998+00:00"
 
 tags:
   []
 
 keywords:
-  - "under construction"
-  - "SciNet"
-  - "Mist"
-  - "draft"
-  - "documentation"
+  - "SciNet Mist page"
+  - "2025-09-16"
+  - "Mist cluster"
+  - "decommissioned"
+  - "Trillium GPU subcluster"
 
 questions:
-  - "What is the current construction status of this webpage?"
-  - "Where should users go to find the relevant documentation in the meantime?"
-  - "What specific topic or system does the provided alternative URL address?"
+  - "When was the Mist cluster decommissioned?"
+  - "Which subcluster are Mist users advised to migrate to?"
+  - "Where can users find detailed information about the migration?"
 
 status:
   downloaded: true
@@ -32,6 +32,7 @@ status:
   qa_generated: false
 ---
 
-!!! note "Under Construction"
+The Mist cluster was decommissioned on 2025-09-16.
 
-    This page is currently under construction. Please refer to the [SciNet Mist documentation](https://docs.scinet.utoronto.ca/index.php/Mist) for relevant information in the meantime.
+!!! warning "Mist Cluster Decommissioned"
+    Mist users should migrate to the [GPU subcluster on Trillium](../clusters/trillium.md). For detailed migration information, please refer to [the SciNet Mist page](https://docs.scinet.utoronto.ca/index.php/Mist).

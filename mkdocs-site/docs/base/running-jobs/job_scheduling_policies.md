@@ -4,9 +4,9 @@ slug: "job_scheduling_policies"
 lang: "base"
 
 source_wiki_title: "Job scheduling policies"
-source_hash: "5fa7859d1dc5a699f2f44eb9ee8c4234"
-last_synced: "2026-04-10T15:28:10.183781+00:00"
-last_processed: "2026-04-11T08:11:46.998637+00:00"
+source_hash: "b1a4caad008724dca05107ccbad22c5d"
+last_synced: "2026-11-15T02:27:25.182546+00:00"
+last_processed: "2026-11-15T03:34:29.471100+00:00"
 
 tags:
   - slurm
@@ -67,16 +67,13 @@ questions:
   - "What are the three specific partition types categorized in the resource table?"
   - "What does the numerical format \"by node:by core\" represent in the context of this data?"
   - "How does the availability of resources differ between the Regular, Large Mem, and GPU partitions?"
-  - "How do you interpret the job and node statistics provided by the partition-stats utility table?"
-  - "How does the \"Matryoshka doll\" structure apply to the scheduling partitions and their respective time limits?"
-  - "What are the specific restrictions regarding the automated use of the partition-stats utility and the maximum number of jobs a user can have in the system?"
 
 status:
   downloaded: true
   converted: true
   tagged: true
   keywords_generated: true
-  ragflow_synced: true
+  ragflow_synced: false
   qa_generated: false
 ---
 
@@ -86,54 +83,89 @@ You can do much work on our clusters by [submitting jobs](running_jobs.md) that 
 
 ## Priority and fair-share
 
-The order in which jobs are considered for scheduling is determined by **priority**. Priority on our systems is determined using the "fair tree" algorithm, described [here](https://slurm.schedmd.com/fair_tree.html) and [here](https://slurm.schedmd.com/SC14/BYU_Fair_Tree.pdf).
+The order in which jobs are considered for scheduling is determined by *priority*. Priority on our systems is determined using the "fair tree" algorithm, described [here](https://slurm.schedmd.com/fair_tree.html) and [here](https://slurm.schedmd.com/SC14/BYU_Fair_Tree.pdf).
 
 Each job is charged to a Resource Allocation Project (RAP). You specify the project with the `--account` argument to `sbatch`. The project might hold a grant of CPU or GPU time from a [Resource Allocation Competition](https://www.computecanada.ca/research-portal/accessing-resources/resource-allocation-competitions/), in which case the account code will probably begin with `rrg-` or `rpp-`. Or it could be a non-RAC project, also known as a Rapid Access Service project, in which case the account code will probably begin with `def-`. See [Accounts and Projects](running_jobs.md#accounts-and-projects) for how to determine what account codes you can use.
 
 Every project has a target usage level. RAC projects have target levels determined by the number of CPU-years or GPU-years granted with each RAC award. Non-RAC projects (i.e. `def-` accounts) all have equal target levels, and that equal value is adjusted every few minutes based on the number of projects that are active on the cluster.
 
-As an example let us imagine a research group with the account code `def-prof1`. Members of this imaginary group have user names `prof1, grad2` and `postdoc3`. We can examine the group's usage and share information with the `sshare` command as shown below. Note that we must append `_cpu` or `_gpu` to the end of the account code, as appropriate, since CPU and GPU use are tracked separately.
+!!! seealso "See also"
+    [Allocations and compute scheduling](allocations_and_compute_scheduling.md)
 
-```text
-[prof1@gra-login4 ~]$ sshare -l -A def-prof1_cpu -u prof1,grad2,postdoc3
+### Target and recent usage with `sshare`
+
+As an example, let us imagine a research group with the account code `def-prof1`. Members of this imaginary group have user names `prof1, grad2` and `postdoc3`. We can examine the group's usage and share information with the `sshare` command as shown below. Note that we must append `_cpu` or `_gpu` to the end of the account code, as appropriate, since CPU and GPU use are tracked separately.
+
+```console
+[prof1@login1 ~]$ sshare -l -A def-prof1_cpu -u prof1,grad2,postdoc3
         Account       User  RawShares  NormShares  RawUsage  ... EffectvUsage  ...    LevelFS  ...
  -------------- ---------- ---------- -----------  --------  ... ------------  ... ----------  ...
- def-prof1_cpu                 434086    0.001607   1512054  ...     0.000043  ...  37.357207  ...
-  def-prof1_cpu      prof1          1    0.100000         0  ...     0.000000  ...        inf  ...   
+ def-prof1_cpu                     72    0.001607   1512054  ...     0.000043  ...  37.357207  ...
+  def-prof1_cpu      prof1          1    0.100000         0  ...     0.000000  ...        inf  ...
   def-prof1_cpu      grad2          1    0.100000     54618  ...     0.036122  ...   2.768390  ...
   def-prof1_cpu   postdoc3          1    0.100000    855517  ...     0.565798  ...   0.176741  ...
 ```
 
-The output shown above has been simplified by removing several fields which are not relevant to this discussion. Furthermore the line that is most important for scheduling is the first one. This line describes the status of the project relative to all other projects using the cluster. In this example, the research group share is 0.1607% and they have used 0.0043% of the resources on the cluster, the group's LevelFS is 37 which is quite high as the group has used a small fraction of their allocated share of resources. We would expect that jobs submitted by this group to have a fairly high priority.
+The output shown above has been simplified by removing several fields which are not relevant to this discussion. Furthermore, the line that is *most* important for scheduling is the first one. This line describes the status of the project relative to all other projects using the cluster. In this example, the research group share is 0.1607% and they have used 0.0043% of the resources on the cluster; the group's `LevelFS` is 37, which is quite high as the group has used a small fraction of their allocated share of resources. We would expect that jobs submitted by this group to have a fairly high priority.
 
-Successive lines describe the status of each user relative to other users *in this project*. Reading the 3rd line, grad2 has 1 share allocated within his group representing 10% of the group's allocation is responsible for only 3.6122% of the group's recent resource use and therefore has a higher than average level fairshare within the group. We would expect that jobs submitted by grad2 to have slightly more priority than jobs submitted by postdoc3 but less priority than jobs submitted by prof1. The priority of jobs belonging to def-prof1 group as compared to the priority of jobs belonging to other research groups is determined solely by the group’s fairshare and not the users fairshare within the group.
+Successive lines describe the status of each user relative to other users *in this project*. Reading the 3rd line, `grad2` has 1 share allocated within his group, representing 10% of the group's allocation. He is responsible for only 3.6122% of the group's recent resource use and, therefore, has a higher than average level fairshare within the group. We would expect that jobs submitted by `grad2` to have slightly more priority than jobs submitted by `postdoc3` but less priority than jobs submitted by `prof1`. The priority of jobs belonging to the `def-prof1` group as compared to the priority of jobs belonging to other research groups is determined solely by the group’s fairshare and not the users fairshare within the group.
 
 The project by itself, or the user within a project, is referred to as an "association" in the Slurm documentation.
-
 *   `Account`, obviously, is the project name with `_cpu` or `_gpu` appended.
-*   `User`: Notice that the first line of output, the project-level line, does not include a user name.
-*   `RawShares` is proportional to the number of CPU-years that was granted to the project for use on this cluster in the Resource Allocation Competition. All non-RAC accounts have small equal numbers of shares. For numeric reasons, inactive accounts (which do not have pending or running jobs) are given only one share. Activity is checked periodically, so if you submit a job with an inactive account, it may take up to 15 minutes before the account shows the expected `RawShares` and `LevelFS`.
-*   `NormShares` is the number of shares assigned to the user or account divided by the total number of assigned shares within the level. So for the first line, the NormShares of 0.001607 is the fraction of the shares held by the project, relative to all other projects. The NormShares of 0.10000 on the other three lines are the fraction of shares held by each member of the project relative to the other members. (This project has ten members, but we only asked for information about three.)
+*   `User`: Notice that the first line of output does not include a user name.
+*   `RawShares` is proportional to the number of CPU-years or GPU-years that was granted to the project for use on this cluster in the Resource Allocation Competition. All non-RAC accounts have small equal numbers of shares.
+    *   For numeric reasons, inactive `def-` accounts (which do not have pending or running jobs) are given only one share. Activity is checked periodically, so if you submit a job with an inactive account, it may take up to 15 minutes before the account shows the expected `RawShares` and `LevelFS`.
+*   `NormShares` is the number of shares assigned to the user or account divided by the total number of assigned shares within the level. So for the first line, the `NormShares` of 0.001607 is the fraction of the shares held by the project, relative to all other projects. The `NormShares` of 0.10000 on the other three lines are the fraction of shares held by each member of the project relative to the other members. (This project has ten members, but we only asked for information about three.)
 *   `RawUsage` is calculated from the total number of resource-seconds (that is, CPU time, GPU time, and memory) that have been charged to this account. Past usage is discounted with a [half-life](https://en.wikipedia.org/wiki/Half-life) of one week, so usage more than a few weeks in the past will have only a small effect on priority.
 *   `EffectvUsage` is the association's usage normalized with its parent; that is, the project's usage relative to other projects, the user's relative to other users in that project. In this example, `postdoc3` has 56.6% of the project's usage, and `grad2` has 3.6%.
-*   `LevelFS` is the association's fairshare value compared to its siblings, calculated as NormShares / EffectvUsage. If an association is over-served, the value is between 0 and 1. If an association is under-served, the value is greater than 1. Associations with no usage receive the highest possible value, infinity. For inactive accounts, as described above for `RawShares`, this value equals a meaningless small number close to 0.0001.
+*   `LevelFS` is the association's fairshare value compared to its siblings, calculated as `NormShares / EffectvUsage`.
+    *   If an association is over-served, the value is between 0 and 1.
+    *   If an association is under-served, the value is greater than 1. Associations with no usage receive the highest possible value, infinity.
+    *   For inactive `def-` accounts having `RawShares` set to one, the `LevelFS` equals a meaningless small number close to 0.0001.
 
-A project which consistently uses its target amount will have a LevelFS near 1.0. If the project uses more than its target, then its LevelFS will be below 1.0 and the priority of new jobs belonging to that project will also be low. If the project uses less than its target usage then its LevelFS will be greater than 1.0 and new jobs will enjoy high priority.
+A project which consistently uses its target amount will have a `LevelFS` near 1.0. If the project uses more than its target, then its `LevelFS` will be below 1.0 and the priority of new jobs belonging to that project will also be low. If the project uses less than its target usage, then its `LevelFS` will be greater than 1.0 and new jobs will enjoy high priority.
 
-**See also:** [Allocations and compute scheduling](allocations_and_compute_scheduling.md).
+In practice, the normalization factors used for `NormShares` and `EffectvUsage` are not the same. Consequently, `LevelFS` is not exactly equal to 1.0 when the usage matches the target. The `sshare2` utility can correct this discrepancy.
+
+### Target and recent usage with `sshare2`
+
+The `sshare2` utility receives a reduced set of arguments and prints only the most relevant fields. Here is an example with the same account used in the previous section.
+
+```console
+[prof1@login1 ~]$ sshare2 -A def-prof1_cpu
+Account               RawShares  RecentUsage   PercentUse   Scaled_LevelFS
+-------------------- ---------- ------------ ------------ ----------------
+def-prof1_cpu                72            2        2.41%        41.555277
+```
+
+The different fields are:
+
+*   `RawShares`: same value as that reported by `sshare`.
+*   `RecentUsage`: this is the `sshare`'s `RawUsage` value downscaled by a factor that removes its time component (in seconds), which makes the result in the same units and scale as the `RawShares`.
+    *   **Note**: the `RecentUsage` behaves like a weighted average where the most recent usage has the most value. That is why the recent usage can look different than the average usage displayed on the [Alliance Slurm portal](https://portal.alliancecan.ca/slurm/), especially when the usage is not constant over time.
+*   `PercentUse`: equivalent to `RecentUsage / RawShares`, as a percentage.
+    *   When `RawShares` is 0 or 1, the result is `NA` because the account has expired or is inactive, respectively.
+*   `Scaled_LevelFS`: equivalent to `RawShares / RecentUsage` and similar to `sshare`'s `LevelFS`, but a value of 1.0 really means a recent usage equivalent to the target.
+
+For convenience, when no account is specified on the command line, `sshare2` displays the information for all accounts associated with the current user. Optionally, the `-n` flag can be specified to remove the table header.
+
+```console
+[prof1@login1 ~]$ sshare2 -n
+def-prof1_cpu                72            2        2.41%        41.555277
+def-prof1_gpu                 1            0           NA    872691.969325
+```
 
 ## Whole nodes versus cores
 
 Applications which can efficiently use more cores than are found in a single node may benefit from being scheduled on **whole nodes**. Some clusters have nodes reserved for jobs which request one or more entire nodes. See [whole nodes](advanced_mpi_scheduling.md#whole-nodes) on the page [Advanced MPI scheduling](advanced_mpi_scheduling.md) for example scripts and further discussion.
 
-!!! warning
-    Requesting an inefficient number of processors for a calculation simply in order to take advantage of whole-node scheduling will be construed as abuse of the system. For example, a program which takes just as long to run on 192 cores as on 64 cores should request 64 cores, not 192.
+Note that requesting an inefficient number of processors for a calculation simply in order to take advantage of whole-node scheduling will be construed as abuse of the system. For example, a program which takes just as long to run on 192 cores as on 64 cores should request 64 cores, not 192.
 
 If you have huge amounts of serial work and can efficiently use [META-Farm](meta-farm.md), [GNU Parallel](gnu_parallel.md), [GLOST](glost.md), or [other techniques](https://docs.scinet.utoronto.ca/index.php/Running_Serial_Jobs_on_Niagara) to pack serial processes onto a single node, you are also welcome to use whole-node scheduling.
 
 ## Time limits
 
-[Trillium](../clusters/trillium.md) accepts jobs of up to 24 hours run-time, [Fir](../software/fir.md), [Narval](../clusters/narval.md), [Nibi](../clusters/nibi.md) and [Rorqual](../clusters/rorqual.md) up to 7 days. These limits are subject to change at the discretion of each site's sysadmin team.
+[Trillium](../clusters/trillium.md) accepts jobs of up to 24 hours run-time; [Fir](../software/fir.md), [Narval](../clusters/narval.md), [Nibi](../clusters/nibi.md) and [Rorqual](../clusters/rorqual.md) up to 7 days. These limits are subject to change at the discretion of each site's sysadmin team.
 
 On the general-purpose clusters, longer jobs are restricted to use only a fraction of the cluster by *partitions*. There are partitions for jobs of
 *   3 hours or less,
@@ -144,15 +176,16 @@ On the general-purpose clusters, longer jobs are restricted to use only a fracti
 
 Because any job of 3 hours is also less than 12 hours, 24 hours, and so on, shorter jobs can always run in partitions with longer time-limits. A shorter job will have more scheduling opportunities than an otherwise-identical longer job.
 
-## Backfilling
+### Backfilling
 
 The scheduler employs [backfilling](https://slurm.schedmd.com/sched_config.html) to improve overall system usage.
 
 > Without backfill scheduling, each partition is scheduled strictly in priority order, which typically results in significantly lower system utilization and responsiveness than otherwise possible. Backfill scheduling will start lower priority jobs if doing so does not delay the expected start time of any higher priority jobs. Since the expected start time of pending jobs depends upon the expected completion time of running jobs, reasonably accurate time limits are important for backfill scheduling to work well.
 
-Backfilling will primarily benefit jobs with short time limits, e.g. under 3 hours.
+Backfilling will primarily benefit jobs with short time limits, e.g., under 3 hours.
 
 ## Percentage of the nodes you have access to
+
 This section aims at giving some insight into how the general-purpose clusters (Fir, Narval, Nibi, Rorqual) are partitioned.
 
 First, the nodes are partitioned into four different categories:
@@ -162,7 +195,7 @@ First, the nodes are partitioned into four different categories:
 
 Upon submission, your job will be routed to one of these categories based on what resources are requested.
 
-Second, within each of the above categories, some nodes are reserved for jobs which can make use of complete nodes (i.e. jobs which use all of the resources available on the allocated nodes). If your job only uses a few cores (or a single core) out of each node, it is only allowed to use a subset of the category. These are referred to as "by-node" and "by-core" partitions.
+Second, within each of the above categories, some nodes are reserved for jobs which can make use of complete nodes (i.e., jobs which use all of the resources available on the allocated nodes). If your job only uses a few cores (or a single core) out of each node, it is only allowed to use a subset of the category. These are referred to as "by-node" and "by-core" partitions.
 
 Finally, the nodes are partitioned based on the walltime requested by your job. Shorter jobs have access to more resources. For example, a job with less than 3 hours of requested walltime can run on any node that allows 12 hours, but there are nodes which accept 3 hour jobs that do *not* accept 12 hour jobs.
 
@@ -174,7 +207,7 @@ The utility `partition-stats` shows
 
 Here is some sample output from `partition-stats`:
 
-```text
+```console
 [user@login1 ~]$ partition-stats
 
 Node type |                     Max walltime
@@ -206,7 +239,7 @@ GPU       |   156:78   |  156:78   |  144:72   |  104:52   |   13:12   |
 ----------|-------------------------------------------------------------
 ```
 
-Looking at the first entry in the table, at the upper left, the numbers `12:170`, `0:0`, and `5:14` mean that there were
+Looking at the first entry in the table, at the upper left, the numbers `12:170, 0:0`, and `5:14` mean that there were
 *   12 jobs waiting to run which requested
     *   whole nodes,
     *   less than 8GB of memory per core, and
@@ -241,4 +274,5 @@ There may be a limit on the number of jobs you can have in the system at any one
 On [Narval](../clusters/narval.md), [Nibi](../clusters/nibi.md) and [Rorqual](../clusters/rorqual.md), normal accounts can have no more than 1000 jobs in a pending or running state at any time. Each task of a [job array](job_arrays.md) counts as one job. The limit is applied using Slurm's [MaxSubmit](https://slurm.schedmd.com/sacctmgr.html) parameter.
 
 ## Changes over time
+
 See [Scheduling policy updates](scheduling_policy_updates.md) to see changes which might affect the behaviour of your job scripts, and when the changes were implemented.

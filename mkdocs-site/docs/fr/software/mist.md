@@ -4,24 +4,24 @@ slug: "mist"
 lang: "fr"
 
 source_wiki_title: "Mist/fr"
-source_hash: "078a9b36efe186dc4f94f683431c4f03"
-last_synced: "2026-04-10T15:28:10.183781+00:00"
-last_processed: "2026-04-11T09:09:14.859268+00:00"
+source_hash: "91a515a8f5177ab66431c602fecaaf75"
+last_synced: "2026-11-15T02:27:25.182546+00:00"
+last_processed: "2026-11-15T03:37:55.413031+00:00"
 
 tags:
   []
 
 keywords:
-  - "under construction"
-  - "SciNet"
-  - "Mist"
-  - "draft"
-  - "documentation"
+  - "Trillium"
+  - "docs.scinet.utoronto.ca"
+  - "2025-09-16"
+  - "grappe Mist"
+  - "sous-grappe GPU"
 
 questions:
-  - "What is the current construction status of this webpage?"
-  - "Where should users go to find the relevant documentation in the meantime?"
-  - "What specific topic or system does the provided alternative URL address?"
+  - "Depuis quelle date la grappe Mist n’est‑plus utilisée ?"
+  - "Vers quelle sous‑grappe GPU doit‑on migrer son contenu après la fin de Mist ?"
+  - "Où peut‑on trouver les détails et la documentation concernant la grappe Mist ?"
 
 status:
   downloaded: true
@@ -32,5 +32,8 @@ status:
   qa_generated: false
 ---
 
-!!! info "En cours de construction"
-    Cette page est présentement en cours de construction. Veuillez consulter la page de Mist sur SciNet [ici](https://docs.scinet.utoronto.ca/index.php/Mist) pour l'instant.
+!!! warning "Fin de service"
+
+La grappe Mist n'est plus utilisée depuis le 16 septembre 2025. Veuillez déplacer votre contenu vers [la sous-grappe GPU de Trillium](../clusters/trillium.md).
+
+Pour les détails concernant la grappe Mist, veuillez consulter [la page Mist de SciNet](https://docs.scinet.utoronto.ca/index.php/Mist).

@@ -4,24 +4,24 @@ slug: "mist"
 lang: "base"
 
 source_wiki_title: "Mist"
-source_hash: "1405f0cca6574fbb0b3c42acc3fdff31"
-last_synced: "2026-11-08T02:07:32.985064+00:00"
-last_processed: "2026-11-08T02:57:58.821107+00:00"
+source_hash: "3f13bb6b23941b387b6c3954ef537654"
+last_synced: "2026-11-15T02:27:25.182546+00:00"
+last_processed: "2026-11-15T03:37:42.871640+00:00"
 
 tags:
   []
 
 keywords:
-  - "Mist cluster"
   - "SciNet Mist page"
-  - "decommissioned"
-  - "GPU subcluster of Trillium"
   - "2025-09-16"
+  - "Mist cluster"
+  - "decommissioned"
+  - "Trillium GPU subcluster"
 
 questions:
-  - "When was the Mist cluster officially decommissioned?"
-  - "To which subcluster should Mist users migrate after the decommissioning?"
-  - "Where can users find the complete history and details about the Mist cluster?"
+  - "When was the Mist cluster decommissioned?"
+  - "Which GPU subcluster should former Mist users migrate to?"
+  - "Where can users find detailed instructions for the migration?"
 
 status:
   downloaded: true
@@ -32,4 +32,6 @@ status:
   qa_generated: false
 ---
 
-The Mist cluster was decommissioned on 2025-09-16. Mist users should move to the GPU subcluster of Trillium; see the SciNet Mist page for the full history: https://docs.scinet.utoronto.ca/index.php/Mist
+!!! warning "Mist Cluster Decommissioned"
+
+    The Mist cluster was decommissioned on 2025-09-16. Mist users should migrate to the [GPU subcluster on Trillium](../clusters/trillium.md). For detailed migration instructions, please refer to [the SciNet Mist page](https://docs.scinet.utoronto.ca/index.php/Mist).

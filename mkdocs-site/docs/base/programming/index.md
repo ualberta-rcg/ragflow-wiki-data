@@ -32,7 +32,6 @@ Auto-generated index for `base/programming`.
 - [Modules Avx](modules_avx.md)
 - [Modules Avx2](modules_avx2.md)
 - [Modules Avx512](modules_avx512.md)
-- [Modules Specific To Niagara](modules_specific_to_niagara.md)
 - [Modules Sse3](modules_sse3.md)
 - [Mpi4Py](mpi4py.md)
 - [Multi Instance Gpu](multi-instance_gpu.md)

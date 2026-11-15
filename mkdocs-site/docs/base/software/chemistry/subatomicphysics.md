@@ -4,42 +4,40 @@ slug: "subatomicphysics"
 lang: "base"
 
 source_wiki_title: "SubatomicPhysics"
-source_hash: "3a021afcf07bc776e4294a1057c0bf2a"
-last_synced: "2026-04-10T15:28:10.183781+00:00"
-last_processed: "2026-04-11T11:42:00.209176+00:00"
+source_hash: "4e2c09eb833f3e4792b87ffa1aff9e2e"
+last_synced: "2026-11-15T02:27:25.182546+00:00"
+last_processed: "2026-11-15T03:45:48.372170+00:00"
 
 tags:
   []
 
 keywords:
-  - "Singularity containers"
-  - "singularity executable"
-  - "High Energy Physics Software"
-  - "Compute Canada"
-  - "CVMFS repositories"
-  - "CVMFS"
-  - "graph driver plugin"
-  - "atlas-grid-centos7"
-  - "container"
-  - "images"
-  - "ATLAS"
   - "CVMFS repository"
-  - "Singularity Image"
+  - "ATLAS Tier‑3 setup"
+  - "CVMFS repositories"
+  - "Apptainer"
+  - "graph driver plugin"
+  - "WLCG container images"
+  - "CVMFS"
+  - "atlas-grid-centos7"
+  - "Singularity image"
+  - "merge request"
+  - "performance benefits"
+  - "Singularity containers"
+  - "HEP_OSLibs packages"
+  - "container caching"
   - "ducc"
 
 questions:
-  - "Why do conflicts occur between the standard Compute Canada environment (CCenv) and the CVMFS repositories used by subatomic experimental physics groups?"
-  - "What is the recommended solution for running software that requires HEP_OSLibs packages on Compute Canada computing nodes?"
-  - "What are the two primary CVMFS-distributed container image repositories for HEP-related software, and how are their images published and structured?"
-  - "Why is the Singularity executable installed outside of the usual Compute Canada CVMFS stack?"
-  - "How do the specific paths and commands for invoking Singularity differ across sites like Cedar, Graham, and Niagara?"
-  - "What are the two methods for invoking a container from a CVMFS repository, and how do they impact performance?"
-  - "How can images be instantiated directly from CVMFS?"
-  - "Where can users find additional documentation for this project?"
-  - "What steps must be taken to add a new image to the automatically published list?"
-  - "Why is the Singularity executable installed outside of the usual Compute Canada CVMFS stack?"
-  - "How do the specific paths and commands for invoking Singularity differ across sites like Cedar, Graham, and Niagara?"
-  - "What are the two methods for invoking a container from a CVMFS repository, and how do they impact performance?"
+  - "What are the recommended ways for Compute Canada users to prevent conflicts between the CCenv environment and the software provided by CERN or Open Science Grid CVMFS repositories?"
+  - "How can ATLAS users configure a CentOS 7‑based view from sft.cern.ch with specific compiler versions, and what architecture‑OS‑compiler options are available for LCG_95?"
+  - "Which container image repositories are available for HEP software on Compute Canada, and how are ATLAS and WLCG images accessed and managed via CVMFS and Singularity?"
+  - "Where are the container images stored within the CVMFS repository?"
+  - "Which container runtime is used on Trillium, and how is it accessed via the command line?"
+  - "What are the two ways to invoke a container from the CVMFS repository, and how might each affect performance?"
+  - "How can images be instantiated directly from CVMFS using the graph driver plugin?"
+  - "Where can users find the additional documentation for this project?"
+  - "What steps are required to add a new image to the automatically published list?"
 
 status:
   downloaded: true
@@ -64,10 +62,10 @@ For ATLAS users, there are pages housed on the TRIUMF twiki that should be helpf
 !!! note
     ATLAS users should use the recommended setups for Tier-3 use rather than reinventing techniques that are described below.
 
-*   <https://twiki.atlas-canada.ca/bin/view/AtlasCanada/ComputeCanadaTier3s>
-*   <https://twiki.atlas-canada.ca/bin/view/AtlasCanada/Containers>
+*   <https://twiki.cern.ch/twiki/bin/view/AtlasCanada/ComputeCanadaTier3s>
+*   <https://twiki.cern.ch/twiki/bin/view/AtlasCanada/Containers>
 
-Many setups assume that the base nodes have the [HEP_OSLibs](https://gitlab.cern.ch/linuxsupport/rpms/HEP_OSlibs/blob/master/README.md) packages/rpms setup[1], which is **not** true on the CC computing nodes. One might be able to get away with some simple setups from the 'sft.cern.ch' repository, but the suggested approach is to use singularity containers which have the necessary rpm's installed, which is described in the next section below. This also allows use of different OS bases (e.g. SL6) on the CentOS7-based Compute Canada infrastructure.
+Many setups assume that the base nodes have the [HEP_OSLibs](https://gitlab.cern.ch/linuxsupport/rpms/HEP_OSlibs/blob/master/README.md) packages/rpms setup[1], which is **not** true on the CC computing nodes. One might be able to get away with some simple setups from the 'sft.cern.ch' repository, but the suggested approach is to use Singularity containers which have the necessary rpm's installed, which is described in the next section below. This also allows use of different OS bases (e.g. SL6) on the CentOS7-based Compute Canada infrastructure.
 
 To setup a CentOS7 based view from sft.cern.ch (e.g. with gcc8)
 ```bash
@@ -75,7 +73,7 @@ source /cvmfs/sft.cern.ch/lcg/views/setupViews.sh LCG_95 x86_64-centos7-gcc8-opt
 ```
 this will include the necessary paths to compilers, geant4, ROOT, etc.
 
-Available setups for <arch-os-complier> for LCG_95 are:
+Available setups for `<arch-os-compiler>` for LCG_95 are:
 *   x86_64-centos7-gcc7-dbg
 *   x86_64-centos7-gcc7-opt
 *   x86_64-centos7-gcc8-dbg
@@ -103,10 +101,6 @@ As of this writing there are two main repositories for container images that we 
 
 ## Invoking Singularity Image
 
-The singularity executable is provided on Compute Canada sites in slight variants as this is run in a setuid environment by default so is installed outside of the usual Compute Canada CVMFS stack. There are various versions available on each site and defaults may be changed, so best to invoke the necessary version (as of this writing 2.6.1, 3.2.0 and 3.3.0 are the most likely candidates).
-
-*   cedar - `/opt/software/singularity-x.x.x`
-*   graham - `/opt/software/singularity-x.x.x`
-*   niagara - `module load singularity; /opt/singularity/2`
+On Trillium, containers are run with [Apptainer](../containers/apptainer.md), which is installed system-wide. The `apptainer` command is available, and `/usr/bin/singularity` is a symbolic link to it.
 
 Invoking a container from a CVMFS repository can be either done directly as the image will be cached or the image can be pulled and stored in your local area which may give some performance benefits, depending on the system.

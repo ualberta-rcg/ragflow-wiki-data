@@ -4,24 +4,24 @@ slug: "accessing_the_paice_clusters"
 lang: "base"
 
 source_wiki_title: "Accessing the PAICE clusters"
-source_hash: "4a041dba98105047433a27612fbc3d7a"
-last_synced: "2026-10-11T01:39:35.690021+00:00"
-last_processed: "2026-10-11T02:42:45.288346+00:00"
+source_hash: "eafa057d1a8957ac01a62e05140344e1"
+last_synced: "2026-11-15T02:27:25.182546+00:00"
+last_processed: "2026-11-15T03:54:09.933886+00:00"
 
 tags:
   []
 
 keywords:
   - "tier assignment"
-  - "General Access to PAICE Systems"
-  - "aip-[clustername]-tier"
+  - "PAICE clusters"
+  - "SSH key registration"
+  - "RAP management"
   - "AI project (AIP)"
-  - "admin error"
 
 questions:
-  - "What are the two methods for a PI to obtain a valid AI project (AIP) and the appropriate tier on PAICE systems?"
-  - "How does the assigned tier (e.g., tier 1/2 versus tier 3/4) impact the storage, job access, and cluster priority for the PI and their project members?"
-  - "What actions should be taken if a PI already has an AIP without a tier assigned, and what issues can arise from missing configuration steps such as SSH access?"
+  - "What steps must a principal investigator (PI) follow to create an AI project (AIP) and obtain a tier for accessing PAICE clusters?"
+  - "How can a PI add or sponsor other researchers to their AIP through the RAP management page?"
+  - "What actions must a user take after being added to an AIP to request access to specific PAICE clusters?"
 
 status:
   downloaded: true
@@ -32,22 +32,23 @@ status:
   qa_generated: false
 ---
 
-To run jobs or be granted large storage allocations (i.e. project and scratch), a user needs to belong to an AI project (AIP), and the PI responsible for that AIP must have a tier assigned to them. There are two methods for a PI to get a valid AIP.
+## For PIs
 
-### Method 1: Affiliated with an AI Institute
+To run jobs or be granted large storage allocations (i.e. project and scratch) on any PAICE cluster ([Killarney](../clusters/killarney.md), [tamIA](../clusters/tamia.md), [Vulcan](../clusters/vulcan.md)) a user must belong to an AI project (AIP), and the AIP must have a tier assigned to it.
 
-The first method involves PIs that are affiliated with the three AI institutes ([AMII](https://www.amii.ca/), [MILA](https://mila.quebec/en), [Vector](https://vectorinstitute.ai/)). These PIs have AIPs created for them by their home institutes and are then added to the appropriate tier group to grant them preferential access to resources.
+An AIP belongs to a principal investigator (PI). **If the PI is affiliated with one of the three AI institutes** ([AMII](https://www.amii.ca/), [MILA](https://mila.quebec/en), [Vector](https://vectorinstitute.ai/)), then their home institute should create the AIP and assign it a tier.
 
-An AIP can be created for a PI by navigating to that PI's role page and clicking *Create AI project* in the menu on the left. The PI must then be added to the `aip-[clustername]-tier[1/2]` group (the AI institute determines which group to add them to). This grants that PI, and any members of the AI project (`aip-[PI-name]`), storage and job access on that cluster. It also grants this access at a tier 3 level, amounting to fewer resources and lower cluster priority, on the other two PAICE clusters.
+**If the PI is not affiliated with an AI institute** but is either researching AI or using AI in their research, then the PI should visit [CCDB -> Resources -> General Access to PAICE Systems](https://ccdb.alliancecan.ca/paice/general_access_to_paice_systems) and check the appropriate box. This will create an AIP and assign it a tier.
 
-### Method 2: AI Research Without Institute Affiliation
+To sponsor researchers in their AIP, the PI must:
 
-The second way for a PI to gain resources on PAICE systems is if they are either researching AI without being affiliated with these three institutes, or if they are using AI in their (non-AI) research.
+1.  In the *Resource Allocation Projects* table on the [CCDB home page](https://ccdb.alliancecan.ca), click on the RAPI to get to the RAP management page.
+2.  At the top of the RAP management page, click on *Manage RAP memberships*.
+3.  In the *Add Members* section, enter the CCRI of the users you want to add.
 
-The PI can create an AIP by first connecting to the [CCDB](https://ccdb.alliancecan.ca.) and then clicking on `Resources -> General Access to PAICE Systems`, checking a box, and clicking the *Submit* button. This will create an AIP in their name and put them in the aip-tier3 or aip-tier4 group, which then gives them cluster resources and job submission access.
+## For users
 
-!!! warning "Addressing Missing Tier Assignments"
-    If a PI already has an AIP but no tier assigned, they can still click one of these boxes to be granted tier 3 or tier 4 access. However, an AIP created for them with no tier assigned represents an administration error, as users will notice they have an AIP and yet still cannot use the clusters.
+Once your PI has added you to their AIP, you must [request access](https://ccdb.alliancecan.ca/me/access_services) to specific clusters.
 
-!!! warning "Multiple Configuration Layers"
-    Users may have an AIP without having opted in to SSH access (e.g., via the first process described above). These are separate layers of configuration required to fully utilize the PAICE systems, and missing one leads to confusion and frustration for both users and administrators.
+!!! note
+    PAICE clusters may impose further requirements for access, such as registering an SSH key pair at [CCDB -> My Account -> SSH Keys](https://ccdb.alliancecan.ca/ssh_authorized_keys).

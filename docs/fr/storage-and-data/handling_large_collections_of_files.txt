@@ -5,6 +5,7 @@ Dans certains domaines, particulièrement en [[AI and Machine Learning/fr|intell
 <p>
 Nous présentons ici les avantages et les inconvénients de quelques solutions pour le stockage de ces grands ensembles de données. 
 
+<span id="Finding_folders_with_lots_of_files"></span>
 =Localiser les répertoires qui contiennent un grand nombre de fichiers=
 
 Dans un souci d’optimisation, il est toujours préférable d’identifier d'abord les répertoires où des gains de performance sont possibles. Vous pouvez utiliser le code suivant pour compter récursivement les fichiers dans les sous-répertoires du répertoire courant.
@@ -23,9 +24,11 @@ La commande suivante liste les 10 répertoires qui occupent le plus d'espace dan
 ==Disque local==
 Les disques locaux reliés aux nœuds de calcul sont des SSD SATA ou plus; de façon générale, leur performance est de loin supérieure à celle des systèmes de fichiers <tt>/project</tt> et <tt>/scratch</tt>. Un disque local est partagé par toutes les tâches qui sont exécutées simultanément sur un de ses nœuds de calcul, ce qui veut dire que l’ordonnanceur ne gère pas l'utilisation du disque. La capacité réelle d'espace disque local n'est pas la même pour toutes les grappes et elle peut varier à l'intérieur d'une même grappe.
 
+<div class="mw-translate-fuzzy">
 * [[Béluga]] offre environ 370Go de disque local pour les nœuds CPU; les nœuds GPU ont un disque NVMe de 1.6To pour aider avec les jeux de données image en intelligence artificielle qui possèdent des millions de petits fichiers. 
 * [[Niagara/fr|Niagara]] n'offre pas de stockage local sur ses nœuds de calcul.
 * Dans le cas des autres grappes, vous pouvez supposer que l'espace disque disponible est d'au moins 190Go.
+</div>
 
 Vous pouvez accéder au disque local de l'intérieur d'une tâche en utilisant la variable d'environnement <tt>$SLURM_TMPDIR</tt>. Une approche serait alors de conserver votre ensemble de données dans un seul fichier archive <tt>tar</tt> dans l'espace /project et de le copier ensuite sur le disque local au début de votre tâche, l'extraire et utiliser les données au cours de la tâche. S'il y a eu des changements, vous pourrez archiver le contenu dans un fichier <tt>tar</tt> et le recopier dans l'espace /project.
 
@@ -60,6 +63,7 @@ Le système de fichiers <code>/tmp</code> peut être utilisé comme disque RAM s
 * comme toutes les autres utilisations de la mémoire par une tâche, compte dans la limite imposée pour le <tt>cgroup</tt> qui est associé à la requête <tt>sbatch</tt>;
 * la capacité de <tt>tmpfs</tt> est fixée à 100% via les options ''mount'', ce qui  peut nuire à certains scripts, car MemTotal représente alors la capacité du RAM physique, ce qui ne correspond pas à la requête <code>sbatch</code>.
 
+<span id="Archiving"></span>
 ==Archivage ==
 
 ===<tt>dar</tt>===
@@ -87,6 +91,7 @@ Ici, la compression utilise 4 cœurs.
 Il n'est pas toujours nécessaire d'extraire tout le contenu d'un fichier archive. Par exemple, si une simulation ou une tâche ne nécessite que les fichiers d'un répertoire en particulier, le répertoire peut être extrait du fichier d'archive et sauvegardé sur le disque local avec 
 {{Command| tar -zxf /path/to/archive.tar.gz dir/subdir --directory $SLURM_TMPDIR}}
 
+<span id="Cleaning_up_hidden_files"></span>
 ==Fichiers cachés==
 
 ==git==

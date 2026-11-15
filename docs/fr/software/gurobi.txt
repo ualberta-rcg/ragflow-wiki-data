@@ -31,8 +31,23 @@ Si vous obtenez toujours ''Fail'', contactez le [[Technical_support/fr | soutien
 <span id="Minimizing_license_checkouts"></span>
 ===Utiliser un minimum de licences===
 
+<div class="mw-translate-fuzzy">
 Veuillez noter que toutes les demandes de licence Gurobi sont gérées par un serveur de licences unique situé en Ontario. Il est donc important de limiter au maximum les tentatives de demande de licence. Plutôt que de demander une licence à chaque invocation de Gurobi dans une tâche (ce qui peut se produire des dizaines, voire des centaines de fois), assurez-vous que votre programme, quel que soit le langage ou l'environnement utilisé, n'effectue qu'une seule demande de licence et réutilise ensuite ce jeton de licence pendant toute la vie de la tâche. Cela améliorera les performances de votre tâche, car contacter un serveur de licence distant est très coûteux en temps. De plus, la réactivité de notre serveur sera également améliorée. <span style="color:red">Une utilisation incorrecte de Gurobi à cet égard peut entraîner des échecs aléatoires et intermittents. Si cela se produit, nous vous contacterons pour vous inviter à interrompre toutes vos tâches jusqu'à ce que votre programme soit corrigé et testé afin de garantir la résolution du problème. Voyez [https://support.gurobi.com/hc/en-us/articles/360013417731-How-do-I-release-a-shared-license la documentation pour les programmes en C++]. Cette documentation explique comment créer un environnement Gurobi unique utilisable pour tous vos modèles.  [https://support.gurobi.com/hc/en-us/articles/360013417731-How-do-I-release-a-shared-license Pour Python, consultez cette page] qui explique comment mettre en œuvre ce même principe d'environnement unique, et donc d'un jeton de licence unique, pour plusieurs modèles. D'autres programmes utilisant Gurobi, comme R, peuvent également facilement déclencher ce problème lors d'une exécution lorsque de nombreuses tâches parallèles sont soumises et/ou exécutées simultanément.
+</div>
 
+There are two other conditions that your jobs should satisfy to ensure the license server is not overloaded. The first is that all of your jobs running on all Alliance clusters are not consuming more than 1000 licenses since there are only 4096 license.  This maybe checked by logging into any cluster and issuing :
+  module load gurobi
+  gurobi_cl --tokens | grep $USER | wc -l  (should be < 1000)
+
+The second condition is that each running gurobi job should be using just 1 license (less commonly 2). Assuming all of your Gurobi jobs are running on the cluster that you are logged into, the average license usage per jobs maybe checked by running:
+  module load gurobi
+  echo "$(gurobi_cl --tokens | grep $USER | wc -l) / $(squeue -h -r -u $USER -t running | wc -l)" | bc -l (should be <= 2)
+If however you are running jobs on many clusters, then instead this modifed form of the previous command (which runs much slower) should be used :
+  module load gurobi
+  echo $(for n in $(gurobi_cl --tokens | grep $USER | awk "{print $1}"); do host $n; done | grep address | wc -l) / $(squeue -u $USER -h -t running -r | wc -l) | bc -l (should be <= 2)
+Note that if you run either command on a cluster where there are no gurobi jobs running then a "Runtime error Divide by zero error" message will be output accordingly.
+
+<div class="mw-translate-fuzzy">
 Si vous soumettez de nombreuses tâches Gurobi en boucle à l'ordonnanceur, utilisez l'exemple de script suivant (ou un équivalent) pour assurer un démarrage progressif. Cela permettra de minimiser la fréquence d'utilisation des licences et, par conséquent, la charge sur notre serveur de licences Gurobi. Le script utilise l'option de dépendance <code>after</code> de [https://slurm.schedmd.com/sbatch.html l'ordonnanceur slurm] qui est décrite dans [[Advanced Job Submission/fr|Soumettre une tâche&nbsp;:&nbsp;Fonctions avancées]]. Nous limitons à 10&nbsp;000 le nombre d'utilisations de licences Gurobi par grappe, sur une période de 24 heures. Si votre programme Gurobi utilise un algorithme nécessitant l'utilisation de deux licences par tâche, cela correspond à un maximum de 5&nbsp;000 tâches soumises par jour.
   
  [l2(nibi):~] cat submit.sh
@@ -41,6 +56,7 @@ Si vous soumettez de nombreuses tâches Gurobi en boucle à l'ordonnanceur, util
   jobid=$(sbatch --parsable --dependency=after:$jobid --output=slurm-%j-$i.out script.sh)
   [ "$?" -ne 0 ] && exit 1
  done
+</div>
 
 <span id="Interactive_allocations"></span>
 == Allocations interactives ==

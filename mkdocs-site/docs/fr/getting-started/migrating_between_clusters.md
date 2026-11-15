@@ -4,27 +4,24 @@ slug: "migrating_between_clusters"
 lang: "fr"
 
 source_wiki_title: "Migrating between clusters/fr"
-source_hash: "5b6f05be1e01bf083108ccde43e3068e"
-last_synced: "2026-04-10T15:28:10.183781+00:00"
-last_processed: "2026-04-11T09:06:38.100061+00:00"
+source_hash: "f94569095f65c7d091251b4849ac0407"
+last_synced: "2026-11-15T02:27:25.182546+00:00"
+last_processed: "2026-11-15T03:37:34.867963+00:00"
 
 tags:
   []
 
 keywords:
-  - "grappes"
-  - "migration"
-  - "systèmes de fichiers"
-  - "soumission de tâches"
-  - "logiciels"
+  - "quotas et politiques"
+  - "ordonnanceur Slurm"
+  - "Globus"
+  - "accès SSH"
+  - "migration de grappes"
 
 questions:
-  - "Comment les données, les systèmes de fichiers et les quotas de stockage sont-ils gérés lorsqu'un utilisateur passe d'une grappe à une autre ?"
-  - "Quelles réinstallations ou configurations logicielles (environnements virtuels, fichiers personnalisés) sont requises de la part de l'utilisateur lors d'une migration vers une nouvelle grappe ?"
-  - "Quels éléments d'un script de soumission de tâches (Slurm) doivent être vérifiés ou adaptés en fonction des spécificités matérielles et des allocations de la nouvelle grappe ?"
-  - "Comment les données, les systèmes de fichiers et les quotas de stockage sont-ils gérés lorsqu'un utilisateur passe d'une grappe à une autre ?"
-  - "Quelles réinstallations ou configurations logicielles (environnements virtuels, fichiers personnalisés) sont requises de la part de l'utilisateur lors d'une migration vers une nouvelle grappe ?"
-  - "Quels éléments d'un script de soumission de tâches (Slurm) doivent être vérifiés ou adaptés en fonction des spécificités matérielles et des allocations de la nouvelle grappe ?"
+  - "Quels différences d’accès faut‑il connaître entre les grappes, notamment par rapport à Niagara ?"
+  - "Comment les systèmes de fichiers, les quotas et les répertoires spécifiques ( /home, /scratch, /project ) varient‑ils d’une grappe à l’autre lors d’une migration ?"
+  - "Quelles modifications sont nécessaires pour les logiciels, environnements virtuels et scripts de soumission Slurm lorsqu’on passe d’une grappe à une autre ?"
 
 status:
   downloaded: true
@@ -41,7 +38,7 @@ Pour déplacer des données d’une grappe à l’autre, nous vous recommandons 
 
 ## Accès à nos grappes
 
-L'accès à nos grappes se fait par [SSH](ssh.md); il suffit d'utiliser le nom particulier de la grappe à laquelle vous voulez accéder. Votre nom d'utilisateur et votre mot de passe serviront à vous connecter à toutes nos grappes. Par contre, l'accès à Niagara nécessite une étape supplémentaire qui est [décrite dans la section *Accès* de la page pour Niagara](../clusters/national_systems.md).
+L'accès à nos grappes se fait par [SSH](ssh.md); il suffit d'utiliser le nom particulier de la grappe à laquelle vous voulez accéder. Votre nom d'utilisateur et votre mot de passe serviront à vous connecter à toutes nos grappes. Par contre, l'accès à Niagara nécessite une étape supplémentaire qui est [décrite dans la section « Accès » de la page pour Niagara](../clusters/national_systems.md).
 
 ## Systèmes de fichiers
 
@@ -56,6 +53,6 @@ Dans les grappes d’usage général, plusieurs [modules](../programming/utilise
 
 Toutes nos grappes utilisent l’ordonnanceur Slurm pour gérer les tâches; ainsi, une grande partie d’un script pour soumettre une tâche fonctionnera partout. Notez toutefois que les grappes n’ont pas le même nombre de cœurs CPU par nœud ou par GPU; vérifiez donc le nombre de cœurs que vous pouvez utiliser sur un autre nœud. Il est aussi possible que vous deviez adapter votre script en raison d’une différence dans la quantité de mémoire.
 
-Sur certaines grappes, les nœuds de calcul n'ont peut-être pas accès direct à l’Internet. Pour connaître les politiques particulières à chacune, reportez-vous aux pages respectives des grappes.
+Sur certaines grappes, les nœuds de calcul n'ont peut-être pas accès direct à l’Internet. Pour connaître les politiques particulières à chaque grappe, veuillez consulter sa page de documentation spécifique.
 
 Toutes les professeures et tous les professeurs ont accès à une allocation par défaut sur chacune des grappes, par exemple `#SBATCH --account=def-jsmith`; cependant, les allocations spéciales pour les groupes de recherche et les allocations contribuées sont associées à une grappe en particulier et ne sont pas disponibles sur les autres grappes.

@@ -4,42 +4,40 @@ slug: "handling_large_collections_of_files"
 lang: "fr"
 
 source_wiki_title: "Handling large collections of files/fr"
-source_hash: "6a84ff7f0afad1c86919f096a7d82039"
-last_synced: "2026-04-10T15:28:10.183781+00:00"
-last_processed: "2026-04-11T07:55:14.789532+00:00"
+source_hash: "7b1c37c6df3cbe12ef07cc894b8f8451"
+last_synced: "2026-11-15T02:27:25.182546+00:00"
+last_processed: "2026-11-15T03:33:58.268619+00:00"
 
 tags:
   []
 
 keywords:
-  - "optimisation"
   - "Disque RAM"
-  - "nœuds de calcul"
-  - "Archivage"
-  - "intelligence artificielle"
-  - "SQLite"
-  - "ensembles de données"
-  - "systèmes de fichiers"
-  - "Compression parallèle"
-  - "système de fichiers"
-  - "tmpfs"
-  - "disque local"
+  - "localiser répertoires"
+  - "compression parallèle pigz"
+  - "format HDF5"
+  - "disque local $SLURM_TMPDIR"
+  - "tmpfs (disque RAM)"
+  - "tar -cf"
+  - "cgroup sbatch"
+  - "grand nombre de fichiers"
+  - "/tmp tmpfs"
+  - "quotas des systèmes de fichiers"
+  - "results.tar"
   - "SLURM_TMPDIR"
-  - "HDF5"
+  - "archivage dar"
+  - "tmpfs"
 
 questions:
-  - "Pourquoi un très grand nombre de petits fichiers pose-t-il problème sur les systèmes de fichiers partagés ?"
-  - "Quelles commandes permettent d'identifier les répertoires contenant le plus de fichiers ou occupant le plus d'espace disque ?"
-  - "Comment l'utilisation du disque local via la variable $SLURM_TMPDIR permet-elle d'optimiser le traitement des grands ensembles de données ?"
-  - "Quelles sont les particularités et les contraintes liées à l'utilisation du répertoire `/tmp` (configuré en `tmpfs`) lors de l'exécution d'une tâche ?"
-  - "Quels outils et formats (tels que dar, HDF5 et SQLite) sont recommandés pour archiver et stocker efficacement de grandes quantités de données ou des objets complexes ?"
-  - "Quelles techniques peuvent être employées pour optimiser les performances lors de la manipulation de fichiers (comme la compression parallèle, l'extraction partielle d'archives ou l'utilisation de `git repack`) ?"
-  - "Comment le script illustré sauvegarde-t-il les résultats des calculs à partir du répertoire temporaire ?"
-  - "Quel répertoire ou système de fichiers est spécifiquement désigné pour être utilisé comme disque RAM sur les nœuds de calcul ?"
-  - "Avec quelle technologie le disque RAM est-il implémenté selon le document ?"
-  - "Quelles sont les particularités et les contraintes liées à l'utilisation du répertoire `/tmp` (configuré en `tmpfs`) lors de l'exécution d'une tâche ?"
-  - "Quels outils et formats (tels que dar, HDF5 et SQLite) sont recommandés pour archiver et stocker efficacement de grandes quantités de données ou des objets complexes ?"
-  - "Quelles techniques peuvent être employées pour optimiser les performances lors de la manipulation de fichiers (comme la compression parallèle, l'extraction partielle d'archives ou l'utilisation de `git repack`) ?"
+  - "Quels problèmes de performance les très nombreux petits fichiers posent‑ils aux systèmes de fichiers et aux sauvegardes automatisées de /home et /project ?"
+  - "Quelles commandes peut‑on employer pour repérer les répertoires contenant le plus grand nombre de fichiers ou occupant le plus d’espace disque ?"
+  - "Quelles solutions de stockage (disque local, disque RAM/tmpfs) sont proposées et comment les exploiter avec SLURM, notamment via le script d’exemple, pour travailler sur de grands ensembles de données ?"
+  - "Comment le système de fichiers <code>/tmp</code> est‑il configuré en <code>tmpfs</code> sur les grappes et quelles conséquences cela a‑t‑il sur la gestion de la mémoire et les limites de <tt>cgroup</tt> appliquées par <tt>sbatch</tt> ?"
+  - "Quels outils d’archivage et de compression (par ex. <tt>dar</tt>, <tt>pigz</tt>, <tt>tar</tt>) sont recommandés pour créer, compresser et extraire partiellement de gros ensembles de fichiers, et comment les invoquer correctement ?"
+  - "Quels bénéfices et quelles limites présente l’utilisation de SQLite pour stocker des BLOBs (images, etc.) dans un seul fichier, et quelles alternatives (MySQL, PostgreSQL) sont suggérées pour les bases de données de plusieurs gigaoctets ?"
+  - "Comment utilise‑t‑on le répertoire /tmp comme disque RAM sur les nœuds de calcul ?"
+  - "Quelle commande permet d’archiver les résultats dans le répertoire ~/projects/def-foo/johndoe/ ?"
+  - "Pourquoi faut‑il nettoyer le jeu de données après les calculs dans le répertoire $SLURM_TMPDIR ?"
 
 status:
   downloaded: true
@@ -50,11 +48,7 @@ status:
   qa_generated: false
 ---
 
-!!! warning "Impact sur la performance du système de fichiers"
-
-Un très grand nombre de fichiers, et particulièrement des fichiers de petite taille, cause d'importants problèmes à la performance des systèmes de fichiers et à la sauvegarde automatisée de `/home` et `/project`.
-
-Dans certains domaines, particulièrement en [intelligence artificielle et en apprentissage machine](../software/ai-ml/ai_and_machine_learning.md), on doit souvent composer avec des centaines de milliers de fichiers comprenant parfois plusieurs centaines de kilo-octets. Dans ces cas, il faut tenir compte des limites d’objets imposées par les [quotas des systèmes de fichiers](storage_and_file_management.md#quotas-et-politiques).
+Dans certains domaines, particulièrement en [intelligence artificielle et en apprentissage machine](../software/ai-ml/ai_and_machine_learning.md), on doit souvent composer avec des centaines de milliers de fichiers comprenant parfois plusieurs centaines de kilo-octets. Dans ces cas, il faut tenir compte des limites d’objets imposées par les [quotas des systèmes de fichiers](storage_and_file_management.md#quotas-et-politiques). Un très grand nombre de fichiers, et particulièrement des fichiers de petite taille, cause d'importants problèmes à la performance des systèmes de fichiers et à la sauvegarde automatisée de `/home` et `/project`.
 
 Nous présentons ici les avantages et les inconvénients de quelques solutions pour le stockage de ces grands ensembles de données.
 
@@ -81,16 +75,13 @@ du -sh * | sort -hr | head -10
 
 ### Disque local
 
-Les disques locaux reliés aux nœuds de calcul sont des SSD SATA ou plus; de façon générale, leur performance est de loin supérieure à celle des systèmes de fichiers `/project` et `/scratch`. Un disque local est partagé par toutes les tâches qui sont exécutées simultanément sur un de ses nœuds de calcul, ce qui veut dire que l’ordonnanceur ne gère pas l'utilisation du disque.
+Les disques locaux reliés aux nœuds de calcul sont des SSD SATA ou plus; de façon générale, leur performance est de loin supérieure à celle des systèmes de fichiers `/project` et `/scratch`. Un disque local est partagé par toutes les tâches qui sont exécutées simultanément sur un de ses nœuds de calcul, ce qui veut dire que l’ordonnanceur ne gère pas l'utilisation du disque. La capacité réelle d'espace disque local n'est pas la même pour toutes les grappes et elle peut varier à l'intérieur d'une même grappe.
 
-!!! note "Capacité du disque local"
-    La capacité réelle d'espace disque local n'est pas la même pour toutes les grappes et elle peut varier à l'intérieur d'une même grappe.
-
-*   [Béluga](../clusters/béluga.md) offre environ 370Go de disque local pour les nœuds CPU; les nœuds GPU ont un disque NVMe de 1.6To pour aider avec les jeux de données image en intelligence artificielle qui possèdent des millions de petits fichiers.
+*   [Béluga](../clusters/béluga.md) offre environ 370 Go de disque local pour les nœuds CPU; les nœuds GPU ont un disque NVMe de 1.6 To pour aider avec les jeux de données image en intelligence artificielle qui possèdent des millions de petits fichiers.
 *   [Niagara](../clusters/national_systems.md) n'offre pas de stockage local sur ses nœuds de calcul.
-*   Dans le cas des autres grappes, vous pouvez supposer que l'espace disque disponible est d'au moins 190Go.
+*   Dans le cas des autres grappes, vous pouvez supposer que l'espace disque disponible est d'au moins 190 Go.
 
-Vous pouvez accéder au disque local de l'intérieur d'une tâche en utilisant la variable d'environnement `$SLURM_TMPDIR`. Une approche serait alors de conserver votre ensemble de données dans un seul fichier archive `tar` dans l'espace /project et de le copier ensuite sur le disque local au début de votre tâche, l'extraire et utiliser les données au cours de la tâche. S'il y a eu des changements, vous pourrez archiver le contenu dans un fichier `tar` et le recopier dans l'espace /project.
+Vous pouvez accéder au disque local de l'intérieur d'une tâche en utilisant la variable d'environnement `$SLURM_TMPDIR`. Une approche serait alors de conserver votre ensemble de données dans un seul fichier archive `tar` dans l'espace `/project` et de le copier ensuite sur le disque local au début de votre tâche, l'extraire et utiliser les données au cours de la tâche. S'il y a eu des changements, vous pourrez archiver le contenu dans un fichier `tar` et le recopier dans l'espace `/project`.
 
 Le script de soumission suivant utilise un nœud entier.
 
@@ -107,9 +98,9 @@ cd $SLURM_TMPDIR
 mkdir work
 cd work
 tar -xf ~/projects/def-foo/johndoe/my_data.tar
-# Maintenant, effectuez les calculs sur le disque local en utilisant le contenu de l'archive extraite...
+# Now do my computations here on the local disk using the contents of the extracted archive...
 
-# Les calculs sont terminés, nettoyez l'ensemble de données...
+# The computations are done, so clean up the data set...
 cd $SLURM_TMPDIR
 tar -cf ~/projects/def-foo/johndoe/results.tar work
 ```
@@ -118,19 +109,17 @@ tar -cf ~/projects/def-foo/johndoe/results.tar work
 
 Le système de fichiers `/tmp` peut être utilisé comme disque RAM sur les nœuds de calcul. Il est implémenté avec [tmpfs](https://fr.wikipedia.org/wiki/Tmpfs).
 
-*   `/tmp` est `tmpfs` sur toutes les grappes;
-*   `/tmp` est vidé à la fin de la tâche;
-*   comme toutes les autres utilisations de la mémoire par une tâche, compte dans la limite imposée pour le `cgroup` qui est associé à la requête `sbatch`;
-*   la capacité de `tmpfs` est fixée à 100% via les options *mount*.
-
-!!! warning "Comportement de /tmp (tmpfs)"
-    La capacité de `tmpfs` étant fixée à 100% via les options *mount* peut nuire à certains scripts, car `MemTotal` représente alors la capacité du RAM physique, ce qui ne correspond pas à la requête `sbatch`.
+!!! note "Points importants concernant `/tmp`"
+    *   `/tmp` est `tmpfs` sur toutes les grappes;
+    *   `/tmp` est vidé à la fin de la tâche;
+    *   comme toutes les autres utilisations de la mémoire par une tâche, compte dans la limite imposée pour le `cgroup` qui est associé à la requête `sbatch`;
+    *   la capacité de `tmpfs` est fixée à 100% via les options *mount*, ce qui peut nuire à certains scripts, car MemTotal représente alors la capacité du RAM physique, ce qui ne correspond pas à la requête `sbatch`.
 
 ### Archivage
 
-#### dar
+#### `dar`
 
-Utilitaire d’archivage sur disque conçu pour améliorer l’outil [tar](a_tutorial_on__tar.md); voir le [tutoriel dar](dar.md).
+Utilitaire d’archivage sur disque conçu pour améliorer l’outil `tar`; voir le [tutoriel `dar`](dar.md).
 
 #### HDF5
 
@@ -140,12 +129,12 @@ Format de fichier binaire pour le stockage de plusieurs sortes de données dont 
 
 [SQLite](https://www.sqlite.org) permet d’utiliser les bases de données relationnelles contenues dans un seul fichier enregistré sur disque, sans l’entremise d’un serveur. La commande SQL `SELECT` sert d’accès aux données et des API sont disponibles pour plusieurs langages de programmation.
 
-Avec les API, vous pouvez interagir avec votre base de données SQLite dans des programmes en C/C++, Python, R, Java ou Perl par exemple. Les bases de données relationnelles modernes ont des types de données pour la gestion du stockage des BLOB (*binary large objects*) comme le contenu des fichiers image; plutôt que de stocker 5 ou 10 millions de fichiers image PNG ou JPEG individuellement, il serait plus pratique de les grouper dans un fichier SQLite.
+Avec les API vous pouvez interagir avec votre base de données SQLite dans des programmes en C/C++, Python, R, Java ou Perl par exemple. Les bases de données relationnelles modernes ont des types de données pour la gestion du stockage des BLOB (*binary large objects*) comme le contenu des fichiers image; plutôt que de stocker 5 ou 10 millions de fichiers image PNG ou JPEG individuellement, il serait plus pratique de les grouper dans un fichier SQLite.
 
 Cette solution demande toutefois de créer une base de données SQLite; vous devez donc connaître SQL et pouvoir créer une base de données relationnelle simple.
 
-!!! warning "Performance de SQLite pour de grandes bases de données"
-    La performance de SQLite peut se dégrader avec de très grandes bases de données (à partir de plusieurs gigaoctets); vous pourriez alors préférer une approche plus traditionnelle et utiliser [MySQL](https://www.mysql.com) ou [PostgreSQL](https://www.postgresql.org) avec un [serveur de bases de données](../cloud/database_servers.md).
+!!! warning "Performance de SQLite"
+    Fait à souligner, la performance de SQLite peut se dégrader avec de très grandes bases de données (à partir de plusieurs gigaoctets); vous pourriez alors préférer une approche plus traditionnelle et utiliser [MySQL](https://www.mysql.com) ou [PostgreSQL](https://www.postgresql.org) avec un [serveur de bases de données](../cloud/database_servers.md).
 
 L'exécutable SQLite se nomme `sqlite3`. Il est disponible par le [module](../programming/utiliser_des_modules.md) `nixpkgs` qui est chargé par défaut sur nos systèmes.
 
@@ -169,9 +158,6 @@ tar -zxf /path/to/archive.tar.gz dir/subdir --directory $SLURM_TMPDIR
 
 ### Fichiers cachés
 
-### git
+### Git
 
-Si vous utilisez `git`, le nombre de fichiers dans le sous-répertoire caché peut augmenter de beaucoup avec le temps.
-
-!!! tip "Optimiser Git avec `git repack`"
-    Pour accélérer la performance, utilisez la commande `git repack` qui groupe plusieurs des fichiers dans quelques grandes bases de données.
+Si vous utilisez `git`, le nombre de fichiers dans le sous-répertoire caché peut augmenter de beaucoup avec le temps. Pour accélérer la performance, utilisez la commande `git repack` qui groupe plusieurs des fichiers dans quelques grandes bases de données.

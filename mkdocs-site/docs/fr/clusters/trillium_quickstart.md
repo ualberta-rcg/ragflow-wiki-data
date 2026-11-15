@@ -4,21 +4,177 @@ slug: "trillium_quickstart"
 lang: "fr"
 
 source_wiki_title: "Trillium Quickstart/fr"
-source_hash: "0198f4ff2c960e8670b2348b96ce1ac4"
-last_synced: "2026-08-07T19:46:17.777436+00:00"
-last_processed: "2026-08-07T23:04:12.929697+00:00"
+source_hash: "98fcc0d8ecc098f28dd1fd24e5f148fe"
+last_synced: "2026-11-15T02:27:25.182546+00:00"
+last_processed: "2026-11-15T03:49:21.478232+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "versions des logiciels"
+  - "nœuds entiers"
+  - "partitions GPU"
+  - "tunnel SSH"
+  - "interpréteur Linux"
+  - "module spider"
+  - "sous‑grappe GPU 252 NVIDIA H100"
+  - "--mem"
+  - "ressources utilisées"
+  - "tutoriel de formation autonome"
+  - "modules d'environnement"
+  - "script de tâche"
+  - "scancel"
+  - "stockage NVMe VAST 29 PB"
+  - "environnement logiciel attendu"
+  - "versions des modules"
+  - "gcc/13.3"
+  - "squeue"
+  - "gpus-per-node"
+  - "$HOME"
+  - "mpirun --bind-to core --map-by"
+  - "openmp_example"
+  - "accès via compte CCDB et SSH/Open OnDemand"
+  - "tâche MPI"
+  - "SSH"
+  - "$PROJECT"
+  - "formation sur l'interpréteur Linux"
+  - "OMP_NUM_THREADS"
+  - "créer le répertoire $HOME/links"
+  - "données de sortie"
+  - "$SCRATCH"
+  - "tâche avec un seul GPU"
+  - "général"
+  - "lecture seulement"
+  - "scontrol"
+  - "SLURM"
+  - "cuda/12.6"
+  - "--gpus-per-node"
+  - "sacct"
+  - "/scratch"
+  - "nœuds"
+  - "GPU"
+  - "nœuds de connexion Trillium"
+  - "tâche OpenMP"
+  - "clé SSH privée"
+  - "plus court temps d'exécution"
+  - "système de fichiers parallèle"
+  - "salloc"
+  - "--nodes"
+  - "aucun accès Internet"
+  - "débogage"
+  - "--partition"
+  - "$HOME/links/projects"
+  - "quota"
+  - "jobperf"
+  - "Trillium"
+  - "directive #SBATCH"
+  - "nombre de tâches"
+  - "partition"
+  - "--ntasks"
+  - "cpus-per-task"
+  - "file d'attente"
+  - "tests légers"
+  - "reproductibilité à long terme"
+  - "nombre de nœuds"
+  - "nvidia-smi"
+  - "écrites dans /scratch"
+  - "stockage VAST"
+  - "--cpus-per-task"
+  - "GPU entier"
+  - "sous‑grappe CPU 235 008 cœurs"
+  - "licence valide"
+  - "debugjob"
+  - "ntasks-per-node"
+  - "RAP"
+  - "sbatch"
+  - "limite pour les tâches en cours"
+  - "modules standards"
+  - "reproductibilité"
+  - "mémoire allouée"
+  - "temps d'attente"
+  - "variables d'environnement $HOME $SCRATCH $PROJECT"
+  - "$HOME/links/scratch"
+  - "--export=ALL"
+  - "directives #SBATCH"
+  - "--ntasks-per-node"
+  - "tâche hybride MPI/OpenMP"
+  - "grappe Trillium"
+  - "Introduction à Linux"
+  - "allocation"
+  - "--time"
+  - "compte par défaut"
+
+questions:
+  - "Quelles sont les trois sous‑grappes principales de Trillium et quelles sont leurs spécifications matérielles ?"
+  - "Comment peut‑on obtenir un compte et demander l’accès au système Trillium via l’Alliance de recherche numérique du Canada ?"
+  - "Quels sont les deux modes de connexion à Trillium et quelles sont les exigences d’authentification associées ?"
+  - "Pourquoi faut‑il maîtriser l’interpréteur Linux pour travailler sur Trillium ?"
+  - "Quelles ressources sont proposées pour se former à l’interpréteur Linux ?"
+  - "Comment s’inscrire à la formation « Shell » mentionnée dans le texte ?"
+  - "Quelle commande SSH devez‑vous exécuter, avec quels arguments, pour vous connecter aux nœuds de connexion CPU de Trillium ?"
+  - "Quelles restrictions le texte impose‑t‑il quant aux types de tâches que l’on peut exécuter directement sur les nœuds de connexion ?"
+  - "Quels répertoires de stockage sont fournis sur Trillium et comment les variables d’environnement $HOME, $SCRATCH et $PROJECT pointent‑elles vers ces répertoires ?"
+  - "À quoi correspond la variable $PROJECT et comment est‑elle déterminée ?"
+  - "Où se trouvent les répertoires de niveau supérieur des projets accessibles et quel lien y est associé ?"
+  - "Que faut‑il faire si le répertoire $HOME/links n’existe pas dans votre compte ?"
+  - "Quel espace de stockage chaque répertoire ($HOME, $SCRATCH, $PROJECT, $ARCHIVE) offre-t-il, quels sont leurs quotas et leurs politiques de sauvegarde ?"
+  - "Comment utiliser les commandes de modules (ex. : `module load`, `module avail`, `module list`, `module spider`) pour charger des versions spécifiques de logiciels sur Trillium ?"
+  - "Quelles bonnes pratiques recommande‑t‑on pour charger les modules afin d’éviter les conflits et garantir la reproductibilité des environnements de calcul ?"
+  - "Pourquoi est‑il crucial de garantir que la tâche s’exécute dans l’environnement logiciel attendu, quels que soient les paramètres de l’interpréteur interactif ?"
+  - "Quels problèmes peut‑on rencontrer en utilisant des noms courts de modules comme « gcc » dans un script de tâche ?"
+  - "En quoi la spécification explicite de versions complètes de modules (par ex. « gcc/13.3 ») assure‑t‑elle la reproductibilité à long terme ?"
+  - "Comment utiliser la sous‑commande `module spider` pour identifier les dépendances d’un module et les charger dans le bon ordre ?"
+  - "Quelles conditions sont requises pour utiliser un logiciel commercial sur Trillium et comment obtenir de l’aide pour son installation ?"
+  - "Quels sont les critères et les procédures pour exécuter des tests légers ou lancer une session de débogage interactive avec la commande `debugjob` ?"
+  - "Comment demander une session interactive avec <salloc> et quelles options (N, M, G, --x11) faut‑il spécifier ?"
+  - "Quelle est la procédure correcte pour soumettre un job sur Trillium avec <sbatch>, en distinguant les nœuds de connexion CPU et GPU ainsi que les directives <#SBATCH> nécessaires ?"
+  - "Pourquoi les données de sortie doivent‑elles obligatoirement être écrites dans le système de fichiers /scratch sur les nœuds de calcul ?"
+  - "Quels sont les droits d’accès (Internet, écriture sur /home et /projet, soumission de tâche) accordés par défaut à une session de débogage ?"
+  - "Comment faire en sorte que la session de débogage hérite des modules déjà chargés avant d’exécuter la commande ?"
+  - "Quelle option doit‑être ajoutée en première position à la commande debugjob pour exporter tous les modules chargés ?"
+  - "Quels sont les éléments « Fir, Nibi, Narval, Rorqual » mentionnés dans le texte et quel rôle jouent-ils dans le sujet abordé ?"
+  - "Pourquoi le texte insiste‑t‑il sur l’écriture des données de sortie dans le répertoire /scratch ?"
+  - "Quelles sont les restrictions d’accès aux répertoires /home et /project sur les nœuds de calcul, et comment cela influence le choix du système de fichiers ?"
+  - "Pourquoi faut‑il soumettre les tâches depuis le répertoire $SCRATCH plutôt que depuis $HOME ou $PROJECT ?"
+  - "Comment spécifier explicitement le compte d’allocation avec l’option --account et pourquoi est‑il recommandé de le faire lorsqu’on possède plusieurs allocations ?"
+  - "Quelle est la politique d’allocation des ressources (cœurs, nœuds, GPU et mémoire) sur Trillium et quelles options de script de tâche sont couramment utilisées pour les définir ?"
+  - "Quels paramètres SBATCH permettent de définir le nombre de cœurs, la durée, le nom, la sortie, les notifications par courriel, les GPU et la mémoire d’une tâche ?"
+  - "Quelle est la différence principale entre les partitions « compute » et « debug » concernant les limites de nœuds, de cœurs, de temps d’exécution et le nombre de tâches simultanées ?"
+  - "Où et comment doivent être placées les directives SBATCH dans un script Bash destiné à être soumis avec sbatch ?"
+  - "Quelle option permet de spécifier le nombre total de nœuds à allouer et pourquoi est‑elle toujours recommandée ?"
+  - "Quelle différence existe‑t‑il entre les options <code>--ntasks-per-node</code> et <code>--ntasks</code>, et quand doit‑on privilégier la première ?"
+  - "Comment les options <code>--nodes</code>, <code>--ntasks-per-node</code> et <code>--ntasks</code> interagissent‑elles lors du lancement d’une tâche avec <code>srun</code> ou <code>mpirun</code> ?"
+  - "Quels facteurs déterminent le temps d’attente d’une tâche dans la file d’attente ?"
+  - "Que doit‑on faire si l’on dépasse les limites d’utilisation des ressources ?"
+  - "Comment l’exemple de tâche MPI illustre‑t‑il le processus de soumission et d’exécution des jobs ?"
+  - "Quels sont les rôles des directives `#SBATCH` dans les scripts d’exemple et comment influencent‑elles la réservation des ressources par Slurm ?"
+  - "Pourquoi le script MPI utilise‑t‑il `mpirun` plutôt que `srun`, et quel est l’intérêt du préchargement de la bibliothèque VAST ?"
+  - "Dans le script OpenMP, comment est configuré le nombre de threads et pourquoi la variable `OMP_NUM_THREADS` est‑elle définie à partir de `$SLURM_CPUS_PER_TASK` ?"
+  - "Quels sont les paramètres d’environnement (OMP_NUM_THREADS, OMP_PLACES, OMP_PROC_BIND, CORES_PER_L3CACHE, RANKS_PER_L3CACHE) à définir avant d’exécuter le programme hybride et comment sont‑ils calculés ?"
+  - "Comment le script sbatch configure‑t‑il les ressources (nombre de nœuds, tâches, threads) et quelles sont les étapes principales exécutées une fois les nœuds alloués ?"
+  - "Quelles sont les règles et limites spécifiques pour soumettre des tâches sur la sous‑grappe GPU, notamment le nombre de GPU par nœud autorisé et l’utilisation éventuelle de MPS ?"
+  - "Quel est le nombre de nœuds et de tâches par nœud spécifiés dans le script SLURM ?"
+  - "À quoi sert l’option « --cpus-per-task=4 » dans ce job hybride MPI/OpenMP ?"
+  - "Comment le répertoire de travail est‑il défini avant l’exécution de l’application « openmp_example » ?"
+  - "Comment spécifier le nombre de GPU à allouer pour une tâche qui n’utilise qu’un seul GPU ?"
+  - "Quelle option de ligne de commande permet de réserver un nœud GPU entier (par exemple 4 GPU) pour une tâche ?"
+  - "Quelles sont les différentes colonnes du tableau et quelles limites (taille de tâche, temps d’exécution, etc.) y sont indiquées pour chaque partition ?"
+  - "Quelles sont les limites de ressources (nombre de cœurs, GPU et temps d’exécution) selon les différentes partitions et comment choisir la partition adaptée à son travail ?"
+  - "Comment structurer un script SLURM pour soumettre correctement une tâche avec un seul GPU, un nœud complet (4 GPU) ou plusieurs nœuds GPU ?"
+  - "Quelles sont les meilleures pratiques à suivre pour la soumission, le suivi (avec nvidia‑smi) et la reproductibilité des jobs GPU sur le cluster ?"
+  - "Pourquoi est‑il recommandé d’indiquer explicitement les versions des logiciels (ex. cuda/12.6) plutôt que d’utiliser uniquement le nom du logiciel ?"
+  - "Quelle est la démarche conseillée avant de passer d’un seul GPU à plusieurs GPU ou à plusieurs nœuds ?"
+  - "Quel outil doit‑on utiliser pour vérifier que les GPU sont pleinement exploités et comment l’employer ?"
+  - "Quels sont les commandes SLURM permettant de suivre l’état d’une tâche en cours et d’obtenir les détails des nœuds alloués ?"
+  - "Comment obtenir une estimation du démarrage d’une tâche en attente et quelles sont les limites de cette estimation ?"
+  - "Où et comment consulter les informations ainsi que les données de performance des tâches terminées sur le portail SciNet ?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
+  keywords_generated: true
   ragflow_synced: true
   qa_generated: false
 ---
@@ -27,29 +183,31 @@ status:
 
 La grappe Trillium est conçue pour prendre en charge des tâches massivement parallèles. Construite par Lenovo Canada, elle est hébergée par SciNet à l'Université de Toronto. Ses trois composantes principales sont :
 
-1.  Sous-grappe de CPU
+1.  **Sous-grappe de CPU**
     *   235 008 cœurs dans 1 224 nœuds de calcul CPU
     *   Chaque nœud de calcul CPU a 192 cœurs provenant de deux processeurs AMD EPYC 9655 de 96 cœurs chacun (Zen 5, ou Turin) cadencés à 2,6GHz (fréquence de base).
     *   Chaque nœud de calcul CPU a 755GiB / 810GB de mémoire disponible.
     *   Les nœuds ont une connexion InfiniBand NDR non bloquante (1:1) à 400Gb/s.
     *   Cette sous-grappe est conçue pour les tâches massivement parallèles.
-2.  Sous-grappe de GPU
+
+2.  **Sous-grappe de GPU**
     *   252 GPU fournis par 63 nœuds de calcul GPU.
     *   Chaque nœud de calcul GPU est équipé de 4 GPU NVIDIA H100 (SXM) avec 80GB de VRAM dédiée.
     *   Chaque nœud de calcul GPU a 96 cœurs provenant d'un processeur AMD EPYC 9654 à 96 cœurs (Zen 4, ou Genoa) cadencé à 2,4GHz (fréquence de base).
     *   Les nœuds ont une connexion InfiniBand NDR non bloquante (1:1) de 800Gb/s, soit 200Gb/s par GPU.
     *   Dispose d'un nœud de connexion dédié (trig-login01) avec 4 GPU NVIDIA H100 (SXM).
     *   Cette sous-grappe est optimisée pour l'IA, l'apprentissage machine et les charges de travail scientifiques accélérées.
-3.  Système de stockage
+
+3.  **Système de stockage**
     *   Stockage NVMe VAST unifié de 29PB pour toutes les charges de travail
     *   Utilise uniquement de la mémoire flash pour des performances constantes
     *   Accessible en tant que système de fichiers parallèle partagé standard
 
 # Avant de commencer
 
-Vous devez posséder un compte [CCDB](https://ccdb.alliancecan.ca) actif auprès de l'Alliance de recherche numérique du Canada. Vous pourrez ensuite demander l'accès à Trillium en sélectionnant *Ressources --> Accès aux systèmes --> onglet HPC*. Cliquez sur *Trillium* et sur *Je demande l'accès*. Il faut environ une heure pour que votre compte soit créé et que vous puissiez utiliser Trillium.
+Vous devez posséder un compte [CCDB](https://ccdb.alliancecan.ca) actif auprès de l'Alliance de recherche numérique du Canada. Vous pourrez ensuite demander l'accès à Trillium en sélectionnant *Ressources -> Accès aux systèmes -> onglet HPC*. Cliquez sur *Trillium* et sur *Je demande l'accès*. Il faut environ une heure pour que votre compte soit créé et que vous puissiez utiliser Trillium.
 
-Prenez bien connaissance de la présente page. La page [Foire aux questions](../getting-started/frequently_asked_questions.md) est aussi une ressource utile. Si vous avez besoin d'aide ou si vous avez des questions, n'hésitez pas à nous écrire à [trillium@tech.alliancecan.ca](mailto:trillium@tech.alliancecan.ca).
+Prenez bien connaissance de la présente page. La page Foire aux questions est aussi une ressource utile. Si vous avez besoin d'aide ou si vous avez des questions, n'hésitez pas à nous écrire à [trillium@tech.alliancecan.ca](mailto:trillium@tech.alliancecan.ca).
 
 ## Se connecter
 
@@ -58,35 +216,31 @@ Il y a deux moyens de se connecter à Trillium :
 *   Via un navigateur avec Open OnDemand. Cette méthode est recommandée si vous ne connaissez pas bien Linux ou la ligne de commande. Voir [Trillium : Guide de démarrage Open OnDemand](../interactive/trillium_open_ondemand_quickstart.md).
 *   Via un terminal avec ssh, comme décrit ci-dessous.
 
-Comme pour tous les systèmes de SciNet et de l'Alliance, l'accès s'effectue via [SSH](../getting-started/ssh.md). De plus, pour Trillium en particulier, l'authentification est uniquement autorisée via des clés SSH téléversées dans [CCDB](https://ccdb.alliancecan.ca). Pour savoir comment générer votre paire de clés SSH, téléverser et utiliser vos clés SSH, voir [Clés SSH](../getting-started/ssh_keys.md).
+Comme pour tous les systèmes de SciNet et de l'Alliance, l'accès s'effectue via SSH. De plus, pour Trillium en particulier, l'authentification est uniquement autorisée via des clés SSH téléversées dans [CCDB](https://ccdb.alliancecan.ca). Pour savoir comment générer votre paire de clés SSH, téléverser et utiliser vos clés SSH, voir Clés SSH.
 
-Trillium utilise Rocky Linux 9.6, un système d'exploitation de type Linux. Vous devez connaître l'interpréteur Linux pour travailler sur Trillium. Si ce n'est pas le cas, nous vous conseillons de lire [Introduction à Linux](../getting-started/linux_introduction.md), de vous inscrire à une [formation sur l'interpréteur Linux](https://explora.alliancecan.ca/events?include_expired=true&keywords=Shell) ou de suivre un [tutoriel de formation autonome](../support/self-paced_courses.md).
+Trillium utilise Rocky Linux 9.6, un système d'exploitation de type Linux. Vous devez connaître l'interpréteur Linux pour travailler sur Trillium. Si ce n'est pas le cas, nous vous conseillons de lire Introduction à Linux, de vous inscrire à une [formation sur l'interpréteur Linux](https://explora.alliancecan.ca/events?include_expired=true&keywords=Shell) ou de suivre un tutoriel de formation autonome.
 
-Vous pouvez utiliser [SSH](../getting-started/ssh.md) en ouvrant une fenêtre de terminal (par exemple, en vous [connectant avec PuTTY](../getting-started/connecting_with_putty.md) sous Windows, ou avec [MobaXTerm](../getting-started/connecting_with_mobaxterm.md)), puis en vous connectant via SSH aux nœuds de connexion Trillium avec vos identifiants CCDB.
+Vous pouvez utiliser SSH en ouvrant une fenêtre de terminal (par exemple, en vous connectant avec PuTTY sous Windows, ou avec MobaXTerm), puis en vous connectant via SSH aux nœuds de connexion Trillium avec vos identifiants CCDB.
 
 *   Pour vous connecter à l'un des nœuds de connexion de la sous-grappe de CPU, utilisez la commande
-
-```bash
-$ ssh -i /PATH/TO/SSH_PRIVATE_KEY MYALLIANCEUSERNAME@trillium.scinet.utoronto.ca
-```
-
+    ```bash
+    $ ssh -i /PATH/TO/SSH_PRIVATE_KEY MYALLIANCEUSERNAME@trillium.scinet.utoronto.ca
+    ```
 *   Pour vous connecter à l'un des nœuds de connexion de la sous-grappe de GPU, utilisez la commande
-
-```bash
-$ ssh -i /PATH/TO/SSH_PRIVATE_KEY MYALLIANCEUSERNAME@trillium-gpu.scinet.utoronto.ca
-```
-
-où `/PATH/TO/SSH_PRIVATE_KEY` est le chemin de votre clé SSH privée et `MYALLIANCEUSERNAME` est votre nom d'utilisateur CCDB.
+    ```bash
+    $ ssh -i /PATH/TO/SSH_PRIVATE_KEY MYALLIANCEUSERNAME@trillium-gpu.scinet.utoronto.ca
+    ```
+    où `/PATH/TO/SSH_PRIVATE_KEY` est le chemin de votre clé SSH privée et `MYALLIANCEUSERNAME` est votre nom d'utilisateur CCDB.
 
 !!! note "Remarques"
-    *   À votre première connexion, assurez-vous que vous êtes bien sur Trillium en vérifiant si [l'empreinte de la clé hôte du nœud de connexion](../getting-started/ssh_security_improvements.md) correspond.
+    *   À votre première connexion, assurez-vous que vous êtes bien sur Trillium en vérifiant si l'empreinte de la clé hôte du nœud de connexion correspond.
     *   Les nœuds de connexion de Trillium vous permettent de développer, de modifier, de compiler, de préparer et de soumettre des tâches.
     *   Les nœuds de connexion CPU et GPU ne font pas partie des nœuds de calcul, mais ils ont la même architecture, le même système d'exploitation et la même pile logicielle que les nœuds de calcul CPU et GPU.
     *   Vous pouvez vous connecter via SSH d'un nœud de connexion à un autre en utilisant leurs noms d'hôte internes `tri-login01, ..., tri-login06` et `trig-login01` (ce dernier étant le nœud de connexion GPU).
     *   L'option `-Y` active la redirection X11, ce qui permet aux programmes graphiques sur Trillium d'ouvrir des fenêtres sur votre ordinateur local.
     *   Pour exécuter des tâches sur les nœuds de calcul, vous devez soumettre une tâche en lot.
 
-Sur les nœuds de connexion, vous ne pouvez pas :
+**Sur les nœuds de connexion, vous ne pouvez pas**
 
 *   exécuter des tâches à forte consommation de mémoire;
 *   exécuter des entraînements parallèles ou des processus hautement multifils;
@@ -94,7 +248,6 @@ Sur les nœuds de connexion, vous ne pouvez pas :
 *   exécuter des tâches intensives, comme des opérations avec plusieurs I/O ou des simulations.
 
 Si vous ne parvenez pas à vous connecter,
-
 *   vérifiez d'abord [l'état du système](https://status.alliancecan.ca),
 *   assurez-vous que votre compte [CCDB](https://ccdb.alliancecan.ca) est actif,
 *   assurez-vous que votre clé publique a été téléversée (au format openssh) dans CCDB
@@ -111,27 +264,25 @@ Trillium dispose d'un système de stockage unifié de haute performance basé su
 Pour plus de commodité, l'emplacement du niveau supérieur de vos répertoires `/home` et `/scratch` est disponible dans les variables d'environnement `$HOME` et `$SCRATCH`, tandis que la variable `$PROJECT` pointe vers votre répertoire dans `/project`.
 
 Dans le cas où vous participez à plusieurs projets, `$PROJECT` pointe vers votre dernier projet dans l'ordre alphabétique (souvent celui associé à une allocation). Vous trouverez cependant tous les répertoires de niveau supérieur des projets auxquels vous avez accès dans `$HOME/links/projects`, à côté d'un lien `$HOME/links/scratch` pointant vers `$SCRATCH`. Si vous ne voyez pas le répertoire `$HOME/links` dans votre compte, vous pouvez le créer avec la commande
-
 ```bash
 $ trisetup
 ```
-
 Le contenu de `$HOME/links/projects` sera automatiquement mis à jour lorsque vous quitterez ou joindrez des projets.
 
-Sur [HPSS](../storage-and-data/using_nearline_storage.md) (le système /nearline qui sera attaché à Trillium), une variable d'environnement appelée `$ARCHIVE` pointera vers l'emplacement de votre répertoire de niveau supérieur, le cas échéant.
+Sur HPSS (le système `/nearline` qui sera attaché à Trillium), une variable d'environnement appelée `$ARCHIVE` pointera vers l'emplacement de votre répertoire de niveau supérieur, le cas échéant.
 
 Le tableau ci-dessous indique l'espace disponible et les politiques pour chaque emplacement.
 
-| emplacement | quota | délai d'expiration | sauvegarde | sur les nœuds de connexion | sur les nœuds de calcul |
-| :---------- | :------------------------------------------------------------------------------------- | :----------------- | :--------- | :----------------------- | :--------------------- |
-| `$HOME` | 100GB par utilisateur | aucun | oui | oui | lecture seule |
-| `$SCRATCH` | 25TB par utilisateur<sup>*</sup> | à déterminer<sup>*</sup> | non | oui | oui |
-| `$PROJECT` | déterminé par l'allocation via le concours<br>1 To pour groupe par défaut<sup>(2)</sup> | aucun | oui | oui | lecture seule |
-| `$ARCHIVE` | déterminé par l'allocation via le concours<sup>(2)</sup> | aucun | double copie | non | non |
+| emplacement | quota                                           | délai d'expiration   | sauvegarde   | sur les nœuds de connexion | sur les nœuds de calcul |
+| :---------- | :---------------------------------------------- | :------------------- | :----------- | :------------------------- | :---------------------- |
+| `$HOME`     | 100GB par utilisateur                           | aucun                | oui          | oui                        | lecture seule           |
+| `$SCRATCH`  | 25TB par utilisateur\*                          | à déterminer\*       | non          | oui                        | oui                     |
+| `$PROJECT`  | déterminé par l'allocation via le concours<br>1 To pour groupe par défaut^(2)^ | aucun                | oui          | oui                        | lecture seule           |
+| `$ARCHIVE`  | déterminé par l'allocation via le concours^(2)^ | aucun                | double copie | non                        | non                     |
 
-<sup>(1)</sup>Les politiques pour SCRATCH ne sont pas définitives.
+\*Les politiques pour SCRATCH ne sont pas définitives.
 
-<sup>(2)</sup>Le concours pour l'allocation de ressources ne permet pas d'augmenter les quotas pour project ($PROJECT) et nearline ($ARCHIVE) sur Trillium.
+^(2)^Le concours pour l'allocation de ressources ne permet pas d'augmenter les quotas pour project (`$PROJECT`) et nearline (`$ARCHIVE`) sur Trillium.
 
 ## Logiciels
 
@@ -158,18 +309,25 @@ Au moment où vous vous connectez, seuls les modules `CCconfig`, `gentoo/2023` e
 Une bonne gestion de votre environnement logiciel est essentielle pour éviter les conflits et garantir la reproductibilité. Voici quelques bonnes pratiques :
 
 *   Évitez de charger des modules dans votre fichier `.bashrc`, car cela peut entraîner des comportements inattendus, notamment dans les environnements non interactifs comme les tâches en lot ou les interpréteurs distants.
+
 *   Chargez plutôt les modules manuellement, à partir d'un script distinct ou à l'aide de collections de modules. Cette approche offre un meilleur contrôle et contribue à préserver la propreté des environnements.
+
 *   Chargez les modules requis dans votre script de tâche, ce qui garantit que votre tâche s'exécute dans l'environnement logiciel attendu, quels que soient les paramètres de votre interpréteur interactif.
+
 *   Soyez explicite quant aux versions des modules. Des noms courts comme `gcc` chargeront le module par défaut (par exemple `gcc/12.3`) qui pourrait éventuellement changer. Spécifiez les versions complètes (par exemple `gcc/13.3`) pour une reproductibilité à long terme.
+
 *   Résolvez les dépendances avec `module spider`. Certains modules dépendent d'autres modules. Utilisez `module spider <module-name>` pour savoir lesquels sont requis et comment les charger dans le bon ordre. Pour en savoir plus, voir [Sous-commande spider](../programming/utiliser_des_modules.md#sous-commande-spider).
 
 ## Applications commerciales
 
 Certains aspects sont à considérer si vous voulez utiliser des logiciels commerciaux sur Trillium.
 
-*   Vous pouvez utiliser des logiciels commerciaux sur Trillium si vous possédez une licence valide. Si le logiciel nécessite un serveur de licences, vous pouvez vous y connecter en toute sécurité via [un tunnel SSH](../getting-started/ssh_tunnelling.md).
+*   Vous pouvez utiliser des logiciels commerciaux sur Trillium si vous possédez une licence valide. Si le logiciel nécessite un serveur de licences, vous pouvez vous y connecter en toute sécurité via un tunnel SSH.
+
 *   Nous ne fournissons pas de licence spécifique à chaque utilisateur. En raison du nombre et de la diversité de nos utilisateurs, nous ne pouvons pas offrir des licences pour des paquets individuels ou spécialisés.
+
 *   Certains outils du commerce très utiles sont disponibles, tels que des compilateurs (Intel), bibliothèques mathématiques (MKL) et débogueurs (DDT).
+
 *   Nous pouvons vous aider. Si vous possédez une licence valide et avez besoin d'aide pour installer un logiciel, n'hésitez pas à nous contacter.
 
 # Tests et débogage
@@ -181,64 +339,59 @@ Avant de soumettre votre tâche, il est important de tester votre code pour vous
     *   utiliser au plus 1 à 2GB de mémoire
     *   utiliser entre 1 et 4 CPU
     *   utiliser au plus 1 GPU
-*   Vous pouvez également exécuter le débogueur parallèle [ARM DDT](../software/arm_software.md) sur les nœuds de connexion après l'avoir chargé avec `module load ddt-cpu` ou `module load ddt-gpu`.
+
+*   Vous pouvez également exécuter le débogueur parallèle ARM DDT sur les nœuds de connexion après l'avoir chargé avec `module load ddt-cpu` ou `module load ddt-gpu`.
+
 *   Pour les tests dépassant les limites du nœud de connexion ou nécessitant des ressources dédiées, demandez une tâche de débogage interactive à l'aide de la commande `debugjob` sur un nœud de connexion.
+    ```bash
+    $ debugjob
+    ```
+    Exécutée depuis un nœud de connexion CPU, cette commande vous permet d'utiliser un interpréteur interactif dans une session de calcul CPU pendant une heure. La commande `debugjob` exécutée depuis un nœud de connexion GPU ouvre une session interactive avec un GPU sur un nœud de calcul GPU (partagé) pendant deux heures. Le tableau suivant montre quelques variantes de cette commande permettant de demander davantage de ressources pour une session interactive. Notez que plus vous demandez de ressources, plus le temps d'exécution alloué est court, ce qui permet de garantir que la session interactive démarre presque toujours immédiatement.
 
-```bash
-$ debugjob
-```
+| Commande                   | Sous-grappe | Nombre de cœurs | Nombre de cœurs CPU | Nombre de GPU | Mémoire    | Temps d'exécution maximum |
+| :------------------------- | :---------- | :-------------- | :------------------ | :------------ | :--------- | :------------------------ |
+| `debugjob`                 | CPU         | 1               | 192                 | 0             | 755GiB     | 60 minutes                |
+| `debugjob 2`               | CPU         | 2               | 384                 | 0             | 2x755GiB   | 30 minutes                |
+| `debugjob`<br>`debugjob -g 1` | GPU         | 1/4             | 24                  | 1             | 188GiB     | 120 minutes               |
+| `debugjob 1`<br>`debugjob -g 4` | GPU         | 1               | 96                  | 4             | 755GiB     | 30 minutes                |
+| `debugjob 2`<br>`debugjob -g 8` | GPU         | 2               | 192                 | 8             | 2x755GiB   | 15 minutes                |
 
-Exécutée depuis un nœud de connexion CPU, cette commande vous permet d'utiliser un interpréteur interactif dans une session de calcul CPU pendant une heure. La commande `debugjob` exécutée depuis un nœud de connexion GPU ouvre une session interactive avec un GPU sur un nœud de calcul GPU (partagé) pendant deux heures. Le tableau suivant montre quelques variantes de cette commande permettant de demander davantage de ressources pour une session interactive. Notez que plus vous demandez de ressources, plus le temps d'exécution alloué est court, ce qui permet de garantir que la session interactive démarre presque toujours immédiatement.
+    L'environnement de l'interpréteur pour une tâche de débogage est similaire à celui que vous obtenez lorsque vous venez de vous connecter : seuls les modules standards sont chargés, aucun accès Internet, aucun accès en écriture aux systèmes de fichiers /home et /projet, et aucune soumission de tâche. Sachez que si vous souhaitez que la session hérite des modules chargés avant d'exécuter la commande de débogage, vous pouvez ajouter `--export=ALL` comme première option à debugjob.
 
-| Commande | Sous-grappe | Nombre de nœuds | Nombre de cœurs CPU | Nombre de GPU | Mémoire | Temps d'exécution maximum |
-| :------- | :---------- | :-------------- | :------------------ | :------------ | :------ | :------------------------ |
-| `debugjob` | CPU | 1 | 192 | 0 | 755GiB | 60 minutes |
-| `debugjob 2` | CPU | 2 | 384 | 0 | 2x755GiB | 30 minutes |
-| `debugjob`<br>`debugjob -g 1` | GPU | 1/4 | 24 | 1 | 188GiB | 120 minutes |
-| `debugjob 1`<br>`debugjob -g 4` | GPU | 1 | 96 | 4 | 755GiB | 30 minutes |
-| `debugjob 2`<br>`debugjob -g 8` | GPU | 2 | 192 | 8 | 2x755GiB | 15 minutes |
-
-L'environnement de l'interpréteur pour une tâche de débogage est similaire à celui que vous obtenez lorsque vous venez de vous connecter : seuls les modules standards sont chargés, aucun accès Internet, aucun accès en écriture aux systèmes de fichiers /home et /projet, et aucune soumission de tâche. Sachez que si vous souhaitez que la session hérite des modules chargés avant d'exécuter la commande de débogage, vous pouvez ajouter `--export=ALL` comme première option à `debugjob`.
-
-*   Si votre tâche de test nécessite plus de temps que ce qui est autorisé par `debugjob`, vous pouvez demander une session interactive depuis la file d'attente standard avec `salloc`. Pour les tâches de test CPU, la commande serait
-
-```bash
-$ salloc --export=NONE --nodes=N --time=M:00:00 [--ngpus-per-node=G] [--x11]
-```
-
-où
-*   `N` est le nombre de nœuds
-*   `M` est le nombre d'heures d'exécution de la tâche
-*   `G` est le nombre de GPU par nœud (le cas échéant)
-*   `--x11` est requis uniquement pour les applications graphiques (par exemple [ARM DDT](../software/arm_software.md)).
+*   Si votre tâche de test nécessite plus de temps que ce qui est autorisé par debugjob, vous pouvez demander une session interactive depuis la file d'attente standard avec `salloc`. Pour les tâches de test CPU, la commande serait :
+    ```bash
+    $ salloc --export=NONE --nodes=N --time=M:00:00 [--ngpus-per-node=G] [--x11]
+    ```
+    où
+    *   `N` est le nombre de nœuds
+    *   `M` est le nombre d'heures d'exécution de la tâche
+    *   `G` est le nombre de GPU par nœud (le cas échéant)
+    *   `--x11` est requis uniquement pour les applications graphiques (par exemple ARM DDT).
 
 !!! note "Remarque"
-    Les tâches soumises avec `salloc` peuvent prendre plus de temps à démarrer qu'avec `debugjob` et sont comptabilisées dans votre allocation.
+    Les tâches soumises avec `salloc` peuvent prendre plus de temps à démarrer qu'avec debugjob et sont comptabilisées dans votre allocation.
 
 # Soumettez des tâches à l'ordonnanceur
 
 Une fois que votre code ou votre flux de travail est compilé et testé sur les nœuds de connexion de Trillium et que son bon fonctionnement est confirmé, vous pouvez soumettre des tâches sur la grappe. Ces tâches s'exécuteront sur les nœuds de calcul de Trillium et leur exécution sera gérée par l'ordonnanceur.
 
-Trillium utilise SLURM comme ordonnanceur de tâches. Pour plus d'information sur l'interaction avec l'ordonnanceur, voyez [la page Slurm](../running-jobs/running_jobs.md).
+Trillium utilise SLURM comme ordonnanceur de tâches. Pour plus d'information sur l'interaction avec l'ordonnanceur, voyez la page Slurm.
 
 Pour soumettre une tâche, utilisez la commande `sbatch` sur un nœud de connexion.
-
 ```bash
 $ sbatch jobscript.sh
 ```
-
 Les tâches avec CPU doivent être soumises depuis les nœuds de connexion CPU, tandis que les tâches avec GPU doivent être soumises depuis le nœud de connexion GPU. Dans les deux cas, la commande est identique, mais les options du script sont différentes (voir ci-dessous).
 
 La commande `sbatch` place votre tâche dans la file d'attente. Le script doit contenir des lignes commençant par `#SBATCH` spécifiant les ressources nécessaires (les options les plus courantes sont présentées ci-dessous). L'ordonnanceur exécutera ce script sur les nœuds de calcul lorsque votre tâche aura passé au début de la file d'attente et que les ressources seront disponibles.
 
-La priorité d'une tâche dans la file d'attente dépend des ressources demandées, du temps déjà passé dans la file d'attente, de l'utilisation récente, ainsi que du compte SLURM avec lequel la tâche a été soumise. Les comptes SLURM correspondent aux [RAP (Resource Allocation Project)](../getting-started/frequently_asked_questions_about_the_ccdb.md#rap-resource-allocation-project) :
-
+La priorité d'une tâche dans la file d'attente dépend des ressources demandées, du temps déjà passé dans la file d'attente, de l'utilisation récente, ainsi que du compte SLURM avec lequel la tâche a été soumise. Les comptes SLURM correspondent aux RAP (Resource Allocation Project) :
 *   Chaque chercheuse principale ou chercheur principal dispose d'au moins un RAP, le RAP par défaut du service d'accès rapide. Les membres parrainés ont accès au compte SLURM correspondant dont le nom commence par `def-`.
 *   Une chercheuse principale ou un chercheur principal disposant d'une allocation via concours dispose d'un RAP supplémentaire, auquel des utilisateurs peuvent être ajoutés. Le nom des comptes SLURM correspondants commence généralement par `rrg-` ou `rpp-`. Notez que les RAC sont liés à un système; par exemple, un RAC pour Nibi ne peut pas être utilisé sur Trillium.
 
 ## Restrictions particulières à Trillium
 
-Trillium étant conçue pour les tâches massivement parallèles, elle présente certaines différences par rapport aux grappes à usage général ([Fir](../software/fir.md), [Nibi](nibi.md), [Narval](narval.md), [Rorqual](rorqual.md)), que nous allons maintenant aborder.
+Trillium étant conçue pour les tâches massivement parallèles, elle présente certaines différences par rapport aux grappes à usage général (Fir, Nibi, [Narval](narval.md), [Rorqual](rorqual.md)), que nous allons maintenant aborder.
 
 ### Les données de sortie doivent être écrites dans /scratch
 
@@ -256,11 +409,11 @@ Les tâches ne peuvent pas être soumises depuis les nœuds de calcul (ni depuis
 
 ### Ordonnancement pour nœud entier ou GPU entier
 
-Il n'est pas possible de demander un nombre particulier de cœurs sur Trillium. Sur la sous-grappe de CPU, toutes les tâches doivent utiliser des nœuds entiers. Ceci signifie que la taille minimale d'une tâche CPU est de 192 cœurs, que vous devez utiliser efficacement. Si vous exécutez des tâches séquentielles ou à faible nombre de cœurs, vous devez tout de même utiliser les 192 cœurs du nœud en regroupant plusieurs tâches indépendantes dans un seul script. Pour des exemples, consultez [GNU Parallel](../running-jobs/gnu_parallel.md) et [cette section de la page META-Farm (fonctions avancées)](../running-jobs/meta-farm__advanced_features_and_troubleshooting.md#mode-whole-node).
+Il n'est pas possible de demander un nombre particulier de cœurs sur Trillium. Sur la sous-grappe de CPU, toutes les tâches doivent utiliser des nœuds entiers. Ceci signifie que la taille minimale d'une tâche CPU est de 192 cœurs, que vous devez utiliser efficacement. Si vous exécutez des tâches séquentielles ou à faible nombre de cœurs, vous devez tout de même utiliser les 192 cœurs du nœud en regroupant plusieurs tâches indépendantes dans un seul script. Pour des exemples, consultez GNU Parallel et cette section de la page META-Farm (fonctions avancées).
 
 Si votre tâche sous-utilise les cœurs, notre équipe peut vous aider à optimiser votre flux de travail, ou vous pouvez [nous contacter](mailto:trillium@tech.alliancecan.ca) pour obtenir de l'aide.
 
-Sur la sous-grappe de GPU, chaque nœud contient 4 GPU. L'ordonnanceur vous permet de demander soit un nombre entier de nœuds, soit un seul GPU. Ce dernier équivaut à un quart de nœud, avec 24 cœurs et environ 188 GiB de RAM. Il est important d'utiliser le GPU efficacement. Trillium ne prend pas en charge MIG comme sur les autres grappes (MIG permet de planifier une fraction de GPU), mais vous pouvez utiliser [HyperQ / MPS](../software/hyper-q___mps.md) dans vos tâches.
+Sur la sous-grappe de GPU, chaque nœud contient 4 GPU. L'ordonnanceur vous permet de demander soit un nombre entier de nœuds, soit un seul GPU. Ce dernier équivaut à un quart de nœud, avec 24 cœurs et environ 188 GiB de RAM. Il est important d'utiliser le GPU efficacement. Trillium ne prend pas en charge MIG comme sur les autres grappes (MIG permet de planifier une fraction de GPU), mais vous pouvez utiliser HyperQ / MPS dans vos tâches.
 
 ### Quantité de mémoire allouée
 
@@ -270,24 +423,24 @@ N'indiquez pas la quantité de mémoire requise. Les tâches CPU reçoivent touj
 
 Les options suivantes sont fréquemment utilisées :
 
-| option | short option | résultat | remarques |
-| :------------------ | :---------- | :------------------------------------------------------ | :--------------------------------------------------------------- |
-| `--nodes` | `-N` | nombre de nœuds | il est recommandé de toujours inclure cette option |
-| `--ntasks-per-node` | | nombre de tâches à lancer par srun/mpirun, par nœud | préférez cette option à `--ntasks` |
-| `--ntasks` | `-n` | nombre de tâches à lancer par srun/mpirun | |
-| `--cpus-per-task` | `-c` | nombre de cœurs par tâche | habituellement pour les fils (OpenMP) |
-| `--time` | `-t` | durée de la tâche | |
-| `--job-name` | `-J` | nom de la tâche | |
-| `--output` | `-o` | fichier de sortie | peut être répété (par exemple avec %j pour l'identifiant de la tâche) |
-| `--mail-type` | | quand envoyer un courriel (par exemple BEGIN, END, FAIL, ALL) | |
-| `--gpus-per-node` | | nombre de GPU à utiliser sur chaque nœud | les valeurs pour la sous-grappe de GPU sont 1 et 4 |
-| `--partition` | `-p` | partition à laquelle soumettre la tâche | (voir les partitions disponibles ci-dessous) |
-| `--account` | `-A` | compte slurm à utiliser | dans plusieurs cas, ceci est automatique sur Trillium |
-| `--mem` | | quantité de mémoire | ne s'applique pas (vous obtenez toute la mémoire) |
+| option                  | short option | résultat                                                      | remarques                                                                 |
+| :---------------------- | :----------- | :------------------------------------------------------------ | :------------------------------------------------------------------------ |
+| `--nodes`               | `-N`         | nombre de nœuds                                               | il est recommandé de toujours inclure cette option                        |
+| `--ntasks-per-node`     |              | nombre de tâches à lancer par srun/mpirun, par nœud           | préférez cette option à `--ntasks`                                        |
+| `--ntasks`              | `-n`         | nombre de tâches à lancer par srun/mpirun                     |                                                                           |
+| `--cpus-per-task`       | `-c`         | nombre de cœurs par tâche                                     | habituellement pour les fils (OpenMP)                                     |
+| `--time`                | `-t`         | durée de la tâche                                             |                                                                           |
+| `--job-name`            | `-J`         | nom de la tâche                                               |                                                                           |
+| `--output`              | `-o`         | fichier de sortie                                             | peut être répété (par exemple avec %j pour l'identifiant de la tâche)     |
+| `--mail-type`           |              | quand envoyer un courriel (par exemple BEGIN, END, FAIL, ALL) |                                                                           |
+| `--gpus-per-node`       |              | nombre de GPU à utiliser sur chaque nœud                      | les valeurs pour la sous-grappe de GPU sont 1 et 4                        |
+| `--partition`           | `-p`         | partition à laquelle soumettre la tâche                       | (voir les partitions disponibles ci-dessous)                              |
+| `--account`             | `-A`         | compte slurm à utiliser                                       | dans plusieurs cas, ceci est automatique sur Trillium                     |
+| `--mem`                 |              | quantité de mémoire                                           | ne s'applique pas (vous obtenez toute la mémoire)                         |
 
 Ces options doivent être dans des lignes de commentaire distinctes en haut du script de tâche (mais après `#!/bin/bash`), préfixées par `#SBATCH`. Elles peuvent également être utilisées comme options de ligne de commande pour salloc. Vous trouverez ci-dessous quelques exemples de scripts de tâches.
 
-Pour plus d'information, voyez [Exécuter des tâches](../running-jobs/running_jobs.md) et [la documentation sur SLURM](https://slurm.schedmd.com/sbatch.html).
+Pour plus d'information, voyez Exécuter des tâches et [la documentation sur SLURM](https://slurm.schedmd.com/sbatch.html).
 
 ## Soumettre des tâches sur la sous-grappe de CPU
 
@@ -295,12 +448,12 @@ Pour plus d'information, voyez [Exécuter des tâches](../running-jobs/running_j
 
 La taille et la durée de vos tâches, leur nombre d'exécutions et leur nombre de mises en file d'attente sont limités. L'appartenance ou non d'un utilisateur à un groupe disposant d'une allocation via concours (pour un groupe de recherche ou pour une plateforme ou un portail) est importante. La partition d'exécution de la tâche est également importante. Dans le langage de l'ordonnanceur Slurm, le terme *partition* est utilisé pour décrire les cas d'utilisation. Vous spécifiez la partition avec le paramètre `-p` de `sbatch` ou `salloc`, mais si vous n'en spécifiez pas, votre tâche s'exécutera dans la partition `compute`, ce qui est le cas le plus courant.
 
-| Utilisation | Partition | Limite pour les tâches en cours | Limite pour les tâches soumises et en cours | Plus petite taille des tâches | Plus grande taille des tâches | Plus court temps d'exécution | Plus long temps d'exécution |
-| :---------- | :-------- | :------------------------------ | :------------------------------------------ | :---------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------- | :------------------------- | :-------------------------- |
-| tâches de calcul | `compute` | 150 | 500 | 1 nœud (192 cœurs) | par défaut, 10 nœuds (1920 cœurs)<br> avec une allocation, 128 nœuds (24576 cœurs)<sup>*</sup> | 15 minutes | 24 heures |
-| tests ou débogage | `debug` | 1 | 1 | 1 nœud (192 cœurs) | 2 nœuds (384 cœurs) | s.o. | 1 heure |
+| Utilisation          | Partition | Limite pour les tâches en cours | Limite pour les tâches soumises et en cours | Plus petite taille des tâches | Plus grande taille des tâches                                                    | Plus court temps d'exécution | Plus long temps d'exécution |
+| :------------------- | :-------- | :------------------------------ | :------------------------------------------ | :---------------------------- | :------------------------------------------------------------------------------- | :--------------------------- | :-------------------------- |
+| tâches de calcul     | compute   | 150                             | 500                                         | 1 nœud (192 cœurs)            | par défaut, 10 nœuds (1920 cœurs)<br>avec une allocation, 128 nœuds (24576 cœurs)\* | 15 minutes                   | 24 heures                   |
+| tests ou débogage | debug     | 1                               | 1                                           | 1 nœud (192 cœurs)            | 2 nœuds (384 cœurs)                                                              | s.o.                         | 1 heure                     |
 
-<sup>*</sup> Maximum recommandé; si vous avez des tâches plus exigeantes, contactez-nous.
+\* Maximum recommandé; si vous avez des tâches plus exigeantes, contactez-nous.
 
 Même si vous respectez ces limites, vos tâches devront passer par la file d'attente. Le temps d'attente dépend de nombreux facteurs, tels que la taille de l'allocation pour votre groupe, la quantité de ressources utilisées récemment, le nombre de nœuds et le temps d’exécution demandés, ainsi que le nombre total de tâches en attente.
 
@@ -327,7 +480,6 @@ mpirun ./mpi_example
 ```
 
 Depuis un nœud de connexion, à partir de votre répertoire `$SCRATCH`, soumettez ce script avec la commande
-
 ```bash
 $ sbatch mpi_job.sh
 ```
@@ -366,7 +518,6 @@ export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK
 ```
 
 À partir de votre répertoire `$SCRATCH`, soumettez ce script depuis un nœud de connexion CPU avec la commande
-
 ```bash
 $ sbatch openmp_job.sh
 ```
@@ -404,7 +555,7 @@ export OMP_PLACES=cores
 export OMP_PROC_BIND=true
 
 export CORES_PER_L3CACHE=8
-export RANKS_PER_L3CACHE=$(( $CORES_PER_L3CACHE / $OMP_NUM_THREADS ))  # this works up to 8 threads
+export RANKS_PER_L3CACHE=$(( $CORES_PER_L3CACHE / $OMP_NUM_THREADS ))  # this works up to 8 threads 
 
 source /scinet/vast/etc/vastpreload-openmpi.bash # important if doing MPI-IO
 
@@ -412,7 +563,6 @@ mpirun --bind-to core --map-by ppr:$RANKS_PER_L3CACHE:l3cache:pe=$OMP_NUM_THREAD
 ```
 
 À partir de votre répertoire `$SCRATCH`, soumettez ce script avec la commande
-
 ```bash
 $ sbatch hybrid_job.sh
 ```
@@ -438,12 +588,14 @@ Sur Trillium, vous ne pouvez demander qu'un seul GPU ou un multiple de quatre GP
 *   Pour une tâche avec un seul GPU, utilisez `--gpus-per-node=1`.
 *   Pour une tâche avec un nœud GPU entier, utilisez `--gpus-per-node=4`.
 
-| Utilisation | Partition | Limite pour les tâches en cours | Limite pour les tâches soumises et en cours | Plus petite taille des tâches | Plus grande taille des tâches | Plus court temps d'exécution | Plus long temps d'exécution |
-| :---------- | :-------- | :------------------------------ | :------------------------------------------ | :---------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------- | :------------------------- | :-------------------------------------- |
-| calcul avec GPU | `calcul` (Note: Ne spécifiez pas explicitement cette partition; l'ordonnanceur doit pouvoir déterminer la partition qui est appropriée pour votre tâche.) | 150 | 500 | 1/4 nœud (24 cœurs / 1GPU) | par défaut, 5 nœuds (480 cœurs /20 GPU)<br> avec une allocation: 25 nœuds (2400 cœurs /100 GPU) | 15 minutes | 24 heures |
-| test avec GPU | `débogage` | 1 | 1 | 1/4 nœud (24 cœurs / 1 GPU) | 2 nœuds (192 cœurs / 8 GPU) | s.o. | 2 heures (1 GPU) - 30 minutes (8 GPU) |
+| Utilisation       | Partition | Limite pour les tâches en cours | Limite pour les tâches soumises et en cours | Plus petite taille des tâches | Plus grande taille des tâches                                                    | Plus court temps d'exécution          | Plus long temps d'exécution           |
+| :---------------- | :-------- | :------------------------------ | :------------------------------------------ | :---------------------------- | :------------------------------------------------------------------------------- | :------------------------------------ | :------------------------------------ |
+| calcul avec GPU   | calcul [^1]   | 150                             | 500                                         | 1/4 nœud (24 cœurs / 1GPU)    | par défaut, 5 nœuds (480 cœurs /20 GPU)<br>avec une allocation: 25 nœuds (2400 cœurs /100 GPU) | 15 minutes                            | 24 heures                             |
+| test avec GPU | débogage  | 1                               | 1                                           | 1/4 nœud (24 cœurs / 1 GPU)   | 2 nœuds (192 cœurs / 8 GPU)                                                      | s.o.                                  | 2 heures (1 GPU) - 30 minutes (8 GPU) |
 
-Même si vous respectez ces limites, vos tâches devront passer par la file d'attente. Le temps d'attente dépend de nombreux facteurs, tels que la taille des ressources pour votre groupe, la quantité de l'allocation utilisée récemment, le nombre de nœuds et le temps d'exécution demandés, ainsi que le nombre total des tâches en attente.
+[^1]: Ne spécifiez pas explicitement cette partition; l'ordonnanceur doit pouvoir déterminer la partition qui est appropriée pour votre tâche.
+
+Même si vous respectez ces limites, vos tâches devront passer par la file d'attente. Le temps d'attente dépend de nombreux facteurs, tels que la taille de ressources pour votre groupe, la quantité de l'allocation utilisée récemment, le nombre de nœuds et le temps d'exécution demandés, ainsi que le nombre total des tâches en attente.
 
 ### Exemple d'une tâche avec un seul GPU
 
@@ -536,9 +688,10 @@ Une fois votre tâche soumise à la file d'attente, vous pouvez surveiller son �
 *   `squeue --start -j JOBID` donne une estimation du moment où une tâche en attente devrait démarrer. Notez que cette estimation est souvent inexacte et peut varier en fonction de la charge du système et des priorités.
 *   `scancel JOBID` annule une tâche déjà soumise
 *   `jobperf JOBID` produit un instantané en temps réel de l'utilisation du CPU et de la mémoire pendant que la tâche est exécutée.
+*   Pendant que la tâche est en cours d'exécution, vous pouvez suivre l'utilisation de la mémoire et des CPU avec des commandes comme `top` ou `free`. Pour la liste des noms des nœuds, utilisez `squeue -j JOBID` ou `scontrol show job JOBID`.
 *   `sacct` affiche des informations sur vos tâches passées, notamment l'heure de début, l'heure d'exécution, l'utilisation du nœud et l'état de sortie.
 
-Pour plus d'information sur le suivi des tâches, voir [la page sur Slurm](../running-jobs/running_jobs.md).
+Pour plus d'information sur le suivi des tâches, voir la page sur Slurm.
 
 ## Suivi des tâches en cours et des tâches passées
 
@@ -548,17 +701,17 @@ Vos tâches passées et leur utilisation des ressources peuvent être consultée
 
 # Commandes fréquemment utilisées
 
-| Commande | Description |
-| :----------------------- | :-------------------------------------------------------------------- |
-| `sbatch <script>` | soumet un script pour une tâche en lot |
-| `squeue [-u $USER]` | montre les tâches dans la file (toutes les tâches ou uniquement les vôtres) |
-| `scancel <JOBID>` | annule une tâche |
-| `sacct` | montre les données de *comptabilité* des tâches récemment exécutées |
-| `module load <module>` | charge un module logiciel |
-| `module list` | liste les modules chargés |
-| `module avail` | liste les modules disponibles |
-| `module spider <module>` | recherche les modules et leurs dépendances |
-| `debugjob [N]` | demande une courte tâche de débogage (sur N nombre de nœuds) |
-| `diskusage_report` | vérifie les quotas de stockage |
-| `jobperf <JOBID>` | fait le suivi d'un CPU et de la mémoire utilisée pour une tâche en cours |
-| `nvidia-smi` | vérifie l'état d'un GPU (sur un nœud GPU) |
+| Commande           | Description                                                        |
+| :----------------- | :----------------------------------------------------------------- |
+| `sbatch <script>`  | soumet un script pour une tâche en lot                             |
+| `squeue [-u $USER]`| montre les tâches dans la file (toutes les tâches ou uniquement les vôtres) |
+| `scancel <JOBID>`  | annule une tâche                                                   |
+| `sacct`            | montre les données de *comptabilité* des tâches récemment exécutées |
+| `module load <module>` | charge un module logiciel                                          |
+| `module list`      | liste les modules chargés                                          |
+| `module avail`     | liste les modules disponibles                                      |
+| `module spider <module>` | recherche les modules et leurs dépendances                     |
+| `debugjob [N]`     | demande une courte tâche de débogage (sur N nombre de nœuds)      |
+| `diskusage_report` | vérifie les quotas de stockage                                     |
+| `jobperf <JOBID>`  | fait le suivi d'un CPU et de la mémoire utilisée pour une tâche en cours |
+| `nvidia-smi`       | vérifie l'état d'un GPU (sur un nœud GPU)                          |

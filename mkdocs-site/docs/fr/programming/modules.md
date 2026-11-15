@@ -4,27 +4,24 @@ slug: "modules"
 lang: "fr"
 
 source_wiki_title: "Modules/fr"
-source_hash: "0ede0f4299d39e073ff792db173d6c54"
-last_synced: "2026-04-10T15:28:10.183781+00:00"
-last_processed: "2026-04-11T09:10:12.749730+00:00"
+source_hash: "d671b8cb421087a08c6c93781e4612ee"
+last_synced: "2026-11-15T02:27:25.182546+00:00"
+last_processed: "2026-11-15T03:38:47.039199+00:00"
 
 tags:
   []
 
 keywords:
-  - "programmation"
-  - "modules Lmod"
-  - "environnement logiciel"
-  - "module"
-  - "modules Python"
+  - "Standard software environments"
+  - "module Lmod"
+  - "module Python"
+  - "environnement virtuel"
+  - "wheels Python"
 
 questions:
-  - "Quelle est la définition générale d'un module en programmation selon le texte ?"
-  - "À quoi servent spécifiquement les modules Lmod (ou modules d'environnement) ?"
-  - "Quelles sont les différentes méthodes et prérequis pour utiliser ou installer des modules Python (tels que la pile SciPy, les \"wheels\" et les environnements virtuels) ?"
-  - "Quelle est la définition générale d'un module en programmation selon le texte ?"
-  - "À quoi servent spécifiquement les modules Lmod (ou modules d'environnement) ?"
-  - "Quelles sont les différentes méthodes et prérequis pour utiliser ou installer des modules Python (tels que la pile SciPy, les \"wheels\" et les environnements virtuels) ?"
+  - "Quel est le rôle des modules Lmod et comment permettent‑ils de modifier l’environnement shell pour utiliser des versions spécifiques de logiciels ?"
+  - "En quoi consiste un module Python, quelle est la différence avec un paquet Python, et comment les « wheels » facilitent‑ils leur utilisation dans les environnements virtuels ?"
+  - "Où peut‑on trouver la collection de modules standard (StdEnv/2020) et quelles ressources complémentaires sont proposées pour installer ou optimiser des logiciels sur le système ?"
 
 status:
   downloaded: true
@@ -37,8 +34,7 @@ status:
 
 En programmation, un module est un logiciel indépendant et interchangeable qui contient tout ce qu'il faut pour fournir une certaine fonctionnalité.
 
-Voir la page [Programmation modulaire sur Wikipédia](https://fr.wikipedia.org/wiki/Programmation_modulaire).
-Selon le contexte, le terme *module* peut avoir sens différent. Nous décrivons ici quelques types de modules et suggérons d'autres références de documentation.
+Selon le contexte, le terme *module* peut avoir un sens différent. Nous décrivons ici quelques types de modules et suggérons d'autres références de documentation.
 
 ## Précision
 
@@ -48,20 +44,24 @@ Aussi nommés *modules d'environnement*, les modules Lmod sont employés pour mo
 
 ### Modules Python
 
-Un module Python est un fichier constitué habituellement de code Python qui peut être chargé avec les énoncés `import ...` ou `from ... import ...`. Un paquet Python est une collection de modules Python; notez que les termes *paquet* et *module* sont souvent employés sans distinction. Voir [What is the difference between a python module and a python package?](https://www.tutorialspoint.com/What-is-the-difference-between-a-python-module-and-a-python-package).
+Un module Python est un fichier constitué habituellement de code Python qui peut être chargé avec les énoncés `import ...` ou `from ... import ...`. Un paquet Python est une collection de modules Python; notez que les termes *paquet* et *module* sont souvent employés sans distinction.
 
-Certains modules Python tels que Numpy peuvent être importés si vous chargez d'abord le module Lmod `scipy-stack` au niveau du *shell* (voir Pile logicielle SciPy).
+Certains modules Python tels que Numpy peuvent être importés si vous chargez d'abord le module Lmod `scipy-stack` au niveau du *shell* (voir [Pile logicielle SciPy](../software/python.md)).
 
-Nous offrons une importante collection de *wheels* Python qui sont des modules précompilés compatibles avec nos environnements logiciels standards. Avant d'importer des modules d'un *wheel*, vous devez créer un environnement virtuel.
+Nous offrons une importante collection de [*wheels* Python](../software/python.md) qui sont des modules précompilés compatibles avec nos [environnements logiciels standards](standard_software_environments.md).
+Avant d'importer des modules d'un *wheel*, vous devez créer un [environnement virtuel](../software/python.md).
 
-Les modules Python qui ne sont ni dans le module Lmod `scipy-stack` ni dans notre collection de *wheels* peuvent être installés à partir de l'internet tel que décrit dans Installer des paquets.
+Les modules Python qui ne sont ni dans le module Lmod `scipy-stack` ni dans notre collection de *wheels* peuvent être installés à partir d'internet tel que décrit dans [Installer des paquets](../software/python.md).
 
 ## Information complémentaire
 
-*   Page wiki Logiciels disponibles
-*   Environnements logiciels standards; par défaut, la collection de modules est `StdEnv/2020` (depuis le 1er avril 2021)
+*   Page wiki [Logiciels disponibles](available_software.md)
+*   [Environnements logiciels standards](standard_software_environments.md); par défaut, la collection de modules est `StdEnv/2020` (depuis le 1er avril 2021)
 *   Modules Lmod particuliers sur Niagara
-*   Modules Lmod optimisés avec instructions CPU pour AVX, **AVX2** et **AVX512**
-*   Page wiki la catégorie *Logiciels* : liste des pages de notre site wiki relatives aux logiciels du commerce ou offerts avec licence
+*   Modules Lmod optimisés avec [instructions CPU](standard_software_environments.md) pour AVX, **AVX2** et **AVX512**
+*   Page wiki Catégorie *Software* : liste des pages de notre site wiki relatives aux logiciels du commerce ou offerts avec licence
 
 ## Références
+
+*   [Voir "Programmation modulaire" sur Wikipédia](https://fr.wikipedia.org/wiki/Programmation_modulaire)
+*   ["What is the difference between a python module and a python package?"](https://www.tutorialspoint.com/What-is-the-difference-between-a-python-module-and-a-python-package)

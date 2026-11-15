@@ -6,7 +6,7 @@ Beaucoup de travail peut être accompli sur nos grappes en [[Running jobs/fr|sou
 Si par contre vous voulez soumettre plusieurs tâches ou des tâches qui nécessitent une grande quantité de ressources, vous gagnerez sans doute en productivité avec une bonne connaissance de notre politique d'ordonnancement.
 
 <span id="Priority_and_fair-share"></span>
-===Priorisation selon la juste part===
+== Priorisation selon la juste part ==
 
 Les tâches sont traitées en ordre de '''priorité''' déterminée par l'algorithme [https://slurm.schedmd.com/fair_tree.html Fair Tree]. Voir [https://slurm.schedmd.com/fair_tree.html cette page] et [https://slurm.schedmd.com/SC14/BYU_Fair_Tree.pdf ce document].
 
@@ -19,12 +19,16 @@ Pour savoir quel code utiliser, consultez la section ''Comptes et projets'' de l
 * Les projets auxquels des ressources sont allouées via le concours ont une cible d'utilisation qui dépend de la quantité de CPU-années ou de GPU-années qui a été allouée.
 * Les projets qui n'ont pas de ressources allouées (c.-à-d. les comptes <code>def-</code>) ont tous la même cible d'utilisation; elle est ajustée à quelques minutes d'intervalle en fonction du nombre de projets qui sont actifs dans la grappe.
 
+'''Voir aussi''' [[Allocations and compute scheduling/fr|Allocation et ordonnancement des tâches de calcul]].
+
+=== Target and recent usage with <code>sshare</code> ===
+
 Comme exemple, déterminons les renseignements sur l'utilisation et le partage pour un groupe fictif ayant le code de compte <code>def-prof1</code>. Les noms d'utilisateurs pour les membres de ce groupe sont <code>prof1, grad2</code> et <code>postdoc3</code>. Nous pouvons voir l'information sur l'utilisation et le partage avec la commande <code>sshare</code> comme montré ci-dessous. Notez qu'il faut ajouter <code>_cpu</code> ou <code>_gpu</code> à la fin du code de compte puisque les deux sont comptabilisés individuellement.
 
- [prof1@gra-login4 ~]$ sshare -l -A def-prof1_cpu -u prof1,grad2,postdoc3
+ [prof1@login1 ~]$ sshare -l -A def-prof1_cpu -u prof1,grad2,postdoc3
         Account       User  RawShares  NormShares  RawUsage  ... EffectvUsage  ...    LevelFS  ...
  -------------- ---------- ---------- -----------  --------  ... ------------  ... ----------  ...
- <span style="color:#ff0000">def-prof1_cpu                 434086    0.001607   1512054  ...     0.000043  ...  37.357207  ...</span>
+ <span style="color:#ff0000">def-prof1_cpu                     72    0.001607   1512054  ...     0.000043  ...  37.357207  ...</span>
   def-prof1_cpu      prof1          1    0.100000         0  ...     0.000000  ...        inf  ...   
   def-prof1_cpu      grad2          1    0.100000     54618  ...     0.036122  ...   2.768390  ...
   def-prof1_cpu   postdoc3          1    0.100000    855517  ...     0.565798  ...   0.176741  ...
@@ -38,18 +42,46 @@ Les lignes du tableau montrent les valeurs pour chaque utilisateur par rapport a
 La documentation Slurm nomme ''association'' le projet par lui-même ou l'utilisateur dans un projet.
 * La colonne'' Account'' contient le nom du projet avec le suffixe  <code>_cpu</code> ou <code>_gpu</code>.
 * Dans la colonne ''User'', la première ligne n'a pas de nom d'utilisateur.
-* Le contenu de la colonne ''RawShares'' est proportionnel au nombre de CPU-années de la grappe alloué au projet dans le cadre du concours d'allocation de ressources. Les comptes qui n'ont pas de ressources allouées par concours ont un petit nombre égal de parts. Pour des raisons numériques, les comptes inactifs (ceux qui n'ont pas de tâche en cours ou en attente) reçoivent une seule part. L'activité fait l'objet d'un suivi périodique; si vous soumettez une tâche avec un compte inactif, il peut y avoir un délai allant jusqu'à 15 minutes avant que les valeurs de ''RawShares'' et ''LevelFS'' soient mises à jour.
+* Le contenu de la colonne ''RawShares'' est proportionnel au nombre de CPU-années ou GPU-années de la grappe alloué au projet dans le cadre du concours d'allocation de ressources. Les comptes qui n'ont pas de ressources allouées par concours ont un petit nombre égal de parts.
+** Pour des raisons numériques, les comptes <code>def-</code> inactifs (ceux qui n'ont pas de tâche en cours ou en attente) reçoivent une seule part. L'activité fait l'objet d'un suivi périodique; si vous soumettez une tâche avec un compte inactif, il peut y avoir un délai allant jusqu'à 15 minutes avant que les valeurs de ''RawShares'' et ''LevelFS'' soient mises à jour.
 * Le contenu de la colonne ''NormShares'' montre le nombre de parts assignées à l'utilisateur ou au compte, divisé par le nombre total des parts assignées pour ce niveau. Sur la première ligne, la valeur 0.001607 est la fraction des parts détenues par le projet par rapport à tous les projets. Sur les autres lignes, la valeur 0.10000 est la fraction des parts détenue par chacun des membres du projet, par rapport aux autres membres; il y a dix membres, mais nous avons seulement demandé l'information pour trois d'entre eux.
 * Le contenu de la colonne ''RawUsage'' représente une pondération du nombre total de secondes-ressources (c'est-à-dire temps CPU, temps GPU et mémoire) facturées au compte. L'usage passé est diminué d'une demi-vie d'une semaine (voir [https://fr.wikipedia.org/wiki/Demi-vie demi-vie]); l'utilisation datant de plus de quelques semaines n'aura donc qu'un effet minime sur la priorisation.
-* La colonne ''EffectvUsage'' montre l'utilisation de l'association par rapport à son parent, soit l'utilisation du projet par rapport aux autres projets et l'utilisation de chacun des utilisateurs par rapport à l'ensemble des utilisateurs. Dans cet exemple, l'utilisation de <tt>postdoc3</tt> est de 56.6% et celle de <tt>grad2</tt> est de 3.6%.
-* La colonne ''LevelFS'' montre la valeur de la juste part (FS pour ''fair share'') exprimée par ''NormShares / EffectvUsage''. Un résultat entre 0 et 1 signale une association qui reçoit de l'ordonnanceur plus de ressources que mérité; un résultat plus grand que 1 signale une association qui reçoit de l'ordonnanceur moins de ressources que mérité. Pour un compte inactif (comme décrit sous ''RawShares''),  la valeur est un nombre infime près de 0.0001.
+* La colonne ''EffectvUsage'' montre l'utilisation de l'association par rapport à son parent, soit l'utilisation du projet par rapport aux autres projets et l'utilisation de chacun des utilisateurs par rapport à l'ensemble des utilisateurs. Dans cet exemple, l'utilisation de <code>postdoc3</code> est de 56.6% et celle de <code>grad2</code> est de 3.6%.
+* La colonne ''LevelFS'' montre la valeur de la juste part (FS pour ''fair share'') exprimée par ''NormShares / EffectvUsage''.
+** Un résultat entre 0 et 1 signale une association qui reçoit de l'ordonnanceur plus de ressources que mérité.
+** Un résultat plus grand que 1 signale une association qui reçoit de l'ordonnanceur moins de ressources que mérité.
+** Pour un compte <code>def-</code> inactif ayant une valeur de ''RawShares'' à un,  la valeur de ''LevelFS'' est un nombre infime près de 0.0001.
 
-Un projet pour lequel la cible est utilisée de façon régulière verra sa valeur pour LevelFS proche de 1.0. Si la cible est dépassée, LevelFS sera sous 1.0. et les nouvelles tâches pour le projet recevront aussi une basse priorité. Si l'utilisation est inférieure à la cible, LevelFS sera plus grand que 1.0 et les nouvelles tâches bénéficieront d'une priorité élevée. 
+Un projet pour lequel la cible est utilisée de façon régulière verra sa valeur pour LevelFS proche de 1.0. Si la cible est dépassée, LevelFS sera sous 1.0. et les nouvelles tâches pour le projet recevront aussi une basse priorité. Si l'utilisation est inférieure à la cible, LevelFS sera plus grand que 1.0 et les nouvelles tâches bénéficieront d'une priorité élevée.
 
-'''Voir aussi''' [[Allocations and compute scheduling/fr|Allocation et ordonnancement des tâches de calcul]].
+In practice, the normalization factors used for <code>NormShares</code> and <code>EffectvUsage</code> are not the same. Consequently, <code>LevelFS</code> is not exactly equal to 1.0 when the usage matches the target. The <code>sshare2</code> utility can correct this discrepancy.
+
+=== Target and recent usage with <code>sshare2</code> ===
+
+The <code>sshare2</code> utility receives a reduced set of arguments and prints only the most relevant fields. Here is an example with the same account used in the previous section.
+
+ [prof1@login1 ~]$ sshare2 -A def-prof1_cpu
+ Account               RawShares  RecentUsage   PercentUse   Scaled_LevelFS
+ -------------------- ---------- ------------ ------------ ----------------
+ def-prof1_cpu                72            2        2.41%        41.555277
+
+The different fields are:
+
+* <code>RawShares</code>: same value as that reported by <code>sshare</code>.
+* <code>RecentUsage</code>: this is the <code>sshare</code>'s <code>RawUsage</code> value downscaled by a factor that removes its time component (in seconds), which makes the result in the same units and scale as the <code>RawShares</code>.
+** Note: the <code>RecentUsage</code> behaves like a weighted average where the most recent usage has the most value. That is why the recent usage can look different than the average usage displayed on the [https://portal.alliancecan.ca/slurm/ Alliance Slurm portal], especially when the usage is not constant over time.
+* <code>PercentUse</code>: equivalent to <code>RecentUsage / RawShares</code>, as a percentage.
+** When <code>RawShares</code> is 0 or 1, the result is <code>NA</code> because the account has expired or is inactive, respectively.
+* <code>Scaled_LevelFS</code>: equivalent to <code>RawShares / RecentUsage</code> and similar to <code>sshare</code>'s <code>LevelFS</code>, but a value of 1.0 really means a recent usage equivalent to the target.
+
+For convenience, when no account is specified on the command line, <code>sshare2</code> displays the information for all accounts associated to the current user. Optionally, the <code>-n</code> flag can be specified to remove the table header.
+
+ [prof1@login1 ~]$ sshare2 -n
+ def-prof1_cpu                72            2        2.41%        41.555277
+ def-prof1_gpu                 1            0           NA    872691.969325
 
 <span id="Whole_nodes_versus_cores"></span>
-=== Nœuds entiers ou cœurs ===
+== Nœuds entiers ou cœurs ==
 
 Les applications pouvant utiliser de façon efficace plus de cœurs qu'on trouve dans un nœud simple pourraient être mieux servies avec des nœuds entiers. Certaines grappes réservent des nœuds pour les tâches nécessitant plus qu'un nœud complet. Pour plus d'information et des exemples de scripts, voyez la section [[Advanced_MPI_scheduling/fr#N.C5.93uds_entiers|Nœuds entiers]] de la page [[Advanced_MPI_scheduling/fr|Contrôle de l'ordonnancement avec MPI]].
 
@@ -58,7 +90,7 @@ Prenez note que le fait de demander un nombre inefficace de processeurs dans le 
 Si vous avez une grande quantité de tâches en série et que vous pouvez bien utiliser [[META-Farm/fr|META-Farm]], [[GNU Parallel/fr|GNU Parallel]], [[GLOST/fr|GLOST]] ou [https://docs.scinet.utoronto.ca/index.php/Running_Serial_Jobs_on_Niagara d'autres techniques] pour rassembler ces tâches pour un seul nœud, nous vous invitons à le faire.
 
 <span id="Time_limits"></span>
-=== Durée maximale ===
+== Durée maximale ==
 
 [[Trillium/fr|Trillium]] peut accommoder des tâches avec des temps d'exécution pouvant aller jusqu'à 24 heures. La durée maximale avec [[Fir/fr|Fir]], [[Narval]], [[Nibi/fr|Nibi]] et [[Rorqual]] est de 7 jours.  Ces durées sont à la discrétion des administrateurs de systèmes et elles sont sujettes à changement.
 
@@ -79,7 +111,9 @@ Sans remplissage, chaque partition est ordonnancée strictement par priorité, c
 
 Le remplissage avantage les tâches dont la durée maximale est plus courte, soit moins de 3 heures.
 
+<span id="Percentage_of_the_nodes_you_have_access_to"></span>
 == Pourcentages des nœuds disponibles ==
+
 Nous présentons ici une description du partitionnement des grappes d'usage général (Fir, Narval, Nibi et Rorqual). 
 
 D'abord, il y a quatre catégories de nœuds :
@@ -167,7 +201,9 @@ Il est possible qu'une limite soit imposée au nombre de tâches exécutées au 
 
 Pour [[Narval]], [[Nibi/fr|Nibi]] et [[Rorqual]], un compte normal ne peut avoir plus de 1000 tâches en exécution ou en attente au même moment. Dans [[Job arrays/fr|un vecteur de tâches]], chacune compte pour une tâche. Le paramètre Slurm [https://slurm.schedmd.com/sacctmgr.html MaxSubmit] en fixe la limite.
 
+<span id="Changes_over_time"></span>
 == Changements à nos politiques d'ordonnancement ==
+
 La page [[Scheduling policy updates/fr|Mise à jour de nos politiques d'ordonnancement]] liste des changements susceptibles de modifier le résultat de vos scripts.
 
 [[Category:SLURM]]
